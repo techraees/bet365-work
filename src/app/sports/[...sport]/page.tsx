@@ -4,7 +4,7 @@ import NatsSoccer from "../components/soccer/NatsSoccer";
 import NavigationPanel from "../components/Navigation/navigationpanel";
 
 import NatsBoxing from "../components/boxing/NatsBoxing";
-import NatsBasketball from "../components/basketball/NatsBasketball";
+import NatsBasketball from "../components/basketball/Nats";
 import NatsEsport from "../components/esport/NatsEsport";
 import NatsTableTennis from "../components/tableTennis/NatsTableTennis";
 import NatsBaseball from "../components/baseball/NatsBaseball";
@@ -82,7 +82,18 @@ const Home = async ({ params }: any) => {
     }
     if (sport[0] === 'basketball') {
         let getLeagues = await getPregameLeagues(sport[0]);
-        let odds = await getPregameNames();
+        let promise = getLeagues?.map(async (league: string) => {
+            const leagueData = await getPregame(sport[0], league);
+            const modifiedData = leagueData?.map((item: any) => {
+                return {
+                    ...item,
+                    league: league
+                }
+            })
+            return modifiedData
+        })
+        const odds = await Promise.all(promise);
+        console.log({odds})
         return (
             <NatsBasketball odds={odds} sport={sport} getLeagues={getLeagues} />
         )
@@ -128,9 +139,7 @@ const Home = async ({ params }: any) => {
             return modifiedData
         })
         const odds = await Promise.all(promise);
-        // let odds = await getPregame(sport[0], "Atp - Singles: Toronto (Canada), Hard");
         console.log({odds})
-        // odds = odds.map((item: any) => { return { ...item, league: 'ATP Toronto' } })
         return (
             <NatsTennis odds={odds} sport={sport} getLeagues={getLeagues} />
         )
