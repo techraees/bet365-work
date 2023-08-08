@@ -33,10 +33,9 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
     if (!data) {
         return null
     }
-    ["All", "Bet Builder", "Instant", "Team", "Quarter", "Half"]
     let oddData = {} as any;
     oddData = soccerAll as any;
-    if (active === "Popular") {
+    if (active === "Popular" || active === "All") {
         soccerAll.fulltimeResult.rows = fulltimeResult(data);
         soccerAll.doubleChance.rows = doubleChance(data);
         soccerAll.goalsOverUnder.rows = goalsOverUnderOV(data);

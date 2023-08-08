@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import Chevron from "@/components/ui/icons/chevron";
 
 import { cn } from "@/lib/utils";
-import BodyWrapper from "./BodyWrapper";
 import Dialog from "@/components/Events/Dialog";
+import MatchBody from "../League/Match/MatchBody";
 
 const DetailSoccer = ({ odds, sport, currentdataId }: any) => {
     const router = useRouter();
@@ -90,7 +90,7 @@ const DetailSoccer = ({ odds, sport, currentdataId }: any) => {
                 </div>
             </div>
             <div className="w-full">
-                <BodyWrapper data={soccerdata} active={active} />
+                <MatchBody data={soccerdata} active={active} />
             </div>
         </div>
     )
