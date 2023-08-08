@@ -29,7 +29,7 @@ const Odds = ({ odds, sport, getLeagues }: any) => {
         <NavigationPanel />
       </div>
       <div className="flex flex-col flex-1 bg-[383838] overflow-auto h-[100%]">
-        <Wrapper odds={odds} sport={sport[0]} currentdataId={sport[1]}  />
+        <Wrapper odds={odds} sport={sport[0]} currentdataId={sport[1]} getLeagues={getLeagues}/>
       </div>
     </div>)
 

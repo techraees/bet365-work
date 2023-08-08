@@ -32,7 +32,7 @@ export default LeagueWraps;
 function capitalizeSpecificWords(sentence: any) {
     const words = sentence.split(' ');
     const capitalizedWords = words.map((word: any) => {
-        if (['mlb', 'npb', 'kbo', 'pcl', 'lmb'].includes(word.toLowerCase())) {
+        if (['kovo'].includes(word.toLowerCase())) {
             return word.toUpperCase();
         } else {
             return word;

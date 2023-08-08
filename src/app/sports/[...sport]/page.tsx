@@ -156,7 +156,18 @@ const Home = async ({ params }: any) => {
     }
     if (sport[0] === 'volleyball') {
         let getLeagues = await getPregameLeagues(sport[0]);
-        let odds = await getPregameNames();
+        let promise = getLeagues?.map(async (league: string) => {
+            const leagueData = await getPregame(sport[0], league);
+            const modifiedData = leagueData?.map((item: any) => {
+                return {
+                    ...item,
+                    league: league
+                }
+            })
+            return modifiedData
+        })
+        const odds = await Promise.all(promise);
+        console.log({odds})
         return (
             <NatsVolleyball odds={odds} sport={sport} getLeagues={getLeagues} />
         )
