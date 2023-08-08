@@ -4,8 +4,13 @@ import Chevron from "@/components/ui/icons/chevron";
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 import { useRouter } from 'next/navigation';
+import { details } from "./maps/correction";
 
 const LeagueWraps = ({getLeagues, odds} : any)=>{
+    console.log({getLeagues})
+    // let obj ={} as any;
+    // getLeagues.forEach((item: any) => obj[item] = '')
+    // console.log({obj})
     return (
         <div className="flex flex-col h-full w-full text-base">
             {getLeagues.map((item: any, index: number)=>{
@@ -27,6 +32,18 @@ const LeagueWraps = ({getLeagues, odds} : any)=>{
 
 export default LeagueWraps;
 
+function capitalizeSpecificWords(sentence: any) {
+    const words = sentence.split(' ');
+    const capitalizedWords = words.map((word: any) => {
+        if (['itf', 'wta', 'atp'].includes(word.toLowerCase())) {
+            return word.toUpperCase();
+        } else {
+            return word;
+        }
+    });
+    return capitalizedWords.join(' ');
+}
+
 const Competitions = ({ name , odd}: any) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -34,19 +51,33 @@ const Competitions = ({ name , odd}: any) => {
         setIsExpanded(!isExpanded);
     };
     console.log({odd})
-    const detail=[
-        'Main' , 'Set', 'Games', 'Player'
-    ]
-
+    
+    let formattedName = name;
+    if(formattedName.includes(',')){
+        formattedName= formattedName.substring(0, formattedName.lastIndexOf(','))
+    } 
+    if(formattedName.includes('(')){
+        formattedName =formattedName.replace(/\([^)]*\)/g, '')
+    } 
+    if(formattedName){
+        formattedName =formattedName.replace('Men', '')
+        formattedName =formattedName.replace('Women', '')
+        formattedName =formattedName.replace('-', '')
+        formattedName =formattedName.replace(':', '')
+        formattedName =formattedName.replace('Singles', '')
+        formattedName =formattedName.replace('Doubles', '')
+        formattedName = capitalizeSpecificWords(formattedName)
+    }
+       
     return (
-        <div className=" group/item fill-[#a7a7a7] hover:fill-[white] flex pb-[20px] flex-col w-full relative bg-[#383838] border-t-[#ffffff1a] border-t border-solid">
+        <div className=" group/item fill-[#a7a7a7] hover:fill-[white] flex flex-col w-full relative bg-[#383838] border-t-[#ffffff1a] border-t border-solid">
             <div className={cn(" flex cursor-pointer pl-[20px] pr-[15px] text-brand-green-light hover:text-[white] ")}
                 onClick={() => {
                     toggleHeight()
                 }}
             >
                 <div className={'text-base h-[50px] flex items-center font-[700]'}>
-                    {name}
+                    {formattedName}
                 </div>
                 <div className='ml-auto flex items-center justify-end w-[100px] h-[50px]'>
                     <div className={cn('flex items-center justify-center w-[50px] h-[50px]')}>
@@ -61,9 +92,9 @@ const Competitions = ({ name , odd}: any) => {
                 className={cn('h-[100%] overflow-hidden transition-[max-height] duration-300 ease', isExpanded ? 'max-h-[5000px]' : 'max-h-[0px]')}>
                 <div className={cn("flex w-[100%] h-[100%] text-[white]")}>
                     <div className="group h-[100%] items-center flex w-full flex-col relative text-[#ccc]">
-                        {detail.map((item, index) => {
+                        {Object.keys(details).map((item, index) => {
                             return (
-                                <SubCompetitions key={index} item={item} data={["To Win Match", "Total Games 2-Way"]} position={index} />
+                                <SubCompetitions key={index} item={item} data={details[item as keyof typeof details]} position={index} />
                             )
                         })}
                     </div>
