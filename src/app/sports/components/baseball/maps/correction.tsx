@@ -88,6 +88,5 @@ export const details = {
         "Team Alternative Hits",
         "Team Total Odd/Even",
     ],
-    "Game Props": [
-    ]
+    "Game Props": [] as any,
 }

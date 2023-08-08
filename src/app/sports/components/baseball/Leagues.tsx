@@ -57,6 +57,13 @@ const Competitions = ({ name , odd}: any) => {
     if(formattedName.includes('World World')){
         formattedName = formattedName.replace("World ","")
     } 
+
+    details["Game Props"] = [] as any;
+    odd.map((game: any)=>{
+        console.log({game})
+        let match = game?.localteam?.name+ ' @ ' +game?.awayteam?.name
+        details["Game Props"].push(match)
+    })
     return (
         <div className=" group/item fill-[#a7a7a7] hover:fill-[white] flex flex-col w-full relative bg-[#383838] border-t-[#ffffff1a] border-t border-solid">
             <div className={cn(" flex cursor-pointer pl-[20px] pr-[15px] text-brand-green-light hover:text-[white] ")}
@@ -111,7 +118,7 @@ const SubCompetitions = ({ item, data, position }: any) => {
                     toggleHeight()
                 }}
             >
-                <div className={'text-sm h-[50px] flex items-center font-[700]'}>
+                <div className={'text-[13px] leading-5 h-[50px] flex items-center font-[700]'}>
                     {item}
                 </div>
                 <div className='ml-auto flex items-center justify-end w-[100px] h-[50px]'>

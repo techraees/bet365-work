@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 import * as jsonpatch from "fast-json-patch";
 import NavigationPanel from "../Navigation/navigationpanel";
-import EsportWrapper from "./EsportWrapper";
+import Wrapper from "./Wrapper";
 const sc = JSONCodec();
 
 const SERVER_URL = process.env.NEXT_PUBLIC_NATS_URL!;
@@ -29,7 +29,7 @@ const Odds = ({ odds, sport, getLeagues }: any) => {
         <NavigationPanel />
       </div>
       <div className="flex flex-col flex-1 bg-[383838] overflow-auto h-[100%]">
-        <EsportWrapper odds={odds} sport={sport[0]} currentdataId={sport[1]}  />
+        <Wrapper odds={odds} sport={sport[0]} currentdataId={sport[1]}  />
       </div>
     </div>)
 

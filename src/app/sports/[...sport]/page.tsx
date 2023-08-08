@@ -5,7 +5,7 @@ import NavigationPanel from "../components/Navigation/navigationpanel";
 
 import NatsBoxing from "../components/boxing/NatsBoxing";
 import NatsBasketball from "../components/basketball/Nats";
-import NatsEsport from "../components/esport/NatsEsport";
+import NatsEsport from "../components/esport/Nats";
 import NatsTableTennis from "../components/tableTennis/NatsTableTennis";
 import NatsBaseball from "../components/baseball/Nats";
 import NatsCricket from "../components/cricket/Nats";
@@ -110,7 +110,18 @@ const Home = async ({ params }: any) => {
     }
     if (sport[0] === 'esports') {
         let getLeagues = await getPregameLeagues(sport[0]);
-        let odds = await getPregameNames();
+        let promise = getLeagues?.map(async (league: string) => {
+            const leagueData = await getPregame(sport[0], league);
+            const modifiedData = leagueData?.map((item: any) => {
+                return {
+                    ...item,
+                    league: league
+                }
+            })
+            return modifiedData
+        })
+        const odds = await Promise.all(promise);
+        console.log({getLeagues ,odds})
         return (
             <NatsEsport odds={odds} sport={sport} getLeagues={getLeagues} />
         )

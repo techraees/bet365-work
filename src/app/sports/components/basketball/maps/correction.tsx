@@ -50,5 +50,5 @@ export const details = {
         "1st Quarter Winning Margin",
     ],
     "Game Props": [
-    ]
+    ] as any,
 }

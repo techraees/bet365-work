@@ -10,5 +10,5 @@ export const details = {
         "First Set Total Odd/Even"
     ],
     "Game Props": [
-    ]
+    ] as any,
 }

@@ -4,7 +4,7 @@ import Banner from "../common/Banner";
 
 
 
-const EsportWrapper = ({ odds, sport, currentdataId }: any) => {
+const Wrapper = ({ odds, sport, currentdataId }: any) => {
     return (
         <div className="flex text-base flex-col flex-1 bg-[#282828] overflow-auto h-[100%]">
             <Banner url={'/Esport-desktop.jpeg'} heading={'Esport'} tabs={["Coupons", "Outrights"]}/>  
@@ -13,4 +13,4 @@ const EsportWrapper = ({ odds, sport, currentdataId }: any) => {
 
 }
 
-export default EsportWrapper;
+export default Wrapper;

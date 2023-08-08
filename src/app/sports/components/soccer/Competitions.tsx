@@ -119,7 +119,7 @@ const SubCompetitions = ({ item, data, position }: any) => {
                     toggleHeight()
                 }}
             >
-                <div className={'text-sm h-[50px] flex items-center font-[700]'}>
+                <div className={'text-[13px] leading-5  h-[50px] flex items-center font-[700]'}>
                     {item}
                 </div>
                 <div className='ml-auto flex items-center justify-end w-[100px] h-[50px]'>
