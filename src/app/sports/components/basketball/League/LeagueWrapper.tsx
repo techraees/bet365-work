@@ -27,7 +27,7 @@ const LeagueWrapper = ({ odds, league }: any) => {
                 >
                     <div className="flex items-center min-h-[45px] text-[12px]  px-[30px] py-0 mt-[5px]">
                         <Chevron className="h-[5px] w-[8px] rotate-90" />
-                        <div className="pl-[5px]">{`Baseball`}</div>
+                        <div className="pl-[5px]">{`Basketball`}</div>
                     </div>
                 </button>
                 <div className=" relative flex items-center justify-between text-xl text-[white] font-bold px-[30px] py-0 mx-0 my-[5px] min-h-[55px] cursor-pointer">
