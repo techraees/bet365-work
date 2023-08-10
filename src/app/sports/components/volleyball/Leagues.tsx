@@ -87,7 +87,7 @@ const Competitions = ({ name , odd}: any) => {
                     <div className="group h-[100%] items-center flex w-full flex-col relative text-[#ccc]">
                         {Object.keys(details).map((item, index) => {
                             return (
-                                <SubCompetitions key={index} item={item} data={details[item as keyof typeof details]} position={index} />
+                                <SubCompetitions key={index} item={item} data={details[item as keyof typeof details]} position={index} name={name}/>
                             )
                         })}
                     </div>
@@ -101,7 +101,7 @@ const Competitions = ({ name , odd}: any) => {
 
 
 
-const SubCompetitions = ({ item, data, position }: any) => {
+const SubCompetitions = ({ item, data, position, name }: any) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const toggleHeight = () => {
@@ -137,7 +137,7 @@ const SubCompetitions = ({ item, data, position }: any) => {
                                 <div key={index} className="flex flex-1 min-w-[285px] w-[285px] max-w-[285px] h-[45px] items-center hover:text-[#00ffb6] cursor-pointer"
                                     onClick={() => {
                                         console.log('clicked', dataitem)
-                                        
+                                        router.push(`sports/volleyball/leagues/${name}`)     
                                     }}
                                 >
                                     <div className=" w-[100%] text-[13px] leading-5 font-[400] pr-4 truncate">

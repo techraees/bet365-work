@@ -74,7 +74,7 @@ const Matchcard: FC<PostsProps> = ({ listOfData }) => {
                 {
                     data?.map((item: any, index: number) => {
                         return <SwiperSlide key={index} onClick={() => {
-                            router.push(`sports/baseball/${item?.id}`)
+                            router.push(`sports/tennis/${item?.id}`)
                         }}>
                             <div className='flex flex-col items-center justify-center h-full w-full bg-[#ffffff12] rounded-[4px] cursor-pointer'>
                                 <div className='flex-col h-[110px] p-[10px] w-full items-center justify-center text-[white]'>

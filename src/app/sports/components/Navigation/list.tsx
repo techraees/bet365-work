@@ -52,6 +52,21 @@ export const navItems = [
         icon: BasketBallIcon,
     },
     {
+        label: "Volleyball",
+        link: "/sports/volleyball",
+        icon: VolleyballIcon,
+    },
+    {
+        label: "Tennis",
+        link: "/sports/tennis",
+        icon: TennisIcon,
+    },
+    {
+        label: "Esports",
+        link: "/sports/esports",
+        icon: EsportsIcon,
+    },
+    {
         label: "Boxing",
         link: "/sports/boxing",
         icon: BoxingIcon,
@@ -67,11 +82,6 @@ export const navItems = [
         icon: DartsIcon,
     },
     {
-        label: "Esports",
-        link: "/sports/esports",
-        icon: EsportsIcon,
-    },
-    {
         label: "Ice Hockey",
         link: "/sports/ice-hockey",
         icon: IceHockeyIcon,
@@ -82,19 +92,9 @@ export const navItems = [
         icon: HandballIcon,
     },
     {
-        label: "Volleyball",
-        link: "/sports/volleyball",
-        icon: VolleyballIcon,
-    },
-    {
         label: "Table Tennis",
         link: "/sports/table-tennis",
         icon: TableTennisIcon,
-    },
-    {
-        label: "Tennis",
-        link: "/sports/tennis",
-        icon: TennisIcon,
     },
     {
         label: "American Football",
