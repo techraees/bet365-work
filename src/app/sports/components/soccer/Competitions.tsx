@@ -145,7 +145,6 @@ const SubCompetitions = ({ item, data, position }: any) => {
                                             router.push(`sports/soccer/leagues/${Correction[dataitem as keyof typeof Correction]}`)
                                         } else {
                                             console.log('push', `sports/soccer/leagues/${dataitem}`)
-
                                             router.push(`sports/soccer/leagues/${dataitem}`)
                                         }
 
