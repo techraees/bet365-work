@@ -1,19 +1,19 @@
-FROM node:16.14.0
-
-RUN npm install -g npm@8.5.5
-
-RUN mkdir -p /app
-
+# Build Stage
+FROM node:16-alpine AS BUILD_IMAGE
 WORKDIR /app
-
-COPY package*.json /app
-
-RUN npm i
-
-COPY . /app
-
-EXPOSE 8082
-
+COPY package*.json ./
+RUN npm ci
+COPY . .
 RUN npm run build
 
-CMD ["npm", "run", "dev"]
+
+# Production Stage
+FROM node:16-alpine AS PRODUCTION_STAGE
+WORKDIR /app
+COPY --from=BUILD_IMAGE /app/package*.json ./
+COPY --from=BUILD_IMAGE /app/.next ./.next
+COPY --from=BUILD_IMAGE /app/public ./public
+COPY --from=BUILD_IMAGE /app/node_modules ./node_modules
+ENV NODE_ENV=production
+EXPOSE 3000
+CMD ["npm", "start"]
