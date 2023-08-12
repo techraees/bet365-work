@@ -5,13 +5,12 @@ COPY package*.json ./
 RUN npm i
 COPY . .
 RUN npm run build
+RUN ls
 
 
 # Production Stage
 FROM node:16-alpine AS PRODUCTION_STAGE
 WORKDIR /app
-RUN ls
-RUN file="$(ls)" && echo $file
 COPY --from=BUILD_IMAGE /app/package*.json ./
 COPY --from=BUILD_IMAGE /app/.next ./.next
 COPY --from=BUILD_IMAGE /app/public ./public
