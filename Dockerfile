@@ -10,7 +10,7 @@ RUN npm run build
 # Production Stage
 FROM node:16-alpine AS PRODUCTION_STAGE
 WORKDIR /app
-RUN dir -s
+RUN ls
 RUN file="$(ls)" && echo $file
 COPY --from=BUILD_IMAGE /app/package*.json ./
 COPY --from=BUILD_IMAGE /app/.next ./.next
