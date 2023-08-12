@@ -1,41 +1,19 @@
-# Install dependencies only when needed
-FROM node:16-alpine AS deps
-RUN apk add --no-cache libc6-compat
+# Build Stage
+FROM node:16-alpine AS BUILD_IMAGE
 WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
-
-# Rebuild the source code only when needed
-FROM node:16-alpine AS builder
-
-WORKDIR /app
-
-COPY --from=deps /app/node_modules ./node_modules
-
+COPY package*.json ./
+RUN npm ci
 COPY . .
+RUN npm run build
 
-RUN yarn build
 
-# Production image, copy all the files and run next
-FROM node:16-alpine AS runner
+# Production Stage
+FROM node:16-alpine AS PRODUCTION_STAGE
 WORKDIR /app
-
-ENV NODE_ENV production
-
-RUN addgroup --system --gid 1001 bloggroup
-RUN adduser --system --uid 1001 bloguser
-
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./package.json
-
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=bloguser:bloggroup /app/.next/standalone ./
-COPY --from=builder --chown=bloguser:bloggroup /app/.next/static ./.next/static
-
-USER bloguser
-
+COPY --from=BUILD_IMAGE /app/package*.json ./
+COPY --from=BUILD_IMAGE /app/.next ./.next
+COPY --from=BUILD_IMAGE /app/public ./public
+COPY --from=BUILD_IMAGE /app/node_modules ./node_modules
+ENV NODE_ENV=production
 EXPOSE 8082
-
-ENV PORT 8082
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
