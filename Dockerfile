@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY package.json ./
 RUN  npm install --production
-
+RUN  npm install @types/react
 # Stage 2: Build the application
 FROM node:16-alpine AS builder
 WORKDIR /app
