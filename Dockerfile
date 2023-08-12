@@ -12,7 +12,7 @@ RUN npm i
 
 COPY . /app
 
-EXPOSE 3000
+EXPOSE 8082
 
 RUN npm run build
 
