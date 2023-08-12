@@ -10,7 +10,5 @@ services:
     restart: always
     volumes:
       - ./:/app
-      - /app/node_modules
-      - /app/.next
     ports:
       - "8082:8082"
