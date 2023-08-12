@@ -38,3 +38,4 @@ USER bloguser
 EXPOSE 8082
 
 ENV PORT 8082
+CMD ["node", "server.js"]
