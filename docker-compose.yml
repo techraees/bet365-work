@@ -6,6 +6,6 @@ services:
       target: runner
     command: npm run dev
     ports:
-      - "3000:3000"
+      - "8082:8082"
     environment:
       NODE_ENV: development
