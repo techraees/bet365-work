@@ -1,22 +1,37 @@
-# Use the official Node.js image as the base image
-FROM node:14
-# Set the working directory inside the container
-WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+FROM node:18-alpine AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
 
-# Copy the rest of the app's source code
+COPY package.json package-lock.json ./
+RUN  npm install --production
+
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN npm install --production
+ENV NEXT_TELEMETRY_DISABLED 1
 
-# Build the Next.js app
 RUN npm run build
 
+FROM node:18-alpine AS runner
+WORKDIR /app
 
-# Expose the port that the app runs on (usually 3000 for Next.js)
+ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+USER nextjs
+
 EXPOSE 8082
 
-# Start the Next.js app
+ENV PORT 8082
+
 CMD ["npm", "start"]
