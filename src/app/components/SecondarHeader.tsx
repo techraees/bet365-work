@@ -52,15 +52,15 @@ const SecondaryHeader = () => {
   ];
   return (
     <div className=" mx-auto bg-brand-dark-grey">
-      <Container className="flex items-center h-[45px] justify-between">
-        <div className="pl-4 flex gap-5">
+      <Container className="flex text-xs items-center h-[45px] justify-between overflow-scroll hidescroll">
+        <div className="pl-4 flex gap-5 whitespace-nowrap">
           {primaryMenuLinks.map((link, index) => (
             <CustomLink href={link.link} key={index} active={link.active} activeClassName="text-white">
               {link.label}
             </CustomLink>
           ))}
         </div>
-        <div className="pr-4 flex gap-5">
+        <div className="pl-4 pr-4 flex gap-5 whitespace-nowrap">
           {secondaryMenuLinks.map((link, index) => (
             <CustomLink href={link.link} key={index} active={link.active} activeClassName="text-white">
               {link.label}

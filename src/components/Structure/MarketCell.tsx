@@ -20,7 +20,7 @@ const MarketCell: React.FC<MarketCellProps> = ({ name, value, disablehover, bord
             textLeftAlign ? '' : 'justify-center',
             suspend !== "0" ? 'text-[#a7a7a7]' : '',
             (disablehover || (!value && !name)) ? 'cursor-auto' : 'hover:bg-[hsla(0,0%,100%,.15)] ',
-            smallpadding? 'px-[20px]':'px-[30px]'
+            smallpadding? 'px-[10px] md:px-[20px]':'px-[10px] md:px-[30px]'
             )}>
             <div className='leading-5 line-clamp-2'>{name}</div>
             <div className={cn("pl-[6px] ", suspend !== "0" ? 'text-[#a7a7a7]' : active === "Bet Builder" ? 'text-brand-green-light' : 'text-brand-yellow',)}>

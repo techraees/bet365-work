@@ -41,7 +41,7 @@ const Match = ({ gameid, league, getLeagues, leagueSelectedGames }: any) => {
                     </div>
                 </div>
                 <div className="flex items-center min-h-[50px] text-[white] text-[13px]">
-                    <div className="flex items-center mx-[20px] relative w-full">
+                    <div className="flex items-center mx-[20px] relative w-full whitespace-nowrap overflow-scroll hidescroll">
                         {tabs['soccer']?.map((tab, index) => {
                             return (
                                 <div key={index}

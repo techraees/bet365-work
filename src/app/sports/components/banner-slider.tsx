@@ -45,7 +45,7 @@ const BannerSlider = ({banners}: any) => {
                     return (
                         <SwiperSlide key={index}>
                             <div className='relative h-full w-full px-[20px] pt-[15px] pb-[10px]'>
-                                <div className=' absolute z-10 top-[0] right-[0] h-full'>
+                                <div className=' absolute z-10 top-[0] h-[70%] md:h-full right-[0]'>
                                     <img src={item.image} className=" sportbanner z-10 h-full object-cover object-right " alt="" loading="lazy" />
                                 </div>
                                 <div className='flex flex-col w-full'>

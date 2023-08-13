@@ -146,7 +146,7 @@ const DetailView: React.FC<DetailViewProps> = ({ grouped, sport, subcategory, cu
                         }} />
                 </div>
                 <div className="flex items-center min-h-[50px] text-[white]">
-                    <div className="flex items-center mx-[20px] relative w-full">
+                    <div className="flex items-center mx-[20px] relative w-full whitespace-nowrap overflow-scroll hidescroll">
                         {tabs[sport as keyof typeof tabs]?.map((tab, index) => {
                             return (
                                 <div key={index}

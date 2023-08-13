@@ -80,12 +80,22 @@ const CategoryBased = ({ dates, active }: any) => {
                 const formattedDate = formatDateToCustomString(date.replaceAll('.', '-'));
                 return (
                     <div key={date}>
-                        <div className="h-[30px] bg-[#ffffff12] text-[white] text-[12px] font-[700] pl-[30px] flex items-center">
+                        <div className="h-[30px] bg-[#ffffff12] text-[white] text-[12px] font-[700] pl-[30px] flex items-center ">
                             <div className="flex flex-1 items-center">{formattedDate}</div>
-                            <div className="flex flex-1 items-center">
-                                <div className="flex flex-1 items-center justify-center">Money Line</div>
-                                <div className="flex flex-1 items-center justify-center">Total</div>
-                                <div className="flex flex-1 items-center justify-center">Run Line</div>
+                            <div className="flex flex-1 items-center overflow-hidden">
+                                <div className="flex flex-1 items-center justify-center overflow-hidden">
+                                    <div className="truncate">
+                                        Money Line
+                                    </div>
+                                </div>
+                                <div className="flex flex-1 items-center justify-center overflow-hidden">
+                                    <div className="truncate">
+                                        Total
+                                    </div>
+                                </div>
+                                <div className="flex flex-1 items-center justify-center overflow-hidden">
+                                    <div className="truncate">Run Line</div>
+                                </div>
                             </div>
                             <div className="w-[65px] h-full"></div>
                         </div>
@@ -124,7 +134,7 @@ const CategoryBased = ({ dates, active }: any) => {
                                 }
                                 // console.log({ moneyLine, total, runline })
                                 return (
-                                    <div key={index} className={cn("text-xs  h-[100px] flex text-[white] items-center min-h-[70px] pl-[30px]",
+                                    <div key={index} className={cn("text-xs  h-[100px] flex text-[white] items-center min-h-[70px] pl-[10px] md:pl-[30px] overflow-hidden",
                                         index == 0 ? "" : "border-t border-solid border-t-[#ffffff1a]"
                                     )}>
                                         <div
@@ -132,14 +142,17 @@ const CategoryBased = ({ dates, active }: any) => {
                                                 // console.log({data})
                                                 router.push(`${pathname}/${data.id}`)
                                             }}
-                                            className="flex flex-1 items-center justify-between cursor-pointer">
-                                            <div className="flex-1 flex items-center">
-                                                <div>
+                                            className="flex flex-1 items-center justify-between cursor-pointer overflow-hidden">
+                                            <div className="flex-1 flex items-center overflow-hidden">
+                                                <div className=" hidden md:flex">
                                                     {data?.time}
                                                 </div>
-                                                <div className="flex flex-col ml-5 font-[700] leading-[25px] hover:text-brand-green-light">
-                                                    <div>{data?.localteam?.name}</div>
-                                                    <div>{data?.awayteam?.name}</div>
+                                                <div className="flex flex-col md:ml-5 font-[700] leading-[25px] hover:text-brand-green-light overflow-hidden">
+                                                    <div className="truncate">{data?.localteam?.name}</div>
+                                                    <div className="truncate">{data?.awayteam?.name}</div>
+                                                    <div className="text-[10px] leading-3 font-[500] flex md:hidden">
+                                                        {data?.time}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="flex ml-[auto]">

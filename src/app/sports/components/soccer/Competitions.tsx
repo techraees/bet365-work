@@ -24,31 +24,37 @@ const Competitions = ({ leaguebycountry }: any) => {
             let arr = [] as any;
             uk.map((rest, index) => {
                 if (leaguebycountry[rest] && leaguebycountry[rest].length > 0) {
-                    arr.push(...leaguebycountry[rest].map((listItem: string) => `${rest}: ${listItem}`))
+                    const toPush = leaguebycountry[rest]?.map((listItem: string) => `${rest}: ${listItem}`) || [];
+                    arr.push(...toPush);
                 }
             })
             countrygroup[item] = arr
         } else if (item === "UEFA Competitions") {
             countrygroup[item] = ["UEFA Super Cup", "UEFA Conference League Qualifying"]
         } else if (normalcountry.includes(item)) {
-            countrygroup[item] = [...leaguebycountry[item].map((listItem: string) => `${item}: ${listItem}`)]
+            const toPush = leaguebycountry[item]?.map((listItem: string) => `${item}: ${listItem}`) || [];
+            countrygroup[item] = [...toPush]
         } else if (item === "Internationals") {
-            countrygroup[item] = [...leaguebycountry.World.map((listItem: string) => `${listItem}`)]
+            const toPush = leaguebycountry?.World?.map((listItem: string) => `${listItem}`) || [];
+            countrygroup[item] = [...toPush]
         } else if (item === "Europe") {
             let arr = [] as any;
             europe.map((rest, index) => {
                 if (leaguebycountry[rest] && leaguebycountry[rest].length > 0) {
-                    arr.push(...leaguebycountry[rest].map((listItem: string) => `${rest}: ${listItem}`))
+                    const toPush = leaguebycountry[rest].map((listItem: string) => `${rest}: ${listItem}`) || [];
+                    arr.push(...toPush)
                 }
             })
             countrygroup[item] = arr
         } else if (item === "Rep of Ireland") {
-            countrygroup[item] = [...leaguebycountry.Ireland.map((listItem: string) => `Ireland: ${listItem}`)]
+            const toPush = leaguebycountry?.Ireland?.map((listItem: string) => `Ireland: ${listItem}`) || [];
+            countrygroup[item] = [...toPush]
         } else if (item === "Rest of the World") {
             let arr = [] as any;
             restoftheword.map(rest => {
+                const toPush = leaguebycountry[rest]?.map((listItem: string) => `${rest}: ${listItem}`) || [];
                 if (leaguebycountry[rest] && leaguebycountry[rest].length > 0) {
-                    arr.push(...leaguebycountry[rest].map((listItem: string) => `${rest}: ${listItem}`))
+                    arr.push(...toPush)
                 }
             })
             countrygroup[item] = arr
@@ -56,9 +62,11 @@ const Competitions = ({ leaguebycountry }: any) => {
             let arr = [] as any;
             americas.map((rest, index) => {
                 if (index === 0 || index === 1) {
-                    arr.push(...leaguebycountry[rest].map((listItem: string) => `${listItem}`))
+                    const toPush = leaguebycountry[rest]?.map((listItem: string) => `${listItem}`) || [];
+                    arr.push(...toPush)
                 } else if (leaguebycountry[rest] && leaguebycountry[rest].length > 0) {
-                    arr.push(...leaguebycountry[rest].map((listItem: string) => `${rest}: ${listItem}`))
+                    const toPush = leaguebycountry[rest].map((listItem: string) => `${rest}: ${listItem}`) || [];
+                    arr.push(...toPush)
                 }
             })
             countrygroup[item] = arr

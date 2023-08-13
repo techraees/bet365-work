@@ -56,10 +56,10 @@ const SoccerTable = ({ soccergrouped }: any) => {
           return <div key={index} className={cn("h-[83px] flex items-center px-5", index == 0 ? "" :
             "border-t border-solid border-t-[#ffffff1a]"
           )}>
-            <div className="flex-1 justify-center items-center text-[13px]">
+            <div className="flex-1 justify-center items-center text-[13px] overflow-hidden">
               <div className="flex flex-col pr-5 py-3">
                 <div className="flex justify-between items-center text-[#e4e4e4]">
-                  <div>
+                  <div className= "truncate">
                     {item.home}
                   </div>
                   <div className="font-[700]">
@@ -67,7 +67,7 @@ const SoccerTable = ({ soccergrouped }: any) => {
                   </div>
                 </div>
                 <div className="flex justify-between items-center text-[#e4e4e4]">
-                  <div>
+                  <div className= "truncate">
                     {item.away}
                   </div>
                   <div className="font-[700]">

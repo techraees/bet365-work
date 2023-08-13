@@ -20,7 +20,7 @@ const LeagueBody = ({ leagueSelectedGames, active }: any) => {
 
 
     const dates = {} as any;
-    if(leagueSelectedGames && leagueSelectedGames.length>0 ){
+    if (leagueSelectedGames && leagueSelectedGames.length > 0) {
         leagueSelectedGames?.map((data: any) => {
             if (dates && dates[data?.date] && dates[data?.date].length > 0) {
                 dates[data?.date].push(data)
@@ -31,7 +31,7 @@ const LeagueBody = ({ leagueSelectedGames, active }: any) => {
     } else {
         return null
     }
-   
+
     // console.log({ dates, category })
     return (
         <div className="bg-[#383838]">
@@ -94,22 +94,25 @@ const CategoryBased = ({ dates, active }: any) => {
                                 item.push(data.odds[0].bookmakers[0].odds[1].value)
                                 item.push(data.odds[0].bookmakers[0].odds[2].value)
                                 return (
-                                    <div key={index} className={cn("text-xs  h-[70px] flex text-[white] items-center min-h-[70px] pl-[30px]",
+                                    <div key={index} className={cn("text-xs h-[70px] flex text-[white] items-center min-h-[70px] pl-[10px] md:pl-[30px] overflow-hidden",
                                         index == 0 ? "" : "border-t border-solid border-t-[#ffffff1a]"
                                     )}>
-                                        <div 
-                                        onClick={()=>{
-                                            // console.log({data})
-                                            router.push(`${pathname}/${data.id}`)
-                                        }}
-                                        className="flex flex-1 items-center justify-between cursor-pointer">
-                                            <div className="flex-1 flex items-center">
-                                                <div>
+                                        <div
+                                            onClick={() => {
+                                                // console.log({data})
+                                                router.push(`${pathname}/${data.id}`)
+                                            }}
+                                            className="flex flex-1 items-center justify-between cursor-pointer overflow-hidden">
+                                            <div className="flex-1 flex items-center ">
+                                                <div className=" hidden md:flex">
                                                     {data?.time}
                                                 </div>
-                                                <div className="flex flex-col ml-5 font-[700] leading-[25px] hover:text-brand-green-light">
-                                                    <div>{data?.localteam?.name}</div>
-                                                    <div>{data?.visitorteam?.name}</div>
+                                                <div className="flex flex-col md:ml-5 font-[700] leading-[25px] hover:text-brand-green-light">
+                                                    <div className=" truncate">{data?.localteam?.name}</div>
+                                                    <div className=" truncate">{data?.visitorteam?.name}</div>
+                                                    <div className="text-[10px] font-[500] leading-3 flex md:hidden">
+                                                        {data?.time}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="flex ml-[auto]">
