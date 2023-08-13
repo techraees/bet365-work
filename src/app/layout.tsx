@@ -5,7 +5,7 @@ import SecondaryHeader from "./components/SecondarHeader";
 
 export const metadata = {
   title:
-    "bet365 clone",
+    "Bet with bet365 – Live Online Betting Sportsbook – Latest Bets and Odds",
 };
 
 export default function RootLayout({
