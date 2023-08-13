@@ -5,7 +5,7 @@ import SecondaryHeader from "./components/SecondarHeader";
 
 export const metadata = {
   title:
-    "testBet",
+    "Bet with bet365 - Live Online Betting",
 };
 
 export default function RootLayout({
