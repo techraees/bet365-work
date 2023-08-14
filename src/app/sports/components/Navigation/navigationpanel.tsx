@@ -36,3 +36,31 @@ const NavigationPanel = () => {
 }
 
 export default NavigationPanel;
+
+export const TopBarNav =() =>{
+    return (
+        <div className='w-full h-[70px] text-base flex md:hidden'>
+            <div className='flex flex-row h-[70px] bg-[#383838] overflow-auto hidescroll'>
+                {navItems?.map((item, index) => {
+                    const Icon = item?.icon
+                    return (
+                        <CustomLink
+                            key={index}
+                            href={item.link}
+                            className="text-xs"
+                            activeClassName="text-xs font-[700]"
+                        >
+                            <div className='py-1 px-3 h-[70px] flex flex-col gap-2 items-center justify-center text-[#ddd] hover:bg-[#383838] hover:text-[#fff] cursor-pointer'>
+                                {Icon && <Icon className={"h-[30px] w-[30px] saturate-100"}/>}
+                                <div className='truncate'>{item?.label}</div>
+                            </div>
+
+                        </CustomLink>
+
+                    )
+                })}
+            </div>
+
+        </div >
+    )
+}

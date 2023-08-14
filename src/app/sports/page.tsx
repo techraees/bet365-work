@@ -1,7 +1,7 @@
 import Nats from "@/components/Nats";
 import { getOddsGroupedByLeauge, getPregameLeagues, getPregameNames, getPregameSoccer, getPregameSoccerEngland, getSportsOdds } from "@/api";
 import SoccerWrapper from "./components/soccer/Wrapper";
-import NavigationPanel from "./components/Navigation/navigationpanel";
+import NavigationPanel, { TopBarNav } from "./components/Navigation/navigationpanel";
 import BannerSlider from "./components/banner-slider";
 import SportsContent from "./components/sports-content";
 
@@ -87,10 +87,11 @@ const Home = async ({ params }: any) => {
         <NavigationPanel />
       </div>
       <div className="flex flex-col flex-1 bg-[#282828] overflow-auto h-[100%] text-base">
+        <TopBarNav />
         <BannerSlider banners={banners}/>
         <SportsContent 
         odds={pregameodds} 
-        soccerodds={soccerodds}
+        soccerodds={soccerodds}   
         soccerleagues={soccerleagues}
         tennisodds={tennisodds}
         tennisleagues={tennisleagues}
