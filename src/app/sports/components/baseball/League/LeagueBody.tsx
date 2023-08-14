@@ -7,7 +7,7 @@ import { Categoryoptions } from "./maps";
 import DialogForCategory from "./DialogForCategory";
 import OutsideClickHandler from "react-outside-click-handler";
 import { useRouter, usePathname } from "next/navigation";
-import MarketCell from "@/components/Structure/MarketCell";
+import { MarketCellSplit } from "@/components/Structure/MarketCell";
 import formatDateToCustomString from "@/components/Structure/FormatDateToCustomString";
 
 
@@ -97,7 +97,7 @@ const CategoryBased = ({ dates, active }: any) => {
                                     <div className="truncate">Run Line</div>
                                 </div>
                             </div>
-                            <div className="w-[65px] h-full"></div>
+                            <div className="w-[65px] h-full hidden md:flex"></div>
                         </div>
                         {
                             dates[date].map((data: any, index: number) => {
@@ -166,7 +166,7 @@ const CategoryBased = ({ dates, active }: any) => {
                                                 {moneyLine && moneyLine.length > 0 && moneyLine?.map((ml: any, index: number) => {
                                                     return (
                                                         <div key={index} className="flex-1 grid grid-cols-1 justify-center items-center">
-                                                            <MarketCell name={ml.title} value={ml.value} active={'baseball'} suspend={ml.suspend} />
+                                                            <MarketCellSplit name={ml.title} value={ml.value} active={'baseball'} suspend={ml.suspend} />
                                                         </div>
                                                     )
                                                 })}
@@ -176,7 +176,7 @@ const CategoryBased = ({ dates, active }: any) => {
                                                 {total && total.length > 0 && total?.map((tt: any, index: number) => {
                                                     return (
                                                         <div key={index} className="flex-1 grid grid-cols-1 justify-center items-center">
-                                                            <MarketCell name={tt.title} value={tt.value} active={'baseball'} suspend={tt.suspend} />
+                                                            <MarketCellSplit name={tt.title} value={tt.value} active={'baseball'} suspend={tt.suspend} />
                                                         </div>
                                                     )
                                                 })}
@@ -185,7 +185,7 @@ const CategoryBased = ({ dates, active }: any) => {
                                                 {runline && runline.length > 0 && runline?.map((rl: any, index: number) => {
                                                     return (
                                                         <div key={index} className="flex-1 grid grid-cols-1 justify-center items-center">
-                                                            <MarketCell name={rl.title} value={rl.value} active={'baseball'} suspend={rl.suspend} />
+                                                            <MarketCellSplit name={rl.title} value={rl.value} active={'baseball'} suspend={rl.suspend} />
                                                         </div>
                                                     )
                                                 })}
@@ -193,7 +193,7 @@ const CategoryBased = ({ dates, active }: any) => {
                                         </div>
                                         <div className="bg-[#ffffff1a] h-[75px] w-[1px]"></div>
 
-                                        <div className="w-[65px] h-full"></div>
+                                        <div className="w-[65px] h-full hidden md:flex"></div>
                                     </div>)
                             })
                         }

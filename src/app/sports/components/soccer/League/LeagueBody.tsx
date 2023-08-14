@@ -85,7 +85,7 @@ const CategoryBased = ({ dates, active }: any) => {
                                 <div className="flex flex-1 items-center justify-center">X</div>
                                 <div className="flex flex-1 items-center justify-center">2</div>
                             </div>
-                            <div className="w-[65px] h-full"></div>
+                            <div className="w-[65px] h-full hidden md:flex"></div>
                         </div>
                         {
                             dates[date].map((data: any, index: number) => {
@@ -103,11 +103,11 @@ const CategoryBased = ({ dates, active }: any) => {
                                                 router.push(`${pathname}/${data.id}`)
                                             }}
                                             className="flex flex-1 items-center justify-between cursor-pointer overflow-hidden">
-                                            <div className="flex-1 flex items-center ">
+                                            <div className="flex-1 flex items-center overflow-hidden">
                                                 <div className=" hidden md:flex">
                                                     {data?.time}
                                                 </div>
-                                                <div className="flex flex-col md:ml-5 font-[700] leading-[25px] hover:text-brand-green-light">
+                                                <div className="flex flex-col md:ml-5 font-[700] leading-[25px] hover:text-brand-green-light overflow-hidden">
                                                     <div className=" truncate">{data?.localteam?.name}</div>
                                                     <div className=" truncate">{data?.visitorteam?.name}</div>
                                                     <div className="text-[10px] font-[500] leading-3 flex md:hidden">
@@ -132,7 +132,7 @@ const CategoryBased = ({ dates, active }: any) => {
                                         </div>
                                         <div className="bg-[#ffffff1a] h-[49px] w-[1px]"></div>
 
-                                        <div className="w-[65px] h-full"></div>
+                                        <div className="w-[65px] h-full hidden md:flex"></div>
                                     </div>)
                             })
                         }

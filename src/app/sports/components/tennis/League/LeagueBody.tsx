@@ -87,7 +87,7 @@ const CategoryBased = ({ dates, active }: any) => {
                                 <div className="flex flex-1 items-center justify-center">1</div>
                                 <div className="flex flex-1 items-center justify-center">2</div>
                             </div>
-                            <div className="w-[65px] h-full"></div>
+                            <div className="w-[65px] h-full hidden md:flex"></div>
                         </div>
                         {
                             dates[date].map((data: any, index: number) => {
@@ -110,14 +110,17 @@ const CategoryBased = ({ dates, active }: any) => {
                                                 // console.log({data})
                                                 router.push(`${pathname}/${data.id}`)
                                             }}
-                                            className="flex flex-1 items-center justify-between cursor-pointer">
-                                            <div className="flex-1 flex items-center">
-                                                <div>
+                                            className="flex flex-1 items-center justify-between cursor-pointer overflow-hidden">
+                                            <div className="flex-1 flex items-center overflow-hidden">
+                                                <div className=" hidden md:flex">
                                                     {data?.time}
                                                 </div>
-                                                <div className="flex flex-col ml-5 font-[700] leading-[25px] hover:text-brand-green-light">
-                                                    <div>{data?.player_1?.name}</div>
-                                                    <div>{data?.player_2?.name}</div>
+                                                <div className="flex flex-col md:ml-5 font-[700] leading-[25px] hover:text-brand-green-light overflow-hidden">
+                                                    <div className="truncate">{data?.player_1?.name}</div>
+                                                    <div className="truncate">{data?.player_2?.name}</div>
+                                                    <div className="text-[10px] leading-3 font-[500] flex md:hidden">
+                                                        {data?.time}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="flex ml-[auto]">
@@ -141,7 +144,7 @@ const CategoryBased = ({ dates, active }: any) => {
                                         </div>
                                         <div className="bg-[#ffffff1a] h-[50px] w-[1px]"></div>
 
-                                        <div className="w-[65px] h-full"></div>
+                                        <div className="w-[65px] h-full hidden md:flex"></div>
                                     </div>)
                             })
                         }
