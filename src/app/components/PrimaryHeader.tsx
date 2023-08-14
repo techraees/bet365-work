@@ -1,13 +1,16 @@
 'use client'
-import React from "react";
+import React, { useState } from "react";
 import Container from "@/components/ui/Container";
 import Logo, { SmallLogo, BurgerSearch } from "@/components/ui/icons/logo";
 import CustomLink from "@/components/ui/Link";
 import { Button } from "@/components/ui/button";
 import Search from "@/components/ui/icons/search";
-import {useRouter, usePathname} from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { cn } from "@/lib/utils";
+import { NavClose } from "@/components/ui/icons/dialogclose";
+import { FixNavPanel } from "../sports/components/Navigation/navigationpanel";
 const PrimaryHeader = () => {
+  const [openNav, setOpenNav] = useState(false)
   const menuLinks = [
     {
       label: "Sports",
@@ -57,15 +60,17 @@ const PrimaryHeader = () => {
       </Container>
       <Container className=" items-center h-[50px] justify-between flex md:hidden text-sm">
         <div className="flex-shrink-0 h-4 flex ml-4 cursor-pointer">
-          <BurgerSearch />
+          <BurgerSearch onClick={() => {
+            setOpenNav(!openNav);
+          }} />
         </div>
         <div className="mx-auto flex text-white items-center h-full">
-          <div className={cn("mx-4 cursor-pointer h-full flex text-white hover:text-brand-green-light items-center", location.includes('/in-play')? 'border-b-2 border-solid border-[#FFDF1B]': '')} onClick={()=>{
+          <div className={cn("mx-4 cursor-pointer h-full flex text-white hover:text-brand-green-light items-center", location.includes('/in-play') ? 'border-b-2 border-solid border-[#FFDF1B]' : '')} onClick={() => {
             router.push('/in-play')
           }}>
             In-Play
           </div>
-          <div className={cn("mx-4 cursor-pointer h-full flex text-white hover:text-brand-green-light items-center", location.includes('/sports')? 'border-b-2 border-solid border-[#FFDF1B]': '')} onClick={()=>{
+          <div className={cn("mx-4 cursor-pointer h-full flex text-white hover:text-brand-green-light items-center", location.includes('/sports') ? 'border-b-2 border-solid border-[#FFDF1B]' : '')} onClick={() => {
             router.push('/sports')
           }}>
             <SmallLogo />
@@ -83,6 +88,22 @@ const PrimaryHeader = () => {
           </div>
         </div>
       </Container>
+      <div id="mySidenav" className={cn("h-[100%] fixed z-50 top-0 left-0 bg-[#282828] ease-in-out duration-300 text-base overflow-hidden",
+        openNav ? 'w-[260px]' : 'w-[0px]'
+      )}
+      >
+        <div className="flex flex-col">
+          <div className="ml-auto mt-2 mr-2 cursor-pointer">
+            <NavClose onClick={() => { setOpenNav(false); }} />
+          </div>
+          <div className="overflow-auto h-[calc(100vh_-_36px)]"
+          >
+            <FixNavPanel onClick={()=>{ setOpenNav(false);}}/>
+          </div>
+
+        </div>
+
+      </div>
     </div>
   );
 };

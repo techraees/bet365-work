@@ -11,3 +11,14 @@ const Close = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGEleme
   </svg>
 )
 export default Close
+
+export const NavClose = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={28} height={28} viewBox="0 0 28 28" {...props}>
+    <g fill="none" fillRule="evenodd">
+      <path
+        fill="#FFF"
+        d="m14.743 13.943 5.144-5.193-.743-.75L14 13.193 8.856 8l-.743.75 5.144 5.193L8 19.25l.743.75L14 14.693 19.257 20l.743-.75z"
+      />
+    </g>
+  </svg>
+)
