@@ -3,7 +3,7 @@ import { useState } from "react";
 const Stats = () => {
     const [isShown, setIsShown] = useState(false);
     return (
-        <div className="flex items-center justify-center w-[55px] h-[45px] cursor-pointer"
+        <div className="flex items-center justify-center w-[20px] h-[25px] md:w-[55px] md:h-[45px] cursor-pointer"
             onMouseEnter={() => setIsShown(true)}
             onMouseLeave={() => setIsShown(false)}
         >
@@ -16,8 +16,5 @@ const Stats = () => {
         </div>
 
     )
-
-
-
 }
 export default Stats
