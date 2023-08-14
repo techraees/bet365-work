@@ -77,16 +77,16 @@ const SportsHeader = () => {
     },
   ];
   return (
-    <div className="bg-brand-dark-grey ">
+    <div className="bg-brand-dark-grey">
       {" "}
-      <div className=" flex gap-[25px] max-w-[1500px] px-8 py-4 border-b-2 border-[#408058]">
+      <div className=" flex gap-[25px] max-w-[1500px] px-8 py-4 shadow-[inset_0_-1px_0_#408058] overflow-auto hidescroll">
         {menuLinks.map((link, index) => {
           const Icon = link.icon;
           const isActive = pathname === (link.link as string);
           return (
             <CustomLink
               href={link.link}
-              className={cn("group-hover:text-white text-sm leading-[0px] text-[11px]",isActive && "text-white underline underline-offset-[10px] decoration-[#81FFB1] decoration-2" )}
+              className={cn("group-hover:text-white text-sm leading-[0px] text-[11px]",isActive && "text-white underline underline-offset-[9px] decoration-[#81FFB1] decoration-2" )}
               key={index}
             >
               <div

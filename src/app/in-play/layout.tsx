@@ -4,13 +4,13 @@ import Container from "@/components/ui/Container";
 
 const InPlayLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className=" mx-auto ">
+    <div className=" mx-auto">
       <Container className="grid grid-cols-9 ">
-        <div className=" col-span-6 flex flex-col">
+        <div className=" col-span-9 flex flex-col md:col-span-6">
           {/* <SportsHeader /> */}
           <div >{children}</div>
         </div>
-        <div className="col-span-3"> </div>
+        <div className="col-span-0 md:col-span-3"> </div>
       </Container>
     </div>
   );
