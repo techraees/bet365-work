@@ -15,12 +15,16 @@ const MarketHeader: React.FC<MarketHeaderProps> = ({ data, odd, active }) => {
         Home = data?.team_info?.home?.name
     } else if (data?.localteam?.name) {
         Home = data?.localteam?.name
+    } else if (data?.player_1?.name) {
+        Home = data?.player_1?.name
     }
 
     if (data?.team_info?.away?.name) {
         Away = data?.team_info?.away?.name
     } else if (data?.visitorteam?.name) {
         Away = data?.visitorteam?.name
+    } else if (data?.player_2?.name) {
+        Away = data?.player_2?.name
     }
 
 

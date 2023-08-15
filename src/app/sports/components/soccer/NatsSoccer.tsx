@@ -105,14 +105,6 @@ const Odds = ({ odds, sport, leaguesByCountry, getLeagues, leagueSelectedGames }
         <NavigationPanel />
       </div>
       <div className="flex flex-col flex-1 bg-[383838] overflow-auto h-[100%]">
-        {/* {sport[1] === "leagues" && sport[2] ?
-          <LeagueWrapper league={sport[2]} getLeagues={getLeagues} leagueSelectedGames={leagueSelectedGames} />
-          :
-          sport[1] ?
-            <DetailSoccer odds={odds} sport={sport[0]} currentdataId={sport[1]} />
-            :
-            <SoccerWrapper odds={odds} sport={sport[0]} currentdataId={sport[1]} leaguebycountry={leaguebycountry} />
-        } */}
         {show}
       </div>
     </div>)
