@@ -26,7 +26,7 @@ const Winner: React.FC<WinnerProps> = ({ data }) => {
     })
     return (
         <>
-            <div className="col-span-3 flex">
+            <div className="flex-1 flex">
                 <div className="flex flex-1 items-center hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer">
                     <div className="bg-[hsla(0,0%,100%,.1)] w-[1px] h-[50px]" />
                     

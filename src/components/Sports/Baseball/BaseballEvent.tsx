@@ -22,30 +22,30 @@ const BaseballEvent: React.FC<BaseballEventProps> = ({ data, sport, subcategory 
     }
     return (
         <div className="flex flex-col border-t-[#ffffff1a] border-t border-solid">
-            <div className={cn(`grid grid-cols-11 w-full px-8  justify-center h-[100px]`)}>
-                <div className=" col-span-5 flex items-center text-xs font-bold text-white gap-4 py-[10px]">
-                    <StarOutlineIcon className=" hover:fill-[#333] fill-transparent cursor-pointer" />
+            <div className={cn(`flex w-full px-2 md:px-8  justify-center h-[123px] md:h-[100px]`)}>
+                <div className=" flex-1 flex items-center text-xs font-bold text-white gap-4 py-[10px] overflow-hidden">
+                    <StarOutlineIcon className=" hover:fill-[#333] fill-transparent cursor-pointer md:flex hidden" />
                     <Link
                         href={`/in-play/${sport}/${subcategory ? subcategory : defaultSubcategories[sport as keyof typeof defaultSubcategories]}/${data?.info?.id}`}
-                        className="w-[100%] flex-col"
+                        className="w-[100%] h-full flex-col"
                     >
                         <div className="flex items-left text-[11px] font-[400]">
-                            <div className="flex flex-col text-[13px] font-semibold hover:text-brand-green-light cursor-pointer w-[calc(100%_-_180px)]">
-                                <div className="flex h-[25px] items-center">
+                            <div className="flex flex-col text-[13px] font-semibold hover:text-brand-green-light cursor-pointer overflow-hidden">
+                                <div className="flex h-[25px] items-center overflow-hidden">
                                     <div className="min-w-[15px] min-h-[15px] h-[15px] w-[15px] mr-[10px]">
                                         <BasketballJersey />
                                     </div>
 
-                                    <div className="whitespace-nowrap overflow-hidden text-ellipsis">
+                                    <div className="truncate overflow-hidden">
                                         {data?.team_info?.home.name}
                                     </div>
                                 </div>
-                                <div className="flex h-[25px] items-center">
-                                    <div className="min-w-[15px] min-h-[15px] h-[15px] w-[15px] mr-[10px]">
+                                <div className="flex h-[25px] items-center overflow-hidden">
+                                    <div className="min-w-[15px] min-h-[15px] h-[15px] w-[15px] mr-[10px] ">
                                         <BasketballJersey />
                                     </div>
 
-                                    <div className="whitespace-nowrap overflow-hidden text-ellipsis">
+                                    <div className="truncate overflow-hidden">
                                         {data?.team_info?.away.name}
                                     </div>
                                 </div>
@@ -54,8 +54,8 @@ const BaseballEvent: React.FC<BaseballEventProps> = ({ data, sport, subcategory 
                                 <BaseballPoints data={data} sport={sport} />
                             </div>
                         </div>
-                        <div className="flex h-[18px] leading-[18px] mt-[6px] items-center justify-between text-[11px] text-[#ccc] fill-[#ccc] font-[600]">
-                            <div className="flex ">
+                        <div className="flex flex-col md:flex-row h-[30px] md:h-[18px] md:leading-[18px] mt-[6px] items-center justify-between text-[11px] text-[#ccc] fill-[#ccc] font-[600] overflow-hidden">
+                            <div className="flex">
                                 {'Bottom of 1st'}
                                 <div className="ml-[2px] flex items-center  hover:text-brand-green-light hover:fill-brand-green-light font-[400]">
                                     {'56'}
@@ -99,8 +99,10 @@ const BaseballEvent: React.FC<BaseballEventProps> = ({ data, sport, subcategory 
                         </div>
                     </Link>
                 </div>
-                <BaseballOdds data={data} sport={sport} subcategory={subcategory} />
-                <div className="group flex col-span-1 items-center justify-center cursor-pointer">
+                <div className="flex-1 flex">
+                    <BaseballOdds data={data} sport={sport} subcategory={subcategory} />
+                </div>
+                <div className="group w-[50px] md:flex col-span-1 items-center justify-center cursor-pointer hidden">
                     <div className="flex">
                         <BaseballFieldHover />
                     </div>

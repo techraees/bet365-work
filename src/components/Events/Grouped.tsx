@@ -6,6 +6,7 @@ import BasketballSubcategoryHeader from "../Sports/Basketball/Details/Basketball
 import VolleyballSubcategoryHeader from "../Sports/Volleyball/Details/VolleyballSubcategoryHeader";
 import BaseballSubcategoryHeader from "../Sports/Baseball/Details/BaseballSubcategoryHeader";
 import EsportSubcategoryHeader from "../Sports/Esports/EsportSubcategoryHeader";
+import TennisSubcategoryHeader from "../Sports/Tennis/Details/TennisSubcategoryHeader";
 
 interface GropedEventsInterface {
   name: string;
@@ -37,7 +38,11 @@ const Grouped: React.FC<GropedEventsInterface> = ({ name, events, sport, subcate
       <SoccerSubcategoryHeader  subcategory={subcategory} name={name} events={events} sport={sport}   /> 
     )
   }
-
+  if(sport === "tennis"){
+    return(
+      <TennisSubcategoryHeader  subcategory={subcategory} name={name} events={events} sport={sport}   /> 
+    )
+  }
   return (
     <div className="flex flex-col text-xs font-bold text-white mb-[5px]">
       <div className={`grid grid-cols-8 h-[35px] w-full px-8 bg-[hsla(0,0%,100%,.1)] justify-center`}>
@@ -45,15 +50,6 @@ const Grouped: React.FC<GropedEventsInterface> = ({ name, events, sport, subcate
           <StarOutlineIcon className=" hover:fill-[#333] fill-transparent cursor-pointer" />
           {name}
         </div>
-        {sport === "tennis" &&
-          <>
-            <div className="col-span-3 flex">
-              <div className="flex flex-1 items-center justify-center">1</div>
-              <div className="flex flex-1 items-center justify-center">2</div>
-            </div>
-            <div className="flex items-center justify-center"></div>
-          </>
-        }
       </div>
       {events.map((event: any, index: number) => (
         <Event key={index} data={event} sport={sport} subcategory={subcategory} />
