@@ -1,12 +1,13 @@
 import React from "react";
 import { categoriesMapping } from "@/lib/sportsMapping";
+import { MarketCellSplit } from "@/components/Structure/MarketCell";
 interface TiedAtEndOfRegulationProps {
     data: any;
 }
 
 const TiedAtEndOfRegulation: React.FC<TiedAtEndOfRegulationProps> = ({ data }) => {
     let objs: any[] = []
-    if(!data){
+    if (!data) {
         return null
     }
     Object.keys(data?.odds).map(item => {
@@ -21,23 +22,22 @@ const TiedAtEndOfRegulation: React.FC<TiedAtEndOfRegulationProps> = ({ data }) =
                     away.push(participants[participat].value_eu)
                 }
             })
-            objs.push({ home, away})
+            objs.push({ home, away })
         }
     })
     return (
-        <div className=" col-span-5 flex w-full">
+        <div className=" flex-1 flex w-full">
             <div className="flex w-full">
                 <div className="flex flex-1 items-center hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer">
                     <div className="bg-[hsla(0,0%,100%,.1)] w-[1px] h-[50px]" />
-                    
-                    <div className="text-[#ffdf1b] w-full text-center text-[13px] font-normal pl-[3px]">
-                        {'1'}
+                    <div className="flex-1 h-full justify-center items-center">
+                        <MarketCellSplit smallpadding name={''} value={'1'} suspend={'0'} active={'basketball'} />
                     </div>
                 </div>
                 <div className="flex flex-1 items-center hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer flex-row-reverse">
                     <div className="bg-[hsla(0,0%,100%,.1)] w-[1px] h-[50px]" />
-                    <div className="text-[#ffdf1b] w-full text-center text-[13px] font-normal pr-[3px]">
-                        {'2'}
+                    <div className="flex-1 h-full justify-center items-center">
+                        <MarketCellSplit smallpadding name={''} value={'2'} suspend={'0'} active={'basketball'} />
                     </div>
                 </div>
             </div>

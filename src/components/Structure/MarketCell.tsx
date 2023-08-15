@@ -40,7 +40,7 @@ export const MarketCellSplit: React.FC<MarketCellProps> = ({ name, value, disabl
             textLeftAlign ? '' : 'justify-center',
             suspend !== "0" ? 'text-[#a7a7a7]' : '',
             (disablehover || (!value && !name)) ? 'cursor-auto' : 'hover:bg-[hsla(0,0%,100%,.15)] ',
-            smallpadding ? 'px-[10px] md:px-[20px]' : 'px-[0px] md:px-[30px]'
+            smallpadding ? 'px-[10px]' : 'px-[0px] md:px-[30px]'
         )}>
             <div className='flex items-center flex-col md:flex-row'>
                 <div className='leading-5 line-clamp-2'>{name}</div>

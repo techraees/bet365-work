@@ -21,14 +21,14 @@ const EsportSubcategoryHeader: React.FC<EsportSubcategoryInterface> = ({ esportT
         if (esportTag === "Live Map Games") {
             if (subcategory === "totalMaps") {
                 return (
-                    <div className="col-span-5 flex">
+                    <div className="flex-1 flex">
                         <div className="flex flex-1 items-center justify-center">Over</div>
                         <div className="flex flex-1 items-center justify-center">Under</div>
                     </div>
                 )
             } else {
                 return (
-                    <div className="col-span-5 flex">
+                    <div className="flex-1 flex">
                         <div className="flex flex-1 items-center justify-center">1</div>
                         <div className="flex flex-1 items-center justify-center">2</div>
                     </div>
@@ -40,7 +40,7 @@ const EsportSubcategoryHeader: React.FC<EsportSubcategoryInterface> = ({ esportT
             if (subcategory === undefined || subcategory === "mapWinner" || subcategory === "matchWinner") {
                 if (title === "Esoccer") {
                     return (
-                        <div className="col-span-5 flex">
+                        <div className="flex-1 flex">
                             <div className="flex flex-1 items-center justify-center">1</div>
                             <div className="flex flex-1 items-center justify-center">X</div>
                             <div className="flex flex-1 items-center justify-center">2</div>
@@ -48,10 +48,16 @@ const EsportSubcategoryHeader: React.FC<EsportSubcategoryInterface> = ({ esportT
                     )
                 } else if (title === "Ebasketball") {
                     return (
-                        <div className="col-span-5 flex">
-                            <div className="flex flex-1 items-center justify-center">Spread</div>
-                            <div className="flex flex-1 items-center justify-center">Total</div>
-                            <div className="flex flex-1 items-center justify-center">Money Line</div>
+                        <div className="flex-1 flex">
+                            <div className="flex flex-1 items-center justify-center overflow-hidden">
+                                <div className="truncate">Spread</div>
+                            </div>
+                            <div className="flex flex-1 items-center justify-center overflow-hidden">
+                                <div className="truncate">Total</div>
+                            </div>
+                            <div className="flex flex-1 items-center justify-center overflow-hidden">
+                                <div className="truncate">Money Line</div>
+                            </div>
                         </div>
                     )
                 }
@@ -61,14 +67,14 @@ const EsportSubcategoryHeader: React.FC<EsportSubcategoryInterface> = ({ esportT
         }
         if (subcategory === "totalMaps") {
             return (
-                <div className="col-span-5 flex">
+                <div className="flex-1 flex">
                     <div className="flex flex-1 items-center justify-center">Over</div>
                     <div className="flex flex-1 items-center justify-center">Under</div>
                 </div>
             )
         } else {
             return (
-                <div className="col-span-5 flex">
+                <div className="flex-1 flex">
                     <div className="flex flex-1 items-center justify-center">1</div>
                     <div className="flex flex-1 items-center justify-center">2</div>
                 </div>
@@ -77,13 +83,13 @@ const EsportSubcategoryHeader: React.FC<EsportSubcategoryInterface> = ({ esportT
     }
     return (
         <div className="flex flex-col text-xs font-bold text-white mb-[5px]">
-            <div className={`grid grid-cols-11 h-[35px] w-full px-8 bg-[hsla(0,0%,100%,.1)] justify-center`}>
-                <div className="col-span-5 flex items-center  gap-4">
-                    <StarOutlineIcon className=" hover:fill-[#333] fill-transparent cursor-pointer" />
-                    {name}
+            <div className={`flex h-[35px] w-full px-2 md:px-8 bg-[hsla(0,0%,100%,.1)] justify-center`}>
+                <div className="flex-1 flex items-center  gap-4 overflow-hidden">
+                    <StarOutlineIcon className=" hover:fill-[#333] fill-transparent cursor-pointer md:flex hidden" />
+                    <div className="truncate">{name}</div>
                 </div>
                 {content()}
-                <div className="flex items-center justify-center"></div>
+                <div className=" items-center justify-center w-[50px] md:flex hidden"></div>
             </div>
             {events.map((event: any, index: number) => (
                 <EsportEvent key={index} title={title} data={event} sport={sport} subcategory={subcategory} />

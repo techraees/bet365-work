@@ -36,7 +36,7 @@ const EsportHeader = ({ header, subcategory, TypesofGames, setHeader }: any) => 
     const sport = "esports"
     const sportDetail = sportsDetailsMapping[sport];
     return (
-        <div className="flex justify-between h-16 items-center px-8 bg-[#383838] ">
+        <div className="flex justify-between h-16 items-center px-2 md:px-8 bg-[#383838] ">
             <div className="flex items-center gap-1 cursor-pointer relative" ref={dropdownRef}
                 onClick={toggleDropdown}
                 id="dropdown-menu"
@@ -77,7 +77,7 @@ const EsportHeader = ({ header, subcategory, TypesofGames, setHeader }: any) => 
             
 
 
-            <div className="flex gap-5">
+            <div className="hidden gap-5 md:flex">
                 {sportDetail.mainHeaderFilters.map((filter, index) => (
                     <div key={index}>
                         {" "}

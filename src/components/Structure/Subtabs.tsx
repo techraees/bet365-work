@@ -45,9 +45,11 @@ const Subtabs: React.FC<RowDataProps> = ({ odd, data, active }) => {
                         {odd?.[`${currentTab} header`].map((item: string, index: number) => {
                             return (
                                 <div key={index} className='text-xs h-[30px] flex items-center justify-center font-[700]'>
-                                    {item === "Home" ? Home :
+                                   <div className='truncate px-1'>
+                                     {item === "Home" ? Home :
                                         item === "Away" ?Away : item
                                     }
+                                    </div>
                                 </div>
                             )
                         })}

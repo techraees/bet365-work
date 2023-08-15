@@ -1,5 +1,6 @@
 import React from "react";
 import { gameLines } from "./mappings/mapping";
+import { MarketCellSplit } from "@/components/Structure/MarketCell";
 interface CurrentSetProps {
     data: any;
 }
@@ -38,17 +39,19 @@ const GameLines: React.FC<CurrentSetProps> = ({ data }) => {
         }
     })
     return (
-        <div className=" col-span-5 flex w-full">
+        <div className=" flex-1 flex w-full text-sm font-[500]">
             <div className="flex items-center cursor-pointer w-full">
                 <div className="bg-[hsla(0,0%,100%,.1)] w-[1px] h-[50px]" />
                 <div className="flex flex-col w-full h-full">
                     <div className="flex flex-1 items-center h-full w-full hover:bg-[hsla(0,0%,100%,.15)]">
-                        <div className="text-[#fff] w-full text-[13px] font-normal text-right mr-1">{spreadTitle[0]}</div>
-                        <div className="text-[#ffdf1b] w-full text-[13px] font-normal text-left ml-1">{spreadValue[0]}</div>
+                        <div className="flex-1 h-full justify-center items-center">
+                            <MarketCellSplit smallpadding name={spreadTitle[0]} value={spreadValue[0]} suspend={'0'} active={'basketball'} />
+                        </div>
                     </div>
                     <div className="flex flex-1 items-center h-full w-full hover:bg-[hsla(0,0%,100%,.15)]">
-                        <div className="text-[#fff] w-full text-[13px] font-normal text-right mr-1">{spreadTitle[1]}</div>
-                        <div className="text-[#ffdf1b] w-full text-[13px] font-normal text-left ml-1">{spreadValue[1]}</div>
+                        <div className="flex-1 h-full justify-center items-center">
+                            <MarketCellSplit smallpadding name={spreadTitle[1]} value={spreadValue[1]} suspend={'0'} active={'basketball'} />
+                        </div>
                     </div>
                 </div>
 
@@ -56,12 +59,14 @@ const GameLines: React.FC<CurrentSetProps> = ({ data }) => {
             <div className="flex items-center cursor-pointer w-full">
                 <div className="flex flex-col w-full h-full">
                     <div className="flex flex-1 items-center h-full w-full hover:bg-[hsla(0,0%,100%,.15)]">
-                        <div className="text-[#fff] w-full text-[13px] font-normal text-right mr-1">{totalTitle[0]}</div>
-                        <div className="text-[#ffdf1b] w-full text-[13px] font-normal text-left ml-1">{totalValue[0]}</div>
+                        <div className="flex-1 h-full justify-center items-center">
+                            <MarketCellSplit smallpadding name={totalTitle[0]} value={totalValue[0]} suspend={'0'} active={'basketball'} />
+                        </div>
                     </div>
                     <div className="flex flex-1 items-center h-full w-full hover:bg-[hsla(0,0%,100%,.15)]">
-                        <div className="text-[#fff] w-full text-[13px] font-normal text-right mr-1">{totalTitle[1]}</div>
-                        <div className="text-[#ffdf1b] w-full text-[13px] font-normal text-left ml-1">{totalValue[1]}</div>
+                        <div className="flex-1 h-full justify-center items-center">
+                            <MarketCellSplit smallpadding name={totalTitle[1]} value={totalValue[1]} suspend={'0'} active={'basketball'} />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,10 +74,15 @@ const GameLines: React.FC<CurrentSetProps> = ({ data }) => {
                 <div className="bg-[hsla(0,0%,100%,.1)] w-[1px] h-[50px]" />
                 <div className="flex flex-col w-full h-full">
                     <div className="flex flex-1 items-center h-full w-full hover:bg-[hsla(0,0%,100%,.15)]">
-                        <div className="text-[#ffdf1b] flex items-center justify-center w-full text-[13px] font-normal text-left ml-1">{mlValue[0]}</div>
+                        <div className="flex-1 h-full justify-center items-center">
+                            <MarketCellSplit smallpadding name={''} value={mlValue[0]} suspend={'0'} active={'basketball'} />
+                        </div>
                     </div>
                     <div className="flex flex-1 items-center h-full w-full hover:bg-[hsla(0,0%,100%,.15)]">
-                        <div className="text-[#ffdf1b] flex items-center justify-center w-full text-[13px] font-normal text-left ml-1">{mlValue[1]}</div>
+
+                        <div className="flex-1 h-full justify-center items-center">
+                            <MarketCellSplit smallpadding name={''} value={mlValue[1]} suspend={'0'} active={'basketball'} />
+                        </div>
                     </div>
                 </div>
             </div>
