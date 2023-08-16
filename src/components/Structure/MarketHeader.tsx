@@ -21,7 +21,9 @@ const MarketHeader: React.FC<MarketHeaderProps> = ({ data, odd, active }) => {
 
     if (data?.team_info?.away?.name) {
         Away = data?.team_info?.away?.name
-    } else if (data?.visitorteam?.name) {
+    } else if (data?.awayteam?.name) {
+        Away = data?.awayteam?.name
+    }  else if (data?.visitorteam?.name) {
         Away = data?.visitorteam?.name
     } else if (data?.player_2?.name) {
         Away = data?.player_2?.name

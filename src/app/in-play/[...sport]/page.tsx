@@ -8,7 +8,7 @@ const Home = async ({ params }: any) => {
 
   let odds = await getSportsOdds(sport[0]);
   let leagues = await getOddsGroupedByLeauge(sport[0]);
-  console.log('in-play',{leagues})
+  console.log('in-play', sport[0], {odds}, {leagues})
   if(sport[0] === 'esports'){
     console.log('calling other odds')
     let soccerodds = await getSportsOdds('esoccer');

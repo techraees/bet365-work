@@ -1,466 +1,323 @@
-export const soccerAll = {
-    "fulltimeResult": {
-        marketname: "Fulltime Result",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "doubleChance": {
-        marketname: "Double Chance",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "goalsOverUnder": {
-        marketname: "Goals Over/Under",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "bothTeamsToScore": {
-        marketname: "Both Teams to Score",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "resultBothTeamsToScore": {
-        marketname: "Result / Both Teams To Score",
-        suspend: "0",
-        header: ["", "Yes", "No"],
-        rows: []
-    },
-    "correctScore": {
-        marketname: "Correct Score",
-        suspend: "0",
-        header: ["Home", "Draw", "Away"],
-        rows: []
-    },
-    "halfTimeFullTime": {
-        marketname: "Half Time/Full Time",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "halfTimeCorrectScore": {
-        marketname: "Half Time Correct Score",
-        suspend: "0",
-        header: ["1", "x", "2"],
-        rows: []
-    },
-    "asianHandicap": {
-        marketname: "Asian Handicap",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: []
-    },
-    "goalLine": {
-        marketname: "Goal Line",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "drawNoBet": {
-        marketname: "Draw No Bet",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "handicapResult": {
-        marketname: "Handicap Result",
-        suspend: "0",
-        header: ["Home", "Tie", "Away"],
-        rows: []
-    },
-    "alternativeHandicapResult": {
-        marketname: "Alternative Handicap Result",
-        suspend: "0",
-        header: ["Home", "Tie", "Away"],
-        rows: []
-    },
-}
-// ["Result", "Double Chance", "Match Goals", "Next Goal", "Score", "Goals Odd/Even"]
-
-
-export const soccerBetBuilder = {
-    "result": {
-        marketname: "Result",
-        suspend: "0",
-        header: ["", "Home", "Draw", "Away"],
-        rows: []
-    },
-    "bothTeamsToScore": {
-        marketname: "Both Teams To Score",
-        suspend: "0",
-        header: ["", "Yes", "No"],
-        rows: []
-    },
-    "doubleChance": {
-        marketname: "Double Chance",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "halftimeFulltime": {
-        marketname: "Half Time/FullTime",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "score": {
-        marketname: "Score",
-        suspend: "0",
-        subtabs: ["Full Time Score", "Half Time Score"],
-        header: [],
-        "Full Time Score header": ["Home", "Draw", "Away"],
-        "Full Time Score": [],
-        "Half Time Score header": ["Home", "Draw", "Away"],
-        "Half Time Score": []
-    },
-    "halfWithMostGoals": {
-        marketname: "Half With Most Goals",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "teamSpecials": {
-        marketname: "Team Specials",
+export const basketballMainMarkets = {
+    "gameLines": {
+        marketname: "Game Lines",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: []
     },
-    "winningMargin": {
-        marketname: "Winning Margin",
+    "1stHalf": {
+        marketname: "1st Half",
         suspend: "0",
-        subtabs: ["Match", "1st Half", "2nd Half", "First 10 Minutes"],
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "1stQuarter": {
+        marketname: "1st Quarter",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "gameLines3-Way": {
+        marketname: "Game Lines 3-Way",
+        suspend: "0",
+        header: ["", "Home", "Tie", "Away"],
+        rows: []
+    },
+}
+
+export const basketballBetBuilder = {
+    "spread": {
+        marketname: "Spread",
+        suspend: "0",
+        subtabs: ["Match", "1st Half", "1t Quarter"],
         header: [],
-        "Match header": ["Home", "Either Team", "Away"],
+        "Match header": ["Home", "Away"],
         "Match": [],
-        "1st Half header": ["Home", "Either Team", "Away"],
+        "1st Half header": ["Home", "Away"],
         "1st Half": [],
-        "2nd Half header": ["Home", "Either Team", "Away"],
-        "2nd Half": [],
-        "First 10 Minutes header": ["Home", "Either Team", "Away"],
-        "First 10 Minutes": [],
+        "1st Quarter header": ["Home", "Away"],
+        "1st Quarter": []
     },
-    "goalOddEven": {
-        marketname: "Goals - Odd/Even",
+    "total": {
+        marketname: "Total",
         suspend: "0",
-        header: ["", "Odd", "Even"],
+        subtabs: ["Match", "1st Half", "1t Quarter"],
+        header: [],
+        "Match header": ["", "Over", "Under"],
+        "Match": [],
+        "1st Half header": ["", "Over", "Under"],
+        "1st Half": [],
+        "1st Quarter header": ["", "Over", "Under"],
+        "1st Quarter": []
+    },
+    "moneyLine": {
+        marketname: "Money Line",
+        suspend: "0",
+        header: ["", "Home", "Tie", "Away"],
+        rows: []
+    },
+    "tiedAtEndOfRegulation": {
+        marketname: "Toed At End Of Regulation",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "resultAndBothTeamsToScore": {
+        marketname: "Result and Both Teams to Score",
+        suspend: "0",
+        header: ["", "60 Points", "80 Points"],
+        rows: []
+    },
+    "half/Quarter-RaceTo": {
+        marketname: "Half/Quarter - Race To",
+        suspend: "0",
+        subtabs: ["1st Half", "1st Quarter"],
+        header: [],
+        "1st Half header": ["", "Home", "Away", "Neither"],
+        "1st Half": [],
+        "1st Quarter header": ["", "Home", "Away", "Neither"],
+        "1st Quarter": []
+    },
+    "half/Quarter-BothTeamsToScoreXPoints": {
+        marketname: "Half/Quarter - Both Teams to Score X Points",
+        suspend: "0",
+        subtabs: ["1st Half", "1st Quarter"],
+        header: [],
+        "1st Half header": ["", "Yes", "No"],
+        "1st Half": [],
+        "1st Quarter header": ["", "Yes", "No"],
+        "1st Quarter": []
+    },
+}
+
+
+export const basketballMainProps = {
+    "resultAndBothTeamsToScoreXPoints": {
+        marketname: "Result and Both Teams to Score 'X' Points",
+        suspend: "0",
+        header: ["", "60", "80"],
+        rows: []
+    },
+    "doubleResult": {
+        marketname: "Double Result",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "matchResultAndTotal": {
+        marketname: "Match Result and Total",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: []
+    },
+    "matchHandicapAndTotal": {
+        marketname: "Match Handicap and Total",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "raceTo20Points": {
+        marketname: "Race to 20 Points",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "tiedAtEndOfRegulations?": {
+        marketname: "Tied at End of Regulation?",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "quarterCorrectScore": {
+        marketname: "Quarter Correct Score",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "highestScoringHalf": {
+        marketname: "Highest Scoring Half",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "highestScoringQuarter": {
+        marketname: "Highest Scoring Quarter",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "gameTotal-Odd/Even": {
+        marketname: "Game Total - Odd/Even",
+        suspend: "0",
+        header: [],
         rows: []
     },
 }
-export const soccerAsianLines = {
-    "asianHandicap": {
-        marketname: "Asian Handicap",
+
+
+export const basketballTeamProps = {
+    "teamWithHighestScoringQuarter": {
+        marketname: "Team With Higest Scoring Quarter",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "teamTotals": {
+        marketname: "Team Totals",
         suspend: "0",
         header: ["Home", "Away"],
         rows: []
     },
-    "goalLine": {
-        marketname: "Goal Line",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "alternativeAsianHandicap": {
-        marketname: "Alternative Asian Handicap",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: [
-        ]
-    },
-    "alternativeGoalLine": {
-        marketname: "Alternative Goal Line",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: [
-        ]
-    },
-    "firstHalfAsianHandicap": {
-        marketname: "1st Half Asian Handicap",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: [
-        ]
-    },
-    "firstHalfGoalLine": {
-        marketname: "1st Half Goal Line",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "alternativeFirstHalfAsianHandicap": {
-        marketname: "Alternative 1st Half Asian Handicap",
+    "1stQuarterTeamTotals": {
+        marketname: "1st Quarter Team Totals",
         suspend: "0",
         header: ["Home", "Away"],
         rows: []
     },
-    "alternativeFirstHalfGoalLine": {
-        marketname: "Alternative 1st Half Goal Line",
+    "1stHalfTeamTotals": {
+        marketname: "1st Half Team Totals",
         suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: [
-        ]
+        header: ["Home", "Away"],
+        rows: []
+    },
+    "teamTotal-Odd/Even": {
+        marketname: "Team Total - Odd/Even",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: []
     },
 }
-export const soccerCornersCards = {
-    "matchCorners": {
-        marketname: "Match Corners",
-        currentCorners: "",
-        firstCellBorderRight: true,
+
+
+export const basketballQuarterProps = {
+    "1stQuarterBothTeamsToScoreXPoints": {
+        marketname: "1st Quarter Both Teams to Score X Points",
         suspend: "0",
-        header: ["", "Over", "Exactly", "Under"],
+        header: ["", "Yes", "No"],
         rows: []
     },
-    "twoWayCorners": {
-        marketname: "2-Way Corners",
+    "1stQuarterDoubleChance": {
+        marketname: "1st Quarter Double Chance",
         suspend: "0",
-        header: ["", "Over", "Under"],
+        header: [],
         rows: []
     },
-    "asianCorners": {
-        marketname: "Asian Corners",
+    "1stQuarterHandicapAndTotal": {
+        marketname: "1st Quarter Handicap and Total",
         suspend: "0",
-        header: ["", "Over", "Under"],
+        header: [],
         rows: []
     },
-    "firstHalfAsianCorners": {
-        marketname: "First Half Asian Corners",
+    "1stQuarterMarginofVictory": {
+        marketname: "1st Quarter Margin Of Victory",
         suspend: "0",
-        header: ["", "Over", "Under"],
+        header: ["", "Home", "Away"],
         rows: []
     },
-    "cornerRace": {
-        marketname: "Corner Race",
+    "1stQuarter3WayLines": {
+        marketname: "1st Quarter 3 Way Lines",
         suspend: "0",
-        firstCellBorderRight: true,
+        header: ["", "Home", "Tie", "Away"],
+        rows: []
+    },
+    "1stQuarterRaceToPoints": {
+        marketname: "1st Quarter Race To (Points)",
+        suspend: "0",
         header: ["", "Home", "Away", "Neither"],
         rows: []
     },
-    "corners": {
-        marketname: "Corners",
+    "1stQuarterResultAndTotal": {
+        marketname: "1st Quarter Result and Total",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "1stQuarterTeamTotals": {
+        marketname: "1st Quarter Team Totals",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: []
+    },
+    "1stQuarterTotal-Odd/Even": {
+        marketname: "1st Quarter Total - Odd/Even",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "1stQuarterWinningMargin": {
+        marketname: "1st Quarter Winning Margin",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: []
     },
 }
 
-export const soccerGoals = {
-    "goalsOverUnder": {
-        marketname: "Goals Over/Under",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "alternativetotalGoals": {
-        marketname: "Alternative Total Goals",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "resultTotalGoals": {
-        marketname: "Result / Total Goals",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "bothTeamsToScore": {
-        marketname: "Both Teams To Score",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "bothTeamsToScoreIn1stHalf": {
-        marketname: "Both Teams To Score in 1st Half",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "bothTeamsToScoreIn2ndHalf": {
-        marketname: "Both Teams To Score in 2nd Half",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "firstHalfGoals": {
-        marketname: "First Half Goals",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "secondHalfGoals":{
-        marketname: "Second Half Goals",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []  
-    },
-    "cleanSheet":{
-        marketname: "Clean Sheet",
+
+export const basketballHalfProps = {
+    "1stHalfTeamTotals": {
+        marketname: "1st Half Team Totals",
         suspend: "0",
         header: ["Home", "Away"],
-        rows: []  
-    },
-    "goalOddEven": {
-        marketname: "Goals Odd/Even",
-        suspend: "0",
-        header: [],
         rows: []
     },
-    "homeTeamOddEvenGoals": {
-        marketname: "Home Team Odd/Even Goals",
+    "1stHalfWinningMargin": {
+        marketname: "1st Half Winning Margin",
         suspend: "0",
-        header: [],
-        rows: []
-    }, 
-    "awayTeamOddEvenGoals": {
-        marketname: "Away Team Odd/Even Goals",
-        suspend: "0",
-        header: [],
+        header: ["", "Home", "Away"],
         rows: []
     },
-    "firstHalfGoalsOddEven": {
-        marketname: "1st Half Goals Odd/Even",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "lastTeamtoScore": {
-        marketname: "Last Team to Score",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "first10Minutes": {
-        marketname: "First 10 Minute (00:00 - 09:59)",
+    "1stHalfResultAndTotal": {
+        marketname: "1st Half Result and Total",
         suspend: "0",
         header: ["", "Over", "Under"],
         rows: []
-    }
-}
-
-export const soccerHalf = {
-    "halfTimeResult": {
-        marketname: "Half Time Result",
+    },
+    "1stHalfHandicapAndTotal": {
+        marketname: "1st Half Handicap and Total",
         suspend: "0",
         header: [],
         rows: []
     },
-    "halfTimeDoubleChance": {
-        marketname: "Half Time Double Chance",
+    "1stHalfRaceToPoints": {
+        marketname: "1st Half Race to (Points)",
         suspend: "0",
-        header: [],
+        header: ["", "Home", "Away", "Neither"],
         rows: []
     },
-    "halfTimeResultBothTeamsToScore": {
-        marketname: "Half Time Result/Both Teams To Score",
+    "1stHalfBothTeamsToScoreXPoints": {
+        marketname: "1st half Both Teams to Score X Points",
         suspend: "0",
         header: ["", "Yes", "No"],
         rows: []
     },
-    "halfTimeResultTotalGoals":{
-        marketname: "Half Time Result/Total Goals",
+    "1stHalfSpread3-Way": {
+        marketname: "1st Half Spread 3-Way",
         suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: [] 
-    },
-    "halfTimeCorrectScore": {
-        marketname: "Half Time Correct Score",
-        suspend: "0",
-        header: ["Home", "Draw", "Away"],
+        header: ["Home", "Tie", "Away"],
         rows: []
     },
-    "bothTeamsToScorein1stHalf":{
-        marketname: "Both Team To Score in 1st Half",
+    "1stHalfTotals3-Way": {
+        marketname: "1st Half Totals 3-Way",
+        suspend: "0",
+        header: ["Over", "Exactly", "Under"],
+        rows: []
+    },
+    "1stHalfMoneyLine3-Way": {
+        marketname: "1st Half Money Line 3-Way",
         suspend: "0",
         header: [],
         rows: []
     },
-    "bothTeamsToScorein2ndHalf":{
-        marketname: "Both Team To Score in 2nd Half",
+    "1stHalfDoubleChance": {
+        marketname: "1st Half Double Chance",
         suspend: "0",
         header: [],
         rows: []
     },
-    "firstHalfAsianHandicap":{
-        marketname: "1st Half Asian Handicap",
+    "1stHalfTotalOdd/Even": {
+        marketname: "1st Half Total Odd/Even",
         suspend: "0",
-        header: ["Home", "Away"],
+        header: [],
         rows: []
     },
-    "firstHalfGoalLine":{
-        marketname: "1st Half Goal Line",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: [] 
-    },
-    "alternativeFirstHalfAsianHandicap":{
-        marketname: "Alternative 1st Half Asian Handicap",
-        suspend: "0",
-        header: [ "Home", "Away"],
-        rows: []  
-    },
-    "alternativeFirstHalfGoalLine":{
-        marketname: "Alternative 1st Half Goal Line",
-        suspend: "0",
-        header: [ "", "Over", "Under"],
-        rows: []
-    }
-
 }
-
-export const soccerSpecials = {
-    "specials": {
-        marketname: "Specials",
-        suspend: "0",
-        header: ["", "Home", "Away"],
-        rows: []
-    },
-    "toScoreInHalf": {
-        marketname: "To Score in Half",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "toScoreaPenalty": {
-        marketname: "To Score a Penalty",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "toMissaPenalty": {
-        marketname: "To Miss a Penalty",
-        suspend: "0",
-        header: [],
-        rows: []
-    }
-}
-
-export const soccerMinutes = {
-    "10MinuteResult": {
-        marketname: "10 Minute Result",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "first10Minutes": {
-        marketname: "First 10 Minute (00:00 - 09:59)",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    }
-}
-
-
-
-// "boxing",
-//     "esports",
-//     "table_tennis",
-//     "darts",
-//     "soccer",
-//     "basketball",
-//     "tennis",
-//     "hockey",
-//     "handball",
-//     "volleyball",
-//     "baseball",
-//     "cricket"
