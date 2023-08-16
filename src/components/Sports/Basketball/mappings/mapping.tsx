@@ -29,6 +29,9 @@ export const gameLines = (data: any) => {
             const arr = [{ title: "Total", value: '', suspend: data.odds?.[1450]?.suspend }]
 
             gltotal.map((item: any, index: number) => {
+                if(arr.length >= 3){
+                    return
+                }
                 let title = '';
                 let value = '';
                 let suspend = '0';
