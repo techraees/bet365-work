@@ -5,7 +5,7 @@ import { categoriesMapping } from '@/lib/sportsMapping';
 import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
 import { volleyball} from './mappings/datastructure';
-import { gameLines , } from './mappings/pregamemaps';
+import { gameLines , correctSetScore, matchTotalOddEven, firstSetLine, firstSetToGoToExtraPoints, firstSetTotalOddEven } from './mappings/pregamemaps';
 import MarketGroupBody from '@/components/Structure/MarketGroupBody';
 
 interface MarketGroupProps {
@@ -23,6 +23,11 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
     oddData = volleyball as any;
     if (active === "Main Markets" || active === "All") {
         volleyball.gameLines.rows = gameLines(data);
+        volleyball.correctSetScore.rows = correctSetScore(data);
+        volleyball['matchTotalOdd/Even'].rows = matchTotalOddEven(data);
+        volleyball['1stSetLines'].rows = firstSetLine(data);
+        volleyball['1stSetToGoToExtraPoints'].rows = firstSetToGoToExtraPoints(data);
+        volleyball['1stSetTotalOdd/Even'].rows = firstSetTotalOddEven(data);
         oddData = volleyball as any;
     }
 
