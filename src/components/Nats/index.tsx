@@ -10,12 +10,13 @@ import GroupedEvents from "../Events/Grouped";
 import SportsHeader from "@/app/in-play/components/SportsHeader";
 import DetailView from "../Events/DetailView";
 import Esports from "../Sports/Esports/EsportsWrapper";
+import { useRouter } from "next/navigation";
+
 
 const sc = JSONCodec();
 
 const SERVER_URL = process.env.NEXT_PUBLIC_NATS_URL!;
 
-console.log({ SERVER_URL });
 
 const Odds = ({ odds, sport, subcategory, currentdataId, leagues }: any) => {
   const [oddsState, setOddsState] = useState<any>(odds);
@@ -23,8 +24,8 @@ const Odds = ({ odds, sport, subcategory, currentdataId, leagues }: any) => {
 
   const natsConnectionsRef = useRef(natsConnections); // Create a mutable ref
 
-  console.log({ leagues });
-  console.log({ sport, subcategory, currentdataId })
+  const route = useRouter()
+
 
   const addMessage = (err: NatsError | null, message: Msg) => {
     console.log("PATCH");
@@ -36,6 +37,7 @@ const Odds = ({ odds, sport, subcategory, currentdataId, leagues }: any) => {
       setOddsState({ ...document });
     } catch (e) {
       console.log({ e });
+      route.refresh()
     }
   };
 

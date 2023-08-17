@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import Chevron from "@/components/ui/icons/chevron";
 import SoccerTable from "./SoccerTable";
 import TennisTable from "./TennisTable";
+import { useRouter } from "next/navigation";
 
 
 const sc = JSONCodec();
@@ -35,6 +36,8 @@ const Groupnats = ({ soccerodds,
 
   const natsConnectionsRef = useRef(natsConnections); // Create a mutable ref
 
+  const router = useRouter()
+
   const addMessage = (err: NatsError | null, message: Msg) => {
     console.log("PATCH");
     const data: any = sc.decode(message.data);
@@ -45,6 +48,7 @@ const Groupnats = ({ soccerodds,
       setOddsState({ ...document });
     } catch (e) {
       console.log({ e });
+      router.refresh()
     }
   };
 
