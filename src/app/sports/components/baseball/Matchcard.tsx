@@ -22,7 +22,8 @@ const Matchcard: FC<PostsProps> = ({ listOfData }) => {
 
     const router = useRouter();
     console.log('Matchcard', listOfData, listOfData?.length)
-    const data: { hometeam: any; awayteam: any; time: any; home: any; away: any; id:any; }[] = [
+    const data: { hometeam: any; awayteam: any; time: any; home: any; away: any; id:any; league: any;
+    }[] = [
     ];
     if (listOfData && listOfData.length > 0) {
         console.log('LIST')
@@ -34,7 +35,7 @@ const Matchcard: FC<PostsProps> = ({ listOfData }) => {
             const away = item?.odds[0].bookmakers[0].odds[1].value
             console.log({ hometeam, awayteam, time, home, away })
             data.push({
-                hometeam, awayteam, time, home, away, id: item?.id
+                hometeam, awayteam, time, home, away, id: item?.id, league: item?.league
             })
         })
     }
@@ -74,7 +75,7 @@ const Matchcard: FC<PostsProps> = ({ listOfData }) => {
                 {
                     data?.map((item: any, index: number) => {
                         return <SwiperSlide key={index} onClick={()=>{
-                            router.push(`sports/baseball/${item?.id}`)
+                            router.push(`sports/baseball/leagues/${item?.league}/${item?.id}`)
                         }}>
                             <div className='flex flex-col items-center justify-center h-full w-full bg-[#ffffff12] rounded-[4px] cursor-pointer'>
                                 <div className='flex-col h-[110px] px-[10px] w-full items-center justify-center text-[white]'>

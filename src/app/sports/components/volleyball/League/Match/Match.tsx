@@ -7,16 +7,24 @@ import MatchBody from "./MatchBody";
 
 
 
-const Match = ({ gameid, league, getLeagues, leagueSelectedGames }: any) => {
-    const [active, setActive] = useState('Popular');
-    console.log('league clicked', decodeURIComponent(league), getLeagues, leagueSelectedGames)
-    console.log('find', leagueSelectedGames.filter((item: any) => { return item.id === gameid }))
+const Match = ({ gameid, league, getLeagues, odds }: any) => {
+    const [active, setActive] = useState('Main Markets');
+    // console.log('league clicked', decodeURIComponent(league))
+    const particularOdd = odds.filter((odd: any)=> {
+        if(odd.length>0){
+           if( odd[0].league === league ){
+            return true
+           }
+        }
+        return false;
+    })
+    console.log('find', particularOdd[0].filter((item: any) => { return item.id === gameid }))
 
-    const match = leagueSelectedGames.filter((item: any) => { return item.id === gameid })[0];
+    const match = particularOdd[0].filter((item: any) => { return item.id === gameid })[0];
 
     const router = useRouter()
     const tabs = {
-        soccer: ["Popular", "Bet Builder", "Asian Lines", "Goals", "Half", "Specials", "Minutes"],
+        volleyball: ["Main Markets"],
     }
     return (
         <div className="text-base">
@@ -27,7 +35,7 @@ const Match = ({ gameid, league, getLeagues, leagueSelectedGames }: any) => {
                 >
                     <div className="flex items-center min-h-[45px] text-[12px]  px-[30px] py-0 mt-[5px]">
                         <Chevron className="h-[5px] w-[8px] rotate-90" />
-                        <div className="pl-[5px]">{`Soccer ${decodeURIComponent(league).replace(':', "")}`}</div>
+                        <div className="pl-[5px]">{`Volleyball - ${decodeURIComponent(league).replace(':', "")}`}</div>
                     </div>
                 </button>
                 <div className=" relative flex items-center justify-between text-xl text-[white] font-bold px-[30px] py-0 mx-0 my-[5px] min-h-[55px] cursor-pointer">
@@ -36,13 +44,13 @@ const Match = ({ gameid, league, getLeagues, leagueSelectedGames }: any) => {
 
                         }}
                     >
-                        {`${match.localteam.name} v ${match.visitorteam.name}`}
+                        {`${match?.localteam?.name} v ${match?.awayteam?.name}`}
                         <Chevron className="ml-[7px] fill-white h-[6px] w-[12px]" />
                     </div>
                 </div>
                 <div className="flex items-center min-h-[50px] text-[white] text-[13px]">
                     <div className="flex items-center mx-[20px] relative w-full whitespace-nowrap overflow-scroll hidescroll">
-                        {tabs['soccer']?.map((tab, index) => {
+                        {tabs['volleyball']?.map((tab, index) => {
                             return (
                                 <div key={index}
                                     className={cn("cursor-pointer flex items-center justify-center px-[10px] z-20",

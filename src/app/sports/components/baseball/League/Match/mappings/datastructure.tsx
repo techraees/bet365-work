@@ -1,466 +1,657 @@
-export const soccerAll = {
-    "fulltimeResult": {
-        marketname: "Fulltime Result",
+export const baseballMainMarkets = {
+    "gameLines": {
+        marketname: "Game Lines",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "5Innings": {
+        marketname: "4.5 Innings",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "3-Way": {
+        marketname: "3-Way",
+        suspend: "0",
+        header: ["", "Home", "Tie", "Away"],
+        rows: []
+    },
+}
+
+export const baseballBetBuilder = {
+    "pitcherToRecordFirstStrikeout": {
+        marketname: "Pitcher to Record First Strikeout",
         suspend: "0",
         header: [],
         rows: []
     },
-    "doubleChance": {
-        marketname: "Double Chance",
+    "playerBases": {
+        marketname: "Player Bases",
         suspend: "0",
+        subtabs: ["Total Bases", "Stolen Bases", "Bases Match Up"],
         header: [],
+        "Total Bases header": ["", "Over", "Under"],
+        "Total Bases": [],
+        "Stolen Bases header": ["", "Over", "Under"],
+        "Stolen Bases": [],
+        "Bases Match Up header": ["1", "X", "2"],
+        "Bases Match Up": []
+    },
+    "playerRuns": {
+        marketname: "Player Runs",
+        suspend: "0",
+        subtabs: ["Runs", "Home Runs", "Batted In"],
+        header: [],
+        "Runs header": ["", "Over", "Under"],
+        "Runs": [],
+        "Home Runs header": ["", "Over", "Under"],
+        "Home Runs": [],
+        "Batted In header": ["", "Over", "Under"],
+        "Batted In": []
+    },
+    "playerRunsMilestones": {
+        marketname: "Player Runs Milestones",
+        suspend: "0",
+        subtabs: ["Home Runs", "Batted In", "Runs"],
+        header: [],
+        "Home Runs header": ["", "1", "2"],
+        "Home Runs": [],
+        "Batted In header": ["", "1", "2", "3", "4", "5"],
+        "Batted In": [],
+        "Runs header": ["", "1", "2", "3", "4"],
+        "Runs": []
+    },
+    "playerHits": {
+        marketname: "Player Hits",
+        suspend: "0",
+        subtabs: ["Hits", "Singles", "Doubles", "Triples"],
+        header: [],
+        "Hits header": ["", "Over", "Under"],
+        "Hits": [],
+        "Singles header": ["", "Over", "Under"],
+        "Singles": [],
+        "Doubles header": ["", "Over", "Under"],
+        "Doubles": [],
+        "Triples header": ["", "Over", "Under"],
+        "Triples": []
+    },
+    "playerMilestones": {
+        marketname: "Player Milestones",
+        suspend: "0",
+        subtabs: ["Hits", "Total Bases", "Strikeouts"],
+        header: [],
+        "Hits header": ["", "1", "2", "3", "4"],
+        "Hits": [],
+        "Total Bases header": ["", "1", "2", "3", "4", "5", "6", "7", "8"],
+        "Total Bases": [],
+        "Strikeouts header": ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+        "Strikeouts": []
+    },
+    "moneyLine": {
+        marketname: "Money Line",
+        suspend: "0",
+        header: ["", "Home", "Tie", "Away"],
         rows: []
     },
-    "goalsOverUnder": {
-        marketname: "Goals Over/Under",
+    "runLine": {
+        marketname: "Run Line",
         suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
+        subtabs: ["Match", "3 Innings", "5 Innings", "7 Innings"],
+        header: [],
+        "Match header": ["Home", "Away"],
+        "Match": [],
+        "3 Innings header": ["Home", "Away"],
+        "3 Innings": [],
+        "5 Innings header": ["Home", "Away"],
+        "5 Innings": [],
+        "7 Innings header": ["Home", "Away"],
+        "7 Innings": []
+    },
+    "total": {
+        marketname: "Total",
+        suspend: "0",
+        subtabs: ["Match", "1st Inning", "3 Inning", "5 Inning", "7 Inning"],
+        header: [],
+        "Match header": ["", "Over", "Under"],
+        "Match": [],
+        "1st Inning header": ["", "Over", "Under"],
+        "1st Inning": [],
+        "3 Inning header": ["", "Over", "Under"],
+        "3 Inning": [],
+        "5 Inning header": ["", "Over", "Under"],
+        "5 Inning": [],
+        "7 Inning header": ["", "Over", "Under"],
+        "7 Inning": []
     },
     "bothTeamsToScore": {
         marketname: "Both Teams to Score",
         suspend: "0",
-        header: [],
+        header: ["", "Yes", "No"],
         rows: []
     },
-    "resultBothTeamsToScore": {
-        marketname: "Result / Both Teams To Score",
+    "1stInningProps": {
+        marketname: "1st Inning Props",
         suspend: "0",
         header: ["", "Yes", "No"],
         rows: []
     },
-    "correctScore": {
-        marketname: "Correct Score",
+    "mostHits": {
+        marketname: "Most Hits",
         suspend: "0",
-        header: ["Home", "Draw", "Away"],
+        header: ["", "Home", "Tie", "Away"],
         rows: []
     },
-    "halfTimeFullTime": {
-        marketname: "Half Time/Full Time",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "halfTimeCorrectScore": {
-        marketname: "Half Time Correct Score",
-        suspend: "0",
-        header: ["1", "x", "2"],
-        rows: []
-    },
-    "asianHandicap": {
-        marketname: "Asian Handicap",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: []
-    },
-    "goalLine": {
-        marketname: "Goal Line",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "drawNoBet": {
-        marketname: "Draw No Bet",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "handicapResult": {
-        marketname: "Handicap Result",
-        suspend: "0",
-        header: ["Home", "Tie", "Away"],
-        rows: []
-    },
-    "alternativeHandicapResult": {
-        marketname: "Alternative Handicap Result",
-        suspend: "0",
-        header: ["Home", "Tie", "Away"],
-        rows: []
-    },
-}
-// ["Result", "Double Chance", "Match Goals", "Next Goal", "Score", "Goals Odd/Even"]
-
-
-export const soccerBetBuilder = {
-    "result": {
-        marketname: "Result",
-        suspend: "0",
-        header: ["", "Home", "Draw", "Away"],
-        rows: []
-    },
-    "bothTeamsToScore": {
-        marketname: "Both Teams To Score",
-        suspend: "0",
-        header: ["", "Yes", "No"],
-        rows: []
-    },
-    "doubleChance": {
-        marketname: "Double Chance",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "halftimeFulltime": {
-        marketname: "Half Time/FullTime",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "score": {
-        marketname: "Score",
-        suspend: "0",
-        subtabs: ["Full Time Score", "Half Time Score"],
-        header: [],
-        "Full Time Score header": ["Home", "Draw", "Away"],
-        "Full Time Score": [],
-        "Half Time Score header": ["Home", "Draw", "Away"],
-        "Half Time Score": []
-    },
-    "halfWithMostGoals": {
-        marketname: "Half With Most Goals",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "teamSpecials": {
-        marketname: "Team Specials",
+    "first/LastScore": {
+        marketname: "First/Last Score",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: []
     },
-    "winningMargin": {
-        marketname: "Winning Margin",
+    "raceToRuns/Hits": {
+        marketname: "Race to Runs/Hits",
         suspend: "0",
-        subtabs: ["Match", "1st Half", "2nd Half", "First 10 Minutes"],
+        subtabs: ["Runs", "Hits"],
         header: [],
-        "Match header": ["Home", "Either Team", "Away"],
-        "Match": [],
-        "1st Half header": ["Home", "Either Team", "Away"],
-        "1st Half": [],
-        "2nd Half header": ["Home", "Either Team", "Away"],
-        "2nd Half": [],
-        "First 10 Minutes header": ["Home", "Either Team", "Away"],
-        "First 10 Minutes": [],
+        "Runs header": ["", "Home", "Away", "Neither"],
+        "Runs": [],
+        "Hits header": ["", "Home", "Away", "Neither"],
+        "Hits": []
     },
-    "goalOddEven": {
-        marketname: "Goals - Odd/Even",
+    "extraInnings": {
+        marketname: "Extra Innings",
         suspend: "0",
-        header: ["", "Odd", "Even"],
+        header: [],
         rows: []
     },
 }
-export const soccerAsianLines = {
-    "asianHandicap": {
-        marketname: "Asian Handicap",
+
+
+export const baseballMainProps = {
+    "gameLines": {
+        marketname: "Game Lines",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "3-Way": {
+        marketname: "3-Way",
+        suspend: "0",
+        header: ["", "Home", "Tie", "Away"],
+        rows: []
+    },
+    "runLineAndTotal": {
+        marketname: "Run Line and Total",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "moneyLineAndTotal": {
+        marketname: "Money Line and Total",
         suspend: "0",
         header: ["Home", "Away"],
         rows: []
     },
-    "goalLine": {
-        marketname: "Goal Line",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "alternativeAsianHandicap": {
-        marketname: "Alternative Asian Handicap",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: [
-        ]
-    },
-    "alternativeGoalLine": {
-        marketname: "Alternative Goal Line",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: [
-        ]
-    },
-    "firstHalfAsianHandicap": {
-        marketname: "1st Half Asian Handicap",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: [
-        ]
-    },
-    "firstHalfGoalLine": {
-        marketname: "1st Half Goal Line",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "alternativeFirstHalfAsianHandicap": {
-        marketname: "Alternative 1st Half Asian Handicap",
+    "moneyLineAndAlternativeTotal": {
+        marketname: "Money Line and Alternative Total",
         suspend: "0",
         header: ["Home", "Away"],
         rows: []
     },
-    "alternativeFirstHalfGoalLine": {
-        marketname: "Alternative 1st Half Goal Line",
+    "alternativeRunLine": {
+        marketname: "Alternative Run Line",
         suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: [
-        ]
+        header: ["Home", "Away"],
+        rows: []
     },
-}
-export const soccerCornersCards = {
-    "matchCorners": {
-        marketname: "Match Corners",
-        currentCorners: "",
-        firstCellBorderRight: true,
+    "alternativeGameTotal": {
+        marketname: "Alternative Game Total",
+        suspend: "0",
+        header: ["", "Over", "Under", "", "Over", "Under"],
+        rows: []
+    },
+    "alternative3-WayRunLine": {
+        marketname: "Alternative 3-Way Run Line",
+        suspend: "0",
+        header: ["Home", "Tie", "Away"],
+        rows: []
+    },
+    "alternative3-WayTotal": {
+        marketname: "Alternative 3-Way Total",
         suspend: "0",
         header: ["", "Over", "Exactly", "Under"],
         rows: []
     },
-    "twoWayCorners": {
-        marketname: "2-Way Corners",
+    "firstHomeRunOfGameWillBe": {
+        marketname: "First Home Run of Game Will be",
         suspend: "0",
-        header: ["", "Over", "Under"],
+        header: [],
         rows: []
     },
-    "asianCorners": {
-        marketname: "Asian Corners",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "firstHalfAsianCorners": {
-        marketname: "First Half Asian Corners",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "cornerRace": {
-        marketname: "Corner Race",
-        suspend: "0",
-        firstCellBorderRight: true,
-        header: ["", "Home", "Away", "Neither"],
-        rows: []
-    },
-    "corners": {
-        marketname: "Corners",
+    "winningMargins": {
+        marketname: "Winning Margins",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: []
     },
+    "doubleResult": {
+        marketname: "Double Result",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "raceToRuns": {
+        marketname: "Race To (Runs)",
+        suspend: "0",
+        header: ["", "Home", "Away", "Neither"],
+        rows: []
+    },
+    "totalHits": {
+        marketname: "Total Hits",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "alternativeTotalHits": {
+        marketname: "Alternative Total Hits",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "mostHits": {
+        marketname: "Most Hits",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "raceToHits": {
+        marketname: "Race To (Hits)",
+        suspend: "0",
+        header: ["", "Home", "Away", "Neither"],
+        rows: []
+    },
+    "matchCorrectScore": {
+        marketname: "Match Correct Score",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "highestScoringPeriod": {
+        marketname: "Highest Scoring Period",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "extraInnings": {
+        marketname: "Extra Innings",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "gameTotal-Bands": {
+        marketname: "Game Total - Bands",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "gameTotalOdd/Even": {
+        marketname: "Game Total Odd/Even",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
 }
 
-export const soccerGoals = {
-    "goalsOverUnder": {
-        marketname: "Goals Over/Under",
+
+export const baseballPlayerProps = {
+    "pitcherOuts": {
+        marketname: "Pitcher Outs",
         suspend: "0",
         header: ["", "Over", "Under"],
         rows: []
     },
-    "alternativetotalGoals": {
-        marketname: "Alternative Total Goals",
+    "pitcherStrikeouts": {
+        marketname: "Pitcher Strikeouts",
         suspend: "0",
         header: ["", "Over", "Under"],
         rows: []
     },
-    "resultTotalGoals": {
-        marketname: "Result / Total Goals",
+    "pitcherStrikeoutsMilestones": {
+        marketname: "Pitcher Strikeouts Milestones",
+        suspend: "0",
+        header: ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+        rows: []
+    },
+    "pitcherToRecordTheWin": {
+        marketname: "Pitcher to Record the Win",
+        suspend: "0",
+        header: ["", "No", "Yes"],
+        rows: []
+    },
+    "pitcherEarnedRuns": {
+        marketname: "Pitcher Earned Runs",
         suspend: "0",
         header: ["", "Over", "Under"],
         rows: []
     },
-    "bothTeamsToScore": {
-        marketname: "Both Teams To Score",
+    "pitcherHitsAllowed": {
+        marketname: "Pitcher Hits Allowed",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "pitcherWalksIssued": {
+        marketname: "Pitcher Walks Issued",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "playerRuns": {
+        marketname: "PLayer Runs",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "playerRunsMilestones": {
+        marketname: "Player Runs Milestones",
+        suspend: "0",
+        header: ["", "1", "2", "3", "4"],
+        rows: []
+    },
+    "playerHomeRuns": {
+        marketname: "Player Home Runs",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "playerHomeRunsMilestones": {
+        marketname: "Player Home Runs Milestones",
+        suspend: "0",
+        header: ["1", "2"],
+        rows: []
+    },
+    "playerHits": {
+        marketname: "Player Hits",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "playerHitsMilestones": {
+        marketname: "Player Hits Milestones",
+        suspend: "0",
+        header: ["", "1", "2", "3", "4"],
+        rows: []
+    },
+    "playerSingles": {
+        marketname: "Player Singles",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "playerDoubles": {
+        marketname: "Player Doubles",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "playerTriples": {
+        marketname: "Player Triples",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "playerRunsBattedIn": {
+        marketname: "Player Runs Batted In",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "playerRunsBattedInMilestones": {
+        marketname: "Player Runs Batted In Milestones",
+        suspend: "0",
+        header: ["", "1", "2", "3", "4", "5"],
+        rows: []
+    },
+    "playerTotalBases": {
+        marketname: "Player Total Bases",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "playerTotalBasesMilestones": {
+        marketname: "Player Total Bases Milestones",
+        suspend: "0",
+        header: ["", "1", "2", "3", "4", "5", "6", "7", "8"],
+        rows: []
+    },
+    "playerTotalBasesMatch-Ups": {
+        marketname: "Player Total Bases Match-Ups",
+        suspend: "0",
+        header: ["", "1", "X", "2"],
+        rows: []
+    },
+    "playerStolenBases": {
+        marketname: "Player Stolen Bases",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "pitcherToRecordFirstStrikeout": {
+        marketname: "Pitcher to Record First Strikeout",
         suspend: "0",
         header: [],
         rows: []
     },
-    "bothTeamsToScoreIn1stHalf": {
-        marketname: "Both Teams To Score in 1st Half",
+}
+
+
+export const baseballInningsProps = {
+    "5Innings": {
+        marketname: "5 Innings",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "1stInningWinner": {
+        marketname: "1st Inning Winner",
         suspend: "0",
         header: [],
         rows: []
     },
-    "bothTeamsToScoreIn2ndHalf": {
-        marketname: "Both Teams To Score in 2nd Half",
+    "aRunInThe1stInning": {
+        marketname: "A Run in the 1st Inning",
         suspend: "0",
         header: [],
         rows: []
     },
-    "firstHalfGoals": {
-        marketname: "First Half Goals",
+    "1stInningRuns": {
+        marketname: "1st Inning Runs",
         suspend: "0",
         header: ["", "Over", "Under"],
         rows: []
     },
-    "secondHalfGoals":{
-        marketname: "Second Half Goals",
+    "mostHitsInThe1stInning": {
+        marketname: "Most Hits in the 1st Inning",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "1sInningTotalHits": {
+        marketname: "1st Inning Total Hits",
         suspend: "0",
         header: ["", "Over", "Under"],
-        rows: []  
+        rows: []
     },
-    "cleanSheet":{
-        marketname: "Clean Sheet",
+    "3Innings": {
+        marketname: "3 Innings",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "nthInnings": {
+        marketname: "4 1/2 Innings",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "7Innings": {
+        marketname: "7 Innings",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "alternative3InningsLine": {
+        marketname: "Alternative 3 Innings Line",
         suspend: "0",
         header: ["Home", "Away"],
-        rows: []  
+        rows: []
     },
-    "goalOddEven": {
-        marketname: "Goals Odd/Even",
+    "alternative3InningTotals": {
+        marketname: "Alternative 3 Inning Totals",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "alternative5InningsLine": {
+        marketname: "Alternative 5 Innings Line",
+        suspend: "0",
+        header: ["Away Win", "Home Win"],
+        rows: []
+    },
+    "alternative5InningsTotal": {
+        marketname: "Alternative 5 Innings Total",
+        suspend: "0",
+        header: ["", "Over", "Under", "", "Over", "Under"],
+        rows: []
+    },
+    "alternative7InningsLine": {
+        marketname: "Alternative 7 Innings Line",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: []
+    },
+    "alternative7InningsTotals": {
+        marketname: "Alternative 7 Innings Totals",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: []
+    },
+    "aRunInTheTopOfThe1st": {
+        marketname: "A Run in the Top of the 1st",
         suspend: "0",
         header: [],
         rows: []
     },
-    "homeTeamOddEvenGoals": {
-        marketname: "Home Team Odd/Even Goals",
-        suspend: "0",
-        header: [],
-        rows: []
-    }, 
-    "awayTeamOddEvenGoals": {
-        marketname: "Away Team Odd/Even Goals",
+    "aHitInTheTopOfThe1st": {
+        marketname: "A Hit in the Top of the 1st",
         suspend: "0",
         header: [],
         rows: []
     },
-    "firstHalfGoalsOddEven": {
-        marketname: "1st Half Goals Odd/Even",
+    "anyBatterToReachBaseInTheTopOfThe1st": {
+        marketname: "Any Batter to Reach Base in the Top of the 1st",
         suspend: "0",
         header: [],
         rows: []
     },
-    "lastTeamtoScore": {
+    "backToBackHitsIntheTopOfThe1st": {
+        marketname: "Back to Back Hits in the Top of the 1st",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "aRunInTheBottomOfThe1st": {
+        marketname: "A Run in the Bottom of the 1st",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "aHitInTheBottomOfThe1st": {
+        marketname: "A Hit in the Bottom of the 1st",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "anyBatterToReachBaseInTheBottomOfThe1st": {
+        marketname: "Any Batter to Reach Base in the Bottom of the 1st",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "backToBackHitsIntheBottomOfThe1st": {
+        marketname: "Back to Back Hits in the Bottom of the 1st",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+}
+
+
+export const baseballTeamProps = {
+    "teamScoringFirstWinsGame": {
+        marketname: "Team Scoring First Wins Game",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "firstTeamToScore": {
+        marketname: "First Team to Score",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "lastTeamToScore": {
         marketname: "Last Team to Score",
         suspend: "0",
         header: [],
         rows: []
     },
-    "first10Minutes": {
-        marketname: "First 10 Minute (00:00 - 09:59)",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    }
-}
-
-export const soccerHalf = {
-    "halfTimeResult": {
-        marketname: "Half Time Result",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "halfTimeDoubleChance": {
-        marketname: "Half Time Double Chance",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "halfTimeResultBothTeamsToScore": {
-        marketname: "Half Time Result/Both Teams To Score",
+    "bothTeamstoScoreXRuns": {
+        marketname: "Both Teams to Score 'X' Runs",
         suspend: "0",
         header: ["", "Yes", "No"],
         rows: []
     },
-    "halfTimeResultTotalGoals":{
-        marketname: "Half Time Result/Total Goals",
+    "leadAfterInnings": {
+        marketname: "Lead After (Innings)",
         suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: [] 
-    },
-    "halfTimeCorrectScore": {
-        marketname: "Half Time Correct Score",
-        suspend: "0",
-        header: ["Home", "Draw", "Away"],
+        header: ["", "Home", "Away", "Tie"],
         rows: []
     },
-    "bothTeamsToScorein1stHalf":{
-        marketname: "Both Team To Score in 1st Half",
+    "teamWithHighestScoringInning": {
+        marketname: "Team with Highest Scoring Inning",
         suspend: "0",
         header: [],
         rows: []
     },
-    "bothTeamsToScorein2ndHalf":{
-        marketname: "Both Team To Score in 2nd Half",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "firstHalfAsianHandicap":{
-        marketname: "1st Half Asian Handicap",
+    "teamTotals": {
+        marketname: "Team Totals",
         suspend: "0",
         header: ["Home", "Away"],
         rows: []
     },
-    "firstHalfGoalLine":{
-        marketname: "1st Half Goal Line",
+    "teamAlternativeTotals": {
+        marketname: "Team Alternative Totals",
         suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: [] 
-    },
-    "alternativeFirstHalfAsianHandicap":{
-        marketname: "Alternative 1st Half Asian Handicap",
-        suspend: "0",
-        header: [ "Home", "Away"],
-        rows: []  
-    },
-    "alternativeFirstHalfGoalLine":{
-        marketname: "Alternative 1st Half Goal Line",
-        suspend: "0",
-        header: [ "", "Over", "Under"],
+        header: ["Home", "Away"],
         rows: []
-    }
-
+    },
+    "teamHits": {
+        marketname: "Team Hits",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: []
+    },
+    "teamAlternativeHits": {
+        marketname: "Team Alternative Hits",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: []
+    },
+    "teamTotalOdd/Even": {
+        marketname: "Team Total Odd/Even",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: []
+    },
 }
-
-export const soccerSpecials = {
-    "specials": {
-        marketname: "Specials",
-        suspend: "0",
-        header: ["", "Home", "Away"],
-        rows: []
-    },
-    "toScoreInHalf": {
-        marketname: "To Score in Half",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "toScoreaPenalty": {
-        marketname: "To Score a Penalty",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "toMissaPenalty": {
-        marketname: "To Miss a Penalty",
-        suspend: "0",
-        header: [],
-        rows: []
-    }
-}
-
-export const soccerMinutes = {
-    "10MinuteResult": {
-        marketname: "10 Minute Result",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "first10Minutes": {
-        marketname: "First 10 Minute (00:00 - 09:59)",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    }
-}
-
-
-
-// "boxing",
-//     "esports",
-//     "table_tennis",
-//     "darts",
-//     "soccer",
-//     "basketball",
-//     "tennis",
-//     "hockey",
-//     "handball",
-//     "volleyball",
-//     "baseball",
-//     "cricket"

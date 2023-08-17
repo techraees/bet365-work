@@ -4,22 +4,8 @@ import { cn } from '@/lib/utils';
 import { categoriesMapping } from '@/lib/sportsMapping';
 import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
-import { soccerAll, soccerAsianLines, soccerBetBuilder, soccerCornersCards, soccerGoals, soccerHalf, soccerMinutes, soccerSpecials } from './mappings/datastructure';
-import {
-    fulltimeResult, doubleChance, goalsOverUnderOV, correctScore, handicapResult, alternativeHandicapResult,
-    minuteResult, first10Minutes, toScoreaPenalty, toMissaPenalty,alternativegoalLine,bethalftimeFulltime,
-    betScore, bethalfWithMostGoals, betteamSpecials, alternativetotalGoals, resultTotalGoals, goalOddEven,
-    bothTeamsToScoreHalf, cleanSheet,
-    halfTimeResult, nthGoalMarketName, lastTeamToScore, HalfGoals, alternativematchGoals,
-    matchGoals, asianHandicap, threeWayHandicap, toWin2ndHalf, drawNoBet, goalLine, finalScore,
-    halfTimeCorrectScore, halfTimeFullTime, firstHalfAsianHandicap, firstHalfGoalLine, firstHalfHandicap,
-    resultBothTeamsToScore, bothTeamsToScore, asianCorners, firstHalfAsianCorners, cornerRace, corners, matchCorners,
-    twoWayCorners,
-    toQualify, goalsOverUnder,
-    twoCellTitleValue,
-    betResult, betBothTeamsToScore, betDoubleChance, betMatchGoals, betNextGoal, betTeamGoals, betGoalOddEven,
-    BetTeamToScoreinBothHalf, BetTeamToScorein2ndHalf, betMatchCorners, firsthalfgoalOddEven, halfTimeDoubleChance, halfTimeResultBothTeamsToScore
-} from './mappings/pregamemaps';
+import { volleyball} from './mappings/datastructure';
+import { gameLines , } from './mappings/pregamemaps';
 import MarketGroupBody from '@/components/Structure/MarketGroupBody';
 
 interface MarketGroupProps {
@@ -34,80 +20,13 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
         return null
     }
     let oddData = {} as any;
-    oddData = soccerAll as any;
-    if (active === "Popular" || active === "All") {
-        soccerAll.fulltimeResult.rows = fulltimeResult(data);
-        soccerAll.doubleChance.rows = doubleChance(data);
-        soccerAll.goalsOverUnder.rows = goalsOverUnderOV(data);
-        soccerAll.bothTeamsToScore.rows = bothTeamsToScore(data);
-        soccerAll.resultBothTeamsToScore.rows = resultBothTeamsToScore(data);
-        soccerAll.correctScore.rows = correctScore(data);
-        soccerAll.halfTimeFullTime.rows = halfTimeFullTime(data)
-        soccerAll.asianHandicap.rows = asianHandicap(data);
-        soccerAll.goalLine.rows = goalLine(data);
-        // soccerAll.drawNoBet.rows = drawNoBet(data);
-        soccerAll.handicapResult.rows = handicapResult(data);
-        soccerAll.alternativeHandicapResult.rows = alternativeHandicapResult(data);
-        oddData = soccerAll as any;
-    } else if (active === "Bet Builder") {
-        soccerBetBuilder.result.rows = betResult(data);
-        soccerBetBuilder.bothTeamsToScore.rows = betBothTeamsToScore(data);
-        soccerBetBuilder.doubleChance.rows = betDoubleChance(data);
-        soccerBetBuilder.halftimeFulltime.rows = bethalftimeFulltime(data);
-        soccerBetBuilder.score = betScore(data, soccerBetBuilder.score);
-        soccerBetBuilder.halfWithMostGoals.rows = bethalfWithMostGoals(data);
-        soccerBetBuilder.teamSpecials.rows = betteamSpecials(data);
-        soccerBetBuilder.goalOddEven.rows = betGoalOddEven(data);
-        oddData = soccerBetBuilder as any;
-    } else if (active === "Asian Lines") {
-        soccerAsianLines.asianHandicap.rows = asianHandicap(data);
-        soccerAsianLines.goalLine.rows = goalLine(data);
-        soccerAsianLines.alternativeGoalLine.rows = alternativegoalLine(data)
-        soccerAsianLines.firstHalfAsianHandicap.rows = firstHalfAsianHandicap(data, true);
-        soccerAsianLines.firstHalfGoalLine.rows = firstHalfGoalLine(data, true);
-        soccerAsianLines.alternativeFirstHalfAsianHandicap.rows = firstHalfAsianHandicap(data);
-        soccerAsianLines.alternativeFirstHalfGoalLine.rows = firstHalfGoalLine(data);
-        oddData = soccerAsianLines as any;
-    } else if (active === "Goals") {
-        soccerGoals.goalsOverUnder.rows = goalsOverUnderOV(data);
-        soccerGoals.alternativetotalGoals.rows = alternativetotalGoals(data)
-        soccerGoals.resultTotalGoals.rows = resultTotalGoals(data);
-        soccerGoals.bothTeamsToScore.rows = bothTeamsToScore(data);
-        soccerGoals.bothTeamsToScoreIn1stHalf.rows = bothTeamsToScoreHalf(data, '1');
-        soccerGoals.bothTeamsToScoreIn2ndHalf.rows = bothTeamsToScoreHalf(data, '2');
-        soccerGoals.goalOddEven.rows = goalOddEven(data);
-        soccerGoals.firstHalfGoalsOddEven.rows = firsthalfgoalOddEven(data);
-        soccerGoals.lastTeamtoScore.rows = lastTeamToScore(data);
-        soccerGoals.first10Minutes.rows = first10Minutes(data);
-        soccerGoals.firstHalfGoals.rows = HalfGoals(data);
-        soccerGoals.secondHalfGoals.rows = HalfGoals(data, '2');
-        soccerGoals.cleanSheet.rows = cleanSheet(data);
-        oddData = soccerGoals as any;
-    } else if (active === "Half") {
-        soccerHalf.halfTimeResult.rows = halfTimeResult(data);
-        soccerHalf.halfTimeDoubleChance.rows = halfTimeDoubleChance(data);
-        soccerHalf.halfTimeResultBothTeamsToScore.rows = halfTimeResultBothTeamsToScore(data);
-        soccerHalf.halfTimeCorrectScore.rows = halfTimeCorrectScore(data);
-        soccerHalf.bothTeamsToScorein1stHalf.rows = bothTeamsToScoreHalf(data, '1');
-        soccerHalf.bothTeamsToScorein2ndHalf.rows = bothTeamsToScoreHalf(data, '2');
-        soccerHalf.firstHalfAsianHandicap.rows = firstHalfAsianHandicap(data, true);
-        soccerHalf.firstHalfGoalLine.rows = firstHalfGoalLine(data, true);
-        soccerHalf.alternativeFirstHalfAsianHandicap.rows = firstHalfAsianHandicap(data);
-        soccerHalf.alternativeFirstHalfGoalLine.rows = firstHalfGoalLine(data);
-        oddData = soccerHalf as any;
-    } else if (active === "Specials") {
-        soccerSpecials.specials.rows=betteamSpecials(data);
-        soccerSpecials.toScoreaPenalty.rows = toScoreaPenalty(data);
-        soccerSpecials.toMissaPenalty.rows = toMissaPenalty(data);
-        oddData = soccerSpecials as any;
-    } else if (active === "Minutes") {
-        soccerMinutes['10MinuteResult'].rows = minuteResult(data);
-        soccerMinutes.first10Minutes.rows = first10Minutes(data);
-        oddData = soccerMinutes as any;
+    oddData = volleyball as any;
+    if (active === "Main Markets" || active === "All") {
+        volleyball.gameLines.rows = gameLines(data);
+        oddData = volleyball as any;
     }
 
-
-    console.log('detail market soccer', data)
+    console.log('detail market tennis', oddData)
 
     return (
         <div className='w-[100%] bg-[#383838]'>
