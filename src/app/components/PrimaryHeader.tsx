@@ -19,7 +19,8 @@ const PrimaryHeader = () => {
     },
     {
       label: "In-Play",
-      link: "/in-play",
+      //changed to in-play/soccer to redirect to the soccer we may change it in the future
+      link: "/in-play/soccer",
     },
   ];
   const router = useRouter();
