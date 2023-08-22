@@ -24,13 +24,13 @@ const SportsHeader = () => {
     {
       label: "Favourites",
       link: "/in-play",
-      active: true,
+      active: false,
       icon: StarIcon,
     },
     {
       label: "Soccer",
       link: "/in-play/soccer",
-      active: false,
+      active: true,
       icon: SoccerIcon,
     },
     {
