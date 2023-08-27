@@ -10,14 +10,14 @@ const Winner: React.FC<WinnerProps> = ({ data }) => {
         return null
     }
     Object.keys(data?.odds).map(item => {
-        if (data.odds[item].name === "Game Winner") {
+        if (data.odds[item].name === "To Win") {
             let participants = data.odds[item]?.participants
             let home = [] as any;
             let away = [] as any;
             Object.keys(participants).map(participat => {
-                if (participants[participat]?.name === "Home") {
+                if (participants[participat]?.name === "Home" && participants[participat]?.suspend === "0") {
                     home.push(participants[participat].value_eu)
-                } else if (participants[participat]?.name === "Away") {
+                } else if (participants[participat]?.name === "Away" && participants[participat]?.suspend === "0") {
                     away.push(participants[participat].value_eu)
                 }
             })

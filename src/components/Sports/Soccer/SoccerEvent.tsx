@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { defaultSubcategories } from "@/lib/sportsMapping";
 import { cn } from "@/lib/utils";
@@ -14,11 +14,52 @@ interface SoccerEventProps {
     subcategory?: string;
 }
 
+
 const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) => {
-    console.log({ data, sport })
+    console.log({ data, sport });
+
+    const initialSeconds = data?.info?.seconds || "00:00";
+    // const initialSecondsIncreased = increaseTimeBySeconds(initialSeconds, 10);
+
+    const [isTimerPaused, setTimerPaused] = useState(false);
+    const [totalSeconds, setTotalSeconds] = useState(convertToSeconds(initialSeconds));
+
+
+    const displayTime = isNaN(totalSeconds) ? "00:00" : formatTime(totalSeconds);
+
+    if ((data?.core?.stopped === "1") && isTimerPaused==false) {
+        setTimerPaused(true);
+        setTotalSeconds(convertToSeconds(data?.info?.seconds));
+    }
+    if ((data?.core?.stopped === "0") && isTimerPaused==true) {
+        setTotalSeconds(convertToSeconds(data?.info?.seconds));
+        setTimerPaused(false);
+    }
+
+    useEffect(() => {
+        let timerInterval: NodeJS.Timer | undefined;
+        
+        if (!isTimerPaused) {
+            timerInterval = setInterval(() => {
+                setTotalSeconds(prevTotalSeconds => prevTotalSeconds + 1);
+            }, 1000); // Increase by 1 second (1000 milliseconds)
+        } else {
+            clearInterval(timerInterval); // Pause the timer
+        }
+
+        return () => {
+            clearInterval(timerInterval); // Clean up the interval on component unmount
+        };
+    }, [isTimerPaused]); 
+
+
     if (!data) {
         return null;
     }
+
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
     return (
         <div className="flex flex-col border-t-[#ffffff1a] border-t border-solid text-base">
             <div className={cn(`flex w-full px-2 md:px-8  justify-center min-h-[100px]`)}>
@@ -31,7 +72,7 @@ const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) =
                         <div className="flex items-left text-[11px] font-[400] items-center">
                             <div className="hidden flex-col items-left mr-2 md:flex">
                                 <div className="flex h-[25px] items-center">
-                                    <div className="flex">{data?.info?.seconds}</div>
+                                    <div className="flex">{displayTime}</div>
                                 </div>
                             </div>
                             <div className="flex flex-col text-[13px] font-semibold hover:text-brand-green-light cursor-pointer overflow-hidden">
@@ -53,7 +94,8 @@ const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) =
                                 </div>
                                 <div className="flex flex-col items-left mr-2 md:hidden">
                                     <div className="flex h-[25px] items-center">
-                                        <div className="flex text-[11px] leading-3 font-[500]">{data?.info?.seconds}</div>
+                                        {/* <div className="flex text-[11px] leading-3 font-[500]">{minutes < 10 ? '0' : ''}{minutes}:{seconds < 10 ? '0' : ''}{seconds}</div> */}
+                                        <div className="flex">{displayTime}</div>
                                     </div>
                                 </div>
                             </div>
@@ -70,12 +112,28 @@ const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) =
                         <SoccerField />
                     </div>
                 </div>
-
-
-
             </div>
         </div>
     );
 };
+
+function convertToSeconds(timeString: string) {
+    const [minutes, seconds] = timeString.split(":").map(Number);
+    return minutes * 60 + seconds;
+}
+
+function increaseTimeBySeconds(timeString:any, secondsToAdd:any) {
+    const totalSeconds = convertToSeconds(timeString) + secondsToAdd;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+function formatTime(totalSeconds:any) {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
 
 export default SoccerEvent;

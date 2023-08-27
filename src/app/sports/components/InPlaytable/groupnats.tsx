@@ -43,7 +43,14 @@ const Groupnats = ({ soccerodds,
     const data: any = sc.decode(message.data);
     console.log({ subject: message.subject, patch: data });
     try {
+      const start = performance.now();
+
       const document = jsonpatch.applyPatch(oddsState, data).newDocument;
+      const end = performance.now();
+      const loadTime = end - start;
+      console.log(`Page load time: ${loadTime}ms`);
+
+
       console.log({ document });
       setOddsState({ ...document });
     } catch (e) {

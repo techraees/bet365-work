@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { categoriesMapping } from "@/lib/sportsMapping";
 import { cn } from "@/lib/utils";
