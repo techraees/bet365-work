@@ -24,7 +24,7 @@ const CustomLink: React.FC<CustomLinkProps> = ({
 
 
   return (
-    <Link {...props}>
+    <Link {...props} prefetch={false}>
       <span className={cn("text-[#9c9c9c] hover:text-white",className, isActive && activeClassName)}>
         {children}
       </span>
