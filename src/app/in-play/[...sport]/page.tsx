@@ -1,5 +1,5 @@
 import Nats from "@/components/Nats";
-import { getSportsOdds, getOddsGroupedByLeauge } from "@/api";
+import { getSportsOdds } from "@/api";
 import SportDetailHeader from "../components/SportDetailHeader";
 import Esports from "@/components/Sports/Esports/EsportsWrapper";
 
@@ -7,16 +7,12 @@ const Home = async ({ params }: any) => {
   let { sport } = params;
 
   let odds = await getSportsOdds(sport[0]);
-  let leagues = await getOddsGroupedByLeauge(sport[0]);
-  console.log('in-play', sport[0], {odds}, {leagues})
+  console.log('in-play', sport[0], {odds})
   if(sport[0] === 'esports'){
     console.log('calling other odds')
     let soccerodds = await getSportsOdds('esoccer');
-    let soccerleagues = await getOddsGroupedByLeauge('esoccer');
     let basketballodds = await getSportsOdds('basketball');
-    let basketballleagues = await getOddsGroupedByLeauge('basketball');
     odds={...odds, ...soccerodds, ...basketballodds}
-    leagues={...leagues, ...soccerleagues, ...basketballleagues}
   }
 
   // console.log({ odds, leagues });
@@ -29,14 +25,10 @@ const Home = async ({ params }: any) => {
     return <NoOddsFound/>;
   }
 
-  if (leagues === undefined || Object.keys(leagues).length === 0) {
-    return <NoOddsFound/>;
-  }
-
   if (odds?.message) {
     return <div>No odds found</div>;
   }
-  return <Nats odds={odds} sport={sport[0]} subcategory={sport[1]} currentdataId={sport[2]} leagues={leagues} />;
+  return <Nats odds={odds} sport={sport[0]} subcategory={sport[1]} currentdataId={sport[2]} />;
 };
 
 export default Home;

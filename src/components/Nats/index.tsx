@@ -18,7 +18,7 @@ const sc = JSONCodec();
 const SERVER_URL = process.env.NEXT_PUBLIC_NATS_URL!;
 
 
-const Odds = ({ odds, sport, subcategory, currentdataId, leagues }: any) => {
+const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
   const [oddsState, setOddsState] = useState<any>(odds);
   const [natsConnections, setNatsConnections] = useState<NatsConnection[]>([]);
 
@@ -33,6 +33,8 @@ const Odds = ({ odds, sport, subcategory, currentdataId, leagues }: any) => {
     console.log({ subject: message.subject, patch: data });
     try {
       const document = jsonpatch.applyPatch(oddsState, data).newDocument;
+
+
       console.log({ document });
       setOddsState({ ...document });
     } catch (e) {
@@ -40,8 +42,6 @@ const Odds = ({ odds, sport, subcategory, currentdataId, leagues }: any) => {
       route.refresh()
     }
   };
-
-  const leaguesKey = Object.keys(leagues);
 
   useEffect(() => {
     const newNatsConnections: NatsConnection[] = [];
@@ -114,8 +114,19 @@ const Odds = ({ odds, sport, subcategory, currentdataId, leagues }: any) => {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [sport]);
 
-  const grouped = Object.entries(leagues).map(([leagueName, eventIds]: any) => {
-    const eventsArray = eventIds.map((eventId: any) => odds[eventId]?.raw_object);
+  var grouped_leagues = {} as any;
+  for(var event_id in oddsState){
+    var event_obj = oddsState[event_id];
+    var league_name= event_obj.raw_object.info.league;
+    if(grouped_leagues[league_name] === undefined){
+      grouped_leagues[league_name] = [event_obj.raw_object]
+    }else{
+      grouped_leagues[league_name].push(event_obj.raw_object);
+    }
+  }
+
+  const grouped = Object.entries(grouped_leagues).map(([leagueName, eventIds]: any) => {
+    const eventsArray = eventIds;
     return {
       name: leagueName,
       events: eventsArray,
