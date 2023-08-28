@@ -1,6 +1,6 @@
 'use client';
 import React, {useState} from "react";
-import SportsHeader from "@/app/in-play/components/SportsHeader";
+import SportsHeader from "@/app/(app)/in-play/components/SportsHeader";
 import EsportHeader from "./EsportHeader";
 import EsportBody from "./EsportBody";
 

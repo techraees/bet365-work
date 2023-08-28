@@ -66,12 +66,12 @@ const PrimaryHeader = () => {
           }} />
         </div>
         <div className="mx-auto flex text-white items-center h-full">
-          <div className={cn("mx-4 cursor-pointer h-full flex text-white hover:text-brand-green-light items-center", location.includes('/in-play') ? 'border-b-2 border-solid border-[#FFDF1B]' : '')} onClick={() => {
+          <div className={cn("mx-4 cursor-pointer h-full flex text-white hover:text-brand-green-light items-center", location?.includes('/in-play') ? 'border-b-2 border-solid border-[#FFDF1B]' : '')} onClick={() => {
             router.push('/in-play')
           }}>
             In-Play
           </div>
-          <div className={cn("mx-4 cursor-pointer h-full flex text-white hover:text-brand-green-light items-center", location.includes('/sports') ? 'border-b-2 border-solid border-[#FFDF1B]' : '')} onClick={() => {
+          <div className={cn("mx-4 cursor-pointer h-full flex text-white hover:text-brand-green-light items-center", location?.includes('/sports') ? 'border-b-2 border-solid border-[#FFDF1B]' : '')} onClick={() => {
             router.push('/sports')
           }}>
             <SmallLogo />
