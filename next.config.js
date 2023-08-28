@@ -9,7 +9,7 @@ const nextConfig = {
       },
     ]
   },
-  // generateEtags: false,
+  generateEtags: false,
 }
 
 module.exports = nextConfig
