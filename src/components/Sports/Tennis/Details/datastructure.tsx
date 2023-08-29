@@ -204,6 +204,27 @@ export const tennisAll = {
             [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }, { title: "", value:"12", suspend:"0"}],
         ]
     },
+    "currentSetRaceTo2": {
+        marketname: "Set X Lead After",
+        suspend: "0",
+        header: ["", "Home", "Away", "Tie"],
+        rows: [
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.1", suspend: "0" }, { title: "", value:"12", suspend:"0"},{ title: "", value:"12", suspend:"0"}],
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.1", suspend: "0" }, { title: "", value:"12", suspend:"0"},{ title: "", value:"12", suspend:"0"}],
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.1", suspend: "0" }, { title: "", value:"12", suspend:"0"},{ title: "", value:"12", suspend:"0"}],
+        ]
+    },
+    "currentSetLeadAfter": {
+        marketname: "Set X Lead After",
+        suspend: "0",
+        header: ["", "Home", "Away", "Tie"],
+        rows: [
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.1", suspend: "0" }, { title: "", value:"12", suspend:"0"},{ title: "", value:"12", suspend:"0"}],
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.1", suspend: "0" }, { title: "", value:"12", suspend:"0"},{ title: "", value:"12", suspend:"0"}],
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.1", suspend: "0" }, { title: "", value:"12", suspend:"0"},{ title: "", value:"12", suspend:"0"}],
+        ]
+    },
+
     "currentSetRaceToGames": {
         marketname: "Set X Race to",
         suspend: "0",
@@ -266,6 +287,15 @@ export const tennisAll = {
             [{ title: "7-5, 7-6", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }, { title: "", value:"12", suspend:"0"}],
         ]
     },
+    "currentSetHandicap": {
+        marketname: "Set X Handicap",
+        suspend: "0",
+        header: [],
+        rows: [
+            [{ title: "Player 1", value: "", suspend: "0" }, { title: "", value: "1.002", suspend: "0" }, { title: "", value: "10", suspend: "0" }],
+            [{ title: "Player 2", value: "", suspend: "0" }, { title: "", value: "1.002", suspend: "0" }, { title: "", value: "10", suspend: "0" }],
+        ]
+    },
     "leadAfterCurrentSet": {
         marketname: "Set X Lead after",
         suspend: "0",
@@ -306,12 +336,72 @@ export const tennisAll = {
             [{ title: "Player 2", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }, { title: "", value:"12", suspend:"0"}],
         ]
     },
+    "nextSetHandicap": {
+        marketname: "Set X Handicap",
+        suspend: "0",
+        header: [],
+        rows: [
+            [{ title: "Player 1", value: "", suspend: "0" }, { title: "", value: "1.002", suspend: "0" }, { title: "", value: "10", suspend: "0" }],
+            [{ title: "Player 2", value: "", suspend: "0" }, { title: "", value: "1.002", suspend: "0" }, { title: "", value: "10", suspend: "0" }],
+        ]
+    },
+    "totalGamesInMatch": {
+        marketname: "Total Games in Match",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: [
+            [{ title: "25.5", value: "", suspend: "0" }, { title: "", value: "1.002", suspend: "0" }, { title: "", value: "51.00", suspend: "0" }],
+        ]
+    },
+    "matchHandicap": {
+        marketname: "Match Handicap",
+        suspend: "0",
+        header: [],
+        rows: [
+            [{ title: "25.5", value: "", suspend: "0" }, { title: "", value: "1.002", suspend: "0" }, { title: "", value: "51.00", suspend: "0" }],
+        ]
+    },
+    "player1To": {
+        marketname: "Player to",
+        suspend: "0",
+        header: ["", "Yes", "No"],
+        rows: [
+            [{ title: "Win in Straight Sets", value: "", suspend: "0" }, { title: "", value: "1.8", suspend: "0" }, { title: "", value:"12", suspend:"0"}],
+            [{ title: "Win 2 Sets", value: "", suspend: "0" }, { title: "", value: "1.8", suspend: "0" }, { title: "", value:"12", suspend:"0"}],
+            [{ title: "Win from Behind (Sets)", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }, { title: "", value:"12", suspend:"0"}],
+        ]
+    },
+    "setBetting": {
+        marketname: "setBetting",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: [
+            [{ title: "3-1", value: "", suspend: "0" }, { title: "", value: "1.002", suspend: "0" }, { title: "", value: "2.00", suspend: "0" }],
+            [{ title: "3-2", value: "", suspend: "0" }, { title: "", value: "1.002", suspend: "0" }, { title: "", value: "2.00", suspend: "0" }],
+        ]
+    },
     "goTheDistance": {
         marketname: "Go The Distance?",
         suspend: "0",
         header: [],
         rows: [
             [{ title: "Yes", value: "51.00", suspend: "0" }, { title: "No", value: "1.002", suspend: "0" }],
+        ]
+    },
+    "playerGamesWon": {
+        marketname: "Player Games Won",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: [
+            [{ title: "Over 25.5", value: "51.00", suspend: "0" }, { title: "Under 25.5", value: "1.002", suspend: "0" }, { title: "Over 25.5", value: "51.00", suspend: "0" }, { title: "Under 25.5", value: "1.002", suspend: "0" }],
+        ]
+    },
+    "totalSets": {
+        marketname: "Total Sets",
+        suspend: "0",
+        header: [],
+        rows: [
+            [{ title: "3 Sets", value: "51.00", suspend: "0" }, { title: "4 sets", value: "1.002", suspend: "0" }],
         ]
     },
     "matchTotalOddEven": {
@@ -322,7 +412,37 @@ export const tennisAll = {
             [{ title: "Yes", value: "51.00", suspend: "0" }, { title: "No", value: "1.002", suspend: "0" }],
         ]
     },
+    "nextSetRaceTo": {
+        marketname: "Set X Race to",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: [
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.1", suspend: "0" }, { title: "", value:"12", suspend:"0"}],
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.1", suspend: "0" }, { title: "", value:"12", suspend:"0"}],
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }, { title: "", value:"12", suspend:"0"}],
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }, { title: "", value:"12", suspend:"0"}],
+        ]
+    },
+    "nextSetLeadAfter": {
+        marketname: "Set X Lead after",
+        suspend: "0",
+        header: ["", "Home", "Away", "Tie"],
+        rows: [
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.1", suspend: "0" },{ title: "", value: "1.1", suspend: "0" },{ title: "", value:"12", suspend:"0"}],
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.1", suspend: "0" }, { title: "", value:"12", suspend:"0"},{ title: "", value: "1.1", suspend: "0" }],
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }, { title: "", value:"12", suspend:"0"},{ title: "", value: "1.1", suspend: "0" }],
+            [{ title: "6.5", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }, { title: "", value:"12", suspend:"0"},{ title: "", value: "1.1", suspend: "0" } ],
+        ]
+    },
 
+    "nextSetWinner": {
+        marketname: "Set X Winner",
+        suspend: "0",
+        header: [],
+        rows: [
+            [{ title: "Mpakagiokos", value: "1", suspend: "0" }, { title: "Alberto", value: "3.5", suspend: "0" }],
+        ]
+    },
     // "goTheDistance?": {
     //     marketname: "Go The Distance?",
     //     suspend: "0",

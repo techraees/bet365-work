@@ -21,6 +21,18 @@ export const getSetTitle = (data:any, prevString: string) =>{
     return new_string;
 }
 
+export const getNextSetTitle = (data:any, prevString: string) =>{
+
+    var current_set = data?.info?.period;
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_set.match(period_regex);
+    var next_set_number = parseInt(_matching[1]) + 1;
+    var new_string = "Set " + next_set_number.toString()
+
+    var new_string = prevString.replace("Set X", new_string);
+    return new_string;
+}
+
 export const getGameTitle = (data:any, prevString: string) =>{
     var games_string = ""
     var stats = data?.stats;
@@ -212,12 +224,12 @@ export const gameWinner = (data:any) =>{
     var away = _getParticipantsField(participants, "Away", current_game);
     if(home){
         home.title = data?.team_info?.home?.name
+        arr.push(home);
     }
     if(away){
         away.title = data?.team_info?.away?.name
+        arr.push(away);
     }
-    arr.push(home);
-    arr.push(away);
     
     var suspend_value = '0'
     if(home && home.suspend === "1" && away && away?.suspend === "1"){
@@ -955,6 +967,17 @@ const _getParticipantsFieldWithoutHandicap = (participants:any, line:string) => 
             value = participant_obj.value_eu;
             var obj = {title:title, value:value, suspend:suspend}
             return obj;
+        }
+    }
+    return null;
+
+}
+
+const _getParticipantsFieldRaw = (participants:any, line:string) => {
+    for(var participant_id in participants){
+        const participant_obj = participants[participant_id];
+        if(participant_obj.name === line){
+            return participant_obj;
         }
     }
     return null;
@@ -2140,6 +2163,66 @@ export const currectSetCorrectScoreGroup = (data:any) =>{
     return {rows:base_arr, suspend:odds.suspend};
 }
 
+
+export const currectSetCorrectScoreGroup2 = (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+
+    var search_line = current_period + " Correct Score Group";
+    // var search_line = "Correct Score Group (" + current_period_str + " Set)";
+    const _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+    var participants = odds.participants;
+    const group = groupSymmetricPairs(participants);
+    for(var pair in group){
+        var arr = [] as any;
+        var group_obj = group[pair];
+        var title_obj = {title: group_obj[1].name, value: "", suspend: ""}
+        // if(group_obj[0].suspend !== "1" && group_obj[1].suspend !== "1"){
+
+            var first_group = {title: "", value: group_obj[1].value_eu, suspend: group_obj[1].suspend}
+            var second_group = {title: "", value: group_obj[0].value_eu, suspend: group_obj[0].suspend}
+            arr.push(title_obj);
+            arr.push(first_group);
+            arr.push(second_group);
+            base_arr.push(arr);
+        // }
+    }
+
+    return {rows:base_arr, suspend:odds.suspend};
+}
+
+
+
+
+
 export const currentSetScoreAfter4Games = (data:any) =>{
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
@@ -2212,4 +2295,941 @@ export const currentSetScoreAfter4Games = (data:any) =>{
     }
 
     return {rows:base_arr, suspend:odds.suspend};
+}
+
+
+
+
+
+export const currentSetHandicap = (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        
+        // to find the next set 
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Asian Handicap (" + current_period_str + " Set)"
+    const _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+    
+    var arr = [] as any;
+    var participants = odds.participants;
+    var home_participant = _getParticipantsFieldRaw(participants, "Home");
+    var away_participant = _getParticipantsFieldRaw(participants, "Away");
+    if(home_participant){
+        var title = data?.team_info.home.name + " " + home_participant.handicap ;
+        var value = home_participant.value_eu;
+        var suspend = home_participant.suspend;
+        var home_obj = {title: title, value: value, suspend: suspend}
+        arr.push(home_obj)
+
+    }
+    if(away_participant){
+        var title = data?.team_info.away.name + " " + away_participant.handicap ;
+        var value = away_participant.value_eu;
+        var suspend = away_participant.suspend;
+        var away_obj = {title: title, value: value, suspend: suspend}
+        arr.push(away_obj)
+
+    }
+    base_arr.push(arr);
+
+    return {rows:base_arr, suspend:odds.suspend};
+}
+
+
+export const nextSetHandicap = (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        
+        // to find the next set 
+        set_number += 1;
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Asian Handicap (" + current_period_str + " Set)"
+    const _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+    
+    var arr = [] as any;
+    var participants = odds.participants;
+    var home_participant = _getParticipantsFieldRaw(participants, "Home");
+    var away_participant = _getParticipantsFieldRaw(participants, "Away");
+    if(home_participant){
+        var title = data?.team_info.home.name + " " + home_participant.handicap ;
+        var value = home_participant.value_eu;
+        var suspend = home_participant.suspend;
+        var home_obj = {title: title, value: value, suspend: suspend}
+        arr.push(home_obj)
+
+    }
+    if(away_participant){
+        var title = data?.team_info.away.name + " " + away_participant.handicap ;
+        var value = away_participant.value_eu;
+        var suspend = away_participant.suspend;
+        var away_obj = {title: title, value: value, suspend: suspend}
+        arr.push(away_obj)
+
+    }
+    base_arr.push(arr);
+
+    return {rows:base_arr, suspend:odds.suspend};
+}
+
+
+export const totalSets = (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        
+        // to find the next set 
+        set_number += 1;
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Total Sets"
+    const _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+    
+    var participants = odds.participants;
+    var index = 0;
+    var length = Object.keys(participants).length;
+
+    for (var participant_id in participants) {
+        if (index % 2 === 0 && index !== length - 1) {
+            var arr = [];
+            var first_participant = participants[participant_id];
+            arr.push({
+                title: first_participant.name,
+                value: first_participant.value_eu,
+                suspend: first_participant.suspend
+            });
+
+            // Getting the next participant
+            var next_key = Object.keys(participants)[index + 1];
+            var second_participant = participants[next_key];
+            arr.push({
+                title: second_participant.name,
+                value: second_participant.value_eu,
+                suspend: second_participant.suspend
+            });
+
+            base_arr.push(arr);
+        }
+
+        index++;
+    }
+
+    // If there's an odd number of participants, we add the last one to its own array
+    if (length % 2 !== 0) {
+        var last_participant = participants[Object.keys(participants)[length - 1]];
+        base_arr.push([{
+            title: last_participant.name,
+            value: last_participant.value_eu,
+            suspend: last_participant.suspend
+        }]);
+    }
+
+    return {rows:base_arr, suspend:odds.suspend};
+}
+
+
+
+export const playersOverUnder = (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        
+        // to find the next set 
+        set_number += 1;
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Player 1 Over/Under by Games"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds_player_1 = data?.odds[_odd_id_current_set_winner];
+    if(odds_player_1 === undefined){
+        return {rows:[], suspend:"0"};
+    }
+
+    search_line = "Player 2 Over/Under by Games"
+    _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds_player_2 = data?.odds[_odd_id_current_set_winner];
+    if(odds_player_2 === undefined){
+        return {rows:[], suspend:"0"};
+    }
+    
+    var player_1_participants = odds_player_1.participants;
+    var player_2_participants = odds_player_2.participants;
+
+    var arr = [] as any;
+    var player_1_over_participant = _getParticipantsFieldRaw(player_1_participants, "Over");
+    var player_1_under_participant = _getParticipantsFieldRaw(player_1_participants, "Under");
+    var player_2_over_participant = _getParticipantsFieldRaw(player_2_participants, "Over");
+    var player_2_under_participant = _getParticipantsFieldRaw(player_2_participants, "Under");
+    var player_1_over_obj = {title: data?.team_info?.home?.name + " " + player_1_over_participant.handicap, value: player_1_over_participant.value_eu, suspend: player_1_over_participant.suspend}
+    var player_1_under_obj = {title: data?.team_info?.home?.name + " " + player_1_under_participant.handicap, value: player_1_under_participant.value_eu, suspend: player_1_under_participant.suspend}
+    var player_2_over_obj = {title: data?.team_info?.away?.name + " " + player_2_over_participant.handicap, value: player_2_over_participant.value_eu, suspend: player_2_over_participant.suspend}
+    var player_2_under_obj = {title: data?.team_info?.away?.name + " " + player_2_under_participant.handicap, value: player_2_under_participant.value_eu, suspend: player_2_under_participant.suspend}
+
+    arr.push(player_1_over_obj, player_1_under_obj, player_2_over_obj, player_2_under_obj)
+    base_arr.push(arr)
+
+    var suspend_value = "0"
+    if(player_1_over_participant.suspend === "1" && player_1_under_participant.suspend === "1" && player_2_over_participant.suspend === "1" && player_2_under_participant.suspend === "1"){
+        suspend_value = "1"
+    }
+    return {rows:base_arr, suspend:suspend_value};
+}
+
+
+export const _groupSetBetting = (participants: any) =>{
+
+    const grouped = [] as any;
+    const processedIds = [] as any;
+
+    for (let participant_id in participants) {
+        const participant = participants[participant_id];
+        if (!processedIds.includes(participant.id)) {
+            const reversedName = participant.name.split(":").reverse().join(":");
+            const symmetric = Object.values(participants).find(p => p.name === reversedName && !processedIds.includes(p.id));
+            
+            if (symmetric) {
+                grouped.push([participant, symmetric]);
+                processedIds.push(participant.id, symmetric.id);
+            } else {
+                grouped.push([participant]);
+                processedIds.push(participant.id);
+            }
+        }
+    }
+    return grouped;
+}
+
+export const setBetting = (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        
+        // to find the next set 
+        set_number += 1;
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Set Betting"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+
+    var arr = [] as any;
+    var participants = odds.participants;
+    console.log(';aalksdlewkfjweopfjew', participants);
+    var groups = _groupSetBetting(participants)
+    for(var group_id in groups){
+        var arr = [] as any;
+        console.log("group", group_obj);
+        var group_obj = groups[group_id];
+        var obj_1  = group_obj[0]
+        var obj_2  = group_obj[1]
+        // var title = group
+
+    }
+
+
+    return {rows:base_arr, suspend:odds.suspend};
+
+}
+
+const _groupParticipantsByHandicapAndName = (participants:any) =>{
+
+    // Convert the data object to an array of values
+    const dataArray = Object.values(participants);
+
+    // Sort the array by handicap and then by name
+    dataArray.sort((a:any, b:any) => {
+        if (a.handicap === b.handicap) {
+            return a.name.localeCompare(b.name);
+        }
+        return a.handicap.localeCompare(b.handicap);
+    });
+
+    // Group the sorted array by handicap
+    const groupedData = dataArray.reduce((acc:any, item:any) => {
+        if (!acc[item.handicap]) {
+            acc[item.handicap] = [];
+        }
+        acc[item.handicap].push(item);
+        return acc;
+    }, {});
+
+    return groupedData;
+}
+
+export const totalGamesInMatch = (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        
+        // to find the next set 
+        set_number += 1;
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Total Games in Match"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+
+    var arr = [] as any;
+    var participants = odds.participants;
+    var grouped = _groupParticipantsByHandicapAndName(participants) as any;
+    var arr = [] as any;
+    for(var handicap in grouped){
+        var title = handicap;
+        var over_obj = grouped[handicap][0];
+        var under_obj = grouped[handicap][1];
+        console.log('oo',grouped[handicap])
+        console.log('uu',under_obj)
+        var _title_obj = {title:title, value:"", suspend:over_obj.suspend};
+        var _over_obj = {title:"", value: over_obj.value_eu, suspend:over_obj.suspend};
+        var _under_obj = {title:"", value: under_obj.value_eu, suspend:under_obj.suspend};
+        arr = [_title_obj, _over_obj, _under_obj];
+        base_arr.push(arr);
+    }
+    return {rows:base_arr, suspend:odds.suspend};
+
+}
+
+
+export const player1To = (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        
+        // to find the next set 
+        set_number += 1;
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Player 1 To Win in Straight Sets"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var player_1_to_win_in_straight_sets_odds = data?.odds[_odd_id_current_set_winner];
+    if(player_1_to_win_in_straight_sets_odds !== undefined){
+        var player_1_to_win_in_straight_sets_yes = _getParticipantsFieldRaw(player_1_to_win_in_straight_sets_odds.participants, "Yes")
+        var player_1_to_win_in_straight_sets_no = _getParticipantsFieldRaw(player_1_to_win_in_straight_sets_odds.participants, "No")
+
+
+        var player_1_to_win_in_straight_sets_title = {title:"Win in Straight Sets", value: "", suspend:""}
+        var player_1_to_win_in_straight_sets_yes_obj = {title:"", value:player_1_to_win_in_straight_sets_yes.value_eu, suspend:player_1_to_win_in_straight_sets_yes.suspend}
+        var player_1_to_win_in_straight_sets_no_obj = {title:"", value:player_1_to_win_in_straight_sets_no.value_eu, suspend:player_1_to_win_in_straight_sets_no.suspend}
+        var player_1_to_win_in_straight_sets_arr = [player_1_to_win_in_straight_sets_title, player_1_to_win_in_straight_sets_yes_obj, player_1_to_win_in_straight_sets_no_obj]
+        base_arr.push(player_1_to_win_in_straight_sets_arr)
+        // return {rows:[], suspend:"0"};
+    }
+
+    var search_line = "Player 1 To Win a Set"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var player_1_to_win_a_set_odds = data?.odds[_odd_id_current_set_winner];
+    if(player_1_to_win_a_set_odds !== undefined){
+        var player_1_to_win_a_set_yes = _getParticipantsFieldRaw(player_1_to_win_a_set_odds.participants, "Yes")
+        var player_1_to_win_a_set_no = _getParticipantsFieldRaw(player_1_to_win_a_set_odds.participants, "No")
+        var player_1_to_win_a_set_title = {title:"Win a set", value: "", suspend:""}
+        var player_1_to_win_a_set_yes_obj = {title:"", value:player_1_to_win_a_set_yes.value_eu, suspend:player_1_to_win_a_set_yes.suspend}
+        var player_1_to_win_a_set_no_obj = {title:"", value:player_1_to_win_a_set_no.value_eu, suspend:player_1_to_win_a_set_no.suspend}
+        var player_1_to_win_a_set_arr = [player_1_to_win_a_set_title, player_1_to_win_a_set_yes_obj, player_1_to_win_a_set_no_obj]
+        base_arr.push(player_1_to_win_a_set_arr);
+
+    }
+
+    var search_line = "Player 1 To_Win from Behind (Sets)"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var player_1_to_win_from_behind_odds = data?.odds[_odd_id_current_set_winner];
+    if(player_1_to_win_from_behind_odds !== undefined){
+        var player_1_to_win_from_behind_yes = _getParticipantsFieldRaw(player_1_to_win_from_behind_odds.participants, "Yes")
+        var player_1_to_win_from_behind_no = _getParticipantsFieldRaw(player_1_to_win_from_behind_odds.participants, "No")
+        var player_1_to_win_from_behind_title = {title:"Win from Behind(Sets)", value: "", suspend:""}
+        var player_1_to_win_from_behind_yes_obj = {title:"", value:player_1_to_win_from_behind_yes.value_eu, suspend:player_1_to_win_from_behind_yes.suspend}
+        var player_1_to_win_from_behind_no_obj = {title:"", value:player_1_to_win_from_behind_no.value_eu, suspend:player_1_to_win_from_behind_no.suspend}
+        var player_1_to_win_from_behind_arr = [player_1_to_win_from_behind_title, player_1_to_win_from_behind_yes_obj, player_1_to_win_from_behind_no_obj]
+        base_arr.push(player_1_to_win_from_behind_arr)
+    
+        // return {rows:[], suspend:"0"};
+    }
+
+    if(base_arr.length > 1){
+        return {rows:base_arr, suspend:"0"};
+    }
+    return {rows:[], suspend:"0"};
+
+}
+
+
+export const nextSetLeadAfter= (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        set_number+=1
+        
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Lead after ("+ current_period_str+" Set)"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+
+    var participants = odds.participants;
+    var grouped = _groupParticipantsByHandicapAndName(participants) as any;
+    for(var handicap in grouped){
+        var arr = [] as any;
+        var title = handicap;
+        var obj_1 = grouped[handicap][0];
+        var obj_2 = grouped[handicap][1];
+        var obj_x = grouped[handicap][2];
+        var _title_obj = {title:title, value:"", suspend:""};
+        var _1_obj = {title:"", value: obj_1.value_eu, suspend:obj_1.suspend};
+        var _2_obj = {title:"", value: obj_2.value_eu, suspend:obj_2.suspend};
+        var _x_obj = {title:"", value: obj_2.value_eu, suspend:obj_x.suspend};
+        arr = [_title_obj, _1_obj, _2_obj, _x_obj];
+        base_arr.push(arr);
+    }
+    return {rows:base_arr, suspend:odds.suspend};
+
+}
+
+
+export const nextSetRaceTo= (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        set_number+=1
+        
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Race to Games ("+ current_period_str+" Set)"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+
+    var arr = [] as any;
+    var participants = odds.participants;
+    var grouped = _groupParticipantsByHandicapAndName(participants) as any;
+    for(var handicap in grouped){
+        var arr = [] as any;
+        var title = handicap;
+        var obj_1 = grouped[handicap][0];
+        var obj_2 = grouped[handicap][1];
+        var _title_obj = {title:title, value:"", suspend:""};
+        var _1_obj = {title:"", value: obj_1.value_eu, suspend:obj_1.suspend};
+        var _2_obj = {title:"", value: obj_2.value_eu, suspend:obj_2.suspend};
+        arr = [_title_obj, _1_obj, _2_obj];
+        base_arr.push(arr);
+    }
+    return {rows:base_arr, suspend:odds.suspend};
+
+}
+
+export const currentSetLeadAfter= (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Lead after ("+ current_period_str+" Set)"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+
+    var participants = odds.participants;
+    var grouped = _groupParticipantsByHandicapAndName(participants) as any;
+    for(var handicap in grouped){
+        var arr = [] as any;
+        var title = handicap;
+        var obj_1 = grouped[handicap][0];
+        var obj_2 = grouped[handicap][1];
+        var obj_x = grouped[handicap][2];
+        var _title_obj = {title:title, value:"", suspend:""};
+        var _1_obj = {title:"", value: obj_1.value_eu, suspend:obj_1.suspend};
+        var _2_obj = {title:"", value: obj_2.value_eu, suspend:obj_2.suspend};
+        var _x_obj = {title:"", value: obj_x.value_eu, suspend:obj_x.suspend};
+        arr = [_title_obj, _1_obj, _2_obj, _x_obj];
+        base_arr.push(arr);
+    }
+    return {rows:base_arr, suspend:odds.suspend};
+
+}
+
+
+export const currentSetLeadAfter2= (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    var base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    
+    var search_line = current_period + " Lead after"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+
+    var participants = odds.participants;
+
+    const dataArray = Object.values(participants);
+
+    // Assuming data length is a multiple of 3
+    const groups = [] as any;
+    for (let i = 0; i < dataArray.length; i += 3) {
+        groups.push({
+            "Home": dataArray[i],
+            "Away": dataArray[i + 1],
+            "Tie": dataArray[i + 2]
+        });
+    }
+
+    var starting_value = 6;
+    for(var group of groups){
+
+        var arr = [] as any;
+        var title_obj = {title:starting_value.toString(),  value:"", suspend:"1"}
+        var home_obj = {title:"", value:group["Home"].value_eu, suspend:group["Home"].suspend}
+        var away_obj = {title:"", value:group["Away"].value_eu, suspend:group["Away"].suspend}
+        var tie_obj = {title:"", value:group["Tie"].value_eu, suspend:group["Tie"].suspend}
+        arr = [title_obj, home_obj, away_obj, tie_obj];
+        base_arr.push(arr);
+        starting_value -= 2;
+
+    }
+
+    base_arr = base_arr.reverse()
+    return {rows:base_arr, suspend:odds.suspend};
+
+}
+
+
+
+export const currentSetRaceTo= (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Race to Games ("+ current_period_str+" Set)"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+
+    var arr = [] as any;
+    var participants = odds.participants;
+    var grouped = _groupParticipantsByHandicapAndName(participants) as any;
+    for(var handicap in grouped){
+        var arr = [] as any;
+        var title = handicap;
+        var obj_1 = grouped[handicap][0];
+        var obj_2 = grouped[handicap][1];
+        var _title_obj = {title:title, value:"", suspend:""};
+        var _1_obj = {title:"", value: obj_1.value_eu, suspend:obj_1.suspend};
+        var _2_obj = {title:"", value: obj_2.value_eu, suspend:obj_2.suspend};
+        arr = [_title_obj, _1_obj, _2_obj];
+        base_arr.push(arr);
+    }
+    return {rows:base_arr, suspend:odds.suspend};
+
+}
+
+
+export const matchHandicap= (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Match Handicap"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+
+    var arr = [] as any;
+    var participants = odds.participants;
+    var home_participant = _getParticipantsFieldRaw(participants, "Home")
+    var away_participant = _getParticipantsFieldRaw(participants, "Away")
+    var home_obj = {title: data?.team_info?.home?.name + " " + home_participant.handicap, value:home_participant.value_eu}
+    var away_obj = {title: data?.team_info?.away?.name + " " + away_participant.handicap, value:away_participant.value_eu}
+    var arr = [] as any;
+    arr = [home_obj, away_obj]
+    base_arr.push(arr)
+    return {rows:base_arr, suspend:odds.suspend};
+
+}
+
+
+export const nextSetWinner = (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        set_number+=1;
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = current_period + " Winner"
+    console.log('esaa', search_line)
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var odds = data?.odds[_odd_id_current_set_winner];
+    if(odds === undefined){
+        return {rows:[], suspend:"0"};
+    }
+
+    var arr = [] as any;
+    var participants = odds.participants;
+    var home_participant = _getParticipantsFieldRaw(participants, "Home")
+    var away_participant = _getParticipantsFieldRaw(participants, "Away")
+    var home_obj = {title:data?.team_info?.home?.name, value: home_participant.value_eu, suspend:"0"}
+    var away_obj = {title:data?.team_info?.away?.name, value: away_participant.value_eu, suspend:"0"}
+
+    arr = [home_obj, away_obj]
+    base_arr.push(arr)
+    return {rows:base_arr, suspend:odds.suspend};
+
 }
