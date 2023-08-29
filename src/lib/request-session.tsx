@@ -4,10 +4,10 @@ import { authOption } from "../../pages/api/auth/[...nextauth]";
 
 
 export default async function requireSession () {
-    const data = await getServerSession(authOption);
-    console.log({data})
-    if (!data) {
+    const sessiondata = await getServerSession(authOption);
+    console.log({sessiondata})
+    if (!sessiondata) {
         redirect('/auth/signin')
     }
-    return data
+    return sessiondata
 }

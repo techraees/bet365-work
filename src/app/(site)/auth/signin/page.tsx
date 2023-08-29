@@ -1,7 +1,7 @@
-import Login from "./components/signin";
+import SigninForm from "./components/signin";
 
 const Auth = async ({ params }: any) => {
-    return <Login />
+    return <SigninForm />
   };
   
   export default Auth;

@@ -9,29 +9,33 @@ interface FormData {
     password: string;
 }
 
-const LoginForm: React.FC = () => {
+const SigninForm: React.FC = () => {
     const router = useRouter();
     const { data: session, status } = useSession();
     console.log({ session, status });
+
+    useEffect(() => {
+        if (status === "authenticated") {
+            router.push('/sports');
+        }
+    }, [status])
+
     const {
         handleSubmit,
         control,
         formState: { errors },
     } = useForm<FormData>();
 
-    const onSubmit = async(data: FormData) => {
-        console.log(data);
+    const onSubmit = async (data: FormData) => {
+        console.log({ data });
         const result = await signIn('credentials', {
             ...data,
             redirect: false
         })
-        console.log(result)
+        console.log({ result })
     };
-    
 
-    // if(session?.user && status === "authenticated"){
-    //     router.push('/sports');  
-    // }
+
 
     return (
         <div className='flex h-100vh w-full justify-center'>
@@ -73,4 +77,4 @@ const LoginForm: React.FC = () => {
     );
 };
 
-export default LoginForm;
+export default SigninForm;

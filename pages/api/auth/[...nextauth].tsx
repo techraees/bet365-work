@@ -5,6 +5,10 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 let API_URL = process.env.API_URL!;
 export const authOption: NextAuthOptions = {
+    session: {
+        strategy: "jwt",
+    },
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [
         CredentialsProvider({
             // The name to display on the sign in form (e.g. "Sign in with...")
@@ -17,10 +21,11 @@ export const authOption: NextAuthOptions = {
                 username: { label: "Username", type: "text", placeholder: "jsmith" },
                 password: { label: "Password", type: "password" },
             },
+
             async authorize(credentials, req) {
                 // Add logic here to look up the user from the credentials supplied
                 console.log('LOGIN REQ', { req })
-                
+
                 const res = await fetch(`http://${API_URL}/auth/signin`, {
                     method: "POST",
                     headers: {
@@ -36,6 +41,10 @@ export const authOption: NextAuthOptions = {
                 const user = await res.json();
 
                 console.log({ user })
+                if (user && user.message && user.message === 'Wrong username or password') {
+                    return null;
+                }
+
                 if (user) {
                     // Any object returned will be saved in `user` property of the JWT
                     return user;
@@ -52,6 +61,7 @@ export const authOption: NextAuthOptions = {
             return { ...token, ...user };
         },
         async session({ session, token, user }) {
+            console.log({ session, token, user })
             session.user = token as any
             return session
         },

@@ -14,14 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className=" text-xs bg-[#282828] leading-[0px] antialiased">
-        <header>
-          <SecondaryHeader />
-          <PrimaryHeader />
-        </header>
-        <main>{children}</main>
-      </body>
-    </html>
+    <div className=" text-xs bg-[#282828] leading-[0px] antialiased">
+      <header>
+        <SecondaryHeader />
+        <PrimaryHeader />
+      </header>
+      <main>{children}</main>
+    </div>
   );
 }
