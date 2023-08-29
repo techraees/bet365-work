@@ -9,6 +9,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { cn } from "@/lib/utils";
 import { NavClose } from "@/components/ui/icons/dialogclose";
 import { FixNavPanel } from "../sports/components/Navigation/navigationpanel";
+import { signOut } from "next-auth/react";
 const PrimaryHeader = () => {
   const [openNav, setOpenNav] = useState(false)
   const menuLinks = [
@@ -49,13 +50,14 @@ const PrimaryHeader = () => {
           <div className="flex-shrink-0 h-4  w-4 hidden md:flex">
             <Search />
           </div>
-          <div className="hidden md:flex">
+          {/* <div className="hidden md:flex">
             <Button>Join</Button>
-          </div>
+          </div> */}
           <div className="flex-1 flex-shrink-0 mr-[20px] text-xs">
-            <CustomLink href="/log-in" className="text-white w-10 flex-shrink-0 hover:text-brand-green-light">
-              Log In
-            </CustomLink>
+          <button onClick={()=>{signOut()}}
+            className="text-white flex-shrink-0 hover:text-brand-green-light">
+              Log Out
+            </button>
           </div>
         </div>
       </Container>
@@ -76,16 +78,17 @@ const PrimaryHeader = () => {
           }}>
             <SmallLogo />
           </div>
-          <div className="mx-4 cursor-pointer">
+          {/* <div className="mx-4 cursor-pointer">
             Join
-          </div>
+          </div> */}
         </div>
         <div className="flex gap-6 items-center pl-4">
 
           <div className="flex-1 flex-shrink-0 mr-[20px]">
-            <CustomLink href="/log-in" className="text-white w-10 flex-shrink-0 hover:text-brand-green-light">
-              Log In
-            </CustomLink>
+            <button onClick={()=>{signOut()}}
+            className="text-white flex-shrink-0 hover:text-brand-green-light">
+              Log Out
+            </button>
           </div>
         </div>
       </Container>
