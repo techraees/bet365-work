@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { NavClose } from "@/components/ui/icons/dialogclose";
 import { FixNavPanel } from "../sports/components/Navigation/navigationpanel";
 import { signOut } from "next-auth/react";
+import UserAccount from "./UserAccount";
 const PrimaryHeader = () => {
   const [openNav, setOpenNav] = useState(false)
   const menuLinks = [
@@ -54,14 +55,15 @@ const PrimaryHeader = () => {
             <Button>Join</Button>
           </div> */}
           <div className="flex-1 flex-shrink-0 mr-[20px] text-xs">
-          <button onClick={()=>{signOut()}}
+          <UserAccount />
+          {/* <button onClick={()=>{signOut()}}
             className="text-white flex-shrink-0 hover:text-brand-green-light">
               Log Out
-            </button>
+            </button> */}
           </div>
         </div>
       </Container>
-      <Container className=" items-center h-[50px] justify-between flex md:hidden text-sm">
+      <Container className=" items-center h-[60px] justify-between flex md:hidden text-sm">
         <div className="flex-shrink-0 h-4 flex ml-4 cursor-pointer">
           <BurgerSearch onClick={() => {
             setOpenNav(!openNav);
@@ -85,10 +87,11 @@ const PrimaryHeader = () => {
         <div className="flex gap-6 items-center pl-4">
 
           <div className="flex-1 flex-shrink-0 mr-[20px]">
-            <button onClick={()=>{signOut()}}
+            <UserAccount />
+            {/* <button onClick={()=>{signOut()}}
             className="text-white flex-shrink-0 hover:text-brand-green-light">
               Log Out
-            </button>
+            </button> */}
           </div>
         </div>
       </Container>
