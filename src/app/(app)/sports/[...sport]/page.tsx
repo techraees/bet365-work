@@ -5,7 +5,7 @@ import NavigationPanel from "../components/Navigation/navigationpanel";
 
 import NatsBoxing from "../components/boxing/NatsBoxing";
 import NatsBasketball from "../components/basketball/Nats";
-import NatsEsport from "../components/esport/Nats";
+import NatsEsport from "../components/esports/Nats";
 import NatsTableTennis from "../components/tableTennis/NatsTableTennis";
 import NatsBaseball from "../components/baseball/Nats";
 import NatsCricket from "../components/cricket/Nats";
