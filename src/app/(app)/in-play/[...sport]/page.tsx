@@ -2,8 +2,10 @@ import Nats from "@/components/Nats";
 import { getSportsOdds } from "@/api";
 import SportDetailHeader from "../components/SportDetailHeader";
 import Esports from "@/components/Sports/Esports/EsportsWrapper";
+import requireSession from "@/lib/request-session";
 
 const Home = async ({ params }: any) => {
+  const session = await requireSession();
   let { sport } = params;
 
   let odds = await getSportsOdds(sport[0]);
