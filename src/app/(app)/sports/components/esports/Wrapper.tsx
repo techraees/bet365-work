@@ -16,7 +16,7 @@ const Wrapper = ({odds, sport, currentdataId, getLeagues }: any) => {
     console.log({listOfData})
     return (
         <div className="flex text-base flex-col flex-1 bg-[#282828] overflow-auto h-[100%]">
-            <Banner url={'/Esport-desktop.jpeg'} heading={'Esport'} tabs={["Coupons", "Outrights"]}/>  
+            <Banner url={'/ESport-desktop.jpeg'} heading={'Esport'} tabs={["Coupons", "Outrights"]}/>  
             <LeagueWraps getLeagues={getLeagues} odds={odds}/>
         </div>
     )
