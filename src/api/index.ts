@@ -58,11 +58,3 @@ export const getPregamesLeaguesGroupedByCountry = () =>
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
-export const getOddsGroupedByLeauge = (sport: string) =>
-  fetch(
-    `http://${API_URL}/odds/${sport}/live/groupBy/league`,
-    requestOptions
-  )
-    .then((response) => response.text())
-    .then((result) => JSON.parse(result))
-    .catch((error) => console.log("error", error));
