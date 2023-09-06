@@ -30,8 +30,8 @@ const Matchcard: FC<PostsProps> = ({ listOfData }) => {
             const hometeam = item?.player_1?.name;
             const awayteam = item?.player_2?.name;
             const time = item?.time;
-            const home = item?.odds.filter((odd: any) => odd.id === '2')[0].bookmakers[0].odds[0].value
-            const away = item?.odds.filter((odd: any) => odd.id === '2')[0].bookmakers[0].odds[1].value
+            const home = item?.odds.filter((odd: any) => odd.id === '2')[0]?.bookmakers[0]?.odds[0].value
+            const away = item?.odds.filter((odd: any) => odd.id === '2')[0]?.bookmakers[0]?.odds[1].value
             console.log({ hometeam, awayteam, time, home, away })
             data.push({
                 hometeam, awayteam, time, home, away, id: item?.id, league: item?.league

@@ -30,7 +30,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                 {odd?.rows?.map((rowdata: any, index: number) => {
                     return (
                         <div key={index} className={'flex flex-col w-[100%] h-[100%]'}>
-                           <div className='border-t border-solid border-t-[#ffffff1a] h-[1px]' />
+                            <div className='border-t border-solid border-t-[#ffffff1a] h-[1px]' />
 
                             <div className={cn(`grid grid-cols-${rowdata.length} overflow-hidden h-[45px] w-[100%] `)}>
                                 {rowdata.map((item: any, index: number) => {
@@ -64,14 +64,14 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
 
     // total band
     // if no header and row is one the align left
- 
+
     return (
         <>
             {odd?.rows?.map((rowdata: any, index: number) => {
                 return (
                     <div key={index} className={'flex flex-col w-[100%] h-[100%]'}>
                         <div className='border-t border-solid border-t-[#ffffff1a] h-[1px]' />
-                        {((rowdata[0]?.value ) || (rowdata.length > 3)) ?
+                        {((rowdata[0]?.value) || (rowdata.length > 3)) ?
                             <div className={cn(`grid grid-cols-${rowdata.length} overflow-hidden h-[45px] w-[100%] `)}>
                                 {rowdata?.map((item: any, index: number) => {
                                     let textLeftAlign = odd?.header?.length === 0 ? true : false
@@ -87,14 +87,14 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                                                 borderRight = true;
                                             }
                                         }
-                                        if(odd?.firstCellBorderRight){
-                                            if(index === 0){
+                                        if (odd?.firstCellBorderRight) {
+                                            if (index === 0) {
                                                 borderRight = true;
-                                                disablehover= true;
+                                                disablehover = true;
                                             }
                                         }
                                     }
-                                   
+
                                     return (
                                         <MarketCell key={index} name={item.title} value={item.value} suspend={odd?.suspend} textLeftAlign={textLeftAlign}
                                             separation={separation ? index === 1 ? true : false : false}
@@ -102,6 +102,19 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                                         />
                                     )
                                 })}
+                            </div>
+                            : (rowdata.length ===2 && !rowdata[0]?.value)? 
+                            <div className={cn(`grid grid-cols-${rowdata.length + 2} overflow-hidden h-[45px] w-[100%] `)}>
+                                <MarketCell disablehover={true} borderRight={true}
+                                    name={rowdata[0]?.title} value={rowdata[0]?.value} suspend={odd?.suspend} active={active} />
+                                <div className={cn(`col-span-${rowdata.length+1} grid grid-cols-${rowdata.length - 1} overflow-hidden h-[100%] w-[100%] `)}>
+                                    {rowdata.map((item: any, index: number) => {
+                                        if (index === 0) return null
+                                        return (
+                                            <MarketCell key={index} name={item.title} value={item.value} suspend={odd?.suspend} active={active} />
+                                        )
+                                    })}
+                                </div>
                             </div>
                             :
                             <div className={cn(`grid grid-cols-${rowdata.length + 1} overflow-hidden h-[45px] w-[100%] `)}>
@@ -116,6 +129,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                                     })}
                                 </div>
                             </div>
+
                         }
 
                     </div>
@@ -131,7 +145,7 @@ const MarketGroupBody: React.FC<MarketGroupBodyProps> = ({ data, keytag, active,
     return (
         <div className={`overflow-hidden h-[100%] w-[100%]`}>
             {odd?.header?.length > 0 &&
-                <MarketHeader odd={odd} data={data} active={active}/>
+                <MarketHeader odd={odd} data={data} active={active} />
             }
             <RowData odd={odd} data={data} active={active} />
         </div>
