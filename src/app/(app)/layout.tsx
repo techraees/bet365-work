@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className=" text-xs bg-[#282828] leading-[0px] antialiased">
+    <div className=" text-xs bg-[#282828] leading-[0px] antialiased min-h-[100vh]">
       <header>
         <SecondaryHeader />
         <PrimaryHeader />
