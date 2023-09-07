@@ -24,6 +24,10 @@ const PrimaryHeader = () => {
       //changed to in-play/soccer to redirect to the soccer we may change it in the future
       link: "/in-play/soccer",
     },
+    {
+      label: "My Bets",
+      link: "/my-bets",
+    },
   ];
   const router = useRouter();
   const location = usePathname();
@@ -79,6 +83,11 @@ const PrimaryHeader = () => {
             router.push('/sports')
           }}>
             <SmallLogo />
+          </div>
+          <div className={cn("mx-4 cursor-pointer h-full flex text-white hover:text-brand-green-light items-center", location?.includes('/my-bets') ? 'border-b-2 border-solid border-[#FFDF1B]' : '')} onClick={() => {
+            router.push('/my-bets')
+          }}>
+            My Bets
           </div>
           {/* <div className="mx-4 cursor-pointer">
             Join
