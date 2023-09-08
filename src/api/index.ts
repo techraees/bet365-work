@@ -48,7 +48,7 @@ export const getPregameSoccer = (leagues: string) =>
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
 
-export const getPregame = (sport:string, leagues: string) =>
+export const getPregame = (sport: string, leagues: string) =>
   fetch(`http://${API_URL}/odds/${sport}/pregame/events/${leagues}`, requestOptions)
     .then((response) => response.text())
     .then((result) => JSON.parse(result))

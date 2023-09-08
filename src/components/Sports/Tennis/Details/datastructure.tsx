@@ -366,11 +366,12 @@ export const tennisAll = {
     "currentSetScoreAfter6Games": {
         marketname: "Set X Score after 6 Games TODO",
         suspend: "0",
-        header: ["", "Home", "", "Away"],
+        header: ["", "Home", "Away"],
         rows: [
-            [{ title: "3-1", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }, { title: "", value:"12", suspend:"0"}, { title: "", value:"12", suspend:"0"}],
-            [{ title: "2-2", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }, { title: "", value:"12", suspend:"0"}, { title: "", value:"12", suspend:"0"}],
-            [{ title: "4-0", value: "", suspend: "0" }, { title: "", value: "", suspend: "0" }, { title: "", value:"12", suspend:"0"}, { title: "", value:"", suspend:"0"}],
+            [{ title: "3-1", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }, { title: "", value:"12", suspend:"0"}],
+            [{ title: "4-0", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }, { title: "", value:"12", suspend:"0"}],
+            [{ title: "2-2", value: "", suspend: "0" }, { title: "", value: "3.00", suspend: "0" }],
+            [{ title: "2-2", value: "", suspend: "0" }, { title: "", value: "3.00", suspend: "0" }, { title: "", value: "", suspend: "0" }],
         ]
     },
     "currentSetToBreakServe": {

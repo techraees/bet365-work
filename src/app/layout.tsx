@@ -1,27 +1,22 @@
+
+
+
+import React, { Children } from "react";
+
 import "./globals.css";
-import Link from "next/link";
-import PrimaryHeader from "./components/PrimaryHeader";
-import SecondaryHeader from "./components/SecondarHeader";
+import Provider from "./Provider";
 
-export const metadata = {
-  title:
-    "Bet with bet365 - Live Online Betting",
-};
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
+export default function RootLayout({ children }: {
+    children: React.ReactNode
 }) {
-  return (
-    <html lang="en">
-      <body className=" text-xs bg-[#282828] leading-[0px] antialiased">
-        <header>
-          <SecondaryHeader />
-          <PrimaryHeader />
-        </header>
-        <main>{children}</main>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <head />
+            <body className="bg-[#282828]">
+                <Provider>
+                    {children}
+                </Provider>
+            </body>
+        </html>
+    );
 }

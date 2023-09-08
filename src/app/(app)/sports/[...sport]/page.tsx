@@ -5,7 +5,7 @@ import NavigationPanel from "../components/Navigation/navigationpanel";
 
 import NatsBoxing from "../components/boxing/NatsBoxing";
 import NatsBasketball from "../components/basketball/Nats";
-import NatsEsport from "../components/esport/Nats";
+import NatsEsport from "../components/esports/Nats";
 import NatsTableTennis from "../components/tableTennis/NatsTableTennis";
 import NatsBaseball from "../components/baseball/Nats";
 import NatsCricket from "../components/cricket/Nats";
@@ -15,9 +15,12 @@ import NatsHandball from "../components/handball/Nats";
 import NatsVolleyball from "../components/volleyball/Nats";
 import NatsTennis from "../components/tennis/Nats";
 
+import requireSession from "@/lib/request-session";
+
 export const dynamic = "force-dynamic";
 
 const Home = async ({ params }: any) => {
+    const session = await requireSession();
     let { sport } = params;
     if (sport[0] === 'soccer') {
         let leagueSelectedGames = [] as any;
@@ -63,7 +66,7 @@ const Home = async ({ params }: any) => {
             return modifiedData
         })
         const odds = await Promise.all(promise);
-        console.log({odds})
+        console.log({ odds })
 
         return (
             <NatsBaseball odds={odds} sport={sport} getLeagues={getLeagues} />
@@ -103,7 +106,7 @@ const Home = async ({ params }: any) => {
             return modifiedData
         })
         const odds = await Promise.all(promise);
-        console.log({odds})
+        console.log({ odds })
         return (
             <NatsBasketball odds={odds} sport={sport} getLeagues={getLeagues} />
         )
@@ -121,7 +124,7 @@ const Home = async ({ params }: any) => {
             return modifiedData
         })
         const odds = await Promise.all(promise);
-        console.log({getLeagues ,odds})
+        console.log({ getLeagues, odds })
         return (
             <NatsEsport odds={odds} sport={sport} getLeagues={getLeagues} />
         )
@@ -160,7 +163,7 @@ const Home = async ({ params }: any) => {
             return modifiedData
         })
         const odds = await Promise.all(promise);
-        console.log({odds})
+        console.log({ odds })
         return (
             <NatsTennis odds={odds} sport={sport} getLeagues={getLeagues} />
         )
@@ -178,7 +181,7 @@ const Home = async ({ params }: any) => {
             return modifiedData
         })
         const odds = await Promise.all(promise);
-        console.log({odds})
+        console.log({ odds })
         return (
             <NatsVolleyball odds={odds} sport={sport} getLeagues={getLeagues} />
         )

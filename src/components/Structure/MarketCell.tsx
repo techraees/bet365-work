@@ -16,7 +16,7 @@ interface MarketCellProps {
 
 const MarketCell: React.FC<MarketCellProps> = ({ name, value, disablehover, borderRight, textLeftAlign, suspend, separation, active, smallpadding }) => {
     return (
-        <div className={cn('cols-span-1 flex items-center h-[100%] text-[13px] cursor-pointer relative',
+        <div className={cn('col-span-1 flex items-center h-[100%] text-[13px] cursor-pointer relative',
             textLeftAlign ? '' : 'justify-center',
             suspend !== "0" ? 'text-[#a7a7a7]' : '',
             (disablehover || (!value && !name)) ? 'cursor-auto' : 'hover:bg-[hsla(0,0%,100%,.15)] ',
@@ -36,7 +36,7 @@ export default MarketCell
 
 export const MarketCellSplit: React.FC<MarketCellProps> = ({ name, value, disablehover, borderRight, textLeftAlign, suspend, separation, active, smallpadding }) => {
     return (
-        <div className={cn('cols-span-1 flex items-center h-[100%] text-[13px] cursor-pointer relative',
+        <div className={cn('col-span-1 flex items-center h-[100%] text-[13px] cursor-pointer relative',
             textLeftAlign ? '' : 'justify-center',
             suspend !== "0" ? 'text-[#a7a7a7]' : '',
             (disablehover || (!value && !name)) ? 'cursor-auto' : 'hover:bg-[hsla(0,0%,100%,.15)] ',
