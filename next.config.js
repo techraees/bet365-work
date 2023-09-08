@@ -9,6 +9,17 @@ const nextConfig = {
       },
     ]
   },
+  headers: () => [
+    {
+      source: '/',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'no-store',
+        },
+      ],
+    },
+  ],
   generateEtags: false,
 }
 

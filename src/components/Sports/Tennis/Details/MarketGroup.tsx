@@ -6,7 +6,7 @@ import { categoriesMapping } from '@/lib/sportsMapping';
 import {tennisAll,tennisBetBuilder, tennisGames, tennisPlayer, tennisSet}  from './datastructure';
 import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
-import { correctScoreCurrentSet, correctScoreCurrentSetAnyPlayer, correctScoreCurrentSetAnyPlayerDrawBack, currectSetCorrectScoreGroup, currentSetScoreAfter4Games, currentSetToBreakServe, gameScore, gameScoreAfter2Points, gameScoreAfter3Points, gameScoreAfter4Points, gameToDeuce, gameTotalPoints, gameWinner, getGameTitle, getNextGameTitle, getSetTitle, goTheDistance, leadAfterCurrentSet, nextGameScore, nextGameScoreAfter2Points, nextGameScoreAfter3Points, nextGameScoreAfter4Points, nextGameToDeuce, nextGameToHaveBreakpoint, nextGameTotalPoints, nextGameWinner, nextPointWinner, nextToGamesEitherGameToDeuce, nextTwoGamesWinner, overUnderCurrentSet, pointWinner, raceToCurrentSet, raceToGamesCurrentSet, toWin, totalGamesInCurrentSet, matchOddEven, nextSetHandicap, currentSetHandicap, getNextSetTitle, totalSets, playersOverUnder, setBetting, totalGamesInMatch, player1To, currentSetLeadAfter, nextSetLeadAfter, nextSetRaceTo, currentSetRaceTo, currentSetLeadAfter2, matchHandicap, nextSetWinner, currectSetCorrectScoreGroup2 } from './mappings/mapping';
+import { correctScoreCurrentSet, correctScoreCurrentSetAnyPlayer, correctScoreCurrentSetAnyPlayerDrawBack, currectSetCorrectScoreGroup, currentSetScoreAfter4Games, currentSetToBreakServe, gameScore, gameScoreAfter2Points, gameScoreAfter3Points, gameScoreAfter4Points, gameToDeuce, gameTotalPoints, gameWinner, getGameTitle, getNextGameTitle, getSetTitle, goTheDistance, leadAfterCurrentSet, nextGameScore, nextGameScoreAfter2Points, nextGameScoreAfter3Points, nextGameScoreAfter4Points, nextGameToDeuce, nextGameToHaveBreakpoint, nextGameTotalPoints, nextGameWinner, nextPointWinner, nextToGamesEitherGameToDeuce, nextTwoGamesWinner, overUnderCurrentSet, pointWinner, raceToCurrentSet, raceToGamesCurrentSet, toWin, totalGamesInCurrentSet, matchOddEven, nextSetHandicap, currentSetHandicap, getNextSetTitle, totalSets, playersOverUnder, setBetting, totalGamesInMatch, player1To, currentSetLeadAfter, nextSetLeadAfter, nextSetRaceTo, currentSetRaceTo, currentSetLeadAfter2, matchHandicap, nextSetWinner, currectSetCorrectScoreGroup2, doubleResult, matchResultAndTotalGames, nextSetCorrectScoreGroup, correctScoreNextSetAnyPlayer, correctScoreNextSetAnyPlayerDrawBack, currentSetTieBreakTotalPoints, currentSetTieBreakWinner, currentSetTieBreakScore, correctScoreCurrentSet2, nextSetToBreakServe } from './mappings/mapping';
 import { matchHandicapGames } from '@/app/sports/components/tennis/League/Match/mappings/pregamemaps';
 interface MarketGroupProps {
     data: any;
@@ -304,7 +304,7 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
 
 
         {
-            oddData.currentSetRaceTo2.marketname = getNextSetTitle(data, oddData.currentSetRaceTo2.marketname);
+            oddData.currentSetRaceTo2.marketname = getSetTitle(data, oddData.currentSetRaceTo2.marketname);
             const obj = currentSetRaceTo(data);
             const rows = obj.rows;
             console.log('rra', rows);
@@ -329,19 +329,19 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
             }
         }
 
-        {
-            oddData.currentSetLeadAfter = JSON.parse(JSON.stringify(tennisAll.currentSetLeadAfter));
-            oddData.currentSetLeadAfter.marketname = getSetTitle(data, oddData.currentSetLeadAfter.marketname);
-            const obj = currentSetLeadAfter2(data);
-            const rows = obj.rows;
-            console.log('Lead After ', rows);
-            oddData.currentSetLeadAfter.suspend = obj.suspend;
-            if(rows.length === 0 || rows[0].length === 0){
-                delete oddData.currentSetLeadAfter;
-            }else{
-                oddData.currentSetLeadAfter.rows = rows;
-            }
-        }
+        // {
+        //     oddData.currentSetLeadAfter = JSON.parse(JSON.stringify(tennisAll.currentSetLeadAfter));
+        //     oddData.currentSetLeadAfter.marketname = getSetTitle(data, oddData.currentSetLeadAfter.marketname);
+        //     const obj = currentSetLeadAfter2(data);
+        //     const rows = obj.rows;
+        //     console.log('Lead After ', rows);
+        //     oddData.currentSetLeadAfter.suspend = obj.suspend;
+        //     if(rows.length === 0 || rows[0].length === 0){
+        //         delete oddData.currentSetLeadAfter;
+        //     }else{
+        //         oddData.currentSetLeadAfter.rows = rows;
+        //     }
+        // }
 
 
         {
@@ -445,6 +445,22 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
             }
         }
         {
+            if(oddData.currentSetScore === undefined){
+
+                oddData.currentSetScore = JSON.parse(JSON.stringify(tennisAll.currentSetScore));
+                oddData.currentSetScore.marketname = getSetTitle(data, oddData.currentSetScore.marketname);
+                const obj = correctScoreCurrentSet2(data);
+                const rows = obj.rows;
+                console.log('rra', rows);
+                oddData.currentSetScore.suspend = obj.suspend;
+                if(rows.length === 0 || rows[0].length === 0){
+                    delete oddData.currentSetScore;
+                }else{
+                    oddData.currentSetScore.rows = rows;
+                }
+            }
+        }
+        {
             oddData.currentSetScoreAfter4Games.marketname = getSetTitle(data, oddData.currentSetScoreAfter4Games.marketname);
             const obj = currentSetScoreAfter4Games(data);
             const rows = obj.rows;
@@ -456,6 +472,7 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
                 oddData.currentSetScoreAfter4Games.rows = rows;
             }
         }
+
         {
             oddData.currentSetCorrectScoreGroup.marketname = getSetTitle(data, oddData.currentSetCorrectScoreGroup.marketname);
             const obj = currectSetCorrectScoreGroup(data);
@@ -468,20 +485,22 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
                 oddData.currentSetCorrectScoreGroup.rows = rows;
             }
         }
+        
         {
-            oddData.currentSetCorrectScoreGroup = JSON.parse(JSON.stringify(tennisAll.currentSetCorrectScoreGroup));
-            oddData.currentSetCorrectScoreGroup.marketname = getSetTitle(data, oddData.currentSetCorrectScoreGroup.marketname);
-            const obj = currectSetCorrectScoreGroup2(data);
-            const rows = obj.rows;
-            console.log('rra', rows);
-            oddData.currentSetCorrectScoreGroup.suspend = obj.suspend;
-            if(rows.length === 0 || rows[0].length === 0){
-                delete oddData.currentSetCorrectScoreGroup;
-            }else{
-                oddData.currentSetCorrectScoreGroup.rows = rows;
+            if(!oddData.currentSetCorrectScoreGroup){
+                oddData.currentSetCorrectScoreGroup = JSON.parse(JSON.stringify(tennisAll.currentSetCorrectScoreGroup));
+                oddData.currentSetCorrectScoreGroup.marketname = getSetTitle(data, oddData.currentSetCorrectScoreGroup.marketname);
+                const obj = currectSetCorrectScoreGroup2(data);
+                const rows = obj.rows;
+                console.log('rra', rows);
+                oddData.currentSetCorrectScoreGroup.suspend = obj.suspend;
+                if(rows.length === 0 || rows[0].length === 0){
+                    delete oddData.currentSetCorrectScoreGroup;
+                }else{
+                    oddData.currentSetCorrectScoreGroup.rows = rows;
+                }
             }
         }
-
 
         {
             oddData.currentSetHandicap.marketname = getSetTitle(data, oddData.currentSetHandicap.marketname);
@@ -497,17 +516,57 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         }
 
         {
-            oddData.leadAfterCurrentSet.marketname = getSetTitle(data, oddData.leadAfterCurrentSet.marketname);
-            const obj = leadAfterCurrentSet(data);
+            oddData.currentSetTieBreakWinner.marketname = getSetTitle(data, oddData.currentSetTieBreakTotalPoints.marketname);
+            const obj = currentSetTieBreakWinner(data);
             const rows = obj.rows;
             console.log('rra', rows);
-            oddData.leadAfterCurrentSet.suspend = obj.suspend;
+            oddData.currentSetTieBreakWinner.suspend = obj.suspend;
             if(rows.length === 0 || rows[0].length === 0){
-                delete oddData.leadAfterCurrentSet;
+                delete oddData.currentSetTieBreakWinner;
             }else{
-                oddData.leadAfterCurrentSet.rows = rows;
+                oddData.currentSetTieBreakWinner.rows = rows;
             }
         }
+
+        {
+            oddData.currentSetTieBreakTotalPoints.marketname = getSetTitle(data, oddData.currentSetTieBreakTotalPoints.marketname);
+            const obj = currentSetTieBreakTotalPoints(data);
+            const rows = obj.rows;
+            console.log('rra', rows);
+            oddData.currentSetTieBreakTotalPoints.suspend = obj.suspend;
+            if(rows.length === 0 || rows[0].length === 0){
+                delete oddData.currentSetTieBreakTotalPoints;
+            }else{
+                oddData.currentSetTieBreakTotalPoints.rows = rows;
+            }
+        }
+
+        {
+            oddData.currentSetTieBreakScore.marketname = getSetTitle(data, oddData.currentSetTieBreakScore.marketname);
+            const obj = currentSetTieBreakScore(data);
+            const rows = obj.rows;
+            console.log('rra', rows);
+            oddData.currentSetTieBreakScore.suspend = obj.suspend;
+            if(rows.length === 0 || rows[0].length === 0){
+                delete oddData.currentSetTieBreakScore;
+            }else{
+                oddData.currentSetTieBreakScore.rows = rows;
+            }
+        }
+
+        {
+            oddData.matchResultAndTotalGames.marketname = getSetTitle(data, oddData.matchResultAndTotalGames.marketname);
+            const obj = matchResultAndTotalGames(data);
+            const rows = obj.rows;
+            console.log('rra', rows);
+            oddData.matchResultAndTotalGames.suspend = obj.suspend;
+            if(rows.length === 0 || rows[0].length === 0){
+                delete oddData.matchResultAndTotalGames;
+            }else{
+                oddData.matchResultAndTotalGames.rows = rows;
+            }
+        }
+
 
         {
             oddData.currentSetToBreakServe.marketname = getSetTitle(data, oddData.currentSetToBreakServe.marketname);
@@ -534,6 +593,20 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
                 oddData.nextSetHandicap.rows = rows;
             }
         }
+
+        {
+            oddData.nextSetToBreakServe.marketname = getNextSetTitle(data, oddData.nextSetToBreakServe.marketname);
+            const obj = nextSetToBreakServe(data);
+            const rows = obj.rows;
+            console.log('rra', rows);
+            oddData.nextSetToBreakServe.suspend = obj.suspend;
+            if(rows.length === 0 || rows[0].length === 0){
+                delete oddData.nextSetToBreakServe;
+            }else{
+                oddData.nextSetToBreakServe.rows = rows;
+            }
+        }
+
 
         {
             oddData.totalGamesInMatch.marketname = getSetTitle(data, oddData.totalGamesInMatch.marketname);
@@ -572,6 +645,18 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
                 delete oddData.matchHandicap;
             }else{
                 oddData.matchHandicap.rows = rows;
+            }
+        }
+        
+        {
+            const obj = doubleResult(data);
+            const rows = obj.rows;
+            console.log('rra', rows);
+            oddData.doubleResult.suspend = obj.suspend;
+            if(rows.length === 0 || rows[0].length === 0){
+                delete oddData.doubleResult;
+            }else{
+                oddData.doubleResult.rows = rows;
             }
         }
 
@@ -652,6 +737,61 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
                 oddData.nextSetWinner.rows = rows;
             }
         }
+
+        {
+            oddData.nextSetCorrectScoreGroup.marketname = getNextSetTitle(data, oddData.nextSetCorrectScoreGroup.marketname);
+            const obj = nextSetCorrectScoreGroup(data);
+            const rows = obj.rows;
+            console.log('rra', rows);
+            oddData.nextSetCorrectScoreGroup.suspend = obj.suspend;
+            if(rows.length === 0 || rows[0].length === 0){
+                delete oddData.nextSetCorrectScoreGroup;
+            }else{
+                oddData.nextSetCorrectScoreGroup.rows = rows;
+            }
+        }
+
+        {
+            oddData.nextSetScoreAnyPlayer.marketname = getNextSetTitle(data, oddData.nextSetScoreAnyPlayer.marketname);
+            const obj = correctScoreNextSetAnyPlayer(data);
+            const rows = obj.rows;
+            console.log('rra', rows);
+            oddData.nextSetScoreAnyPlayer.suspend = obj.suspend;
+            if(rows.length === 0 || rows[0].length === 0){
+                delete oddData.nextSetScoreAnyPlayer;
+            }else{
+                oddData.nextSetScoreAnyPlayer.rows = rows;
+            }
+        }
+        {
+            oddData.nextSetScoreAnyPlayer = JSON.parse(JSON.stringify(tennisAll.nextSetScoreAnyPlayer));
+            oddData.nextSetScoreAnyPlayer.marketname = getNextSetTitle(data, oddData.nextSetScoreAnyPlayer.marketname);
+            const obj = correctScoreNextSetAnyPlayerDrawBack(data);
+            const rows = obj.rows;
+            console.log('rra', rows);
+            oddData.nextSetScoreAnyPlayer.suspend = obj.suspend;
+            if(rows.length === 0 || rows[0].length === 0){
+                delete oddData.nextSetScoreAnyPlayer;
+            }else{
+                oddData.nextSetScoreAnyPlayer.rows = rows;
+            }
+        }
+
+
+        // {
+        //     oddData.currentSetCorrectScoreGroup = JSON.parse(JSON.stringify(tennisAll.currentSetCorrectScoreGroup));
+        //     oddData.currentSetCorrectScoreGroup.marketname = getSetTitle(data, oddData.currentSetCorrectScoreGroup.marketname);
+        //     const obj = currectSetCorrectScoreGroup2(data);
+        //     const rows = obj.rows;
+        //     console.log('rra', rows);
+        //     oddData.currentSetCorrectScoreGroup.suspend = obj.suspend;
+        //     if(rows.length === 0 || rows[0].length === 0){
+        //         delete oddData.currentSetCorrectScoreGroup;
+        //     }else{
+        //         oddData.currentSetCorrectScoreGroup.rows = rows;
+        //     }
+        // }
+
 
 
     } else if (active === "Bet Builder") {

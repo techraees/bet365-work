@@ -52,7 +52,8 @@ const TennisEvent: React.FC<TennisEventProps> = ({ data, sport, subcategory }) =
 
                             <div className="flex flex-col text-[13px] font-semibold hover:text-brand-green-light cursor-pointer overflow-hidden">
                                 <div className="flex h-[25px] items-center truncate overflow-hidden">
-                                    {data?.stats[3]?.home === 1 ?(
+                                    
+                                    {(data && data.stats && data.stats[3] && data.stats[3].home === 1) ? (
 
                                             <div className={cn("w-[5px] h-[5px] mr-[5px] rounded-[50%]",
                                                 true ? 'bg-[#ffde00]' : 'bg-[#ffffff4d]'
@@ -69,7 +70,7 @@ const TennisEvent: React.FC<TennisEventProps> = ({ data, sport, subcategory }) =
                                     </div>
                                 </div>
                                 <div className="flex h-[25px] items-center truncate overflow-hidden">
-                                    {data?.stats[3]?.away === 1 ?(
+                                    {(data && data.stats && data.stats[3] && data.stats[3].away === 1) ?(
 
                                             <div className={cn("w-[5px] h-[5px] mr-[5px] rounded-[50%]",
                                                 true ? 'bg-[#ffde00]' : 'bg-[#ffffff4d]'
