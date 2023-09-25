@@ -2468,7 +2468,7 @@ function groupSymmetrically(data: any) {
 
         // Check if the symmetric pair is already processed
         if (!visited[symmetricName]) {
-            const symmetricItem = Object.values(data).find(i => i.name === symmetricName);
+            const symmetricItem = Object.values(data).find((i: any) => i.name === symmetricName);
 
             if (symmetricItem) {
                 grouped.push([item, symmetricItem]);
@@ -3526,7 +3526,7 @@ export const _groupSetBetting = (participants: any) =>{
         const participant = participants[participant_id];
         if (!processedIds.includes(participant.id)) {
             const reversedName = participant.name.split(":").reverse().join(":");
-            const symmetric = Object.values(participants).find(p => p.name === reversedName && !processedIds.includes(p.id));
+            const symmetric = Object.values(participants).find((p: any) => p?.name === reversedName && !processedIds.includes(p?.id)) as any;
             
             if (symmetric) {
                 grouped.push([participant, symmetric]);
