@@ -9,6 +9,11 @@ export const nextQuarter = {
     "2nd Quarter": "3rd Quarter",
     "3rd Quarter": "4th Quarter"
 }
+
+function getNextQuarter(current: string): string {
+    return nextQuarter[current as keyof typeof nextQuarter];
+}
+
 export const getHalfTitle = (data:any, prev_title:string) =>{
     var current_period = data?.info?.period;
     var current_period_int = parseInt(current_period.charAt(0));
@@ -51,7 +56,7 @@ export const getQuarterTitle = (data:any, prev_title:string) =>{
 
 export const getNextQuarterTitle = (data:any, prev_title:string) =>{
     var current_quarter = data?.info?.period as string;
-    var next_quarter = nextQuarter[current_quarter];
+    var next_quarter = getNextQuarter(current_quarter);
     var new_title = prev_title.replace("X Quarter", next_quarter);
     return new_title;
 }
@@ -606,7 +611,7 @@ export const quarterLines = (data: any) => {
 
 export const nextQuarterLines = (data: any) => {
     var current_quarter = data?.info?.period;
-    var next_quarter = nextQuarter[current_quarter];
+    var next_quarter = getNextQuarter(current_quarter);
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
