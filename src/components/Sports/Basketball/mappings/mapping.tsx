@@ -1030,7 +1030,7 @@ export const halfLines = (data: any) => {
             if(over !== null || under !== null){
 
                 const title_obj = {title:"Total", value: '', suspend: odds.suspend};
-                var _participants = Object.values(participants)
+                var _participants = Object.values(participants) as any;
                 console.log('_participanto', _participants);
                 const over_obj = {title: 'O ' + _participants[0].handicap, value: _participants[0].value_eu, suspend:_participants[0].suspend};
                 const under_obj = {title: 'U ' + _participants[1].handicap, value: _participants[1].value_eu, suspend:_participants[1].suspend};
