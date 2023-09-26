@@ -3516,18 +3516,24 @@ export const playersOverUnder = (data:any) =>{
     return {rows:base_arr, suspend:suspend_value};
 }
 
+interface Participant {
+    id: string | number; // you can adjust this to either string or number depending on your exact requirements
+    name: string;
+    value_eu: number;
+    // Add any other properties as needed
+}
 
-export const _groupSetBetting = (participants: any) =>{
+export const _groupSetBetting = (participants: { [key: string]: Participant }) => {
 
-    const grouped = [] as any;
-    const processedIds = [] as any;
+    const grouped: Participant[][] = [];
+    const processedIds: (string | number)[] = [];
 
     for (let participant_id in participants) {
         const participant = participants[participant_id];
         if (!processedIds.includes(participant.id)) {
             const reversedName = participant.name.split(":").reverse().join(":");
             const symmetric = Object.values(participants).find(p => p.name === reversedName && !processedIds.includes(p.id));
-            
+
             if (symmetric) {
                 grouped.push([participant, symmetric]);
                 processedIds.push(participant.id, symmetric.id);
@@ -3581,11 +3587,9 @@ export const setBetting = (data:any) =>{
 
     var arr = [] as any;
     var participants = odds.participants;
-    console.log(';aalksdlewkfjweopfjew', participants);
     var groups = _groupSetBetting(participants)
     for(var group_id in groups){
         var arr = [] as any;
-        console.log("group", group_obj);
         var group_obj = groups[group_id];
         var obj_1  = group_obj[0]
         var obj_2  = group_obj[1]
