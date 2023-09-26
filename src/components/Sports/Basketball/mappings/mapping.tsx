@@ -11,7 +11,7 @@ export const nextQuarter = {
 }
 
 function getNextQuarter(current: string): string {
-    return nextQuarter[current as keyof typeof nextQuarter];
+    return getNextQuarter(current as keyof typeof nextQuarter);
 }
 
 export const getHalfTitle = (data:any, prev_title:string) =>{
@@ -738,7 +738,7 @@ export const currentQuarterRaceTo = (data: any) => {
 
 export const nextQuarterRaceTo = (data: any) => {
     var current_quarter = data?.info?.period;
-    var next_quarter = nextQuarter[current_quarter];
+    var next_quarter = getNextQuarter(current_quarter);
     var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
@@ -937,7 +937,7 @@ export const currentQuarterBothTeamsToScore = (data: any) => {
 
 export const nextQuarterBothTeamsToScore = (data: any) => {
     var current_quarter = data?.info?.period;
-    var next_quarter = nextQuarter[current_quarter];
+    var next_quarter = getNextQuarter(current_quarter);
     var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
@@ -1121,7 +1121,7 @@ export const currentQuarterHomeTeamToScore = (data: any) => {
 
 export const nextQuarterHomeTeamToScore = (data: any) => {
     var current_quarter = data?.info?.period;
-    var next_quarter = nextQuarter[current_quarter];
+    var next_quarter = getNextQuarter(current_quarter);
     var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
@@ -1194,7 +1194,7 @@ export const currentQuarterAwayTeamToScore = (data: any) => {
 
 export const nextQuarterAwayTeamToScore = (data: any) => {
     var current_quarter = data?.info?.period;
-    var next_quarter = nextQuarter[current_quarter];
+    var next_quarter = getNextQuarter(current_quarter);
     var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
@@ -1268,7 +1268,7 @@ export const currentQuarterHomeTeamToScore2 = (data: any) => {
 
 export const nextQuarterHomeTeamToScore2 = (data: any) => {
     var current_quarter = data?.info?.period;
-    var next_quarter = nextQuarter[current_quarter];
+    var next_quarter = getNextQuarter(current_quarter);
     var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
@@ -1345,7 +1345,7 @@ export const currentQuarterAwayTeamToScore2 = (data: any) => {
 
 export const nextQuarterAwayTeamToScore2 = (data: any) => {
     var current_quarter = data?.info?.period;
-    var next_quarter = nextQuarter[current_quarter];
+    var next_quarter = getNextQuarter(current_quarter);
     var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
@@ -1421,7 +1421,7 @@ export const currentQuarterMarginOfVictory = (data: any) => {
 
 export const nextQuarterMarginOfVictory = (data: any) => {
     var current_quarter = data?.info?.period;
-    var next_quarter = nextQuarter[current_quarter];
+    var next_quarter = getNextQuarter(current_quarter);
     var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
@@ -1562,7 +1562,7 @@ export const currentQuarterTeamTotals = (data: any) => {
 
 export const nextQuarterTeamTotals = (data: any) => {
     var current_quarter = data?.info?.period;
-    var next_quarter = nextQuarter[current_quarter];
+    var next_quarter = getNextQuarter(current_quarter);
     var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
