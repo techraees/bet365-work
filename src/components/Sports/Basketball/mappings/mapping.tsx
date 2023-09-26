@@ -11,7 +11,7 @@ export const nextQuarter = {
 }
 
 function getNextQuarter(current: string): string {
-    return getNextQuarter(current as keyof typeof nextQuarter);
+    return nextQuarter[current as keyof typeof nextQuarter];
 }
 
 export const getHalfTitle = (data:any, prev_title:string) =>{
