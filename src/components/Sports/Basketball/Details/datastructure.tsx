@@ -27,43 +27,233 @@ export const basketballAll = {
             [{ title: "13", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
         ]
     },
-    "1stQuarterLines2Way": {
-        marketname: "1st Quarter Lines 2-Way",
+    "currentQuarterRaceTo":{
+        marketname: "X Quarter Race To",
+        suspend: "0",
+        header: ["", "Home", "Away", "Neither"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" },{ title: "", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "nextQuarterRaceTo":{
+        marketname: "X Quarter Race To",
+        suspend: "0",
+        header: ["", "Home", "Away", "Neither"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" },{ title: "", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "currentQuarterLines": {
+        marketname: "X Quarter Lines",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: [
-            [{ title: "Spread", value: null, suspend: "0" }, { title: "+1.5", value: "1.83", suspend: "0" }, { title: "-1.5", value: "1.83", suspend: "0" }],
-            [{ title: "Total", value: null, suspend: "0" }, { title: "O 43.5", value: "1.71", suspend: "0" }, { title: "U 43.5", value: "2.00", suspend: "0" }],
-            [{ title: "Money Line", value: null, suspend: "0" }, { title: "", value: "2.25", suspend: "0" }, { title: "", value: "1.57", suspend: "0" }],
+            [{ title: "Spread", value: null, suspend: "0" }, { title: "+1.5", value: "1.86", suspend: "0" }, { title: "-1.5", value: "1.80", suspend: "0" }],
+            [{ title: "Total", value: null, suspend: "0" }, { title: "O 136.5", value: "2.00", suspend: "0" }, { title: "U 136.5", value: "1.71", suspend: "0" }],
+            [{ title: "Money Line", value: null, suspend: "0" }, { title: "", value: "2.10", suspend: "0" }, { title: "", value: "1.66", suspend: "0" }],
         ]
     },
-    "odd/Even": {
-        marketname: "Odd/Even",
-        suspend: "0",
-        header: ["", "Odd", "Even"],
-        rows: [
-            [{ title: "Match", value: null, suspend: "0" }, { title: "", value: "1.83", suspend: "0" }, { title: "", value: "1.83", suspend: "0" }],
-            [{ title: "1st Half", value: null, suspend: "0" }, { title: "", value: "1.71", suspend: "0" }, { title: "", value: "2.00", suspend: "0" }],
-        ]
-    },
-    "1stHalf": {
-        marketname: "1st Half",
+    "nextQuarterLines": {
+        marketname: "X Quarter Lines",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: [
-            [{ title: "Spread", value: null, suspend: "0" }, { title: "", value: "1.83", suspend: "0" }, { title: "", value: "1.83", suspend: "0" }],
-            [{ title: "Total", value: null, suspend: "0" }, { title: "", value: "1.71", suspend: "0" }, { title: "", value: "2.00", suspend: "0" }],
+            [{ title: "Spread", value: null, suspend: "0" }, { title: "+1.5", value: "1.86", suspend: "0" }, { title: "-1.5", value: "1.80", suspend: "0" }],
+            [{ title: "Total", value: null, suspend: "0" }, { title: "O 136.5", value: "2.00", suspend: "0" }, { title: "U 136.5", value: "1.71", suspend: "0" }],
+            [{ title: "Money Line", value: null, suspend: "0" }, { title: "", value: "2.10", suspend: "0" }, { title: "", value: "1.66", suspend: "0" }],
         ]
     },
-    "resultTotalGoals":{
-        marketname: "Result Total Goals",
+    "currentQuarterBothTeamsToScore":{
+        marketname: "X Quarter Both Teams To Score",
+        suspend: "0",
+        header: ["", "Yes", "No"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "nextQuarterBothTeamsToScore":{
+        marketname: "X Quarter Both Teams To Score",
+        suspend: "0",
+        header: ["", "Yes", "No"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "currentQuarterHomeTeamToScore":{
+        marketname: "X Quarter Home Team To Score",
+        suspend: "0",
+        header: ["", "Yes", "No"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "nextQuarterHomeTeamToScore":{
+        marketname: "X Quarter Home Team To Score",
+        suspend: "0",
+        header: ["", "Yes", "No"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "currentQuarterAwayTeamToScore":{
+        marketname: "X Quarter Away Team To Score",
+        suspend: "0",
+        header: ["", "Yes", "No"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "nextQuarterAwayTeamToScore":{
+        marketname: "X Quarter Away Team To Score",
+        suspend: "0",
+        header: ["", "Yes", "No"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "currentQuarterMarginOfVictory":{
+        marketname: "X Quarter Margin of Victory",
+        suspend: "0",
+        header: [],
+        rows: [
+            [{ title: "10", value: 1.80, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "nextQuarterMarginOfVictory":{
+        marketname: "X Quarter Margin of Victory",
+        suspend: "0",
+        header: [],
+        rows: [
+            [{ title: "10", value: 1.80, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "currentQuarterTeamTotals":{
+        marketname: "X Quarter - Team Totals",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "nextQuarterTeamTotals":{
+        marketname: "X Quarter - Team Totals",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "currentHalfLines": {
+        marketname: "X Half Lines",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: [
+            [{ title: "Spread", value: null, suspend: "0" }, { title: "+1.5", value: "1.86", suspend: "0" }, { title: "-1.5", value: "1.80", suspend: "0" }],
+            [{ title: "Total", value: null, suspend: "0" }, { title: "O 136.5", value: "2.00", suspend: "0" }, { title: "U 136.5", value: "1.71", suspend: "0" }],
+            [{ title: "Money Line", value: null, suspend: "0" }, { title: "", value: "2.10", suspend: "0" }, { title: "", value: "1.66", suspend: "0" }],
+        ]
+    },
+    // "currentHalfRaceTo":{
+    //     marketname: "X Half Race To",
+    //     suspend: "0",
+    //     header: ["", "Home", "Away"],
+    //     rows: [
+    //         [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
+    //     ]
+    // },
+    "currentHalfRaceTo3Way":{
+        marketname: "X Half Race To",
+        suspend: "0",
+        header: ["", "Home", "Away", "Neither"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }, { title: "", value: "1.86", suspend: "0" }],
+        ]
+    },
+    "matchResultAndTotal":{
+        marketname: "Match Result and Total",
         suspend: "0",
         header: ["", "Over", "Under"],
         rows: [
-            [{ title: "Home", value: null, suspend: "0" }, { title: "", value: "1.83", suspend: "0" }, { title: "", value: "1.83", suspend: "0" }],
-            [{ title: "Away", value: null, suspend: "0" }, { title: "", value: "1.71", suspend: "0" }, { title: "", value: "2.00", suspend: "0" }],
+            [{ title: "team 1", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
+            [{ title: "team 2", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
         ]
     },
+    "teamTotals":{
+        marketname: "Team Totals",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "pointSpread3Way":{
+        marketname: "Point Spread 3-Way",
+        suspend: "0",
+        header: ["Home", "Tie", "Away"],
+        rows: [
+            [{ title: "10", value: "10", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "doubleResult":{
+        marketname: "Double Result",
+        suspend: "0",
+        header: [],
+        rows: [
+            [{ title: "10", value: "10", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
+            [{ title: "10", value: "10", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "highestScoringHalf":{
+        marketname: "Highest Scoring Half",
+        suspend: "0",
+        header: [],
+        rows: [
+            [{ title: "10", value: "10", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "alternativePointSpread":{
+        marketname: "Alternative Point Spread",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: [
+            [{ title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
+        ]
+    },
+    "gameLinesTotal":{
+        marketname: "Alternatives Total",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: [
+            [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
+        ]
+    },
+    "homeTeamTotal":{
+        marketname: "Alternatives Home Team Totals",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: [
+            [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
+        ]
+    },
+    "awayTeamTotal":{
+        marketname: "Alternatives Away Team Totals",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: [
+            [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
+        ]
+    },
+    // "currentQuarterTotal":{
+    //     marketname: "Alternative X Quarter Totals",
+    //     suspend: "0",
+    //     header: ["", "Over", "Under"],
+    //     rows: [
+    //         [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
+    //     ]
+    // },
+
+
+
     // "1stQuarterLines3Way": {
     //     marketname: "1st Quarter Lines 3-Way",
     //     suspend: "0",

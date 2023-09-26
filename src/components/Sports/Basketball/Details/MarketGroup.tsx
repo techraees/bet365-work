@@ -6,7 +6,7 @@ import { categoriesMapping } from '@/lib/sportsMapping';
 import { basketballAll, basketballBetBuilder, basketballHalf, basketballInstant, basketballQuarter, basketballTeam } from './datastructure';
 import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
-import { currentPoints, gameLines, pointBetting, quarterLines2Way, oddEven, half, resultTotalGoals } from '../mappings/mapping';
+import { currentPoints, gameLines, pointBetting, getCurrentPoints, quarterLines2Way, oddEven, half, resultTotalGoals, quarterLines, getQuarterTitle, halfLines, getHalfTitle, currentQuarterRaceTo, currentHalfRaceTo, currentQuarterBothTeamsToScore, currentQuarterHomeTeamToScore, currentQuarterAwayTeamToScore, currentQuarterHomeTeamToScore2, currentQuarterAwayTeamToScore2, currentQuarterMarginOfVictory, currentQuarterTeamTotals, currentHalfRaceTo3Way, alternativePointSpread, gameLinesTotal, homeTeamTotal, awayTeamTotal, currentQuarterTotal, teamTotals, getHomeTeam, getAwayTeam, matchResultAndTotal, pointSpread3Way, highestScoringHalf, halfTimeFullTime, getNextQuarterTitle, nextQuarterRaceTo, nextQuarterLines, nextQuarterBothTeamsToScore, nextQuarterHomeTeamToScore, nextQuarterAwayTeamToScore, nextQuarterHomeTeamToScore2, nextQuarterAwayTeamToScore2, nextQuarterMarginOfVictory, nextQuarterTeamTotals } from '../mappings/mapping';
 interface MarketGroupProps {
     data: any;
     active: string;
@@ -20,8 +20,423 @@ const BasketballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => 
     }
     ["All", "Bet Builder", "Instant", "Team", "Quarter", "Half"]
     let oddData = {} as any;
+    oddData = JSON.parse(JSON.stringify(basketballAll))
     if (active === "All") {
-        oddData = basketballAll as any;
+        {
+            const obj = gameLines(data)
+            var rows = obj.rows;
+            oddData.gameLines.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.gameLines;
+            }else{
+                oddData.gameLines.rows = rows;
+            }
+        }
+        
+        {
+
+            const obj = pointBetting(data)
+            var rows = obj.rows;
+            oddData.pointBetting.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.pointBetting;
+            }else{
+                oddData.pointBetting.currentPoints = getCurrentPoints(data);
+                oddData.pointBetting.rows = rows;
+            }
+        }
+
+        {
+            const obj = quarterLines(data)
+            var rows = obj.rows;
+            oddData.currentQuarterLines.marketname = getQuarterTitle(data, oddData.currentQuarterLines.marketname)
+            oddData.currentQuarterLines.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentQuarterLines;
+            }else{
+                oddData.currentQuarterLines.rows = rows;
+            }
+        }
+
+
+        {
+            const obj = nextQuarterLines(data)
+            var rows = obj.rows;
+            oddData.nextQuarterLines.marketname = getNextQuarterTitle(data, oddData.nextQuarterLines.marketname)
+            oddData.nextQuarterLines.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.nextQuarterLines;
+            }else{
+                oddData.nextQuarterLines.rows = rows;
+            }
+        }
+
+        {
+            const obj = currentQuarterRaceTo(data)
+            var rows = obj.rows;
+            oddData.currentQuarterRaceTo.marketname = getQuarterTitle(data, oddData.currentQuarterRaceTo.marketname)
+            oddData.currentQuarterRaceTo.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentQuarterRaceTo;
+            }else{
+                oddData.currentQuarterRaceTo.rows = rows;
+            }
+        }
+
+        {
+            const obj = nextQuarterRaceTo(data)
+            var rows = obj.rows;
+            oddData.nextQuarterRaceTo.marketname = getNextQuarterTitle(data, oddData.nextQuarterRaceTo.marketname)
+            oddData.nextQuarterRaceTo.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.nextQuarterRaceTo;
+            }else{
+                oddData.nextQuarterRaceTo.rows = rows;
+            }
+        }
+
+        {
+            const obj = halfLines(data)
+            var rows = obj.rows;
+            oddData.currentHalfLines.marketname = getHalfTitle(data, oddData.currentHalfLines.marketname)
+            oddData.currentHalfLines.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentHalfLines;
+            }else{
+                oddData.currentHalfLines.rows = rows;
+            }
+        }
+
+        // {
+        //     const obj = currentHalfRaceTo(data)
+        //     var rows = obj.rows;
+        //     oddData.currentHalfRaceTo.marketname = getHalfTitle(data, oddData.currentHalfRaceTo.marketname)
+        //     oddData.currentHalfRaceTo.suspend = obj.suspend;
+        //     if(rows.length ===0 || rows[0].length === 0){
+        //         delete oddData.currentHalfRaceTo;
+        //     }else{
+        //         oddData.currentHalfRaceTo.rows = rows;
+        //     }
+        // }
+
+        {
+            const obj = currentHalfRaceTo3Way(data)
+            var rows = obj.rows;
+            oddData.currentHalfRaceTo3Way.marketname = getHalfTitle(data, oddData.currentHalfRaceTo3Way.marketname)
+            oddData.currentHalfRaceTo3Way.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentHalfRaceTo3Way;
+            }else{
+                oddData.currentHalfRaceTo3Way.rows = rows;
+            }
+        }
+
+        {
+            const obj = matchResultAndTotal(data)
+            var rows = obj.rows;
+            oddData.matchResultAndTotal.marketname = getHalfTitle(data, oddData.matchResultAndTotal.marketname)
+            oddData.matchResultAndTotal.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.matchResultAndTotal;
+            }else{
+                oddData.matchResultAndTotal.rows = rows;
+            }
+        }
+
+        {
+            const obj = currentQuarterBothTeamsToScore(data)
+            var rows = obj.rows;
+            oddData.currentQuarterBothTeamsToScore.marketname = getQuarterTitle(data, oddData.currentQuarterBothTeamsToScore.marketname)
+            oddData.currentQuarterBothTeamsToScore.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentQuarterBothTeamsToScore;
+            }else{
+                oddData.currentQuarterBothTeamsToScore.rows = rows;
+            }
+        }
+
+        {
+            const obj = nextQuarterBothTeamsToScore(data)
+            var rows = obj.rows;
+            oddData.nextQuarterBothTeamsToScore.marketname = getNextQuarterTitle(data, oddData.nextQuarterBothTeamsToScore.marketname)
+            oddData.nextQuarterBothTeamsToScore.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.nextQuarterBothTeamsToScore;
+            }else{
+                oddData.nextQuarterBothTeamsToScore.rows = rows;
+            }
+        }
+
+
+        {
+            const obj = currentQuarterHomeTeamToScore(data)
+            var rows = obj.rows;
+            oddData.currentQuarterHomeTeamToScore.marketname = getQuarterTitle(data, oddData.currentQuarterHomeTeamToScore.marketname)
+            oddData.currentQuarterHomeTeamToScore.marketname = getHomeTeam(data, oddData.currentQuarterHomeTeamToScore.marketname)
+            oddData.currentQuarterHomeTeamToScore.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentQuarterHomeTeamToScore;
+            }else{
+                oddData.currentQuarterHomeTeamToScore.rows = rows;
+            }
+        }
+
+        {
+            const obj = nextQuarterHomeTeamToScore(data)
+            var rows = obj.rows;
+            oddData.nextQuarterHomeTeamToScore.marketname = getNextQuarterTitle(data, oddData.nextQuarterHomeTeamToScore.marketname)
+            oddData.nextQuarterHomeTeamToScore.marketname = getHomeTeam(data, oddData.nextQuarterHomeTeamToScore.marketname)
+            oddData.nextQuarterHomeTeamToScore.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.nextQuarterHomeTeamToScore;
+            }else{
+                oddData.nextQuarterHomeTeamToScore.rows = rows;
+            }
+        }
+
+        {
+            const obj = currentQuarterAwayTeamToScore(data)
+            var rows = obj.rows;
+            oddData.currentQuarterAwayTeamToScore.marketname = getQuarterTitle(data, oddData.currentQuarterAwayTeamToScore.marketname)
+            oddData.currentQuarterAwayTeamToScore.marketname = getAwayTeam(data, oddData.currentQuarterAwayTeamToScore.marketname)
+            oddData.currentQuarterAwayTeamToScore.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentQuarterAwayTeamToScore;
+            }else{
+                oddData.currentQuarterAwayTeamToScore.rows = rows;
+            }
+        }
+
+        {
+            const obj = nextQuarterAwayTeamToScore(data)
+            var rows = obj.rows;
+            oddData.nextQuarterAwayTeamToScore.marketname = getNextQuarterTitle(data, oddData.nextQuarterAwayTeamToScore.marketname)
+            oddData.nextQuarterAwayTeamToScore.marketname = getAwayTeam(data, oddData.nextQuarterAwayTeamToScore.marketname)
+            oddData.nextQuarterAwayTeamToScore.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.nextQuarterAwayTeamToScore;
+            }else{
+                oddData.nextQuarterAwayTeamToScore.rows = rows;
+            }
+        }
+
+
+        {
+            const obj = currentQuarterHomeTeamToScore2(data)
+            var rows = obj.rows;
+            if(oddData.currentQuarterHomeTeamToScore === undefined){
+                oddData.currentQuarterHomeTeamToScore = JSON.parse(JSON.stringify(basketballAll.currentQuarterHomeTeamToScore));
+                oddData.currentQuarterHomeTeamToScore.marketname = getQuarterTitle(data, oddData.currentQuarterHomeTeamToScore.marketname)
+                oddData.currentQuarterHomeTeamToScore.marketname = getHomeTeam(data, oddData.currentQuarterHomeTeamToScore.marketname)
+                oddData.currentQuarterHomeTeamToScore.suspend = obj.suspend;
+                if(rows.length ===0 || rows[0].length === 0){
+                    delete oddData.currentQuarterHomeTeamToScore;
+                }else{
+                    oddData.currentQuarterHomeTeamToScore.rows = rows;
+                }
+
+            }
+        }
+
+        {
+            const obj = nextQuarterHomeTeamToScore2(data)
+            var rows = obj.rows;
+            if(oddData.nextQuarterHomeTeamToScore === undefined){
+                oddData.nextQuarterHomeTeamToScore = JSON.parse(JSON.stringify(basketballAll.nextQuarterHomeTeamToScore));
+                oddData.nextQuarterHomeTeamToScore.marketname = getNextQuarterTitle(data, oddData.nextQuarterHomeTeamToScore.marketname)
+                oddData.nextQuarterHomeTeamToScore.marketname = getHomeTeam(data, oddData.nextQuarterHomeTeamToScore.marketname)
+                oddData.nextQuarterHomeTeamToScore.suspend = obj.suspend;
+                if(rows.length ===0 || rows[0].length === 0){
+                    delete oddData.nextQuarterHomeTeamToScore;
+                }else{
+                    oddData.nextQuarterHomeTeamToScore.rows = rows;
+                }
+            }
+        }
+
+        {
+            const obj = currentQuarterAwayTeamToScore2(data)
+            var rows = obj.rows;
+            if(oddData.currentQuarterAwayTeamToScore === undefined){
+                oddData.currentQuarterAwayTeamToScore = JSON.parse(JSON.stringify(basketballAll.currentQuarterAwayTeamToScore));
+                oddData.currentQuarterAwayTeamToScore.marketname = getQuarterTitle(data, oddData.currentQuarterAwayTeamToScore.marketname)
+                oddData.currentQuarterAwayTeamToScore.marketname = getAwayTeam(data, oddData.currentQuarterAwayTeamToScore.marketname)
+                oddData.currentQuarterAwayTeamToScore.suspend = obj.suspend;
+                if(rows.length ===0 || rows[0].length === 0){
+                    delete oddData.currentQuarterAwayTeamToScore;
+                }else{
+                    oddData.currentQuarterAwayTeamToScore.rows = rows;
+                }
+
+            }
+
+        }
+
+
+        {
+            const obj = nextQuarterAwayTeamToScore2(data)
+            var rows = obj.rows;
+            if(oddData.nextQuarterAwayTeamToScore === undefined){
+                oddData.nextQuarterAwayTeamToScore = JSON.parse(JSON.stringify(basketballAll.nextQuarterAwayTeamToScore));
+                oddData.nextQuarterAwayTeamToScore.marketname = getNextQuarterTitle(data, oddData.nextQuarterAwayTeamToScore.marketname)
+                oddData.nextQuarterAwayTeamToScore.marketname = getAwayTeam(data, oddData.nextQuarterAwayTeamToScore.marketname)
+                oddData.nextQuarterAwayTeamToScore.suspend = obj.suspend;
+                if(rows.length ===0 || rows[0].length === 0){
+                    delete oddData.nextQuarterAwayTeamToScore;
+                }else{
+                    oddData.nextQuarterAwayTeamToScore.rows = rows;
+                }
+            }
+        }
+
+        {
+            const obj = currentQuarterMarginOfVictory(data)
+            var rows = obj.rows;
+            oddData.currentQuarterMarginOfVictory.marketname = getQuarterTitle(data, oddData.currentQuarterMarginOfVictory.marketname)
+            oddData.currentQuarterMarginOfVictory.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentQuarterMarginOfVictory;
+            }else{
+                oddData.currentQuarterMarginOfVictory.rows = rows;
+            }
+        }
+
+
+        {
+            const obj = nextQuarterMarginOfVictory(data)
+            var rows = obj.rows;
+            oddData.nextQuarterMarginOfVictory.marketname = getNextQuarterTitle(data, oddData.nextQuarterMarginOfVictory.marketname)
+            oddData.nextQuarterMarginOfVictory.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.nextQuarterMarginOfVictory;
+            }else{
+                oddData.nextQuarterMarginOfVictory.rows = rows;
+            }
+        }
+
+
+        {
+            const obj = currentQuarterTeamTotals(data)
+            var rows = obj.rows;
+            oddData.currentQuarterTeamTotals.marketname = getQuarterTitle(data, oddData.currentQuarterTeamTotals.marketname)
+            oddData.currentQuarterTeamTotals.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentQuarterTeamTotals;
+            }else{
+                oddData.currentQuarterTeamTotals.rows = rows;
+            }
+        }
+
+
+        {
+            const obj = nextQuarterTeamTotals(data)
+            var rows = obj.rows;
+            oddData.nextQuarterTeamTotals.marketname = getNextQuarterTitle(data, oddData.nextQuarterTeamTotals.marketname)
+            oddData.nextQuarterTeamTotals.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.nextQuarterTeamTotals;
+            }else{
+                oddData.nextQuarterTeamTotals.rows = rows;
+            }
+        }
+
+        {
+            const obj = alternativePointSpread(data)
+            var rows = obj.rows;
+            oddData.alternativePointSpread.marketname = getQuarterTitle(data, oddData.alternativePointSpread.marketname)
+            oddData.alternativePointSpread.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.alternativePointSpread;
+            }else{
+                oddData.alternativePointSpread.rows = rows;
+            }
+        }
+
+        {
+            const obj = gameLinesTotal(data)
+            var rows = obj.rows;
+            oddData.gameLinesTotal.marketname = getQuarterTitle(data, oddData.gameLinesTotal.marketname)
+            oddData.gameLinesTotal.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.gameLinesTotal;
+            }else{
+                oddData.gameLinesTotal.rows = rows;
+            }
+        }
+
+
+        {
+            const obj = homeTeamTotal(data)
+            var rows = obj.rows;
+            oddData.homeTeamTotal.marketname = getQuarterTitle(data, oddData.homeTeamTotal.marketname)
+            oddData.homeTeamTotal.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.homeTeamTotal;
+            }else{
+                oddData.homeTeamTotal.rows = rows;
+            }
+        }
+
+
+        {
+            const obj = awayTeamTotal(data)
+            var rows = obj.rows;
+            oddData.awayTeamTotal.marketname = getQuarterTitle(data, oddData.awayTeamTotal.marketname)
+            oddData.awayTeamTotal.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.awayTeamTotal;
+            }else{
+                oddData.awayTeamTotal.rows = rows;
+            }
+        }
+
+
+        {
+            const obj = teamTotals(data)
+            var rows = obj.rows;
+            oddData.teamTotals.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.teamTotals;
+            }else{
+                oddData.teamTotals.rows = rows;
+            }
+        }
+
+
+        {
+            const obj = pointSpread3Way(data)
+            var rows = obj.rows;
+            oddData.pointSpread3Way.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.pointSpread3Way;
+            }else{
+                oddData.pointSpread3Way.rows = rows;
+            }
+        }
+
+        {
+            const obj = halfTimeFullTime(data)
+            var rows = obj.rows;
+            oddData.doubleResult.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.doubleResult;
+            }else{
+                oddData.doubleResult.rows = rows;
+            }
+        }
+
+        {
+            const obj = highestScoringHalf(data)
+            var rows = obj.rows;
+            oddData.highestScoringHalf.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.highestScoringHalf;
+            }else{
+                oddData.highestScoringHalf.rows = rows;
+            }
+        }
+        console.log("oddiz", data?.odds)
+        console.log("period", data?.info?.period)
     } else if (active === "Bet Builder") {
         oddData = basketballBetBuilder as any;
     } else if (active === "Instant") {
@@ -35,25 +450,22 @@ const BasketballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => 
     }
 
 
-    console.log('detail market basketball', data)
+    // basketballAll['gameLines'].rows = gameLines(data);
+    // basketballAll['pointBetting'].currentPoints = currentPoints(data).toString();
+    // basketballAll['pointBetting'].rows = pointBetting(data);
+    // basketballInstant['pointBetting'].rows = pointBetting(data);
 
-    console.log('detail market basketball1', Object.entries(data.odds?.[1446]?.participants))
-    basketballAll['gameLines'].rows = gameLines(data);
-    basketballAll['pointBetting'].currentPoints = currentPoints(data).toString();
-    basketballAll['pointBetting'].rows = pointBetting(data);
-    basketballInstant['pointBetting'].rows = pointBetting(data);
-
-    basketballAll['1stQuarterLines2Way'].rows = quarterLines2Way(data)
-    basketballAll['odd/Even'].rows = oddEven(data)
-    basketballBetBuilder['odd/Even'].rows = oddEven(data)
+    // basketballAll['1stQuarterLines2Way'].rows = quarterLines2Way(data)
+    // basketballAll['odd/Even'].rows = oddEven(data)
+    // basketballBetBuilder['odd/Even'].rows = oddEven(data)
     
-    basketballAll['1stHalf'].rows = half(data);
-    basketballHalf['1stHalf'].rows = half(data)
-    basketballBetBuilder['1stHalf'].rows = half(data)
+    // basketballAll['1stHalf'].rows = half(data);
+    // basketballHalf['1stHalf'].rows = half(data)
+    // basketballBetBuilder['1stHalf'].rows = half(data)
 
-    basketballAll['resultTotalGoals'].rows = resultTotalGoals(data)
+    // basketballAll['resultTotalGoals'].rows = resultTotalGoals(data)
 
-    console.log({basketballAll})
+    // console.log({basketballAll})
     return (
         <div className='w-[100%] bg-[#383838]'>
             {Object.keys(oddData).map((key, index) => {

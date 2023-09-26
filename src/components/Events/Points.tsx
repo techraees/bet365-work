@@ -28,7 +28,11 @@ const Points: React.FC<PointsEventsInterface> = ({ data, sport, subcategory }) =
             </div>
         );
     } else if (sport === "tennis") {
+        if(data?.info?.score === null){
+            return null;
+        }
         const all_scores = data?.info?.score.split(",");
+        console.log('aaa', all_scores);
         var last_score = all_scores[all_scores.length - 1]
         const [home_game_score, away_game_score] = last_score.split(":");
         var t_obj = undefined;
