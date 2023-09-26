@@ -2468,7 +2468,7 @@ function groupSymmetrically(data: any) {
 
         // Check if the symmetric pair is already processed
         if (!visited[symmetricName]) {
-            const symmetricItem = Object.values(data).find(i => i.name === symmetricName);
+            const symmetricItem = Object.values(data).find((i:any) => i.name === symmetricName);
 
             if (symmetricItem) {
                 grouped.push([item, symmetricItem]);
