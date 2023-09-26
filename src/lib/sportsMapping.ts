@@ -62,5 +62,6 @@ export const defaultSubcategories={
   "tennis": "winner",
   "basketball": "gamelines",
   "volleyball": "matchWinner",
-  "esports": "mapWinner"
+  "esports": "mapWinner",
+  "baseball": "gamelines"
 }
