@@ -15,6 +15,7 @@ import {
   SoccerIcon,
   TennisIcon,
   EsportsIcon,
+  IceHockeyIcon,
 } from "@/components/ui/icons/sports";
 import VolleyballIcon from "@/components/ui/icons/sports/volleyball";
 
@@ -51,18 +52,18 @@ const SportsHeader = () => {
       active: false,
       icon: BasketBallIcon,
     },
-    {
-      label: "Cricket",
-      link: "/in-play/cricket",
-      active: false,
-      icon: CricketIcon,
-    },
-    {
-      label: "Handball",
-      link: "/in-play/handball",
-      active: false,
-      icon: HandballIcon,
-    },
+    // {
+    //   label: "Cricket",
+    //   link: "/in-play/cricket",
+    //   active: false,
+    //   icon: CricketIcon,
+    // },
+    // {
+    //   label: "Handball",
+    //   link: "/in-play/handball",
+    //   active: false,
+    //   icon: HandballIcon,
+    // },
     {
       label: "Volleyball",
       link: "/in-play/volleyball",
@@ -74,6 +75,12 @@ const SportsHeader = () => {
       link: "/in-play/esports",
       active: false,
       icon: EsportsIcon,
+    },
+    {
+      label: "Ice Hockey",
+      link: "/in-play/icehockey",
+      active: false,
+      icon: IceHockeyIcon,
     },
   ];
   return (

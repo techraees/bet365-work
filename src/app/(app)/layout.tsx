@@ -19,7 +19,9 @@ export default function RootLayout({
         <SecondaryHeader />
         <PrimaryHeader />
       </header>
-      <main>{children}</main>
+      <main>
+        {children}
+      </main>
     </div>
   );
 }

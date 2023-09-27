@@ -3532,8 +3532,13 @@ export const _groupSetBetting = (participants: { [key: string]: Participant }) =
         const participant = participants[participant_id];
         if (!processedIds.includes(participant.id)) {
             const reversedName = participant.name.split(":").reverse().join(":");
+<<<<<<< HEAD
             const symmetric = Object.values(participants).find(p => p.name === reversedName && !processedIds.includes(p.id));
 
+=======
+            const symmetric = Object.values(participants).find((p: any) => p?.name === reversedName && !processedIds.includes(p?.id)) as any;
+            
+>>>>>>> v1
             if (symmetric) {
                 grouped.push([participant, symmetric]);
                 processedIds.push(participant.id, symmetric.id);
