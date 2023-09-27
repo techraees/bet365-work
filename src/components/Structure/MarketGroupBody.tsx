@@ -122,7 +122,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                                     name={rowdata[0]?.title} value={rowdata[0]?.value} suspend={odd?.suspend} active={active} />
                                 <div className={cn(`col-span-${rowdata.length} grid grid-cols-${rowdata.length - 1} overflow-hidden h-[100%] w-[100%] `)}>
                                     {rowdata.map((item: any, index: number) => {
-                                        if (index === 0) return null
+                                        if (index === 0 || item === null) return null
                                         return (
                                             <MarketCell key={index} name={item.title} value={item.value} suspend={odd?.suspend} active={active} />
                                         )

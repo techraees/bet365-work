@@ -65,10 +65,8 @@ const base_arr_is_suspended = (base_arr:any) =>{
         var total_suspended_values = 0;
         var total_values = 0;
         for(var sub_array of base_arr){
-
             for(var item of sub_array){
                 if(item.suspend_value === "1"){
-
                     total_suspended_values++;
                 }
                 total_values++;
@@ -80,6 +78,17 @@ const base_arr_is_suspended = (base_arr:any) =>{
             return "1";
         }
         return "0";
+}
+
+function areAllSuspended(data:any) {
+
+    const base_arr_is_suspended =  data.flat().every((item:any) => item.suspend === "1");
+    if(base_arr_is_suspended){
+        return "1"
+    }else{
+        return "0"
+    }
+
 }
 
 
@@ -276,7 +285,8 @@ export const gameLines = (data: any) => {
         }
     }
     
-    var suspend_value = base_arr_is_suspended(base_arr);
+    //var suspend_value = base_arr_is_suspended(base_arr);
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
@@ -286,6 +296,8 @@ export const pointBetting = (data: any) => {
         return {rows:[], suspend:"0"};
     }
     // [{handicap, home, away}]
+    const total_score = parseInt(data?.team_info?.home?.score) + parseInt(data?.team_info?.away?.score)
+
     const base_arr = [] as any;
     const odd_id = findIdByName(data, "Point Betting")
     const odds = data?.odds?.[odd_id];
@@ -297,6 +309,9 @@ export const pointBetting = (data: any) => {
     for(var group_handicap in group){
         var arr = [] as any;
         const group_obj = group[group_handicap];
+        if(parseInt(group_handicap) <= total_score){
+            continue;
+        }
         if(group_obj["Home"] === undefined || group_obj["Away"] === undefined){
             continue;
         }
@@ -604,7 +619,9 @@ export const quarterLines = (data: any) => {
         }
     }
     
-    var suspend_value = base_arr_is_suspended(base_arr);
+    // var suspend_value = base_arr_is_suspended(base_arr);
+    var suspend_value = areAllSuspended(base_arr);
+    console.log('qq_line', suspend_value);
     return {rows:base_arr, suspend:suspend_value}
 }
 
@@ -688,14 +705,14 @@ export const nextQuarterLines = (data: any) => {
         }
     }
     
-    var suspend_value = base_arr_is_suspended(base_arr);
+    //var suspend_value = base_arr_is_suspended(base_arr);
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 
 export const currentQuarterRaceTo = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -726,20 +743,19 @@ export const currentQuarterRaceTo = (data: any) => {
                     var _neither = {title: "", value:neither_obj.value_eu, suspend: neither_obj.suspend}
                     arr = [_title, _home, _away, _neither]
                     base_arr.push(arr)
-                    suspend_value = odds.suspend;
 
                 }
             }
         }
     }
 
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 export const nextQuarterRaceTo = (data: any) => {
     var current_quarter = data?.info?.period;
     var next_quarter = getNextQuarter(current_quarter);
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -770,13 +786,13 @@ export const nextQuarterRaceTo = (data: any) => {
                     var _neither = {title: "", value:neither_obj.value_eu, suspend: neither_obj.suspend}
                     arr = [_title, _home, _away, _neither]
                     base_arr.push(arr)
-                    suspend_value = odds.suspend;
 
                 }
             }
         }
     }
 
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
@@ -801,7 +817,6 @@ export const currentHalfRaceTo = (data: any) => {
         half_string = "2nd Half"
     }
 
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -828,11 +843,11 @@ export const currentHalfRaceTo = (data: any) => {
                 var _away = {title: "", value:away_obj.value_eu, suspend: away_obj.suspend}
                 arr = [_title, _home, _away]
                 base_arr.push(arr)
-                suspend_value = odds.suspend;
             }
         }
     }
 
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
@@ -855,7 +870,6 @@ export const currentHalfRaceTo3Way = (data: any) => {
         half_string = "2nd Half"
     }
 
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -874,7 +888,7 @@ export const currentHalfRaceTo3Way = (data: any) => {
             for(var handicap in group){
                 var arr = [] as any;
                 var group_obj = group[handicap]
-                if(group_obj["Home"] && group_obj["Away"]){
+                if(group_obj["Home"] && group_obj["Away"] && group_obj["Neither"]){
                     var home_obj = group_obj["Home"][0]
                     var away_obj = group_obj["Away"][0]
                     var neither_obj = group_obj["Neither"][0]
@@ -887,7 +901,6 @@ export const currentHalfRaceTo3Way = (data: any) => {
                         var _neither = {title: "", value:neither_obj.value_eu, suspend: neither_obj.suspend}
                         arr = [_title, _home, _away, _neither]
                         base_arr.push(arr)
-                        suspend_value = odds.suspend;
                     }
 
                 }
@@ -895,12 +908,12 @@ export const currentHalfRaceTo3Way = (data: any) => {
         }
     }
 
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 export const currentQuarterBothTeamsToScore = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -927,18 +940,17 @@ export const currentQuarterBothTeamsToScore = (data: any) => {
                 var _no = {title: "", value:no_obj.value_eu, suspend: no_obj.suspend}
                 arr = [_title, _yes, _no]
                 base_arr.push(arr)
-                suspend_value = odds.suspend;
             }
         }
     }
 
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 export const nextQuarterBothTeamsToScore = (data: any) => {
     var current_quarter = data?.info?.period;
     var next_quarter = getNextQuarter(current_quarter);
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -965,11 +977,11 @@ export const nextQuarterBothTeamsToScore = (data: any) => {
                 var _no = {title: "", value:no_obj.value_eu, suspend: no_obj.suspend}
                 arr = [_title, _yes, _no]
                 base_arr.push(arr)
-                suspend_value = odds.suspend;
             }
         }
     }
 
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
@@ -1074,14 +1086,14 @@ export const halfLines = (data: any) => {
         }
     }
     
-    var suspend_value = base_arr_is_suspended(base_arr);
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 
 export const currentQuarterHomeTeamToScore = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
+    var suspend_value = "0";
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1108,8 +1120,8 @@ export const currentQuarterHomeTeamToScore = (data: any) => {
                     var no_obj = {title:"", value:_no_obj.value_eu, suspend:_no_obj.suspend}
                     arr = [title_obj, yes_obj, no_obj]
                     base_arr.push(arr);
-                    suspend_value = odds.suspend;
 
+                    suspend_value = odds.suspend;
                 }
             }
         }
@@ -1121,8 +1133,8 @@ export const currentQuarterHomeTeamToScore = (data: any) => {
 
 export const nextQuarterHomeTeamToScore = (data: any) => {
     var current_quarter = data?.info?.period;
+    var suspend_value = "0";
     var next_quarter = getNextQuarter(current_quarter);
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1158,7 +1170,7 @@ export const nextQuarterHomeTeamToScore = (data: any) => {
 
 export const currentQuarterAwayTeamToScore = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
+    var suspend_value = "0";
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1195,7 +1207,7 @@ export const currentQuarterAwayTeamToScore = (data: any) => {
 export const nextQuarterAwayTeamToScore = (data: any) => {
     var current_quarter = data?.info?.period;
     var next_quarter = getNextQuarter(current_quarter);
-    var suspend_value = "0"
+    var suspend_value = "0";
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1222,10 +1234,10 @@ export const nextQuarterAwayTeamToScore = (data: any) => {
                 arr = [title_obj, yes_obj, no_obj]
                 base_arr.push(arr);
                 suspend_value = odds.suspend;
+                
             }
         }
     }
-
     return {rows:base_arr, suspend:suspend_value}
 }
 
@@ -1269,7 +1281,7 @@ export const currentQuarterHomeTeamToScore2 = (data: any) => {
 export const nextQuarterHomeTeamToScore2 = (data: any) => {
     var current_quarter = data?.info?.period;
     var next_quarter = getNextQuarter(current_quarter);
-    var suspend_value = "0"
+    var suspend_value = "0";
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1305,7 +1317,7 @@ export const nextQuarterHomeTeamToScore2 = (data: any) => {
 
 export const currentQuarterAwayTeamToScore2 = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
+    var suspend_value = "0";
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1346,7 +1358,7 @@ export const currentQuarterAwayTeamToScore2 = (data: any) => {
 export const nextQuarterAwayTeamToScore2 = (data: any) => {
     var current_quarter = data?.info?.period;
     var next_quarter = getNextQuarter(current_quarter);
-    var suspend_value = "0"
+    var suspend_value = "0";
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1388,7 +1400,6 @@ export const nextQuarterAwayTeamToScore2 = (data: any) => {
 
 export const currentQuarterMarginOfVictory = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1410,11 +1421,11 @@ export const currentQuarterMarginOfVictory = (data: any) => {
                 arr.push(obj);
             }
             base_arr.push(arr);
-            suspend_value = odds.suspend;
         }
     }
 
     console.log('Current Quarter Margin of Victory', base_arr)
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
@@ -1422,7 +1433,6 @@ export const currentQuarterMarginOfVictory = (data: any) => {
 export const nextQuarterMarginOfVictory = (data: any) => {
     var current_quarter = data?.info?.period;
     var next_quarter = getNextQuarter(current_quarter);
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1444,18 +1454,17 @@ export const nextQuarterMarginOfVictory = (data: any) => {
                 arr.push(obj);
             }
             base_arr.push(arr);
-            suspend_value = odds.suspend;
         }
     }
 
     console.log('Current Quarter Margin of Victory', base_arr)
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 
 export const currentQuarterTeamTotals = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1556,6 +1565,7 @@ export const currentQuarterTeamTotals = (data: any) => {
 
     // TODO Suspend value
     console.log('Current Quarter Team Totals', base_arr)
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
@@ -1563,7 +1573,6 @@ export const currentQuarterTeamTotals = (data: any) => {
 export const nextQuarterTeamTotals = (data: any) => {
     var current_quarter = data?.info?.period;
     var next_quarter = getNextQuarter(current_quarter);
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1664,13 +1673,13 @@ export const nextQuarterTeamTotals = (data: any) => {
 
     // TODO Suspend value
     console.log('Current Quarter Team Totals', base_arr)
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 
 export const teamTotals = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1776,6 +1785,7 @@ export const teamTotals = (data: any) => {
 
     // TODO Suspend value
     console.log('Current Quarter Team Totals', base_arr)
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
@@ -1822,13 +1832,13 @@ export const alternativePointSpread = (data: any) => {
         // Perform the comparison to determine the order
         return handicapA - handicapB;
     });
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 
 export const gameLinesTotal = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1874,13 +1884,13 @@ export const gameLinesTotal = (data: any) => {
         // Perform the comparison to determine the order
         return handicapA - handicapB;
     });
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 
 export const homeTeamTotal = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1925,13 +1935,14 @@ export const homeTeamTotal = (data: any) => {
         // Perform the comparison to determine the order
         return handicapA - handicapB;
     });
+
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 
 export const awayTeamTotal = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -1977,13 +1988,14 @@ export const awayTeamTotal = (data: any) => {
         // Perform the comparison to determine the order
         return handicapA - handicapB;
     });
+
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 
 export const currentQuarterTotal = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -2021,13 +2033,14 @@ export const currentQuarterTotal = (data: any) => {
         // Perform the comparison to determine the order
         return handicapA - handicapB;
     });
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 
 export const matchResultAndTotal = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
+    var suspend_value = "0";
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -2067,8 +2080,10 @@ export const matchResultAndTotal = (data: any) => {
                     // arr = [title_obj, over_obj, under_obj]
                     base_arr.push(arr_home);
                     base_arr.push(arr_away);
+                    suspend_value = odds.suspend;
                 }
                 
+
             }
         }
     }
@@ -2087,7 +2102,6 @@ export const matchResultAndTotal = (data: any) => {
 
 export const pointSpread3Way = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -2115,12 +2129,12 @@ export const pointSpread3Way = (data: any) => {
             }
         }
     }
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 export const highestScoringHalf = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -2145,12 +2159,12 @@ export const highestScoringHalf = (data: any) => {
             base_arr.push(arr);
         }
     }
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
 
 export const halfTimeFullTime = (data: any) => {
     var current_quarter = data?.info?.period;
-    var suspend_value = "0"
     if (!data && !data.odds) {
         return {rows:[], suspend:"0"};
     }
@@ -2193,5 +2207,6 @@ export const halfTimeFullTime = (data: any) => {
             base_arr.push(second_row_arr);
         }
     }
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value}
 }
