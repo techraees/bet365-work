@@ -13,7 +13,7 @@ export const getSportsOdds = (sport: string) =>
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
-
+  
 export const getOddsGroupedByLeauge = (sport: string) =>
   fetch(
     `http://${API_URL}/odds/${sport}/live/groupBy/league`,
@@ -58,3 +58,15 @@ export const getPregamesLeaguesGroupedByCountry = () =>
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
+
+export const getCoupons = (token: any) =>{
+  var myHeaders = new Headers();
+  myHeaders.append("X-ACCESS-TOKEN", token);
+
+  var requestOptions1 = {
+    method: 'GET',
+    headers: myHeaders,
+  };
+  
+  return fetch("http://odds.f11-sport.net:3000/users/getCoupons", requestOptions1)
+}

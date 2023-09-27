@@ -32,7 +32,7 @@ const Home = async ({ params }: any) => {
   }
 
   if (odds?.message) {
-    return (<div> <SportsHeader />
+    return(<div> <SportsHeader />
       <div className="pt-5 text-white flex items-center">No odds found</div>
     </div>);
   }

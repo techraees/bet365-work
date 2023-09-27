@@ -1,11 +1,12 @@
 import Nats from "@/components/Nats";
-import { getOddsGroupedByLeauge, getPregameLeagues, getPregameNames, getPregameSoccer, getPregameSoccerEngland, getSportsOdds } from "@/api";
+import { getCoupons, getOddsGroupedByLeauge, getPregameLeagues, getPregameNames, getPregameSoccer, getPregameSoccerEngland, getSportsOdds } from "@/api";
 import SoccerWrapper from "./components/soccer/Wrapper";
 import NavigationPanel, { TopBarNav } from "./components/Navigation/navigationpanel";
 import BannerSlider from "./components/banner-slider";
 import SportsContent from "./components/sports-content";
 
 import requireSession from "@/lib/request-session";
+import UserBet from "./components/userbet";
 
 
 
@@ -33,7 +34,6 @@ const Home = async ({ params }: any) => {
     pregameodds = await Promise.all(promise);
   }
 
-
   let soccerodds = await getSportsOdds('soccer');
   let soccerleagues = await getOddsGroupedByLeauge('soccer');
   let tennisodds = await getSportsOdds('tennis');
@@ -42,6 +42,7 @@ const Home = async ({ params }: any) => {
   let basketballleagues = await getOddsGroupedByLeauge('basketball');
   let cricketodds = await getSportsOdds('cricket');
   let cricketleagues = await getOddsGroupedByLeauge('cricket');
+  
   const banners = [
     {
       image: '/sportbanner1.jpeg',
@@ -105,6 +106,7 @@ const Home = async ({ params }: any) => {
           cricketodds={cricketodds}
           cricketleagues={cricketleagues}
         />
+        <UserBet />
       </div>
     </div>
   )
