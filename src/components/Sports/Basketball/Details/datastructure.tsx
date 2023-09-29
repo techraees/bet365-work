@@ -243,6 +243,55 @@ export const basketballAll = {
             [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
         ]
     },
+    "currentHalfTotals":{
+        marketname: "Alternative X Half Totals",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: [
+            [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
+        ]
+    },
+    "currentHalfHomeTeamTotals":{
+        marketname: "Alternative X Half Home Team Totals",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: [
+            [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
+        ]
+    },
+    "currentHalfAwayTeamTotals":{
+        marketname: "Alternative X Half Away Team Totals",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: [
+            [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
+        ]
+    },
+    "currentQuarterHomeTeamTotals":{
+        marketname: "Alternative X Quarter Home Team Totals",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: [
+            [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
+        ]
+    },
+    "currentQuarterAwayTeamTotals":{
+        marketname: "Alternative X Quarter Away Team Totals",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: [
+            [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
+        ]
+    },
+    "oddEven": {
+        marketname: "Odd/Even",
+        suspend: "0",
+        header: ["", "Odd", "Even"],
+        rows: [
+            [{ title: "Match", value: null, suspend: "0" }, { title: "", value: "1.36", suspend: "0" }, { title: "", value: "3.00", suspend: "0" }],
+
+        ]
+    },
     // "currentQuarterTotal":{
     //     marketname: "Alternative X Quarter Totals",
     //     suspend: "0",
@@ -634,6 +683,15 @@ export const basketballHalf = {
             [{ title: "49.5", value: null, suspend: "0" }, { title: "", value: "1.55", suspend: "0" }, { title: "", value: "2.30", suspend: "0" }],
             [{ title: "53.5", value: null, suspend: "0" }, { title: "", value: "2.20", suspend: "0" }, { title: "", value: "1.62", suspend: "0" }],
             [{ title: "55.5", value: null, suspend: "0" }, { title: "", value: "2.75", suspend: "0" }, { title: "", value: "1.40", suspend: "0" }],
+
+        ]
+    },
+    "OddEven": {
+        marketname: "Odd/Even",
+        suspend: "0",
+        header: ["", "Odd", "Even"],
+        rows: [
+            [{ title: "Match", value: null, suspend: "0" }, { title: "", value: "1.36", suspend: "0" }, { title: "", value: "3.00", suspend: "0" }],
 
         ]
     },

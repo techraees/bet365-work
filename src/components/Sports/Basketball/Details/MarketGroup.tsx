@@ -6,7 +6,7 @@ import { categoriesMapping } from '@/lib/sportsMapping';
 import { basketballAll, basketballBetBuilder, basketballHalf, basketballInstant, basketballQuarter, basketballTeam } from './datastructure';
 import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
-import { currentPoints, gameLines, pointBetting, getCurrentPoints, quarterLines2Way, oddEven, half, resultTotalGoals, quarterLines, getQuarterTitle, halfLines, getHalfTitle, currentQuarterRaceTo, currentHalfRaceTo, currentQuarterBothTeamsToScore, currentQuarterHomeTeamToScore, currentQuarterAwayTeamToScore, currentQuarterHomeTeamToScore2, currentQuarterAwayTeamToScore2, currentQuarterMarginOfVictory, currentQuarterTeamTotals, currentHalfRaceTo3Way, alternativePointSpread, gameLinesTotal, homeTeamTotal, awayTeamTotal, currentQuarterTotal, teamTotals, getHomeTeam, getAwayTeam, matchResultAndTotal, pointSpread3Way, highestScoringHalf, halfTimeFullTime, getNextQuarterTitle, nextQuarterRaceTo, nextQuarterLines, nextQuarterBothTeamsToScore, nextQuarterHomeTeamToScore, nextQuarterAwayTeamToScore, nextQuarterHomeTeamToScore2, nextQuarterAwayTeamToScore2, nextQuarterMarginOfVictory, nextQuarterTeamTotals } from '../mappings/mapping';
+import { currentPoints, gameLines, pointBetting, getCurrentPoints, quarterLines2Way, oddEven, half, resultTotalGoals, quarterLines, getQuarterTitle, halfLines, getHalfTitle, currentQuarterRaceTo, currentHalfRaceTo, currentQuarterBothTeamsToScore, currentQuarterHomeTeamToScore, currentQuarterAwayTeamToScore, currentQuarterHomeTeamToScore2, currentQuarterAwayTeamToScore2, currentQuarterMarginOfVictory, currentQuarterTeamTotals, currentHalfRaceTo3Way, alternativePointSpread, gameLinesTotal, homeTeamTotal, awayTeamTotal, currentQuarterTotal, teamTotals, getHomeTeam, getAwayTeam, matchResultAndTotal, pointSpread3Way, highestScoringHalf, halfTimeFullTime, getNextQuarterTitle, nextQuarterRaceTo, nextQuarterLines, nextQuarterBothTeamsToScore, nextQuarterHomeTeamToScore, nextQuarterAwayTeamToScore, nextQuarterHomeTeamToScore2, nextQuarterAwayTeamToScore2, nextQuarterMarginOfVictory, nextQuarterTeamTotals, currentHalfHomeTeamTotal, currentHalfAwayTeamTotal2, currentHalfAwayTeamTotal, currentHalfHomeTeamTotal2, currnetHalfTotals, currentHalfTotals, currentQuarterHomeTeamTotal, currentQuarterAwayTeamTotal } from '../mappings/mapping';
 interface MarketGroupProps {
     data: any;
     active: string;
@@ -369,6 +369,7 @@ const BasketballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => 
             const obj = homeTeamTotal(data)
             var rows = obj.rows;
             oddData.homeTeamTotal.marketname = getQuarterTitle(data, oddData.homeTeamTotal.marketname)
+            oddData.homeTeamTotal.marketname = getHomeTeam(data, oddData.homeTeamTotal.marketname)
             oddData.homeTeamTotal.suspend = obj.suspend;
             if(rows.length ===0 || rows[0].length === 0){
                 delete oddData.homeTeamTotal;
@@ -382,6 +383,7 @@ const BasketballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => 
             const obj = awayTeamTotal(data)
             var rows = obj.rows;
             oddData.awayTeamTotal.marketname = getQuarterTitle(data, oddData.awayTeamTotal.marketname)
+            oddData.awayTeamTotal.marketname = getAwayTeam(data, oddData.awayTeamTotal.marketname)
             oddData.awayTeamTotal.suspend = obj.suspend;
             if(rows.length ===0 || rows[0].length === 0){
                 delete oddData.awayTeamTotal;
@@ -433,6 +435,119 @@ const BasketballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => 
                 delete oddData.highestScoringHalf;
             }else{
                 oddData.highestScoringHalf.rows = rows;
+            }
+        }
+
+        {
+            const obj = currentHalfTotals(data)
+            var rows = obj.rows;
+            oddData.currentHalfTotals.marketname = getHalfTitle(data, oddData.currentHalfTotals.marketname)
+            oddData.currentHalfTotals.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentHalfTotals;
+            }else{
+                oddData.currentHalfTotals.rows = rows;
+            }
+        }
+
+        {
+            const obj = currentHalfHomeTeamTotal(data)
+            var rows = obj.rows;
+            oddData.currentHalfHomeTeamTotals.marketname = getHalfTitle(data, oddData.currentHalfHomeTeamTotals.marketname)
+            oddData.currentHalfHomeTeamTotals.marketname = getHomeTeam(data, oddData.currentHalfHomeTeamTotals.marketname)
+
+            oddData.currentHalfHomeTeamTotals.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentHalfHomeTeamTotals;
+            }else{
+                oddData.currentHalfHomeTeamTotals.rows = rows;
+            }
+        }
+        
+        {
+            if(oddData.currentHalfHomeTeamTotals === undefined){
+                oddData.currentHalfHomeTeamTotals = JSON.parse(JSON.stringify(basketballAll.currentHalfHomeTeamTotals))
+                const obj = currentHalfHomeTeamTotal2(data)
+                var rows = obj.rows;
+                oddData.currentHalfHomeTeamTotals.marketname = getHalfTitle(data, oddData.currentHalfHomeTeamTotals.marketname)
+                oddData.currentHalfHomeTeamTotals.marketname = getHomeTeam(data, oddData.currentHalfHomeTeamTotals.marketname)
+                oddData.currentHalfHomeTeamTotals.suspend = obj.suspend;
+                if(rows.length ===0 || rows[0].length === 0){
+                    delete oddData.currentHalfHomeTeamTotals;
+                }else{
+                    oddData.currentHalfHomeTeamTotals.rows = rows;
+                }
+            }
+        }
+
+
+        {
+            const obj = currentHalfAwayTeamTotal(data)
+            var rows = obj.rows;
+            oddData.currentHalfAwayTeamTotals.marketname = getHalfTitle(data, oddData.currentHalfAwayTeamTotals.marketname)
+            oddData.currentHalfAwayTeamTotals.marketname = getAwayTeam(data, oddData.currentHalfAwayTeamTotals.marketname)
+            oddData.currentHalfAwayTeamTotals.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentHalfAwayTeamTotals;
+            }else{
+                oddData.currentHalfAwayTeamTotals.rows = rows;
+            }
+        }
+        
+        {
+            if(oddData.currentHalfAwayTeamTotals === undefined){
+                oddData.currentHalfAwayTeamTotals = JSON.parse(JSON.stringify(basketballAll.currentHalfAwayTeamTotals))
+                const obj = currentHalfAwayTeamTotal2(data)
+                var rows = obj.rows;
+                oddData.currentHalfAwayTeamTotals.marketname = getHalfTitle(data, oddData.currentHalfAwayTeamTotals.marketname)
+                oddData.currentHalfAwayTeamTotals.marketname = getAwayTeam(data, oddData.currentHalfAwayTeamTotals.marketname)
+                oddData.currentHalfAwayTeamTotals.suspend = obj.suspend;
+                if(rows.length ===0 || rows[0].length === 0){
+                    delete oddData.currentHalfAwayTeamTotals;
+                }else{
+                    oddData.currentHalfAwayTeamTotals.rows = rows;
+                }
+            }
+        }
+
+        {
+            const obj = currentQuarterHomeTeamTotal(data)
+            var rows = obj.rows;
+            oddData.currentQuarterHomeTeamTotals.marketname = getQuarterTitle(data, oddData.currentQuarterHomeTeamTotals.marketname)
+            oddData.currentQuarterHomeTeamTotals.marketname = getHomeTeam(data, oddData.currentQuarterHomeTeamTotals.marketname)
+
+            oddData.currentQuarterHomeTeamTotals.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentQuarterHomeTeamTotals;
+            }else{
+                oddData.currentQuarterHomeTeamTotals.rows = rows;
+            }
+        }
+
+        {
+            const obj = currentQuarterAwayTeamTotal(data)
+            var rows = obj.rows;
+            oddData.currentQuarterAwayTeamTotals.marketname = getQuarterTitle(data, oddData.currentQuarterAwayTeamTotals.marketname)
+            oddData.currentQuarterAwayTeamTotals.marketname = getAwayTeam(data, oddData.currentQuarterAwayTeamTotals.marketname)
+
+            oddData.currentQuarterAwayTeamTotals.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.currentQuarterAwayTeamTotals;
+            }else{
+                oddData.currentQuarterAwayTeamTotals.rows = rows;
+            }
+        }
+
+        {
+            const obj = oddEven(data)
+            var rows = obj.rows;
+            oddData.oddEven.marketname = getHalfTitle(data, oddData.oddEven.marketname)
+            oddData.oddEven.marketname = getAwayTeam(data, oddData.oddEven.marketname)
+            oddData.oddEven.suspend = obj.suspend;
+            if(rows.length ===0 || rows[0].length === 0){
+                delete oddData.oddEven;
+            }else{
+                oddData.oddEven.rows = rows;
             }
         }
         console.log("oddiz", data?.odds)

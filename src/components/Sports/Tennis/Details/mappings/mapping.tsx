@@ -1745,12 +1745,15 @@ export const raceToCurrentSet = (data:any) =>{
         var title_obj = {title: handicap, value: "", suspend:"0"};
         arr.push(title_obj)
 
-        var home_obj = {title: "", value: grouped_obj["Home"][0].value_eu, suspend: grouped_obj["Home"][0].suspend}
-        var away_obj = {title: "", value: grouped_obj["Away"][0].value_eu, suspend: grouped_obj["Away"][0].suspend}
-        
-        arr.push(home_obj)
-        arr.push(away_obj)
-        base_arr.push(arr);
+        if(grouped_obj["Home"] && grouped_obj["Away"]){
+
+            var home_obj = {title: "", value: grouped_obj["Home"][0].value_eu, suspend: grouped_obj["Home"][0].suspend}
+            var away_obj = {title: "", value: grouped_obj["Away"][0].value_eu, suspend: grouped_obj["Away"][0].suspend}
+            
+            arr.push(home_obj)
+            arr.push(away_obj)
+            base_arr.push(arr);
+        }
 
     }
     return {rows:base_arr, suspend:odds.suspend};
