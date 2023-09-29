@@ -4115,8 +4115,8 @@ export const matchHandicap= (data:any) =>{
     var participants = odds.participants;
     var home_participant = _getParticipantsFieldRaw(participants, "Home")
     var away_participant = _getParticipantsFieldRaw(participants, "Away")
-    var home_obj = {title: data?.team_info?.home?.name + " " + home_participant.handicap, value:home_participant.value_eu}
-    var away_obj = {title: data?.team_info?.away?.name + " " + away_participant.handicap, value:away_participant.value_eu}
+    var home_obj = {title: data?.team_info?.home?.name + " " + home_participant.handicap, value:home_participant.value_eu, suspend:home_participant.suspend}
+    var away_obj = {title: data?.team_info?.away?.name + " " + away_participant.handicap, value:away_participant.value_eu, suspend:away_participant.suspend}
     var arr = [] as any;
     arr = [home_obj, away_obj]
     base_arr.push(arr)

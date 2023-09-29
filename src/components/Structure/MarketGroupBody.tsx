@@ -96,7 +96,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                                     }
 
                                     return (
-                                        <MarketCell key={index} name={item.title} value={item.value} suspend={odd?.suspend} textLeftAlign={textLeftAlign}
+                                        <MarketCell key={index} name={item.title} value={item.value} suspend={item?.suspend} textLeftAlign={textLeftAlign}
                                             separation={separation ? index === 1 ? true : false : false}
                                             active={active} borderRight={borderRight} disablehover={disablehover}
                                         />
@@ -111,7 +111,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                                     {rowdata.map((item: any, index: number) => {
                                         if (index === 0) return null
                                         return (
-                                            <MarketCell key={index} name={item.title} value={item.value} suspend={odd?.suspend} active={active} />
+                                            <MarketCell key={index} name={item.title} value={item.value} suspend={item?.suspend} active={active} />
                                         )
                                     })}
                                 </div>
@@ -124,7 +124,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                                     {rowdata.map((item: any, index: number) => {
                                         if (index === 0 || item === null) return null
                                         return (
-                                            <MarketCell key={index} name={item.title} value={item.value} suspend={odd?.suspend} active={active} />
+                                            <MarketCell key={index} name={item.title} value={item.value} suspend={item?.suspend} active={active} />
                                         )
                                     })}
                                 </div>
