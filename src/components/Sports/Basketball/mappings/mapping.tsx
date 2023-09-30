@@ -967,14 +967,17 @@ export const nextQuarterBothTeamsToScore = (data: any) => {
             for(var handicap in group){
                 var arr = [] as any;
                 var group_obj = group[handicap]
-                var yes_obj = group_obj["Yes"][0]
-                var no_obj = group_obj["No"][0]
+                if(group_obj["Yes"] !== undefined && group_obj["No"] !== undefined){
 
-                var _title = {title:handicap, value:null, suspend:odds.suspend};
-                var _yes = {title: "", value:yes_obj.value_eu, suspend: yes_obj.suspend}
-                var _no = {title: "", value:no_obj.value_eu, suspend: no_obj.suspend}
-                arr = [_title, _yes, _no]
-                base_arr.push(arr)
+                    var yes_obj = group_obj["Yes"][0]
+                    var no_obj = group_obj["No"][0]
+
+                    var _title = {title:handicap, value:null, suspend:odds.suspend};
+                    var _yes = {title: "", value:yes_obj.value_eu, suspend: yes_obj.suspend}
+                    var _no = {title: "", value:no_obj.value_eu, suspend: no_obj.suspend}
+                    arr = [_title, _yes, _no]
+                    base_arr.push(arr)
+                }
             }
         }
     }
@@ -2794,4 +2797,571 @@ export const currentQuarterHomeTeamTotal = (data: any) => {
     return {rows:base_arr, suspend:suspend_value}
 }
 
+// Function to group participants by name
+function groupParticipantsByPropertyName(home_participants:any, away_participants:any) {
+  const groupedParticipants = {} as any;
 
+  function groupParticipants(participants:any) {
+    for (const id in participants) {
+      const participant = participants[id];
+      const name = participant.name;
+
+      if (!groupedParticipants[name]) {
+        groupedParticipants[name] = [];
+      }
+
+      groupedParticipants[name].push(participant);
+    }
+  }
+
+  groupParticipants(home_participants);
+  groupParticipants(away_participants);
+
+  return groupedParticipants;
+}
+
+
+
+export const winningMargin = (data: any) => {
+    var current_quarter = data?.info?.period;
+    var home_participants = null;
+    var away_participants =  null;
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    {
+        var search_string = "Home Winning Margin (14-Way)"
+        var odd_id = findIdByName(data, search_string);
+        var odds = data?.odds?.[odd_id];
+
+        if(odds){
+            var participants = odds.participants;
+             home_participants = participants;
+        }
+    }
+    
+    {
+
+        var search_string = "Away Winning Margin (14-Way)"
+        var odd_id = findIdByName(data, search_string);
+        var odds = data?.odds?.[odd_id];
+
+        if(odds){
+            var participants = odds.participants;
+            away_participants = participants;
+
+        }
+    }
+     
+    if(home_participants != null && away_participants != null){
+        var group = groupParticipantsByPropertyName(home_participants, away_participants)
+        for(var row_name in group){
+                var group_obj = group[row_name];
+                var home_participant = group_obj[0]
+                var away_participant = group_obj[1]
+                var title_obj = {title:row_name, value:"", suspend:group_obj[0].suspend};
+                var home_obj = {title:"", value:home_participant.value_eu, suspend: home_participant.suspend}
+                var away_obj = {title:"", value:away_participant.value_eu, suspend: away_participant.suspend}
+                var arr = [title_obj, home_obj, away_obj]
+                base_arr.push(arr);
+        }
+    }
+
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
+
+    // var suspend_value = areAllSuspended(base_arr);
+    // return {rows:base_arr, suspend:suspend_value}
+}
+
+
+export const currentHalfWinningMargin = (data: any) => {
+    var current_period = data?.info?.period;
+    var current_period_int = parseInt(current_period.charAt(0));
+    var half_int = 0;
+    var half_string = "";
+    if(current_period_int<=2){
+        half_int = 1;
+    }else{
+        half_int = 2;
+    }
+
+    if(half_int == 1){
+        half_string = "1st Half"
+    }
+    if(half_int == 2){
+        half_string = "2nd Half"
+    }
+    var home_participants = null;
+    var away_participants =  null;
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    {
+        var search_string = "Home Winning Margin (" + half_string+")"
+        var odd_id = findIdByName(data, search_string);
+        var odds = data?.odds?.[odd_id];
+
+        if(odds){
+            var participants = odds.participants;
+             home_participants = participants;
+        }
+    }
+    
+    {
+
+        var search_string = "Away Winning Margin (" + half_string+")"
+        var odd_id = findIdByName(data, search_string);
+        var odds = data?.odds?.[odd_id];
+
+        if(odds){
+            var participants = odds.participants;
+            away_participants = participants;
+
+        }
+    }
+     
+    if(home_participants != null && away_participants != null){
+        var group = groupParticipantsByPropertyName(home_participants, away_participants)
+        for(var row_name in group){
+                var group_obj = group[row_name];
+                var home_participant = group_obj[0]
+                var away_participant = group_obj[1]
+                var title_obj = {title:row_name, value:"", suspend:group_obj[0].suspend};
+                var home_obj = {title:"", value:home_participant.value_eu, suspend: home_participant.suspend}
+                var away_obj = {title:"", value:away_participant.value_eu, suspend: away_participant.suspend}
+                var arr = [title_obj, home_obj, away_obj]
+                base_arr.push(arr);
+        }
+    }
+
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
+
+}
+
+
+export const currentQuarterWinningMargin = (data: any) => {
+    var current_period = data?.info?.period;
+    var current_period_int = parseInt(current_period.charAt(0));
+    var half_int = 0;
+    var half_string = "";
+    if(current_period_int<=2){
+        half_int = 1;
+    }else{
+        half_int = 2;
+    }
+
+    if(half_int == 1){
+        half_string = "1st Half"
+    }
+    if(half_int == 2){
+        half_string = "2nd Half"
+    }
+    var home_participants = null;
+    var away_participants =  null;
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    {
+        var search_string = "Home Winning Margin (" + current_period +")"
+        var odd_id = findIdByName(data, search_string);
+        var odds = data?.odds?.[odd_id];
+
+        if(odds){
+            var participants = odds.participants;
+             home_participants = participants;
+        }
+    }
+    
+    {
+
+        var search_string = "Away Winning Margin (" + current_period +")"
+        var odd_id = findIdByName(data, search_string);
+        var odds = data?.odds?.[odd_id];
+
+        if(odds){
+            var participants = odds.participants;
+            away_participants = participants;
+
+        }
+    }
+     
+    if(home_participants != null && away_participants != null){
+        var group = groupParticipantsByPropertyName(home_participants, away_participants)
+        for(var row_name in group){
+                var group_obj = group[row_name];
+                var home_participant = group_obj[0]
+                var away_participant = group_obj[1]
+                var title_obj = {title:row_name, value:"", suspend:group_obj[0].suspend};
+                var home_obj = {title:"", value:home_participant.value_eu, suspend: home_participant.suspend}
+                var away_obj = {title:"", value:away_participant.value_eu, suspend: away_participant.suspend}
+                var arr = [title_obj, home_obj, away_obj]
+                base_arr.push(arr);
+        }
+    }
+
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
+
+}
+
+export const totalBand = (data: any) => {
+    var current_quarter = data?.info?.period;
+    var next_quarter = getNextQuarter(current_quarter);
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    {
+        var search_string = "Total Band"
+        var odd_id = findIdByName(data, search_string);
+        var odds = data?.odds?.[odd_id];
+
+        if(odds){
+            var participants = odds.participants;
+
+            var arr = []
+            for(var participant_id in participants){
+                var participant_obj = participants[participant_id];
+
+                var _title_participant_obj = {title:participant_obj.name, value:"", suspend:participant_obj.suspend}
+                var _participant_obj = {title:"", value:participant_obj.value_eu, suspend:participant_obj.suspend}
+                arr.push(_title_participant_obj, _participant_obj)
+                if(arr.length == 4){
+                    base_arr.push(arr)
+                    arr = [];
+                }
+
+            }
+        }
+    }
+
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value}
+}
+
+export const currentHalfDoubleChance = (data: any) => {
+    var current_period = data?.info?.period;
+    var current_period_int = parseInt(current_period.charAt(0));
+    var half_int = 0;
+    var half_string = "";
+    if(current_period_int<=2){
+        half_int = 1;
+    }else{
+        half_int = 2;
+    }
+
+    if(half_int == 1){
+        half_string = "1st Half"
+    }
+    if(half_int == 2){
+        half_string = "2nd Half"
+    }
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    {
+        var search_string = half_string + " Double Chance"
+        var odd_id = findIdByName(data, search_string);
+        var odds = data?.odds?.[odd_id];
+
+        if(odds){
+            var participants = odds.participants;
+
+            var home_name = data?.team_info?.home?.name;
+            var away_name = data?.team_info?.away?.name;
+
+            var home_or_draw = _getParticipantsFieldRaw(participants, "1X")
+            var draw_or_away = _getParticipantsFieldRaw(participants, "X2")
+            var home_or_away = _getParticipantsFieldRaw(participants, "12")
+
+
+            if(home_or_draw && draw_or_away && home_or_away){
+                var _home_or_draw_participant_obj = {title:home_name + " or Draw", value:home_or_draw.value_eu, suspend:home_or_draw.suspend}
+                var _draw_or_away_participant_obj = {title:"Draw or " + away_name, value:draw_or_away.value_eu, suspend:draw_or_away.suspend}
+                var _home_or_away_participant_obj = {title:home_name + " or " + away_name, value:home_or_away.value_eu, suspend:home_or_away.suspend}
+                var arr1 = [_home_or_draw_participant_obj]
+                var arr2 = [_draw_or_away_participant_obj]
+                var arr3 = [_home_or_away_participant_obj]
+                base_arr.push(arr1);
+                base_arr.push(arr2);
+                base_arr.push(arr3);
+            }
+
+        }
+    }
+
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value}
+}
+
+
+export const doubleResult = (data: any) => {
+    var current_period = data?.info?.period;
+    var current_period_int = parseInt(current_period.charAt(0));
+    var half_int = 0;
+    var half_string = "";
+    if(current_period_int<=2){
+        half_int = 1;
+    }else{
+        half_int = 2;
+    }
+
+    if(half_int == 1){
+        half_string = "1st Half"
+    }
+    if(half_int == 2){
+        half_string = "2nd Half"
+    }
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    {
+        var search_string = "Half Time/Full Time (Including OT)"
+        var odd_id = findIdByName(data, search_string);
+        var odds = data?.odds?.[odd_id];
+
+        if(odds){
+            var participants = odds.participants;
+
+            var home_name = data?.team_info?.home?.name;
+            var away_name = data?.team_info?.away?.name;
+
+            var one_and_one = _getParticipantsFieldRaw(participants, "1/1")
+            var x_and_one = _getParticipantsFieldRaw(participants, "X/1")
+            var two_and_one = _getParticipantsFieldRaw(participants, "2/1")
+            var one_and_two = _getParticipantsFieldRaw(participants, "1/2")
+            var x_and_two = _getParticipantsFieldRaw(participants, "X/2")
+            var two_and_two = _getParticipantsFieldRaw(participants, "2/2")
+
+            if(one_and_one && x_and_one && two_and_one && one_and_two && x_and_two && two_and_two){
+                var _one_and_one_participant_obj = {title:home_name + " - " + home_name, value:one_and_one.value_eu, suspend:one_and_one.suspend}
+                var _x_and_one_participant_obj = {title:"Tie - " + home_name, value:x_and_one.value_eu, suspend:x_and_one.suspend}
+                var _two_and_one_participant_obj = {title:away_name + " - " + home_name, value:two_and_one.value_eu, suspend:two_and_one.suspend}
+                var _one_and_two_participant_obj = {title:home_name + " - " + away_name, value:two_and_two.value_eu, suspend:two_and_two.suspend}
+                var _x_and_two_participant_obj = {title:"Tie - " + away_name , value:x_and_two.value_eu, suspend:x_and_two.suspend}
+                var _two_and_two_participant_obj = {title:away_name + " - " + away_name, value:two_and_two.value_eu, suspend:two_and_two.suspend}
+                var arr1 = [_one_and_one_participant_obj]
+                var arr2 = [_x_and_one_participant_obj]
+                var arr3 = [_two_and_one_participant_obj]
+                var arr4 = [_one_and_two_participant_obj]
+                var arr5 = [_x_and_two_participant_obj]
+                var arr6 = [_two_and_two_participant_obj]
+                base_arr.push(arr1);
+                base_arr.push(arr2);
+                base_arr.push(arr3);
+                base_arr.push(arr4);
+                base_arr.push(arr5);
+                base_arr.push(arr6);
+            }
+
+        }
+    }
+
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value}
+}
+
+
+
+export const totalBand3Way = (data: any) => {
+    var current_period = data?.info?.period;
+    var current_period_int = parseInt(current_period.charAt(0));
+    var half_int = 0;
+    var half_string = "";
+    if(current_period_int<=2){
+        half_int = 1;
+    }else{
+        half_int = 2;
+    }
+
+    if(half_int == 1){
+        half_string = "1st Half"
+    }
+    if(half_int == 2){
+        half_string = "2nd Half"
+    }
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    {
+        var search_string = "Total Band 3-Way"
+        var odd_id = findIdByName(data, search_string);
+        var odds = data?.odds?.[odd_id];
+
+        if(odds){
+            var participants = odds.participants;
+            for(var participant_id in participants){
+                var arr = [] as any;
+                var participant_obj = participants[participant_id];
+                var _obj = {title:participant_obj.name, value:participant_obj.value_eu, suspend:participant_obj.suspend};
+                arr = [_obj];
+                base_arr.push(arr);
+            }
+
+
+        }
+    }
+
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value}
+}
+
+
+export const currentQuarterTotals = (data: any) => {
+    var current_quarter = data?.info?.period;
+    var current_period_int = parseInt(current_quarter);
+    var half_int = 0;
+    var half_string = "";
+    if(current_period_int<=2){
+        half_int = 1;
+    }else{
+        half_int = 2;
+    }
+
+    if(half_int == 1){
+        half_string = "1st Half"
+    }
+    if(half_int == 2){
+        half_string = "2nd Half"
+    }
+
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    {
+        var search_string = current_quarter + " Lines Total" 
+        var odd_id = findIdByName(data, search_string);
+        var odds = data?.odds?.[odd_id];
+
+        if(odds){
+            var participants = odds.participants;
+            var group = groupParticipantsByHandicapAndName(participants);
+            var length = Object.keys(group).length
+            if(length <= 1){
+                return {rows:[], suspend:"0"};
+
+            }
+            for(var handicap in group){
+                var group_obj = group[handicap];
+                var arr = [] as any;
+
+                if(group_obj["Over"] && group_obj["Under"]){
+                    var _over_obj = group_obj["Over"][0]
+                    var _under_obj = group_obj["Under"][0]
+                    var title_obj = {title:handicap, value:null, suspend:odds.suspend}
+                    var over_obj = {title:"", value:_over_obj.value_eu, suspend:_over_obj.suspend}
+                    var under_obj = {title:"", value:_under_obj.value_eu, suspend:_under_obj.suspend}
+                    arr = [title_obj, over_obj, under_obj]
+                    base_arr.push(arr);
+                }
+            }
+        }
+    }
+
+    base_arr.sort((a:any, b:any) => {
+        // Convert the title (handicap) of the first object of each inner array to a number
+        let handicapA = parseFloat(a[0].title);
+        let handicapB = parseFloat(b[0].title);
+
+        // Perform the comparison to determine the order
+        return handicapA - handicapB;
+    });
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value}
+}
+
+export const nextQuarterTotals = (data: any) => {
+    var current_quarter = data?.info?.period;
+    var next_quarter = getNextQuarter(current_quarter);
+    var current_period_int = parseInt(current_quarter);
+    var half_int = 0;
+    var half_string = "";
+    if(current_period_int<=2){
+        half_int = 1;
+    }else{
+        half_int = 2;
+    }
+
+    if(half_int == 1){
+        half_string = "1st Half"
+    }
+    if(half_int == 2){
+        half_string = "2nd Half"
+    }
+
+    if(next_quarter === undefined){
+        return {rows:[], suspend:"0"};
+    }
+
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    {
+        var search_string = next_quarter + " Lines Total" 
+        var odd_id = findIdByName(data, search_string);
+        var odds = data?.odds?.[odd_id];
+
+        if(odds){
+            var participants = odds.participants;
+            var group = groupParticipantsByHandicapAndName(participants);
+            var length = Object.keys(group).length
+            if(length <= 1){
+                return {rows:[], suspend:"0"};
+
+            }
+            for(var handicap in group){
+                var group_obj = group[handicap];
+                var arr = [] as any;
+
+                if(group_obj["Over"] && group_obj["Under"]){
+                    var _over_obj = group_obj["Over"][0]
+                    var _under_obj = group_obj["Under"][0]
+                    var title_obj = {title:handicap, value:null, suspend:odds.suspend}
+                    var over_obj = {title:"", value:_over_obj.value_eu, suspend:_over_obj.suspend}
+                    var under_obj = {title:"", value:_under_obj.value_eu, suspend:_under_obj.suspend}
+                    arr = [title_obj, over_obj, under_obj]
+                    base_arr.push(arr);
+                }
+            }
+        }
+    }
+
+    base_arr.sort((a:any, b:any) => {
+        // Convert the title (handicap) of the first object of each inner array to a number
+        let handicapA = parseFloat(a[0].title);
+        let handicapB = parseFloat(b[0].title);
+
+        // Perform the comparison to determine the order
+        return handicapA - handicapB;
+    });
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value}
+}

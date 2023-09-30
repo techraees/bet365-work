@@ -7,7 +7,8 @@ export const basketballAll = {
             [{ title: "Spread", value: null, suspend: "0" }, { title: "+1.5", value: "1.86", suspend: "0" }, { title: "-1.5", value: "1.80", suspend: "0" }],
             [{ title: "Total", value: null, suspend: "0" }, { title: "O 136.5", value: "2.00", suspend: "0" }, { title: "U 136.5", value: "1.71", suspend: "0" }],
             [{ title: "Money Line", value: null, suspend: "0" }, { title: "", value: "2.10", suspend: "0" }, { title: "", value: "1.66", suspend: "0" }],
-        ]
+        ],
+        order: 1
     },
     "pointBetting": {
         marketname: "Point Betting",
@@ -25,23 +26,8 @@ export const basketballAll = {
             [{ title: "11", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
             [{ title: "12", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
             [{ title: "13", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
-        ]
-    },
-    "currentQuarterRaceTo":{
-        marketname: "X Quarter Race To",
-        suspend: "0",
-        header: ["", "Home", "Away", "Neither"],
-        rows: [
-            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" },{ title: "", value: "1.80", suspend: "0" }],
-        ]
-    },
-    "nextQuarterRaceTo":{
-        marketname: "X Quarter Race To",
-        suspend: "0",
-        header: ["", "Home", "Away", "Neither"],
-        rows: [
-            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" },{ title: "", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 2
     },
     "currentQuarterLines": {
         marketname: "X Quarter Lines",
@@ -51,7 +37,26 @@ export const basketballAll = {
             [{ title: "Spread", value: null, suspend: "0" }, { title: "+1.5", value: "1.86", suspend: "0" }, { title: "-1.5", value: "1.80", suspend: "0" }],
             [{ title: "Total", value: null, suspend: "0" }, { title: "O 136.5", value: "2.00", suspend: "0" }, { title: "U 136.5", value: "1.71", suspend: "0" }],
             [{ title: "Money Line", value: null, suspend: "0" }, { title: "", value: "2.10", suspend: "0" }, { title: "", value: "1.66", suspend: "0" }],
-        ]
+        ],
+        order: 3
+    },
+    "currentQuarterRaceTo":{
+        marketname: "X Quarter Race To",
+        suspend: "0",
+        header: ["", "Home", "Away", "Neither"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" },{ title: "", value: "1.80", suspend: "0" }],
+        ],
+        order: 4
+    },
+    "nextQuarterRaceTo":{
+        marketname: "X Quarter Race To",
+        suspend: "0",
+        header: ["", "Home", "Away", "Neither"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" },{ title: "", value: "1.80", suspend: "0" }],
+        ],
+        order: 4
     },
     "nextQuarterLines": {
         marketname: "X Quarter Lines",
@@ -61,7 +66,8 @@ export const basketballAll = {
             [{ title: "Spread", value: null, suspend: "0" }, { title: "+1.5", value: "1.86", suspend: "0" }, { title: "-1.5", value: "1.80", suspend: "0" }],
             [{ title: "Total", value: null, suspend: "0" }, { title: "O 136.5", value: "2.00", suspend: "0" }, { title: "U 136.5", value: "1.71", suspend: "0" }],
             [{ title: "Money Line", value: null, suspend: "0" }, { title: "", value: "2.10", suspend: "0" }, { title: "", value: "1.66", suspend: "0" }],
-        ]
+        ],
+        order: 6
     },
     "currentQuarterBothTeamsToScore":{
         marketname: "X Quarter Both Teams To Score",
@@ -69,7 +75,8 @@ export const basketballAll = {
         header: ["", "Yes", "No"],
         rows: [
             [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 7
     },
     "nextQuarterBothTeamsToScore":{
         marketname: "X Quarter Both Teams To Score",
@@ -77,7 +84,8 @@ export const basketballAll = {
         header: ["", "Yes", "No"],
         rows: [
             [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 8
     },
     "currentQuarterHomeTeamToScore":{
         marketname: "X Quarter Home Team To Score",
@@ -85,7 +93,8 @@ export const basketballAll = {
         header: ["", "Yes", "No"],
         rows: [
             [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 9
     },
     "nextQuarterHomeTeamToScore":{
         marketname: "X Quarter Home Team To Score",
@@ -93,7 +102,8 @@ export const basketballAll = {
         header: ["", "Yes", "No"],
         rows: [
             [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 10
     },
     "currentQuarterAwayTeamToScore":{
         marketname: "X Quarter Away Team To Score",
@@ -101,7 +111,8 @@ export const basketballAll = {
         header: ["", "Yes", "No"],
         rows: [
             [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 11
     },
     "nextQuarterAwayTeamToScore":{
         marketname: "X Quarter Away Team To Score",
@@ -109,7 +120,17 @@ export const basketballAll = {
         header: ["", "Yes", "No"],
         rows: [
             [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 12
+    },
+    "currentQuarterWinningMargin":{
+        marketname: "X Quarter Winning Margin",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: [
+            [{ title: "1-3", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
+        ],
+        order: 13 
     },
     "currentQuarterMarginOfVictory":{
         marketname: "X Quarter Margin of Victory",
@@ -117,7 +138,8 @@ export const basketballAll = {
         header: [],
         rows: [
             [{ title: "10", value: 1.80, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 13
     },
     "nextQuarterMarginOfVictory":{
         marketname: "X Quarter Margin of Victory",
@@ -125,7 +147,8 @@ export const basketballAll = {
         header: [],
         rows: [
             [{ title: "10", value: 1.80, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 14
     },
     "currentQuarterTeamTotals":{
         marketname: "X Quarter - Team Totals",
@@ -133,7 +156,8 @@ export const basketballAll = {
         header: ["Home", "Away"],
         rows: [
             [{ title: "10", value: null, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 15
     },
     "nextQuarterTeamTotals":{
         marketname: "X Quarter - Team Totals",
@@ -141,7 +165,8 @@ export const basketballAll = {
         header: ["Home", "Away"],
         rows: [
             [{ title: "10", value: null, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 16
     },
     "currentHalfLines": {
         marketname: "X Half Lines",
@@ -151,7 +176,19 @@ export const basketballAll = {
             [{ title: "Spread", value: null, suspend: "0" }, { title: "+1.5", value: "1.86", suspend: "0" }, { title: "-1.5", value: "1.80", suspend: "0" }],
             [{ title: "Total", value: null, suspend: "0" }, { title: "O 136.5", value: "2.00", suspend: "0" }, { title: "U 136.5", value: "1.71", suspend: "0" }],
             [{ title: "Money Line", value: null, suspend: "0" }, { title: "", value: "2.10", suspend: "0" }, { title: "", value: "1.66", suspend: "0" }],
-        ]
+        ],
+        order: 17
+    },
+    "currentHalfDoubleChance": {
+        marketname: "X Half Double Chance",
+        suspend: "0",
+        header: [],
+        rows: [
+            [{ title: "Home", value: "2.65", suspend: "0" }], 
+            [{ title: "Away", value: "1.35", suspend: "0" }], 
+            [{ title: "Home or Away", value: "1.025", suspend: "0" }],
+        ],
+        order: 17
     },
     // "currentHalfRaceTo":{
     //     marketname: "X Half Race To",
@@ -159,7 +196,7 @@ export const basketballAll = {
     //     header: ["", "Home", "Away"],
     //     rows: [
     //         [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
-    //     ]
+    //     ],
     // },
     "currentHalfRaceTo3Way":{
         marketname: "X Half Race To",
@@ -167,7 +204,17 @@ export const basketballAll = {
         header: ["", "Home", "Away", "Neither"],
         rows: [
             [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }, { title: "", value: "1.86", suspend: "0" }],
-        ]
+        ],
+        order: 18
+    },
+    "currentHalfWinningMargin":{
+        marketname: "X Half Winning Margin",
+        suspend: "0",
+        header: ["", "Home", "Away", "Neither"],
+        rows: [
+            [{ title: "10", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }, { title: "", value: "1.86", suspend: "0" }],
+        ],
+        order: 18
     },
     "matchResultAndTotal":{
         marketname: "Match Result and Total",
@@ -176,7 +223,8 @@ export const basketballAll = {
         rows: [
             [{ title: "team 1", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
             [{ title: "team 2", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 19
     },
     "teamTotals":{
         marketname: "Team Totals",
@@ -184,7 +232,17 @@ export const basketballAll = {
         header: ["Home", "Away"],
         rows: [
             [{ title: "10", value: null, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order:19 
+    },
+    "winningMargin":{
+        marketname: "Winning Margin",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: [
+            [{ title: "1-3", value: null, suspend: "0" }, { title: "", value: "1.86", suspend: "0" }, { title: "", value: "1.80", suspend: "0" }],
+        ],
+        order: 20 
     },
     "pointSpread3Way":{
         marketname: "Point Spread 3-Way",
@@ -192,7 +250,8 @@ export const basketballAll = {
         header: ["Home", "Tie", "Away"],
         rows: [
             [{ title: "10", value: "10", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 21
     },
     "doubleResult":{
         marketname: "Double Result",
@@ -201,7 +260,8 @@ export const basketballAll = {
         rows: [
             [{ title: "10", value: "10", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
             [{ title: "10", value: "10", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 22
     },
     "highestScoringHalf":{
         marketname: "Highest Scoring Half",
@@ -209,7 +269,26 @@ export const basketballAll = {
         header: [],
         rows: [
             [{ title: "10", value: "10", suspend: "0" }, { title: "10", value: "1.80", suspend: "0" },{ title: "10", value: "1.80", suspend: "0" }],
-        ]
+        ],
+        order: 23
+    },
+    "totalBand3Way":{
+        marketname: "Total Band 3-Way",
+        suspend: "0",
+        header: [],
+        rows: [
+            [{ title: "10", value: "", suspend: "0" }, { title: "", value: "1.80", suspend: "0" },{ title: "10", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }],
+        ],
+        order: 23
+    },
+    "totalBand":{
+        marketname: "Total Band",
+        suspend: "0",
+        header: [],
+        rows: [
+            [{ title: "10", value: "", suspend: "0" }, { title: "", value: "1.80", suspend: "0" },{ title: "10", value: "", suspend: "0" }, { title: "", value: "1.2", suspend: "0" }],
+        ],
+        order: 23
     },
     "alternativePointSpread":{
         marketname: "Alternative Point Spread",
@@ -217,7 +296,8 @@ export const basketballAll = {
         header: ["Home", "Away"],
         rows: [
             [{ title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
-        ]
+        ],
+        order: 24
     },
     "gameLinesTotal":{
         marketname: "Alternatives Total",
@@ -225,7 +305,8 @@ export const basketballAll = {
         header: ["", "Over", "Under"],
         rows: [
             [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
-        ]
+        ],
+        order: 25
     },
     "homeTeamTotal":{
         marketname: "Alternatives Home Team Totals",
@@ -233,7 +314,8 @@ export const basketballAll = {
         header: ["", "Over", "Under"],
         rows: [
             [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
-        ]
+        ],
+        order: 26
     },
     "awayTeamTotal":{
         marketname: "Alternatives Away Team Totals",
@@ -241,7 +323,8 @@ export const basketballAll = {
         header: ["", "Over", "Under"],
         rows: [
             [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
-        ]
+        ],
+        order: 27
     },
     "currentHalfTotals":{
         marketname: "Alternative X Half Totals",
@@ -249,7 +332,8 @@ export const basketballAll = {
         header: ["", "Over", "Under"],
         rows: [
             [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
-        ]
+        ],
+        order: 28
     },
     "currentHalfHomeTeamTotals":{
         marketname: "Alternative X Half Home Team Totals",
@@ -257,7 +341,8 @@ export const basketballAll = {
         header: ["", "Over", "Under"],
         rows: [
             [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
-        ]
+        ],
+        order: 29
     },
     "currentHalfAwayTeamTotals":{
         marketname: "Alternative X Half Away Team Totals",
@@ -265,7 +350,8 @@ export const basketballAll = {
         header: ["", "Over", "Under"],
         rows: [
             [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
-        ]
+        ],
+        order: 30
     },
     "currentQuarterHomeTeamTotals":{
         marketname: "Alternative X Quarter Home Team Totals",
@@ -273,7 +359,8 @@ export const basketballAll = {
         header: ["", "Over", "Under"],
         rows: [
             [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
-        ]
+        ],
+        order: 31
     },
     "currentQuarterAwayTeamTotals":{
         marketname: "Alternative X Quarter Away Team Totals",
@@ -281,7 +368,17 @@ export const basketballAll = {
         header: ["", "Over", "Under"],
         rows: [
             [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
-        ]
+        ],
+        order: 32
+    },
+    "currentQuarterTotals":{
+        marketname: "Alternative X Quarter Totals",
+        suspend: "0",
+        header: ["", "Over", "Under"],
+        rows: [
+            [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
+        ],
+        order: 28
     },
     "oddEven": {
         marketname: "Odd/Even",
@@ -290,7 +387,8 @@ export const basketballAll = {
         rows: [
             [{ title: "Match", value: null, suspend: "0" }, { title: "", value: "1.36", suspend: "0" }, { title: "", value: "3.00", suspend: "0" }],
 
-        ]
+        ],
+        order: 33
     },
     // "currentQuarterTotal":{
     //     marketname: "Alternative X Quarter Totals",
@@ -298,7 +396,7 @@ export const basketballAll = {
     //     header: ["", "Over", "Under"],
     //     rows: [
     //         [{title: "159.5", value:10, suspend:"0"}, { title: "10", value: 10, suspend: "0" }, { title: "10", value: "1.86", suspend: "0" }],
-    //     ]
+    //     ],
     // },
 
 
