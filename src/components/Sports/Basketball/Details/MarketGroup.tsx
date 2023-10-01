@@ -245,6 +245,7 @@ const BasketballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => 
         }
 
         {
+            
             const obj = currentQuarterWinningMargin(data)
             var rows = obj.rows;
             oddData.currentQuarterWinningMargin.marketname = getQuarterTitle(data, oddData.currentQuarterWinningMargin.marketname)
@@ -653,7 +654,6 @@ const BasketballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => 
                 oddData.winningMargin.rows = rows;
             }
         }
-        totalBand(data);
         console.log("oddiz", data?.odds)
         console.log("period", data?.info?.period)
         //sort

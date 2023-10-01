@@ -2975,6 +2975,7 @@ export const currentQuarterWinningMargin = (data: any) => {
     {
         var search_string = "Home Winning Margin (" + current_period +")"
         var odd_id = findIdByName(data, search_string);
+        console.log('hln', search_string)
         var odds = data?.odds?.[odd_id];
 
         if(odds){

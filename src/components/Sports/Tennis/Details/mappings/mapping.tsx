@@ -1,6 +1,18 @@
 'use client';
 import React from "react";
 
+
+function areAllSuspended(data:any) {
+
+    const base_arr_is_suspended =  data.flat().every((item:any) => item.suspend === "1");
+    if(base_arr_is_suspended){
+        return "1"
+    }else{
+        return "0"
+    }
+
+}
+
 const findIdByName = (data:any, name:string) => {
     const odds = data?.odds;
 
@@ -32,6 +44,23 @@ export const getNextSetTitle = (data:any, prevString: string) =>{
     var new_string = prevString.replace("Set X", new_string);
     return new_string;
 }
+
+export const getPlayer1Name = (data:any, prevString: string) =>{
+
+    var player_1 = data?.team_info?.home?.name
+
+    var new_string = prevString.replace("Player X", player_1);
+    return new_string;
+}
+
+export const getPlayer2Name = (data:any, prevString: string) =>{
+
+    var player_2 = data?.team_info?.away?.name
+
+    var new_string = prevString.replace("Player X", player_2);
+    return new_string;
+}
+
 
 export const getGameTitle = (data:any, prevString: string) =>{
     var games_string = ""
@@ -107,7 +136,7 @@ export const toWin = (data:any) =>{
     var odds_final_winner = data?.odds[67];
     if(odds_final_winner !== undefined){
         var arr = [] as any;
-        var title_row_obj = {title:"Match", value:null, suspend:"0"}
+        var title_row_obj = {title:"Match", value:null, suspend:odds_final_winner.suspend}
         arr.push(title_row_obj)
         const participants = odds_final_winner?.participants;
         var home = _getParticipantsFieldWithoutHandicap(participants, "Home");
@@ -129,7 +158,7 @@ export const toWin = (data:any) =>{
         var arr = [] as any;
         const odd_obj = data?.odds[odd_id_current_set_winner];
         const participants = odd_obj.participants;
-        var title_row_obj = {title:current_period, value:null, suspend:"0"}
+        var title_row_obj = {title:current_period, value:null, suspend:"1"};
         arr.push(title_row_obj);
         var home = _getParticipantsFieldWithoutHandicap(participants, "Home");
         var away = _getParticipantsFieldWithoutHandicap(participants, "Away");
@@ -145,7 +174,8 @@ export const toWin = (data:any) =>{
 
     }
     console.log(current_set_winner_string, base_arr)
-    return {rows:base_arr, suspend:odds_final_winner.suspend};
+    const suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -184,7 +214,7 @@ export const pointBetting = (data:any) =>{
         point = parseInt(point).toString();
         var home_obj = grouped_obj["Home"][0]
         var away_obj = grouped_obj["Away"][0]
-        var title_obj = {title:point, value:null, suspend:"0"}
+        var title_obj = {title:point, value:null, suspend:home_obj.suspend}
         var home_row_obj = {title:"", value:home_obj.value_eu, suspend:home_obj.suspend};
         var away_row_obj = {title:"", value:away_obj.value_eu, suspend:away_obj.suspend};
         arr = [title_obj, home_row_obj, away_row_obj];
@@ -194,8 +224,9 @@ export const pointBetting = (data:any) =>{
     }
 
 
-    var suspended_value = allParticipantsSuspended(participants).toString();
-    return {rows:base_arr, suspend:suspended_value};
+    // var suspended_value = allParticipantsSuspended(participants).toString();
+    const suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -262,13 +293,8 @@ export const gameWinner = (data:any) =>{
         arr.push(away);
     }
     
-    var suspend_value = '0'
-    if(home && home.suspend === "1" && away && away?.suspend === "1"){
-        suspend_value = "1"
-    }
-
     base_arr.push(arr);
-    console.log(_current_set_winner_string, base_arr)
+    const suspend_value = areAllSuspended(base_arr)
     return {rows:base_arr, suspend:suspend_value};
 }
 
@@ -337,7 +363,8 @@ export const gameToDeuce = (data:any) =>{
     var suspended_value = allSuspendedForHandicap(participants, current_game).toString();
     
     console.log(current_set_winner_string, base_arr)
-    return {rows:base_arr, suspend:suspended_value};
+    const suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -422,8 +449,9 @@ export const gameScore = (data:any) =>{
     }
 
     console.log("Game Score", base_arr)
-    var suspended_value = allSuspendedForHandicap(participants, current_game);
-    return {rows:base_arr, suspend:suspended_value};
+    // var suspended_value = allSuspendedForHandicap(participants, current_game);
+    const suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -525,8 +553,8 @@ export const nextGameWinner = (data:any) =>{
     console.log(_current_set_winner_string, base_arr)
     base_arr.push(arr);
 
-    var suspended_value = base_arr_is_suspended(base_arr);
-    return {rows:base_arr, suspend:suspended_value};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -610,8 +638,8 @@ export const nextGameToDeuce = (data:any) =>{
     console.log(current_set_winner_string, base_arr)
     base_arr.push(arr);
     
-    var suspended_value = base_arr_is_suspended(base_arr);
-    return {rows:base_arr, suspend:suspended_value};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -692,12 +720,9 @@ export const nextGameScore = (data:any) =>{
         base_arr.push(rows_of_40);
     }
     
-    var suspended_value = allSuspendedForHandicap(participants, current_game);
-
     console.log("Game Score", base_arr)
-    return {rows:base_arr, suspend:suspended_value};
-    // return base_arr;
-
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 export const pointWinner = (data:any) =>{
@@ -776,7 +801,8 @@ export const pointWinner = (data:any) =>{
     console.log(_current_set_winner_string, base_arr)
     base_arr.push(arr);
     
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 export const nextPointWinner = (data:any) =>{
@@ -854,7 +880,8 @@ export const nextPointWinner = (data:any) =>{
     
     console.log(_current_set_winner_string, base_arr)
     base_arr.push(arr);
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -926,7 +953,8 @@ export const gameScoreAfter2Points = (data:any) =>{
     base_arr.push(arr);
     
     console.log(_odd_id_current_set_winner, base_arr)
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
     // return base_arr;
 
 }
@@ -997,7 +1025,8 @@ export const nextGameScoreAfter2Points = (data:any) =>{
     
     base_arr.push(arr);
     
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -1118,7 +1147,8 @@ export const gameScoreAfter3Points = (data:any) =>{
         base_arr.push(secondRow);
     }
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -1177,7 +1207,8 @@ export const nextGameScoreAfter3Points = (data:any) =>{
         base_arr.push(secondRow);
     }
     
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -1238,7 +1269,8 @@ export const gameScoreAfter4Points = (data:any) =>{
     }
 
     console.log('GAME SCORE AFTER 4', base_arr);
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -1298,8 +1330,8 @@ export const nextGameScoreAfter4Points = (data:any) =>{
         base_arr.push(secondRow);
     }
 
-    console.log('GAME SCORE AFTER 4', base_arr);
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -1360,7 +1392,8 @@ export const gameTotalPoints = (data:any) =>{
     }
 
     console.log('Game Total Points', base_arr);
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -1422,7 +1455,8 @@ export const nextGameTotalPoints = (data:any) =>{
     }
 
     console.log('Game Total Points', base_arr);
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 export const nextGameToHaveBreakpoint = (data:any) =>{
@@ -1479,7 +1513,8 @@ export const nextGameToHaveBreakpoint = (data:any) =>{
     }
 
     console.log('Game To Have Break Point', base_arr);
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 export const nextToGamesEitherGameToDeuce = (data:any) =>{
@@ -1504,7 +1539,8 @@ export const nextToGamesEitherGameToDeuce = (data:any) =>{
     }
 
     console.log('Next Two Games - Either Game to Deuce', base_arr);
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -1535,7 +1571,8 @@ export const nextTwoGamesWinner = (data:any) =>{
     }
 
     console.log('Next Two Games - Winner', base_arr);
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -1595,7 +1632,7 @@ export const totalGamesInCurrentSet = (data:any) =>{
             continue;
         }
         var arr = [] as any;
-        var title_obj = {title: handicap, value: "", suspend:"0"};
+        var title_obj = {title: handicap, value: "", suspend:grouped_obj["Over"][0].suspend};
         arr.push(title_obj)
 
 
@@ -1607,7 +1644,8 @@ export const totalGamesInCurrentSet = (data:any) =>{
         base_arr.push(arr);
 
     }
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -1651,7 +1689,7 @@ export const overUnderCurrentSet = (data:any) =>{
         var grouped_obj = groupedParticipants[handicap];
         
         var arr = [] as any;
-        var title_obj = {title: handicap, value: "", suspend:"0"};
+        var title_obj = {title: handicap, value: "", suspend:grouped_obj["Over"][0]};
         arr.push(title_obj)
 
         var over_obj = {title: "", value: grouped_obj["Over"][0].value_eu, suspend: grouped_obj["Over"][0].suspend}
@@ -1662,7 +1700,8 @@ export const overUnderCurrentSet = (data:any) =>{
         base_arr.push(arr);
 
     }
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -1742,7 +1781,7 @@ export const raceToCurrentSet = (data:any) =>{
         var grouped_obj = groupedParticipants[handicap];
         
         var arr = [] as any;
-        var title_obj = {title: handicap, value: "", suspend:"0"};
+        var title_obj = {title: handicap, value: "", suspend:grouped_obj["Home"][0].suspend};
         arr.push(title_obj)
 
         if(grouped_obj["Home"] && grouped_obj["Away"]){
@@ -1756,7 +1795,8 @@ export const raceToCurrentSet = (data:any) =>{
         }
 
     }
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -1802,7 +1842,7 @@ export const leadAfterCurrentSet = (data:any) =>{
         
         var arr = [] as any;
 
-        var title_obj = {title: handicap, value: "", suspend:"0"};
+        var title_obj = {title: handicap, value: "", suspend:grouped_obj["1"].suspend};
 
         arr.push(title_obj)
 
@@ -1816,7 +1856,8 @@ export const leadAfterCurrentSet = (data:any) =>{
         base_arr.push(arr);
 
     }
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 function groupParticipantsBySymmetricScore(participants: any) {
@@ -1910,13 +1951,14 @@ export const correctScoreCurrentSet = (data:any) =>{
     for(var group in grouped_participants){
         var arr = [] as any;
         var group_obj = grouped_participants[group];
-        var title_obj = {title: group, value: "", suspend:"0"};
+        var title_obj = {title: group, value: "", suspend:group_obj[0].suspend};
         var home_obj = {title: "", value: group_obj[0].value_eu, suspend: group_obj[0].suspend}
         var away_obj = {title: "", value: group_obj[1].value_eu, suspend: group_obj[1].suspend}
         arr.push(title_obj, home_obj, away_obj)
         base_arr.push(arr);
     }
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -1982,7 +2024,8 @@ export const correctScoreCurrentSet2 = (data:any) =>{
     //     arr.push(title_obj, home_obj, away_obj)
     //     base_arr.push(arr);
     // }
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -2031,7 +2074,7 @@ export const correctScoreCurrentSetAnyPlayer = (data:any) =>{
             var arr = [] as any;
             var group_obj = grouped_participants[group];
             console.log("gg", group_obj);
-            var title_obj = {title: group, value: "", suspend:"0"};
+            var title_obj = {title: group, value: "", suspend:group_obj[0].suspend};
             var home_obj = {title: "", value: group_obj[0].value_eu, suspend: group_obj[0].suspend}
             var away_obj = {title: "", value: group_obj[1].value_eu, suspend: group_obj[1].suspend}
             console.log('hh', home_obj)
@@ -2040,7 +2083,8 @@ export const correctScoreCurrentSetAnyPlayer = (data:any) =>{
             base_arr.push(arr);
         }
 
-        return {rows:base_arr, suspend:odds.suspend};
+        var suspend_value = areAllSuspended(base_arr)
+        return {rows:base_arr, suspend:suspend_value};
 
     }catch(err){
         return {rows:[], suspend:"0"};
@@ -2116,7 +2160,8 @@ export const correctScoreCurrentSetAnyPlayerDrawBack = (data:any) =>{
             base_arr.push(group);
         }
     }
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -2166,7 +2211,7 @@ export const correctScoreNextSetAnyPlayer = (data:any) =>{
             var arr = [] as any;
             var group_obj = grouped_participants[group];
             console.log("gg", group_obj);
-            var title_obj = {title: group, value: "", suspend:"0"};
+            var title_obj = {title: group, value: "", suspend:group_obj[0].suspend};
             var home_obj = {title: "", value: group_obj[0].value_eu, suspend: group_obj[0].suspend}
             var away_obj = {title: "", value: group_obj[1].value_eu, suspend: group_obj[1].suspend}
             console.log('hh', home_obj)
@@ -2175,7 +2220,8 @@ export const correctScoreNextSetAnyPlayer = (data:any) =>{
             base_arr.push(arr);
         }
 
-        return {rows:base_arr, suspend:odds.suspend};
+        var suspend_value = areAllSuspended(base_arr)
+        return {rows:base_arr, suspend:suspend_value};
 
     }catch(err){
         return {rows:[], suspend:"0"};
@@ -2250,7 +2296,8 @@ export const correctScoreNextSetAnyPlayerDrawBack = (data:any) =>{
             base_arr.push(group);
         }
     }
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -2303,17 +2350,18 @@ export const currentSetToBreakServe = (data:any) =>{
         home_no.title = "";
         away_yes.title = "";
         away_no.title = "";
+        var home_title = {title:data?.team_info?.home.name, value:"", suspend:home_yes.suspend}
+        var away_title = {title:data?.team_info?.away.name, value:"", suspend:away_yes.suspend}
+        var row_1 = [home_title, home_yes, home_no]
+        var row_2 = [away_title, away_yes, away_no]
+        base_arr.push(row_1)
+        base_arr.push(row_2)
     }
 
-    var home_title = {title:data?.team_info?.home.name, value:"", suspend:"0"}
-    var away_title = {title:data?.team_info?.away.name, value:"", suspend:"0"}
-    var row_1 = [home_title, home_yes, home_no]
-    var row_2 = [away_title, away_yes, away_no]
-    base_arr.push(row_1)
-    base_arr.push(row_2)
     // base_arr = base_arr.filter((arr:any) => !(arr[1].suspend === "1" && arr[2].suspend === "1"));
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr)
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -2365,17 +2413,18 @@ export const nextSetToBreakServe = (data:any) =>{
         home_no.title = "";
         away_yes.title = "";
         away_no.title = "";
+        var home_title = {title:data?.team_info?.home.name, value:"", suspend:home_yes.suspend}
+        var away_title = {title:data?.team_info?.away.name, value:"", suspend:away_yes.suspend}
+        var row_1 = [home_title, home_yes, home_no]
+        var row_2 = [away_title, away_yes, away_no]
+        base_arr.push(row_1)
+        base_arr.push(row_2)
     }
 
-    var home_title = {title:data?.team_info?.home.name, value:"", suspend:"0"}
-    var away_title = {title:data?.team_info?.away.name, value:"", suspend:"0"}
-    var row_1 = [home_title, home_yes, home_no]
-    var row_2 = [away_title, away_yes, away_no]
-    base_arr.push(row_1)
-    base_arr.push(row_2)
     // base_arr = base_arr.filter((arr:any) => !(arr[1].suspend === "1" && arr[2].suspend === "1"));
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 export const goTheDistance = (data:any) =>{
@@ -2401,7 +2450,8 @@ export const goTheDistance = (data:any) =>{
     var row_1 = [yes, no]
     base_arr.push(row_1)
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 export const matchOddEven = (data:any) =>{
@@ -2427,7 +2477,8 @@ export const matchOddEven = (data:any) =>{
     var row_1 = [odd, even]
     base_arr.push(row_1)
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -2539,7 +2590,8 @@ export const currectSetCorrectScoreGroup = (data:any) =>{
         // }
     }
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -2595,7 +2647,8 @@ export const currectSetCorrectScoreGroup2 = (data:any) =>{
         // }
     }
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -2651,7 +2704,8 @@ export const nextSetCorrectScoreGroup = (data:any) =>{
         // }
     }
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -2708,7 +2762,8 @@ export const nextSetCorrectScoreGroup2 = (data:any) =>{
         // }
     }
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -2776,7 +2831,8 @@ export const currentSetScoreAfter4Games = (data:any) =>{
 
     }
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -2841,7 +2897,8 @@ export const currentSetScoreAfter6Games = (data:any) =>{
     }
 
     // return {rows:[], suspend:0}
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -2917,7 +2974,8 @@ export const nextSetScoreAfter4Games = (data:any) =>{
         // }
     }
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -2987,7 +3045,8 @@ export const nextSetScoreAfter6Games = (data:any) =>{
     }
 
     // return {rows:[], suspend:0}
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -3052,7 +3111,8 @@ export const currentSetHandicap = (data:any) =>{
     }
     base_arr.push(arr);
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -3118,7 +3178,8 @@ export const currentSetTieBreak = (data:any) =>{
     }
     base_arr.push(arr);
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -3171,7 +3232,7 @@ export const currentSetTieBreakTotalPoints = (data:any) =>{
             continue;
         }
 
-        var title_obj = {title:handicap, value:"", suspend:"0"};
+        var title_obj = {title:handicap, value:"", suspend:over_participant.suspend};
         arr.push(title_obj);
         var over_participant = group_obj[0]
         var under_participant = group_obj[1]
@@ -3189,7 +3250,8 @@ export const currentSetTieBreakTotalPoints = (data:any) =>{
     console.log('sorted', sortedData);
     base_arr = sortedData;
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -3235,7 +3297,8 @@ export const currentSetTieBreakScore = (data:any) =>{
     var participants = odds.participants;
     var group = groupSymmetricPairs(participants)
     console.log('group 1', group);
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -3295,7 +3358,8 @@ export const currentSetTieBreakWinner = (data:any) =>{
     }
 
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -3363,7 +3427,8 @@ export const nextSetHandicap = (data:any) =>{
 
     base_arr.push(arr);
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -3445,7 +3510,8 @@ export const totalSets = (data:any) =>{
         }]);
     }
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -3516,6 +3582,7 @@ export const playersOverUnder = (data:any) =>{
     if(player_1_over_participant.suspend === "1" && player_1_under_participant.suspend === "1" && player_2_over_participant.suspend === "1" && player_2_under_participant.suspend === "1"){
         suspend_value = "1"
     }
+    var suspend_value = areAllSuspended(base_arr);
     return {rows:base_arr, suspend:suspend_value};
 }
 
@@ -3601,7 +3668,8 @@ export const setBetting = (data:any) =>{
     }
 
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -3686,7 +3754,8 @@ export const totalGamesInMatch = (data:any) =>{
             base_arr.push(arr);
         }
     }
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -3769,7 +3838,96 @@ export const player1To = (data:any) =>{
     }
 
     if(base_arr.length > 1){
-        return {rows:base_arr, suspend:"0"};
+        var suspend_value = areAllSuspended(base_arr);
+        return {rows:base_arr, suspend:suspend_value};
+    }
+    return {rows:[], suspend:"0"};
+
+}
+
+
+
+
+export const player2To = (data:any) =>{
+    if (!data && !data.odds) {
+        return {rows:[], suspend:"0"};
+    }
+
+    const base_arr = [] as any;
+
+    var current_period = data?.info?.period;
+    var current_period_str = "";
+    const period_regex = new RegExp('Set (\\d+)')
+    var _matching = current_period.match(period_regex);
+    if(_matching){
+        var set_number = parseInt(_matching[1])
+        
+        // to find the next set 
+        set_number += 1;
+        if(set_number == 1){
+            current_period_str = set_number.toString() + "st"
+        }
+        if(set_number == 2){
+            current_period_str = set_number.toString() + "nd"
+        }
+        if(set_number == 3){
+            current_period_str = set_number.toString() + "rd"
+        }
+        if(set_number > 3){
+            current_period_str = set_number.toString() + "th"
+        }
+    }
+    
+    
+
+    var search_line = "Player 2 To Win in Straight Sets"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var player_1_to_win_in_straight_sets_odds = data?.odds[_odd_id_current_set_winner];
+    if(player_1_to_win_in_straight_sets_odds !== undefined){
+        var player_1_to_win_in_straight_sets_yes = _getParticipantsFieldRaw(player_1_to_win_in_straight_sets_odds.participants, "Yes")
+        var player_1_to_win_in_straight_sets_no = _getParticipantsFieldRaw(player_1_to_win_in_straight_sets_odds.participants, "No")
+
+
+        var player_1_to_win_in_straight_sets_title = {title:"Win in Straight Sets", value: "", suspend:""}
+        var player_1_to_win_in_straight_sets_yes_obj = {title:"", value:player_1_to_win_in_straight_sets_yes.value_eu, suspend:player_1_to_win_in_straight_sets_yes.suspend}
+        var player_1_to_win_in_straight_sets_no_obj = {title:"", value:player_1_to_win_in_straight_sets_no.value_eu, suspend:player_1_to_win_in_straight_sets_no.suspend}
+        var player_1_to_win_in_straight_sets_arr = [player_1_to_win_in_straight_sets_title, player_1_to_win_in_straight_sets_yes_obj, player_1_to_win_in_straight_sets_no_obj]
+        base_arr.push(player_1_to_win_in_straight_sets_arr)
+        // return {rows:[], suspend:"0"};
+    }
+
+    var search_line = "Player 2 To Win a Set"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var player_1_to_win_a_set_odds = data?.odds[_odd_id_current_set_winner];
+    if(player_1_to_win_a_set_odds !== undefined){
+        var player_1_to_win_a_set_yes = _getParticipantsFieldRaw(player_1_to_win_a_set_odds.participants, "Yes")
+        var player_1_to_win_a_set_no = _getParticipantsFieldRaw(player_1_to_win_a_set_odds.participants, "No")
+        var player_1_to_win_a_set_title = {title:"Win a set", value: "", suspend:""}
+        var player_1_to_win_a_set_yes_obj = {title:"", value:player_1_to_win_a_set_yes.value_eu, suspend:player_1_to_win_a_set_yes.suspend}
+        var player_1_to_win_a_set_no_obj = {title:"", value:player_1_to_win_a_set_no.value_eu, suspend:player_1_to_win_a_set_no.suspend}
+        var player_1_to_win_a_set_arr = [player_1_to_win_a_set_title, player_1_to_win_a_set_yes_obj, player_1_to_win_a_set_no_obj]
+        base_arr.push(player_1_to_win_a_set_arr);
+
+    }
+
+    var search_line = "Player 2 To_Win from Behind (Sets)"
+    var _odd_id_current_set_winner = findIdByName(data, search_line);
+    var player_1_to_win_from_behind_odds = data?.odds[_odd_id_current_set_winner];
+    if(player_1_to_win_from_behind_odds !== undefined){
+        var player_1_to_win_from_behind_yes = _getParticipantsFieldRaw(player_1_to_win_from_behind_odds.participants, "Yes")
+        var player_1_to_win_from_behind_no = _getParticipantsFieldRaw(player_1_to_win_from_behind_odds.participants, "No")
+        var player_1_to_win_from_behind_title = {title:"Win from Behind(Sets)", value: "", suspend:""}
+        var player_1_to_win_from_behind_yes_obj = {title:"", value:player_1_to_win_from_behind_yes.value_eu, suspend:player_1_to_win_from_behind_yes.suspend}
+        var player_1_to_win_from_behind_no_obj = {title:"", value:player_1_to_win_from_behind_no.value_eu, suspend:player_1_to_win_from_behind_no.suspend}
+        var player_1_to_win_from_behind_arr = [player_1_to_win_from_behind_title, player_1_to_win_from_behind_yes_obj, player_1_to_win_from_behind_no_obj]
+        base_arr.push(player_1_to_win_from_behind_arr)
+    
+        // return {rows:[], suspend:"0"};
+    }
+
+    if(base_arr.length > 1){
+        var suspend_value = areAllSuspended(base_arr);
+        return {rows:base_arr, suspend:suspend_value};
     }
     return {rows:[], suspend:"0"};
 
@@ -3829,7 +3987,8 @@ export const nextSetLeadAfter= (data:any) =>{
         arr = [_title_obj, _1_obj, _2_obj, _x_obj];
         base_arr.push(arr);
     }
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -3886,7 +4045,8 @@ export const nextSetRaceTo= (data:any) =>{
         arr = [_title_obj, _1_obj, _2_obj];
         base_arr.push(arr);
     }
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -3941,7 +4101,9 @@ export const currentSetLeadAfter= (data:any) =>{
         arr = [_title_obj, _1_obj, _2_obj, _x_obj];
         base_arr.push(arr);
     }
-    return {rows:base_arr, suspend:odds.suspend};
+    console.log('LEAD AFTER', base_arr);
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -4012,7 +4174,8 @@ export const currentSetLeadAfter2= (data:any) =>{
     }
 
     base_arr = base_arr.reverse()
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -4069,7 +4232,8 @@ export const currentSetRaceTo= (data:any) =>{
         arr = [_title_obj, _1_obj, _2_obj];
         base_arr.push(arr);
     }
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -4120,7 +4284,8 @@ export const matchHandicap= (data:any) =>{
     var arr = [] as any;
     arr = [home_obj, away_obj]
     base_arr.push(arr)
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -4167,12 +4332,13 @@ export const nextSetWinner = (data:any) =>{
     var participants = odds.participants;
     var home_participant = _getParticipantsFieldRaw(participants, "Home")
     var away_participant = _getParticipantsFieldRaw(participants, "Away")
-    var home_obj = {title:data?.team_info?.home?.name, value: home_participant.value_eu, suspend:"0"}
-    var away_obj = {title:data?.team_info?.away?.name, value: away_participant.value_eu, suspend:"0"}
+    var home_obj = {title:data?.team_info?.home?.name, value: home_participant.value_eu, suspend:home_participant.suspend}
+    var away_obj = {title:data?.team_info?.away?.name, value: away_participant.value_eu, suspend:away_participant.suspend}
 
     arr = [home_obj, away_obj]
     base_arr.push(arr)
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 
 }
 
@@ -4223,7 +4389,7 @@ export const doubleResult = (data:any) =>{
     var player_1_win_lose = _getParticipantsFieldRaw(participants, "1/2");
     var player_2_win_win = _getParticipantsFieldRaw(participants, "2/2");
     var player_2_win_lose = _getParticipantsFieldRaw(participants, "2/1");
-    if(player_1_win_win !== undefined && player_1_win_lose !== undefined && player_2_win_win !== undefined && player_2_win_lose !== undefined){
+    if(player_1_win_win !== null && player_1_win_lose !== null && player_2_win_win !== null && player_2_win_lose !== null){
         var player_1_win_win_obj = {title: data?.team_info?.home?.name + " to win " + current_period_str + " and WIN match", value: player_1_win_win.value_eu, suspend: player_1_win_win.suspend};
         var player_1_win_lose_obj = {title: data?.team_info?.home?.name + " to win " + current_period_str + " and LOSE match", value: player_1_win_lose.value_eu, suspend: player_1_win_lose.suspend};
 
@@ -4239,7 +4405,8 @@ export const doubleResult = (data:any) =>{
     }
 
 
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 
@@ -4293,9 +4460,9 @@ export const matchResultAndTotalGames = (data:any) =>{
         return {rows:[], suspend:"0"};
     }
 
-    var player_1_row_title = {title:data?.team_info?.home.name, value:"", suspend:"0"}
-    var player_1_over_participant_obj = {title:player_1_over_participant.handicap, value: player_1_over_participant.value_eu, suspend: "0"};
-    var player_1_under_participant_obj = {title:player_1_under_participant.handicap, value: player_1_over_participant.value_eu, suspend: "0"};
+    var player_1_row_title = {title:data?.team_info?.home.name, value:"", suspend:player_1_over_participant.suspend}
+    var player_1_over_participant_obj = {title:player_1_over_participant.handicap, value: player_1_over_participant.value_eu, suspend: player_1_over_participant.suspend};
+    var player_1_under_participant_obj = {title:player_1_under_participant.handicap, value: player_1_over_participant.value_eu, suspend: player_1_under_participant.suspend};
 
     var player_2_over_participant = _getParticipantsFieldRawWithoutSuspend(participants, "2/o");
     var player_2_under_participant = _getParticipantsFieldRawWithoutSuspend(participants, "2/u");
@@ -4303,9 +4470,9 @@ export const matchResultAndTotalGames = (data:any) =>{
         return {rows:[], suspend:"0"};
     }
 
-    var player_2_row_title = {title:data?.team_info?.away.name, value:"", suspend:"0"}
-    var player_2_over_participant_obj = {title:player_2_over_participant.handicap, value: player_2_over_participant.value_eu, suspend: "0"};
-    var player_2_under_participant_obj = {title:player_2_under_participant.handicap, value: player_2_over_participant.value_eu, suspend: "0"};
+    var player_2_row_title = {title:data?.team_info?.away.name, value:"", suspend:player_2_over_participant.suspend}
+    var player_2_over_participant_obj = {title:player_2_over_participant.handicap, value: player_2_over_participant.value_eu, suspend: player_2_over_participant.suspend};
+    var player_2_under_participant_obj = {title:player_2_under_participant.handicap, value: player_2_over_participant.value_eu, suspend: player_2_under_participant.suspend};
 
 
 
@@ -4314,7 +4481,8 @@ export const matchResultAndTotalGames = (data:any) =>{
     arr2 = [player_2_row_title, player_2_over_participant_obj, player_2_under_participant_obj]
     base_arr.push(arr1)
     base_arr.push(arr2)
-    return {rows:base_arr, suspend:odds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }
 
 export const setBetting2 = (data:any) =>{
@@ -4340,7 +4508,7 @@ export const setBetting2 = (data:any) =>{
         const group_obj = groups[group_id];
         var home_group = group_obj[0];
         var away_group = group_obj[1];
-        var title_obj = {title:home_group.name.replace(":", "-"), value: "", suspend:"0"};
+        var title_obj = {title:home_group.name.replace(":", "-"), value: "", suspend:group_obj[0].suspend};
         var home_obj = {title:"", value: home_group.value_eu, suspend:home_group.suspend};
         var away_obj = {title:"", value: away_group.value_eu, suspend:away_group.suspend};
         arr = [title_obj, home_obj, away_obj];
@@ -4348,6 +4516,6 @@ export const setBetting2 = (data:any) =>{
 
         
     }
-    console.log('base_arr', base_arr);
-    return {rows:base_arr, suspend:setBettingOdds.suspend};
+    var suspend_value = areAllSuspended(base_arr);
+    return {rows:base_arr, suspend:suspend_value};
 }

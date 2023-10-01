@@ -6,7 +6,7 @@ import { categoriesMapping } from '@/lib/sportsMapping';
 import {tennisAll,tennisBetBuilder, tennisGames, tennisPlayer, tennisSet}  from './datastructure';
 import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
-import { correctScoreCurrentSet, correctScoreCurrentSetAnyPlayer, correctScoreCurrentSetAnyPlayerDrawBack, currectSetCorrectScoreGroup, currentSetScoreAfter4Games, currentSetToBreakServe, gameScore, gameScoreAfter2Points, gameScoreAfter3Points, gameScoreAfter4Points, gameToDeuce, gameTotalPoints, gameWinner, getGameTitle, getNextGameTitle, getSetTitle, goTheDistance, leadAfterCurrentSet, nextGameScore, nextGameScoreAfter2Points, nextGameScoreAfter3Points, nextGameScoreAfter4Points, nextGameToDeuce, nextGameToHaveBreakpoint, nextGameTotalPoints, nextGameWinner, nextPointWinner, nextToGamesEitherGameToDeuce, nextTwoGamesWinner, overUnderCurrentSet, pointWinner, raceToCurrentSet, raceToGamesCurrentSet, toWin, totalGamesInCurrentSet, matchOddEven, nextSetHandicap, currentSetHandicap, getNextSetTitle, totalSets, playersOverUnder, setBetting, totalGamesInMatch, player1To, currentSetLeadAfter, nextSetLeadAfter, nextSetRaceTo, currentSetRaceTo, currentSetLeadAfter2, matchHandicap, nextSetWinner, currectSetCorrectScoreGroup2, doubleResult, matchResultAndTotalGames, nextSetCorrectScoreGroup, correctScoreNextSetAnyPlayer, correctScoreNextSetAnyPlayerDrawBack, currentSetTieBreakTotalPoints, currentSetTieBreakWinner, currentSetTieBreakScore, correctScoreCurrentSet2, nextSetToBreakServe, pointBetting, currentSetScoreAfter6Games, nextSetScoreAfter4Games, nextSetScoreAfter6Games, setBetting2 } from './mappings/mapping';
+import { correctScoreCurrentSet, correctScoreCurrentSetAnyPlayer, correctScoreCurrentSetAnyPlayerDrawBack, currectSetCorrectScoreGroup, currentSetScoreAfter4Games, currentSetToBreakServe, gameScore, gameScoreAfter2Points, gameScoreAfter3Points, gameScoreAfter4Points, gameToDeuce, gameTotalPoints, gameWinner, getGameTitle, getNextGameTitle, getSetTitle, goTheDistance, leadAfterCurrentSet, nextGameScore, nextGameScoreAfter2Points, nextGameScoreAfter3Points, nextGameScoreAfter4Points, nextGameToDeuce, nextGameToHaveBreakpoint, nextGameTotalPoints, nextGameWinner, nextPointWinner, nextToGamesEitherGameToDeuce, nextTwoGamesWinner, overUnderCurrentSet, pointWinner, raceToCurrentSet, raceToGamesCurrentSet, toWin, totalGamesInCurrentSet, matchOddEven, nextSetHandicap, currentSetHandicap, getNextSetTitle, totalSets, playersOverUnder, setBetting, totalGamesInMatch, player1To, currentSetLeadAfter, nextSetLeadAfter, nextSetRaceTo, currentSetRaceTo, currentSetLeadAfter2, matchHandicap, nextSetWinner, currectSetCorrectScoreGroup2, doubleResult, matchResultAndTotalGames, nextSetCorrectScoreGroup, correctScoreNextSetAnyPlayer, correctScoreNextSetAnyPlayerDrawBack, currentSetTieBreakTotalPoints, currentSetTieBreakWinner, currentSetTieBreakScore, correctScoreCurrentSet2, nextSetToBreakServe, pointBetting, currentSetScoreAfter6Games, nextSetScoreAfter4Games, nextSetScoreAfter6Games, setBetting2, player2To, getPlayer1Name, getPlayer2Name } from './mappings/mapping';
 // import { matchHandicapGames } from '@/app/sports/components/tennis/League/Match/mappings/pregamemaps';
 interface MarketGroupProps {
     data: any;
@@ -329,7 +329,6 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
             oddData.currentSetLeadAfter.marketname = getSetTitle(data, oddData.currentSetLeadAfter.marketname);
             const obj = currentSetLeadAfter(data);
             const rows = obj.rows;
-            console.log('Lead After ', rows);
             oddData.currentSetLeadAfter.suspend = obj.suspend;
             if(rows.length === 0 || rows[0].length === 0){
                 delete oddData.currentSetLeadAfter;
@@ -339,16 +338,19 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         }
 
         {
-            oddData.currentSetLeadAfter = JSON.parse(JSON.stringify(tennisAll.currentSetLeadAfter));
-            oddData.currentSetLeadAfter.marketname = getSetTitle(data, oddData.currentSetLeadAfter.marketname);
-            const obj = currentSetLeadAfter2(data);
-            const rows = obj.rows;
-            console.log('Lead After ', rows);
-            oddData.currentSetLeadAfter.suspend = obj.suspend;
-            if(rows.length === 0 || rows[0].length === 0){
-                delete oddData.currentSetLeadAfter;
-            }else{
-                oddData.currentSetLeadAfter.rows = rows;
+            if(oddData.currentSetLeadAfter === undefined){
+                oddData.currentSetLeadAfter = JSON.parse(JSON.stringify(tennisAll.currentSetLeadAfter));
+                oddData.currentSetLeadAfter.marketname = getSetTitle(data, oddData.currentSetLeadAfter.marketname);
+                const obj = currentSetLeadAfter2(data);
+                const rows = obj.rows;
+                console.log('Lead After ', rows);
+                oddData.currentSetLeadAfter.suspend = obj.suspend;
+                if(rows.length === 0 || rows[0].length === 0){
+                    delete oddData.currentSetLeadAfter;
+                }else{
+                    oddData.currentSetLeadAfter.rows = rows;
+                }
+
             }
         }
 
@@ -685,6 +687,7 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
 
         {
             oddData.player1To.marketname = getSetTitle(data, oddData.player1To.marketname);
+            oddData.player1To.marketname = getPlayer1Name(data, oddData.player1To.marketname);
             const obj = player1To(data);
             const rows = obj.rows;
             console.log('rra', rows);
@@ -693,6 +696,20 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
                 delete oddData.player1To;
             }else{
                 oddData.player1To.rows = rows;
+            }
+        }
+
+        {
+            oddData.player2To.marketname = getSetTitle(data, oddData.player2To.marketname);
+            oddData.player2To.marketname = getPlayer2Name(data, oddData.player2To.marketname);
+            const obj = player2To(data);
+            console.log('p2', obj);
+            const rows = obj.rows;
+            oddData.player2To.suspend = obj.suspend;
+            if(rows.length === 0 || rows[0].length === 0){
+                delete oddData.player2To;
+            }else{
+                oddData.player2To.rows = rows;
             }
         }
 
@@ -812,18 +829,18 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
             }
         }
 
-        {
-            oddData.nextSetScoreAnyPlayer.marketname = getNextSetTitle(data, oddData.nextSetScoreAnyPlayer.marketname);
-            const obj = correctScoreNextSetAnyPlayer(data);
-            const rows = obj.rows;
-            console.log('rra', rows);
-            oddData.nextSetScoreAnyPlayer.suspend = obj.suspend;
-            if(rows.length === 0 || rows[0].length === 0){
-                delete oddData.nextSetScoreAnyPlayer;
-            }else{
-                oddData.nextSetScoreAnyPlayer.rows = rows;
-            }
-        }
+        // {
+        //     oddData.nextSetScoreAnyPlayer.marketname = getNextSetTitle(data, oddData.nextSetScoreAnyPlayer.marketname);
+        //     const obj = correctScoreNextSetAnyPlayer(data);
+        //     const rows = obj.rows;
+        //     console.log('rra', rows);
+        //     oddData.nextSetScoreAnyPlayer.suspend = obj.suspend;
+        //     if(rows.length === 0 || rows[0].length === 0){
+        //         delete oddData.nextSetScoreAnyPlayer;
+        //     }else{
+        //         oddData.nextSetScoreAnyPlayer.rows = rows;
+        //     }
+        // }
         {
             oddData.nextSetScoreAnyPlayer = JSON.parse(JSON.stringify(tennisAll.nextSetScoreAnyPlayer));
             oddData.nextSetScoreAnyPlayer.marketname = getNextSetTitle(data, oddData.nextSetScoreAnyPlayer.marketname);
@@ -836,7 +853,10 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
             }else{
                 oddData.nextSetScoreAnyPlayer.rows = rows;
             }
+
         }
+        const sortedElements = Object.values(oddData).sort((a:any, b:any) => a.order - b.order);
+        oddData = sortedElements;
 
 
         
