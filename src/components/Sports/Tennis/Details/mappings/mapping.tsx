@@ -3234,7 +3234,7 @@ export const currentSetTieBreakTotalPoints = (data:any) =>{
             continue;
         }
 
-        var title_obj = {title:handicap, value:"", suspend:over_participant.suspend};
+        var title_obj = {title:handicap, value:"", suspend:group_obj[0].suspend};
         arr.push(title_obj);
         var over_participant = group_obj[0]
         var under_participant = group_obj[1]

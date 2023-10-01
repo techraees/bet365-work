@@ -3,7 +3,6 @@
 import { connect, NatsConnection, JSONCodec, Msg, NatsError } from "nats.ws";
 
 import { useEffect, useRef, useState } from "react";
-import OddsTable from "../OddsTable";
 import * as jsonpatch from "fast-json-patch";
 import SportDetailHeader from "@/app/(app)/in-play/components/SportDetailHeader";
 import GroupedEvents from "../Events/Grouped";
@@ -146,8 +145,19 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
     return <Esports sport={sport} subcategory={subcategory} currentdataId={currentdataId} grouped={grouped} />
   }
 
+  var group_colors = {
+    "tennis": "bg-[linear-gradient(160deg,#3F4D32_0%,_#383838_400px)]",
+    "soccer": "bg-[linear-gradient(160deg,#364D3C_0%,_#383838_400px)]",
+    "baseball": "bg-[linear-gradient(160deg,#4D3E36_0%,_#383838_400px)]",
+    "basketball": "bg-[linear-gradient(160deg,#4D4432_0%,_#383838_400px)]",
+    "esports": "bg-[linear-gradient(160deg,#737373_0%,_#383838_400px)]",
+    "hockey": "bg-[linear-gradient(160deg,#36444D_0%,_#383838_400px)]",
+    "volleyball": "bg-[linear-gradient(160deg,#4D4032_0%,_#383838_400px)]",
+  }
   return (
-    <div className=" bg-topGradient">
+    //@ts-ignore
+    <div className={`${group_colors[sport]}`}>
+
       {sport && currentdataId ?
         <div>
           <DetailView grouped={grouped} sport={sport} subcategory={subcategory} currentdataId={currentdataId} />
