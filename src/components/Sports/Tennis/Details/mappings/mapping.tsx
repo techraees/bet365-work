@@ -158,7 +158,9 @@ export const toWin = (data:any) =>{
         var arr = [] as any;
         const odd_obj = data?.odds[odd_id_current_set_winner];
         const participants = odd_obj.participants;
-        var title_row_obj = {title:current_period, value:null, suspend:"1"};
+        // var title_row_obj = {title:current_period, value:null, suspend:"1"};
+        var title_row_obj: { title: string; value: null; suspend: string | any } = { title: current_period, value: null, suspend: "1" };
+
         arr.push(title_row_obj);
         var home = _getParticipantsFieldWithoutHandicap(participants, "Home");
         var away = _getParticipantsFieldWithoutHandicap(participants, "Away");
