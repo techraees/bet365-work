@@ -32,7 +32,7 @@ const Dialog: React.FC<DialogProps> = ({ }) => {
                     <div className="flex items-center justify-between p-4">
                         <div className="flex flex-col">
                             <div>{userdata?.user?.username}</div>
-                            <div className="text-xl font-bold">${userdata?.user?.balance?.casino}</div>
+                            <div className="text-xl font-bold">${userdata?.user?.balance?.sports_betting}</div>
                         </div>
                         <div>
                             <button className=" border-solid border-[#c3c3c3] border-[1px] px-4 py-2 hover:bg-white">
@@ -46,11 +46,11 @@ const Dialog: React.FC<DialogProps> = ({ }) => {
                     <div className="text-xs flex items-center mt-4 p-4">
                         <div className="flex flex-col">
                             <div>{'Withdrawable'}</div>
-                            <div className=" font-semibold">${userdata?.user?.balance?.casino}</div>
+                            <div className=" font-semibold">${userdata?.user?.balance?.sports_betting}</div>
                         </div>
                         <div className="flex flex-col ml-8">
                             <div>{'Bet Credits'}</div>
-                            <div className=" font-semibold">${userdata?.user?.balance?.casino}</div>
+                            <div className=" font-semibold">${userdata?.user?.balance?.sports_betting}</div>
                         </div>
                     </div>
                     <div className="border-solid border-t-[#c3c3c3] border-t-[1px]">
