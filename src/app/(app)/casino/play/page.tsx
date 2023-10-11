@@ -59,14 +59,14 @@ function Home(props:any) {
   }
 
   return (
-    <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center' }}>
+    <div className="flex h-screen justify-center mt-10">
         <div className="relative w-[1125px] h-[670px]">
           <div className="banner mt-2.5 p-2.5 text-center text-white rounded-sm font-bold" style={{ 
               background: 'linear-gradient(135deg, #3F4D32 0%, #383838 400px)' 
           }}>
             KETHEA
         </div>
-        <div className="relative w-full" style={{ paddingBottom: "59.5556%" }}>
+        <div className="relative w-full mb-px" style={{ paddingBottom: "80%" }}>
 
             <iframe 
                 ref={iframeRef}

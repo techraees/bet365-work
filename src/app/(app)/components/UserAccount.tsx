@@ -34,6 +34,27 @@ const Dialog: React.FC<DialogProps> = ({ }) => {
     // const userdata = session as any;
     const userdata = userSession;
     console.log('udata', userdata);
+    
+    type UserData = {
+        user?: {
+            balance?: { [key: string]: number }
+        }
+    };
+
+    let sumBalance: number = 0;
+
+    if (userdata?.user?.balance) {
+        sumBalance = Object.values(userdata.user.balance)
+            .filter((value): value is number => typeof value === 'number')
+            .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    }
+    var _balance = {} as any;
+    if(userdata?.user?.balance !== undefined){
+        _balance = JSON.parse(JSON.stringify(userdata?.user?.balance))
+        delete _balance["_id"];
+        delete _balance["agent"]
+
+    }
     return (
         <div
             className="hidescroll w-[330px] bg-[#f8f9fa] text-[14px] font-[400] leading-[44px] text-[#333] overflow-auto absolute top-[46px] right-[-20px] z-50">
@@ -53,15 +74,27 @@ const Dialog: React.FC<DialogProps> = ({ }) => {
                             </button>
                         </div>
                     </div>
-                    <div className="text-xs flex items-center mt-4 p-4">
-                        <div className="flex flex-col">
+                    {/* <div className="text-xs flex items-center mt-4 p-4"> */}
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-4">
+                        {
+                            userdata?.user?.balance 
+                                ? Object.keys(_balance).map((balance_title: string, index: number) => (
+                                    <div className="ml-4" key={index}>
+                                        <div>{balance_title}</div>
+                                        <div className="font-bold">{userdata.user.balance[balance_title]}</div>
+                                    </div>
+                                ))
+                                : null
+                        }
+                        
+                        {/* <div className="flex flex-col">
                             <div>{'Withdrawable'}</div>
                             <div className=" font-semibold">${userdata?.user?.balance?.sports_betting}</div>
                         </div>
                         <div className="flex flex-col ml-8">
                             <div>{'Bet Credits'}</div>
                             <div className=" font-semibold">${userdata?.user?.balance?.sports_betting}</div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="border-solid border-t-[#c3c3c3] border-t-[1px]">
                         <div
