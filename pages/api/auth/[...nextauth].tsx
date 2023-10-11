@@ -3,7 +3,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 
 import CredentialsProvider from "next-auth/providers/credentials";
 
-let API_URL = process.env.API_URL!;
+let API_URL = process.env.NEXT_PUBLIC_API_URL!;
 export const authOption: NextAuthOptions = {
     session: {
         strategy: "jwt",
@@ -23,9 +23,10 @@ export const authOption: NextAuthOptions = {
             },
             async authorize(credentials, req) {
                 // Add logic here to look up the user from the credentials supplied
+                console.log('AUTH URL', { API_URL })
                 console.log('LOGIN REQ', { req })
 
-                const res = await fetch(`http://${API_URL}/auth/signin`, {
+                const res = await fetch(`https://${API_URL}/auth/signin`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
