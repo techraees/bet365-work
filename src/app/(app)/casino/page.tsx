@@ -3,6 +3,8 @@ import { getSlots } from '@/api';
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import CasinoSearchBar from './components/CasinoSearchBar';
+import CasinoProviderDropDown from './components/CasinoProviderDropDown';
 
 
 
@@ -11,6 +13,7 @@ export const dynamic = "force-dynamic";
 const Home = ({ params }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [slots, setSlots] = useState([]);
+  const [filteredSlots, setFilteredSlots] = useState(slots);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -36,12 +39,38 @@ const Home = ({ params }: any) => {
     fetchSlots();
   }, []);
 
+  const handleSearch = (searchValue:string) => {
+    const filtered = slots.filter((slot:any) => slot.name.includes(searchValue));
+    console.log('filtered slots', filtered)
+    setFilteredSlots(filtered);
+  };
+
+  const handleProviderSearch = (searchValue:string) => {
+    const filtered = slots.filter((slot:any) => slot.title.includes(searchValue));
+    console.log('filtered slots', filtered)
+    setFilteredSlots(filtered);
+  };
+
   console.log(slots); // Diagnostic log to ensure slots is populated
+  const providerOptions = [...new Set(slots.map((game:any) => game.title))];
+
+  const slotsToRender = filteredSlots.length === 0 ? slots : filteredSlots;
+  // const slotsToRender = slots.length !== filteredSlots.length ? filteredSlots : slots;
+
+  console.log(slots)
 
   return (
     <div className="">
+      <div className="flex flex-row mt-5 ml-8 space-x-2">
+        <div>
+          <CasinoSearchBar onSearch={handleSearch}/>
+        </div>
+        <div>
+          <CasinoProviderDropDown options={providerOptions} onClick={handleProviderSearch}/>
+        </div>
+      </div>
       <div className="m-3 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2">
-        {slots.map((slot: any, index) => (
+        {slotsToRender.map((slot: any, index) => (
           <div key={slot._id} className="h-auto lg:m-5 md:m-2 sm:m-1 relative group transition-all duration-200">
             <img src={slot.api_image} alt={slot.name} className="w-full h-auto" />
             <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-200 hover:bg-black">
@@ -56,10 +85,6 @@ const Home = ({ params }: any) => {
             </div>
             
           </div>
-          // <div key={slot._id} className="h-auto lg:m-6 md:m-3 sm:m-2">
-          //   <img src={slot.api_image} alt={slot.name} className="w-full h-auto" />
-          //   <p className="text-center mt-2 w-full text-white hover:text-brand-green-light">{slot.name}</p>
-          // </div>
         ))}
       </div>
     </div>

@@ -1,7 +1,7 @@
 'use client'
 import Account, { Deposit } from "@/components/ui/icons/account";
-import { signOut, useSession } from "next-auth/react";
-import React, { useState } from "react";
+import { getSession, signOut, useSession } from "next-auth/react";
+import React, { useEffect, useState } from "react";
 
 
 const UserAccount = () => {
@@ -21,9 +21,19 @@ type DialogProps = {
 };
 
 const Dialog: React.FC<DialogProps> = ({ }) => {
-    const { data: session } = useSession()
-    console.log({ session })
-    const userdata = session as any;
+    const [userSession, setUserSession] = useState(null) as any;
+
+    useEffect(() => {
+        const fetchSession = async () => {
+            const currentSession = await getSession();
+            setUserSession(currentSession);
+        };
+        fetchSession();
+    }, []);
+
+    // const userdata = session as any;
+    const userdata = userSession;
+    console.log('udata', userdata);
     return (
         <div
             className="hidescroll w-[330px] bg-[#f8f9fa] text-[14px] font-[400] leading-[44px] text-[#333] overflow-auto absolute top-[46px] right-[-20px] z-50">
@@ -70,7 +80,6 @@ const Dialog: React.FC<DialogProps> = ({ }) => {
                         </div>
                     </div>
                 </div>
-           
 
         </div>
     )

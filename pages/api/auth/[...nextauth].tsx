@@ -61,9 +61,30 @@ export const authOption: NextAuthOptions = {
             return { ...token, ...user };
         },
         async session({ session, token, user }) {
-            console.log({ session, token, user })
-            session.user = token as any
-            return session
+            // console.log({ session, token, user })
+            // session.user = token as any
+            // return session
+
+            console.log("token", token.token)
+            const res = await fetch(`https://${API_URL}/auth/session`, {
+                method: "GET",
+                headers: {
+                    'X-ACCESS-TOKEN': `${token.token}`,
+                },
+            });
+
+            
+            const updatedUserData = await res.json();
+
+            console.log("UPDATED DATA", updatedUserData)
+            // Update the session object with new data
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    ...updatedUserData
+                },
+            };
         },
     },
 }

@@ -60,35 +60,26 @@ function Home(props:any) {
 
   return (
     <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ position: 'relative', width: '1125px', height: '670px' }}>
-          <div className="banner" style={{
-            marginTop: '10px',
-            padding: '10px',
-            background: 'linear-gradient(135deg, #3F4D32 0%, #383838 400px)',
-            textAlign: 'center',
-            color: 'white',
-            borderRadius: '1px',
-            fontWeight: 'bold',
-        }}>
+        <div className="relative w-[1125px] h-[670px]">
+          <div className="banner mt-2.5 p-2.5 text-center text-white rounded-sm font-bold" style={{ 
+              background: 'linear-gradient(135deg, #3F4D32 0%, #383838 400px)' 
+          }}>
             KETHEA
         </div>
+        <div className="relative w-full" style={{ paddingBottom: "59.5556%" }}>
+
             <iframe 
                 ref={iframeRef}
-                width="1125" 
-                height="670" 
+                className="absolute top-0 left-0 w-full h-full border-0"
                 src={IFrame !== "" ? IFrame : "about:blank"}
-                frameBorder="0" 
                 allowFullScreen>
-            </iframe>
+            </iframe> 
 
-        <div className="footer" style={{
-            marginTop: '0px',
-            padding: '10px',
-            background: 'linear-gradient(135deg, #3F4D32 0%, #383838 400px)',
-            textAlign: 'center',
-            color: 'white',
-            borderRadius: '1px',
-            fontWeight: 'bold',
+        </div>
+
+        
+        <div className="footer mt-0 p-2.5 text-center text-white rounded-sm font-bold" style={{ 
+            background: 'linear-gradient(135deg, #3F4D32 0%, #383838 400px)' 
         }}>
           KETHEA
         </div>
