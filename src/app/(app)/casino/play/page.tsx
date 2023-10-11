@@ -5,7 +5,8 @@ import { useSession } from 'next-auth/react';
 import { getGameIFrame } from '@/api';
 import { useRef } from 'react';  // import useRef
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faExpand } from '@fortawesome/free-solid-svg-icons'
+import { faExpand, faExternalLink } from '@fortawesome/free-solid-svg-icons'
+
 
 function Home(props:any) {
   const [isMounted, setIsMounted] = useState(false);
@@ -58,6 +59,12 @@ function Home(props:any) {
     }
   }
 
+
+  const openInNewTab = () => {
+    window.open(IFrame, '_blank');
+  }
+
+
   return (
     <div className="flex h-screen justify-center mt-10">
         <div className="relative w-[1125px] h-[670px]">
@@ -66,13 +73,15 @@ function Home(props:any) {
           }}>
             KETHEA
         </div>
-        <div className="relative w-full mb-px" style={{ paddingBottom: "80%" }}>
+        <div className="relative w-full" style={{ paddingBottom: "80%" }}>
 
             <iframe 
                 ref={iframeRef}
                 className="absolute top-0 left-0 w-full h-full border-0"
                 src={IFrame !== "" ? IFrame : "about:blank"}
+                frameBorder="0"
                 allowFullScreen>
+
             </iframe> 
 
         </div>
@@ -98,6 +107,21 @@ function Home(props:any) {
                     cursor: 'pointer'
                 }}>
                   <FontAwesomeIcon icon={faExpand} />
+            </button>
+            <button 
+                onClick={openInNewTab} 
+                style={{ 
+                    position: 'absolute', 
+                    top: '10px', 
+                    right: '40px', 
+                    zIndex: 2000, 
+                    color: 'white',
+                    padding: '5px 10px',
+                    borderRadius: '5px',
+                    border: 'none',
+                    cursor: 'pointer'
+                }}>
+                  <FontAwesomeIcon icon={faExternalLink} />
             </button>
         </div>
     </div>

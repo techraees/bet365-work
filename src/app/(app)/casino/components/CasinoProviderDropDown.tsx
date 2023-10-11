@@ -10,17 +10,22 @@ export const dynamic = "force-dynamic";
 
 const CasinoProviderDropDown = ({ options, onClick  }: any) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedProvider, setSelectedProvider] = useState("Select Provider");
   const handleClick = (e:any) => {
     const value = e.target.innerText;
+    setSelectedProvider(value);
     onClick(value);  // Call the onSearch function with the current input value
     setIsOpen(false);
   };
   console.log('options', options)
+  if(!options.includes("All")){
+    options.unshift("All")
+
+  }
   return (
     <div className="">
       <button onClick={() => setIsOpen(!isOpen)} className="bg-blue-500 text-white p-2 h-7 w-40">
-        Select Provider
+        {selectedProvider}
       </button>
       {isOpen && (
         <div role="menu" aria-orientation="vertical" className="absolute z-50 py-1 bg-black">
