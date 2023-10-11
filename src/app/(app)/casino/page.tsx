@@ -34,7 +34,7 @@ const Home = ({ params }: any) => {
       }
     }
     fetchSlots();
-  }, [userdata]);
+  }, []);
 
   console.log(slots); // Diagnostic log to ensure slots is populated
 
