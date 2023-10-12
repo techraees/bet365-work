@@ -80,7 +80,7 @@ const Home = ({ params }: any) => {
                 <CasinoSearchBar onSearch={handleSearch}/>
               </div>
               <div>
-                <CasinoProviderDropDown  options={providerOptions} onClick={handleProviderSearch}/>
+                <CasinoProviderDropDown options={providerOptions} onClick={handleProviderSearch}/>
               </div>
             </div>
             <div className="m-3 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2">
