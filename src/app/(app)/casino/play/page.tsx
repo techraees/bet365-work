@@ -71,7 +71,6 @@ function Home(props:any) {
           <div className="banner mt-2.5 p-2.5 text-center text-white rounded-sm font-bold" style={{ 
               background: 'linear-gradient(135deg, #3F4D32 0%, #383838 400px)' 
           }}>
-            KETHEA
         </div>
         <div className="relative w-full" style={{ paddingBottom: "80%" }}>
 
@@ -90,7 +89,6 @@ function Home(props:any) {
         <div className="footer mt-0 p-2.5 text-center text-white rounded-sm font-bold" style={{ 
             background: 'linear-gradient(135deg, #3F4D32 0%, #383838 400px)' 
         }}>
-          KETHEA
         </div>
 
             <button 

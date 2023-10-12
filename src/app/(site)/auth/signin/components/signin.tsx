@@ -1,8 +1,10 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { signIn, useSession } from "next-auth/react"
 import { useRouter } from 'next/navigation';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 interface FormData {
     username: string;
@@ -13,6 +15,9 @@ const SigninForm: React.FC = () => {
     const router = useRouter();
     const { data: session, status } = useSession();
     console.log({ session, status });
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("")
+    const [successMessage, setSuccessMessage] = useState("")
 
     useEffect(() => {
         if (status === "authenticated") {
@@ -28,11 +33,21 @@ const SigninForm: React.FC = () => {
 
     const onSubmit = async (data: FormData) => {
         console.log({ data });
+        setLoading(true);
         const result = await signIn('credentials', {
             ...data,
             redirect: false
         })
-        console.log({ result })
+        setLoading(false);
+        if(result && !result.ok){
+            
+            
+            setErrorMessage("Wrong username or password")
+        }else{
+            setErrorMessage("")
+            setSuccessMessage("Login Success!")
+
+        }
     };
 
 
@@ -66,9 +81,19 @@ const SigninForm: React.FC = () => {
                     </div>
                     <div className='mb-2 flex text-sm'>
                         <div className='mx-auto w-[60px] flex items-center justify-center bg-yellow-400 p-1 rounded-md hover:bg-yellow-300'>
-                            <button type="submit">Login</button>
+                            <button type="submit">{loading ? <CircularProgress className="" size={24} /> : "Login"}</button>
                         </div>
 
+                    </div>
+                    <div className="">
+                        {errorMessage !== "" ? 
+                            <div className="text-red-400">{errorMessage}</div>: ""
+                        }
+                    </div>
+                    <div className="">
+                        {successMessage !== "" ? 
+                            <div className="flex justify-center text-green-400">{successMessage} <CircularProgress color="success" className="text-green-400" size={24}/></div>: ""
+                        }
                     </div>
                 </form>
             </div>

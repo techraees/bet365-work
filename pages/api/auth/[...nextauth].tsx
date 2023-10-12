@@ -2,6 +2,9 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 
 import CredentialsProvider from "next-auth/providers/credentials";
+import { signOut } from "next-auth/react";
+import { useRouter } from 'next/router';
+
 
 let API_URL = process.env.NEXT_PUBLIC_API_URL!;
 export const authOption: NextAuthOptions = {
@@ -74,6 +77,22 @@ export const authOption: NextAuthOptions = {
             });
 
             
+            if (res.status === 200) {
+                // console.log('here')
+                //         // Clear localStorage
+                // localStorage.clear();
+
+                // // Clear sessionStorage
+                // sessionStorage.clear();
+
+                // // Optionally, if you want to clear cookies
+                // document.cookie.split(";").forEach((c) => {
+                //     document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+                // });
+                // const router = useRouter();
+                // router.push('/auth/signin');
+                // return {};
+            }
             const updatedUserData = await res.json();
 
             console.log("UPDATED DATA", updatedUserData)
