@@ -75,12 +75,12 @@ const Home = ({ params }: any) => {
           </div>
           : 
           <>
-            <div className="flex flex-row mt-5 ml-8 space-x-2">
+            <div className="lg:flex lg:flex-row mt-5 ml-8 space-x-2 md:grid-cols-1 sm:grid sm:grid-cols-1">
               <div>
                 <CasinoSearchBar onSearch={handleSearch}/>
               </div>
               <div>
-                <CasinoProviderDropDown options={providerOptions} onClick={handleProviderSearch}/>
+                <CasinoProviderDropDown  options={providerOptions} onClick={handleProviderSearch}/>
               </div>
             </div>
             <div className="m-3 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2">

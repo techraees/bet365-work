@@ -24,7 +24,7 @@ const CasinoProviderDropDown = ({ options, onClick  }: any) => {
   }
   return (
     <div className="">
-      <button onClick={() => setIsOpen(!isOpen)} className="bg-blue-500 text-white p-2 h-7 w-40">
+      <button onClick={() => setIsOpen(!isOpen)} className="bg-blue-500 text-white p-2 h-7 w-40 md:-ml-2 md:mt-1 md:w-80 ">
         {selectedProvider}
       </button>
       {isOpen && (
