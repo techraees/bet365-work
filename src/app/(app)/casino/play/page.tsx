@@ -72,7 +72,7 @@ function Home(props:any) {
               background: 'linear-gradient(135deg, #3F4D32 0%, #383838 400px)' 
           }}>
         </div>
-        <div className="relative w-full" style={{ paddingBottom: "80%" }}>
+        <div className="relative w-full" style={{ paddingBottom: "65%" }}>
 
             <iframe 
                 ref={iframeRef}
