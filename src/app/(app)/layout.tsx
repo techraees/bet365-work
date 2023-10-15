@@ -1,5 +1,4 @@
 import "../globals.css";
-import Link from "next/link";
 import PrimaryHeader from "./components/PrimaryHeader";
 import SecondaryHeader from "./components/SecondarHeader";
 
@@ -14,14 +13,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className=" text-xs bg-[#282828] leading-[0px] antialiased min-h-[100vh]">
-      <header>
-        <SecondaryHeader />
-        <PrimaryHeader />
-      </header>
-      <main>
-        {children}
-      </main>
-    </div>
+    <>
+      <body>
+
+        <div className=" text-xs bg-[#282828] leading-[0px] antialiased min-h-[100vh]">
+          <header>
+            <SecondaryHeader />
+            <PrimaryHeader />
+          </header>
+          <main>
+            {children}
+          </main>
+        </div>
+      </body>
+    </>
   );
 }

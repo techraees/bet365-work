@@ -12,7 +12,6 @@ function Home(props:any) {
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const id = useSearchParams()?.get("id");
-  var [IFrame, setIFrame] = useState("") as any;
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   var [IFrame, setIFrame] = useState("") as any;
   // const { id } = router.query;
@@ -29,25 +28,23 @@ function Home(props:any) {
   const { data: session } = useSession()
   const userdata = session as any;
 
-  useEffect(() => {
-    const fetchIFrame = async () => {
-      let token = userdata?.user?.token;
-      console.log('token', token)
-      if(token){
-        let response = await getGameIFrame(token, id);
-        if (response.ok) {
-          var result = await response.json();
-          result = result.data;
-          console.log('link', result);
-          setIFrame(result);
-          // setSlots(slotsData.data);
+    useEffect(() => {
+      const fetchIFrame = async () => {
+        let token = userdata?.user?.token;
+        console.log('token', token)
+        if(token){
+          let response = await getGameIFrame(token, id);
+          if (response.ok) {
+            var result = await response.json();
+            result = result.data;
+            console.log('link', result);
+            setIFrame(result);
+          }
         }
-
       }
-    }
     fetchIFrame();
-  }, [userdata]);
-
+  }, []);  // <-- Empty dependency array ensures this effect runs only once.
+  
   const toggleFullScreen = () => {
     const iframe: any = iframeRef.current;
     if (iframe) {
