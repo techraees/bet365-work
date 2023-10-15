@@ -43,7 +43,7 @@ const Home = ({ params }: any) => {
   }, []);
 
   const handleSearch = (searchValue:string) => {
-    const filtered = slots.filter((slot:any) => slot.name.includes(searchValue));
+    const filtered = slots.filter((slot:any) => slot.name.toLowerCase().includes(searchValue.toLowerCase()));
     console.log('filtered slots', filtered)
     setFilteredSlots(filtered);
   };
