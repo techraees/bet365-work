@@ -9,10 +9,10 @@ const SecondaryHeader = () => {
       link: "/sports",
       active:true,
     },
-    {
-      label: "Fantasy",
-      link: "/fantasy",
-    },
+    // {
+    //   label: "Fantasy",
+    //   link: "/fantasy",
+    // },
     {
       label: "Casino",
       link: "/casino",
@@ -21,30 +21,30 @@ const SecondaryHeader = () => {
       label: "Live Casino",
       link: "/live-casino",
     },
-    {
-      label: "Games",
-      link: "/games",
-    },
-    {
-      label: "Poker",
-      link: "/Poker",
-    },
-    {
-      label: "Bingo",
-      link: "/bingo",
-    },
-    {
-      label: "Sports",
-      link: "/Extra",
-    },
+    // {
+    //   label: "Games",
+    //   link: "/games",
+    // },
+    // {
+    //   label: "Poker",
+    //   link: "/Poker",
+    // },
+    // {
+    //   label: "Bingo",
+    //   link: "/bingo",
+    // },
+    // {
+    //   label: "Sports",
+    //   link: "/Extra",
+    // },
   ];
 
   const secondaryMenuLinks = [
-    {
-      label: "Responsible Gambling",
-      link: "responsible-gambling",
-      active:false,
-    },
+    // {
+    //   label: "Responsible Gambling",
+    //   link: "responsible-gambling",
+    //   active:false,
+    // },
     {
       label: "Help",
       link: "help",
