@@ -43,7 +43,7 @@ const Home = ({ params }: any) => {
   }, []);
 
   const handleSearch = (searchValue:string) => {
-    const filtered = slots.filter((slot:any) => slot.name.toLowerCase().includes(searchValue.toLowerCase()));
+    const filtered = slots.filter((slot:any) => slot.name.toLowerCase().includes(searchValue.toLocaleLowerCase()));
     console.log('filtered slots', filtered)
     setFilteredSlots(filtered);
   };
@@ -79,12 +79,12 @@ return (
           <CasinoProviderDropDown options={providerOptions} onClick={handleProviderSearch}/>
         </div>
       </div>
-      <div className="m-3 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-4">
+      <div className="m-3 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-1 lg:gap-2">
         {slotsToRender.map((slot: any, index) => (
-          <div key={slot._id} className="relative group transition-all duration-200">
-            <img src={slot.api_image} alt={slot.name} className="w-full h-auto" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-200 hover:bg-black">
-                <p className="text-center text-white md:text-sm bg-black bg-opacity-0 rounded mb-2">{slot.name}</p>
+          <div key={slot._id} className="h-48 w-full relative max-w-sm mx-auto bg-white rounded-2xl shadow-lg group transition-all duration-200">
+            <img className="w-full h-48 rounded-2xl" src={slot.api_image}/>
+            <div className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-200 hover:bg-black">
+                <p className="text-center text-white text-2xl md:text-sm bg-black bg-opacity-0 rounded mb-2 font-sans">{slot.name}</p>
                 <div className='flex z-50'>
                   <Link href={`/casino/play?id=${slot._id}`}>
                       <button className='min-w-[20px] h-[20px] flex justify-center items-center text-[13px] font-[700] leading-[17px] text-[#26ffbe] px-[10px] rounded-[2px] border border-[#26ffbe80]'>
@@ -94,6 +94,19 @@ return (
                 </div>
             </div>
           </div>
+          // <div key={slot._id} className="relative group transition-all duration-200">
+          //   <img src={slot.api_image} alt={slot.name} className="w-full h-auto" />
+          //   <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-200 hover:bg-black">
+          //       <p className="text-center text-white md:text-sm bg-black bg-opacity-0 rounded mb-2">{slot.name}</p>
+          //       <div className='flex z-50'>
+          //         <Link href={`/casino/play?id=${slot._id}`}>
+          //             <button className='min-w-[20px] h-[20px] flex justify-center items-center text-[13px] font-[700] leading-[17px] text-[#26ffbe] px-[10px] rounded-[2px] border border-[#26ffbe80]'>
+          //               Play Now 
+          //             </button>
+          //         </Link>
+          //       </div>
+          //   </div>
+          // </div>
         ))}
       </div>
     </>
