@@ -43,7 +43,7 @@ function Home(props:any) {
         }
       }
     fetchIFrame();
-  }, []);  // <-- Empty dependency array ensures this effect runs only once.
+  }, []); 
   
   const toggleFullScreen = () => {
     const iframe: any = iframeRef.current;
