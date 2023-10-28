@@ -48,7 +48,6 @@ const SecondaryHeader = () => {
     {
       label: "Help",
       link: "help",
-      active:false
     },
   ];
   return (
