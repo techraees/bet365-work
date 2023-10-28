@@ -20,7 +20,7 @@ interface EventProps {
 }
 
 const Event: React.FC<EventProps> = ({ data, sport, subcategory }) => {
-  // console.log({ data, sport })
+  console.log({ data, sport })
   if (!data) {
     return null;
   }

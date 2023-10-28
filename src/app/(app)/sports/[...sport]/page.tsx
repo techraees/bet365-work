@@ -22,7 +22,6 @@ export const dynamic = "force-dynamic";
 const Home = async ({ params }: any) => {
     const session = await requireSession();
     let { sport } = params;
-    console.log("+++++++++++++++", sport);
     if (sport[0] === 'soccer') {
         let leagueSelectedGames = [] as any;
         if (sport[1] && sport[1] == "leagues") {
