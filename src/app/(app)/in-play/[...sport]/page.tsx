@@ -10,23 +10,21 @@ const Home = async ({ params }: any) => {
   let { sport } = params;
 
   let odds = await getSportsOdds(sport[0]);
-  console.log("in-play", sport[0], { odds });
-  if (sport[0] === "esports") {
-    console.log("calling other odds");
-    let soccerodds = await getSportsOdds("esoccer");
-    let basketballodds = await getSportsOdds("basketball");
-    odds = { ...odds, ...soccerodds, ...basketballodds };
+  console.log('in-play', sport[0], { odds })
+  if (sport[0] === 'esports') {
+    console.log('calling other odds')
+    let soccerodds = await getSportsOdds('esoccer');
+    let basketballodds = await getSportsOdds('basketball');
+    odds = { ...odds, ...soccerodds, ...basketballodds }
   }
 
   // console.log({ odds, leagues });
 
   const NoOddsFound = () => {
-    return (
-      <>
-        <SportsHeader />
-        <div className="pt-5 text-white flex items-center">No odds found</div>
-      </>
-    );
+    return (<>
+      <SportsHeader />
+      <div className="pt-5 text-white flex items-center">No odds found</div>
+    </>);
   };
 
   if (odds === undefined || Object.keys(odds).length === 0) {
@@ -34,21 +32,11 @@ const Home = async ({ params }: any) => {
   }
 
   if (odds?.message) {
-    return (
-      <div>
-        <SportsHeader />
-        <div className="pt-5 text-white flex items-center">No odds found</div>
-      </div>
-    );
+    return(<div> <SportsHeader />
+      <div className="pt-5 text-white flex items-center">No odds found</div>
+    </div>);
   }
-  return (
-    <Nats
-      odds={odds}
-      sport={sport[0]}
-      subcategory={sport[1]}
-      currentdataId={sport[2]}
-    />
-  );
+  return <Nats odds={odds} sport={sport[0]} subcategory={sport[1]} currentdataId={sport[2]} />;
 };
 
 export default Home;
