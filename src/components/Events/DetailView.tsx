@@ -63,7 +63,7 @@ const DetailView: React.FC<DetailViewProps> = ({ grouped, sport, subcategory, cu
     //     }
     // }, [active])
 
-    console.log({ grouped, sport, subcategory, currentdataId })
+    // console.log("++++++++++++++++", { grouped, sport, subcategory, currentdataId })
     const currentdata = [] as any;
     let currentGroupName = '';
     const findData = () => {
@@ -86,8 +86,8 @@ const DetailView: React.FC<DetailViewProps> = ({ grouped, sport, subcategory, cu
     }
     findData();
     let data = currentdata?.[0];
-    console.log('Current', data)
-    console.log('1Esport current sport', data?.info?.sport)
+    // console.log('Current', data)
+    // console.log('1Esport current sport', data?.info?.sport)
     const tabs = {
         soccer: ["All", "Bet Builder", "Asian Lines", "Corners/Cards", "Goals", "Half"],
         tennis: ["All", "Bet Builder", "Set", "Games", "Player"],

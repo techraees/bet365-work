@@ -9,6 +9,8 @@ import Points from "@/components/Events/Points";
 import Stats from "../Soccer/stats";
 import Chevron from "@/components/ui/icons/chevron";
 import PlayButton, { PlayButtonHover } from "@/components/ui/icons/playButton";
+
+import usePitchIdStore from "@/store/use-pitchid";
 interface TennisEventProps {
     data: any;
     sport: string;
@@ -16,11 +18,13 @@ interface TennisEventProps {
 }
 
 const TennisEvent: React.FC<TennisEventProps> = ({ data, sport, subcategory }) => {
-    console.log({ data, sport })
+    // console.log({ data, sport })
     if (!data) {
         return null;
     }
 
+
+    const { currentPitchId, setCurrentPitchId } = usePitchIdStore((state) => state);
 
 
     //count in which game we are
@@ -112,10 +116,10 @@ const TennisEvent: React.FC<TennisEventProps> = ({ data, sport, subcategory }) =
                 <div className="flex-1 flex">
                     <TennisOdds data={data} sport={sport} subcategory={subcategory} />
                     <div className="group items-center w-[50px] justify-center cursor-pointer hidden md:flex">
-                        <div className="flex group-hover:hidden">
+                        <div className={`${currentPitchId == data.info.id ? "hidden" : "flex"} group-hover:hidden`}>
                             <PlayButton />
                         </div>
-                        <div className="hidden group-hover:flex">
+                        <div className={`${currentPitchId == data.info.id ? "flex" : "hidden"} group-hover:flex`} onClick={()=>{setCurrentPitchId(data.info.id)}}>
                             <PlayButtonHover />
                         </div>
                     </div>
