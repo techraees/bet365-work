@@ -2,12 +2,18 @@ import React from "react";
 import Container from "@/components/ui/Container";
 import CustomLink from "@/components/ui/Link";
 
+type MenuLink = {
+  label: string;
+  link: string;
+  active?: boolean;
+};
+
 const SecondaryHeader = () => {
   const primaryMenuLinks = [
     {
       label: "Sports",
       link: "/sports",
-      active:true,
+      active: true,
     },
     // {
     //   label: "Fantasy",
@@ -39,7 +45,7 @@ const SecondaryHeader = () => {
     // },
   ];
 
-  const secondaryMenuLinks = [
+  const secondaryMenuLinks: MenuLink[] = [
     // {
     //   label: "Responsible Gambling",
     //   link: "responsible-gambling",
@@ -48,7 +54,7 @@ const SecondaryHeader = () => {
     {
       label: "Help",
       link: "help",
-      active:false
+      active: false,
     },
   ];
   return (
@@ -56,14 +62,24 @@ const SecondaryHeader = () => {
       <Container className="flex text-xs items-center h-[45px] justify-between overflow-scroll hidescroll">
         <div className="pl-4 flex gap-5 whitespace-nowrap">
           {primaryMenuLinks.map((link, index) => (
-            <CustomLink href={link.link} key={index} active={link.active} activeClassName="text-white">
+            <CustomLink
+              href={link.link}
+              key={index}
+              active={link.active}
+              activeClassName="text-white"
+            >
               {link.label}
             </CustomLink>
           ))}
         </div>
         <div className="pl-4 pr-4 flex gap-5 whitespace-nowrap">
           {secondaryMenuLinks.map((link, index) => (
-            <CustomLink href={link.link} key={index} active={link.active} activeClassName="text-white">
+            <CustomLink
+              href={link.link}
+              key={index}
+              active={link.active}
+              activeClassName="text-white"
+            >
               {link.label}
             </CustomLink>
           ))}
