@@ -2,7 +2,7 @@
 
 import { connect, NatsConnection, JSONCodec, Msg, NatsError } from "nats.ws";
 
-import { useEffect, useRef, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import * as jsonpatch from "fast-json-patch";
 import SportDetailHeader from "@/app/(app)/in-play/components/SportDetailHeader";
 import GroupedEvents from "../Events/Grouped";
@@ -10,7 +10,10 @@ import SportsHeader from "@/app/(app)/in-play/components/SportsHeader";
 import DetailView from "../Events/DetailView";
 import Esports from "../Sports/Esports/EsportsWrapper";
 import { useRouter } from "next/navigation";
+import Container from "../ui/Container";
+import Pitch from "../Pitch";
 
+import usePitchIdStore from "@/store/use-pitchid";
 
 const sc = JSONCodec();
 
@@ -23,21 +26,25 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
 
   const natsConnectionsRef = useRef(natsConnections); // Create a mutable ref
 
+  const { currentPitchId, setCurrentPitchId } = usePitchIdStore((state) => state);
+
+
   const route = useRouter()
 
+  
 
   const addMessage = (err: NatsError | null, message: Msg) => {
-    console.log("PATCH");
+    // console.log("PATCH");
     const data: any = sc.decode(message.data);
-    console.log({ subject: message.subject, patch: data });
+    // console.log({ subject: message.subject, patch: data });
     try {
       const document = jsonpatch.applyPatch(oddsState, data).newDocument;
 
 
-      console.log({ document });
+      // console.log({ document });
       setOddsState({ ...document });
     } catch (e) {
-      console.log({ e });
+      // console.log({ e });
       route.refresh()
     }
   };
@@ -48,7 +55,7 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
     if (sport === "esports") {
       connections = ['esport', 'esoccer', 'basketball']
     }
-    console.log({connections})
+    console.log({ connections })
     connections.forEach((blocks) => {
       const natsChannel = `client.odds.live.${blocks.toLowerCase()}`;
 
@@ -114,12 +121,12 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
   // }, [sport]);
 
   var grouped_leagues = {} as any;
-  for(var event_id in oddsState){
+  for (var event_id in oddsState) {
     var event_obj = oddsState[event_id];
-    var league_name= event_obj.raw_object.info.league;
-    if(grouped_leagues[league_name] === undefined){
+    var league_name = event_obj.raw_object.info.league;
+    if (grouped_leagues[league_name] === undefined) {
       grouped_leagues[league_name] = [event_obj.raw_object]
-    }else{
+    } else {
       grouped_leagues[league_name].push(event_obj.raw_object);
     }
   }
@@ -132,8 +139,12 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
     };
   });
 
-  console.log({ grouped })
-  console.log({ currentdataId })
+  useEffect(()=>{
+    setCurrentPitchId(grouped[0]?.events[0].info.id);
+  }, []);
+
+  // console.log({ grouped })
+  // console.log("==================", { currentdataId })
   if (sport === "esports") {
     if (sport && currentdataId) {
       return (
@@ -157,26 +168,31 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
   return (
     //@ts-ignore
     <div className={`${group_colors[sport]}`}>
-
-      {sport && currentdataId ?
-        <div>
-          <DetailView grouped={grouped} sport={sport} subcategory={subcategory} currentdataId={currentdataId} />
-        </div> :
-        <>
-          <SportsHeader />
-          <div>
-            <SportDetailHeader sport={sport} subcategory={subcategory} />
-            <div className="flex flex-col w-full">
-              {grouped.map((group, index): any => {
-                return (
-                  <GroupedEvents key={index} name={group.name} events={group.events} sport={sport} subcategory={subcategory} />
-                );
-              })}
-            </div>
-          </div>
-        </>
-
-      }
+      <Container className="grid grid-cols-9 ">
+        <div className=" col-span-9 flex flex-col md:col-span-6">
+          {sport && currentdataId ?
+            <div>
+              <DetailView grouped={grouped} sport={sport} subcategory={subcategory} currentdataId={currentdataId} />
+            </div> :
+            <>
+              <SportsHeader />
+              <div>
+                <SportDetailHeader sport={sport} subcategory={subcategory} />
+                <div className="flex flex-col w-full">
+                  {grouped.map((group, index): any => {
+                    return (
+                      <GroupedEvents key={index} name={group.name} events={group.events} sport={sport} subcategory={subcategory} />
+                    );
+                  })}
+                </div>
+              </div>
+            </>
+          }
+        </div>
+        <div className="col-span-0 md:col-span-3">
+          <Pitch grouped={grouped} sport={sport} currentPitchId={currentPitchId} currentdataId={currentdataId} />
+        </div>
+      </Container>
     </div>
   );
 };

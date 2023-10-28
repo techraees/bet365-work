@@ -1,0 +1,39 @@
+@keyframes ballfade0 {
+    from {opacity: 0}
+    25% {opacity: 1}
+    50% {opacity: 0}
+    to {opacity: 0}
+}
+.ball0 {
+    animation-name: ballfade0;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+.ball1 {
+    opacity: 0;
+    animation-name: ballfade0;
+    animation-duration: 2s;
+    animation-delay: .2s;
+    animation-iteration-count: infinite;
+}
+.ball2 {
+    opacity: 0;
+    animation-name: ballfade0;
+    animation-duration: 2s;
+    animation-delay: .4s;
+    animation-iteration-count: infinite;
+}
+.ball3 {
+    opacity: 0;
+    animation-name: ballfade0;
+    animation-duration: 2s;
+    animation-delay: .6s;
+    animation-iteration-count: infinite;
+}
+.ball4 {
+    opacity: 0;
+    animation-name: ballfade0;
+    animation-duration: 2s;
+    animation-delay: .8s;
+    animation-iteration-count: infinite;
+}

@@ -10,12 +10,21 @@ const Home = async ({ params }: any) => {
   let { sport } = params;
 
   let odds = await getSportsOdds(sport[0]);
+<<<<<<< HEAD
   console.log("in-play", sport[0], { odds });
   if (sport[0] === "esports") {
     console.log("calling other odds");
     let soccerodds = await getSportsOdds("esoccer");
     let basketballodds = await getSportsOdds("basketball");
     odds = { ...odds, ...soccerodds, ...basketballodds };
+=======
+  // console.log('in-play', sport[0], { odds })
+  if (sport[0] === 'esports') {
+    console.log('calling other odds')
+    let soccerodds = await getSportsOdds('esoccer');
+    let basketballodds = await getSportsOdds('basketball');
+    odds = { ...odds, ...soccerodds, ...basketballodds }
+>>>>>>> live_pitch
   }
 
   // console.log({ odds, leagues });
