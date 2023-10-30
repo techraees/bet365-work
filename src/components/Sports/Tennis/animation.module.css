@@ -37,3 +37,68 @@
     animation-delay: .8s;
     animation-iteration-count: infinite;
 }
+
+
+@keyframes titleAnimation {
+    0% {transform: matrix(1,0,0,1,170,-100)}
+    2% {transform: matrix(1,0,0,1,170,20)}
+    25% {transform: matrix(1,0,0,1,170,20)}
+    27% {transform: matrix(1,0,0,1,170,-100)}
+    100% {transform: matrix(1,0,0,1,170,-100)}
+}
+
+.scoreTitle{
+    animation-name: titleAnimation;
+    animation-duration: 16s;
+    animation-iteration-count: infinite;
+}
+
+.aceTitle{
+    animation-name: titleAnimation;
+    animation-duration: 16s;
+    animation-delay: 5s;
+    animation-iteration-count: infinite;    
+}
+
+@keyframes leftScoreAnimation {
+    0% {transform: matrix(1,0,0,1,-50,75)}
+    2% {transform: matrix(1,0,0,1,170,75)}
+    25% {transform: matrix(1,0,0,1,170,75)}
+    27% {transform: matrix(1,0,0,1,-50,75)}
+    100% {transform: matrix(1,0,0,1,-50,75)}
+}
+
+.leftScore{
+    animation-name: leftScoreAnimation;
+    animation-duration: 16s;
+    animation-iteration-count: infinite;
+}
+
+.leftAceScore{
+    animation-name: leftScoreAnimation;
+    animation-duration: 16s;
+    animation-delay: 5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rightScoreAnimation {
+    0% {transform: matrix(1,0,0,1,500,75)}
+    2% {transform: matrix(1,0,0,1,218,75)}
+    25% {transform: matrix(1,0,0,1,218,75)}
+    27% {transform: matrix(1,0,0,1,500,75)}
+    100% {transform: matrix(1,0,0,1,500,75)}
+}
+
+.rightScore{
+    animation-name: rightScoreAnimation;
+    animation-duration: 16s;
+    animation-iteration-count: infinite;
+}
+
+.rightAceScore{
+    animation-name: rightScoreAnimation;
+    animation-duration: 16s;
+    animation-delay: 5s;
+    animation-iteration-count: infinite;
+}
+
