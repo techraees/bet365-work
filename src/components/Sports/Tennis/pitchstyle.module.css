@@ -1,0 +1,83 @@
+/* playerName */
+
+.homeUp {
+    transform : matrix(1,0,0,1,5,20);
+}
+
+.homeDown {
+    transform: matrix(1,0,0,1,5,125);
+}
+
+.awayUp {
+    transform : matrix(1,0,0,1,395,20);
+}
+
+.awayDown {
+    transform : matrix(1,0,0,1,395,125);
+}
+
+.noName {
+    opacity: 0;
+}
+
+.playerName {
+    transition: all 1s linear;
+}
+
+/* Points */
+
+.homePointsShowUp {
+    transform: matrix(1,0,0,1,-30,0);
+    opacity: 1;
+}
+
+.homePointsShowDown {
+    transform: matrix(1,0,0,1,-60,0);
+    opacity: 0;
+}
+
+.awayPointsShowUp {
+    transform: matrix(1,0,0,1,30,0);
+    opacity: 1;
+}
+
+.awayPointsShowDown {
+    transform: matrix(1,0,0,1,60,0);
+    opacity: 0;
+}
+
+.scoredPoints {
+    transition: all 0.5s linear;
+}
+
+/* injuryState */
+.injuryShowUp{
+    opacity: 1;
+}
+
+.injuryShowDown{
+    opacity: 0;
+}
+.injuryState{
+    transition: all 2s ease-out;
+}
+
+/* WinState */
+.winState{
+    transition: all 0.1s linear;
+}
+.winHomeShowUp{
+    transform: translate(192px, 61.5px) rotate(0deg);
+}
+
+.winHomeShowDwon{
+    transform: translate(70px, 61.5px);
+}
+
+.winAwayShowUp{
+    transform: translate(204px, 61.5px) rotate(0deg);
+}
+
+.winAwayShowDwon{
+    transform: translate(330px, 61.5px);
+}

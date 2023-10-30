@@ -8,7 +8,7 @@ const InPlayLayout = ({ children }: { children: React.ReactNode }) => {
       <Container className="grid grid-cols-9 ">
         <div className=" col-span-9 flex flex-col md:col-span-6">
           {/* <SportsHeader /> */}
-          <div >{children}</div>
+          <div>{children}</div>
         </div>
         <div className="col-span-0 md:col-span-3"> </div>
       </Container>
