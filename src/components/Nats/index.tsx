@@ -169,11 +169,16 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
     hockey: "bg-[linear-gradient(160deg,#36444D_0%,_#383838_400px)]",
     volleyball: "bg-[linear-gradient(160deg,#4D4032_0%,_#383838_400px)]",
   };
+
+  if (!group_colors.hasOwnProperty(sport)) {
+    console.error(`Invalid sport value: ${sport}`);
+    return null; // or provide a fallback behavior
+  }
   return (
-    //@ts-ignore
     <>
       <div className="flex flex-row">
         <div
+          //@ts-ignore
           className={`${group_colors[sport]} overflow-y-auto overflow-x-hidden overscroll-none h-full w-full flex-shrink-0`}
         >
           {sport && currentdataId ? (
