@@ -24,6 +24,32 @@
     transition: all 1s linear;
 }
 
+/* underText */
+
+.homeUnderTextUp {
+    transform : matrix(1,0,0,1,15,65);
+}
+
+.homeUnderTextDown {
+    transform: matrix(1,0,0,1,15,125);
+}
+
+.awayUnderTextUp {
+    transform : matrix(1,0,0,1,360,65);
+}
+
+.awayUnderTextDown {
+    transform : matrix(1,0,0,1,360,125);
+}
+
+.noUnderText {
+    opacity: 0;
+}
+
+.underText {
+    transition: all 0.5s linear;
+}
+
 /* Points */
 
 .homePointsShowUp {
