@@ -77,6 +77,9 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
     natsConnectionsRef.current = newNatsConnections;
     return () => {
       // console.log({ nats: natsConnectionsRef.current });
+
+      setCurrentPitchId("");
+
       natsConnectionsRef.current.forEach((nc: any) => {
         nc.drain();
         nc.close();

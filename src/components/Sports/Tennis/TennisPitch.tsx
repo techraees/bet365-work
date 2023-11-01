@@ -235,10 +235,6 @@ function getScoreCount(score: number) {
 
 function getServerPosition(data: any) {
 
-  if (data?.info.state_info) {
-    console.log("++++++", data?.info.state_info)
-  }
-  console.log("-------------");
   return (getScoreCount(data?.stats[1].home) +
     getScoreCount(data?.stats[1].away)) %
     2 ==

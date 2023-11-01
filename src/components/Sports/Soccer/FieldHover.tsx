@@ -1,15 +1,12 @@
 import * as React from "react"
-import { useState, useEffect } from "react";
-import usePitchIdStore from "@/store/use-pitchid";
-const SoccerField = (data: any) => {
-
+const SoccerField = () => {
 
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width={22}
             height={13}
-            fill="none"
+            fill="#2c6d36"
             fillRule="evenodd"
             viewBox='0 0 22 13'
         >

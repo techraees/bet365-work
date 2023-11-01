@@ -1,5 +1,6 @@
 import React from "react";
 import TennisPitch from "../Sports/Tennis/TennisPitch";
+import SoccerPitch from "../Sports/Soccer/SoccerPitch";
 
 
 interface PitchInterface {
@@ -14,7 +15,7 @@ const Pitch: React.FC<PitchInterface> = ({ currentdataId, sport, currentPitchId,
   if (currentdataId || currentPitchId != "") {
 
     let filterID = currentdataId ?? currentPitchId;
-    // console.log(currentPitchId);
+    console.log(currentPitchId);
     const currentdata = [] as any;
     const findData = () => {
       grouped.forEach((group: any) => {
@@ -32,6 +33,9 @@ const Pitch: React.FC<PitchInterface> = ({ currentdataId, sport, currentPitchId,
       return (
         <TennisPitch data={data} />
       )
+    }
+    if(sport === "soccer"){
+      return <SoccerPitch data={data} />
     }
 
   }
