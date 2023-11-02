@@ -15,7 +15,7 @@ const sc = JSONCodec();
 
 const SERVER_URL = process.env.NEXT_PUBLIC_NATS_URL!;
 
-console.log({ SERVER_URL });
+// console.log({ SERVER_URL });
 
 const Groupnats = ({
   soccerodds,
@@ -41,21 +41,21 @@ const Groupnats = ({
   const router = useRouter();
 
   const addMessage = (err: NatsError | null, message: Msg) => {
-    console.log("PATCH");
+    // console.log("PATCH");
     const data: any = sc.decode(message.data);
-    console.log({ subject: message.subject, patch: data });
+    // console.log({ subject: message.subject, patch: data });
     try {
       const start = performance.now();
 
       const document = jsonpatch.applyPatch(oddsState, data).newDocument;
       const end = performance.now();
       const loadTime = end - start;
-      console.log(`Page load time: ${loadTime}ms`);
+      // console.log(`Page load time: ${loadTime}ms`);
 
-      console.log({ document });
+      // console.log({ document });
       setOddsState({ ...document });
     } catch (e) {
-      console.log({ e });
+      // console.log({ e });
       router.refresh();
     }
   };
@@ -65,13 +65,13 @@ const Groupnats = ({
 
     let connections = ["soccer", "tennis", "basketball", "cricket"];
 
-    console.log({ connections });
+    // console.log({ connections });
     connections.forEach((blocks) => {
       const natsChannel = `client.odds.live.${blocks.toLowerCase()}`;
 
       (async () => {
         try {
-          console.log("Created NATS connection ", natsChannel);
+          // console.log("Created NATS connection ", natsChannel);
           const nc = await connect({
             servers: [SERVER_URL],
             tls: null,
@@ -83,7 +83,7 @@ const Groupnats = ({
             callback: addMessage,
           });
         } catch (e) {
-          console.log({ e });
+          // console.log({ e });
         }
       })();
     });
@@ -91,12 +91,12 @@ const Groupnats = ({
     setNatsConnections(newNatsConnections);
     natsConnectionsRef.current = newNatsConnections;
     return () => {
-      console.log({ nats: natsConnectionsRef.current });
+      // console.log({ nats: natsConnectionsRef.current });
       natsConnectionsRef.current.forEach((nc: any) => {
         nc.drain();
         nc.close();
       });
-      console.log("Closed NATS connections");
+      // console.log("Closed NATS connections");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -147,22 +147,25 @@ const Groupnats = ({
   );
 
   // Array Showing Logic
-  const selectedBids: any[] = [];
-  const [selectedBidsArr, setSelectedBidsArr] = useState<any>(selectedBids);
+  const [selectedBidsArr, setSelectedBidsArr] = useState<any>([]);
+
   return (
     <div className="flex flex-col">
       <SoccerTable
         soccergrouped={soccergrouped}
-        bidsSelection={selectedBids}
-        handleAddArr={setSelectedBidsArr}
+        selectedArray={selectedBidsArr}
+        setSelectedArray={setSelectedBidsArr}
       />
       <TennisTable
         tennisgrouped={tennisgrouped}
-        bidsSelection={selectedBids}
-        handleAddArr={setSelectedBidsArr}
+        selectedArray={selectedBidsArr}
+        setSelectedArray={setSelectedBidsArr}
       />
 
-      {selectedBidsArr.length > 0 && <CollectingPopup />}
+      <CollectingPopup
+        selectedArray={selectedBidsArr}
+        setSelectedArray={setSelectedBidsArr}
+      />
     </div>
   );
 };

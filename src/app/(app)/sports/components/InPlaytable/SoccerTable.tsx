@@ -1,9 +1,13 @@
 import Chevron from "@/components/ui/icons/chevron";
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useState } from "react";
 import SportHeading from "./TableHeading";
 
-const SoccerTable = ({ soccergrouped, bidsSelection, handleAddArr }: any) => {
+const SoccerTable = ({
+  soccergrouped,
+  selectedArray,
+  setSelectedArray,
+}: any) => {
   let soccer = {
     title: "Soccer",
     events: ["1", "X", "2"],
@@ -54,6 +58,58 @@ const SoccerTable = ({ soccergrouped, bidsSelection, handleAddArr }: any) => {
       }
     }
   });
+
+  // Selected Columns
+  const handleSelectedColors = (
+    selectedArray: any,
+    column: any,
+    item: any
+  ): string => {
+    const foundedData = selectedArray.find((obj: any) => {
+      return (
+        obj.home == item.home &&
+        JSON.stringify({ ...obj.rows }) === JSON.stringify({ ...column })
+      );
+    });
+    if (foundedData !== undefined) {
+      return "bg-white hover:bg-white";
+    } else {
+      return "";
+    }
+  };
+
+  const handleSelectingItems = (item: any, column: any) => {
+    const alreadyPresent = selectedArray.find(
+      (obj: any) =>
+        obj.home == item.home &&
+        JSON.stringify({ ...obj.rows }) == JSON.stringify({ ...column })
+    );
+    if (alreadyPresent) {
+      const filteredArr = selectedArray.filter((filterObj: any) => {
+        // Check if `home` property is different
+        if (filterObj.home !== alreadyPresent.home) {
+          return true;
+        }
+
+        // Check if `rows` properties are different
+        for (const key in filterObj.rows) {
+          if (filterObj.rows[key] !== alreadyPresent.rows[key]) {
+            return true;
+          }
+        }
+
+        return false;
+      });
+      console.log(filteredArr, selectedArray, "I am present 7");
+
+      setSelectedArray(filteredArr);
+    } else {
+      const dataObj = { ...item };
+      dataObj.rows = column;
+      const newArr = [...selectedArray, dataObj];
+      setSelectedArray(newArr);
+    }
+  };
   return (
     <div className="flex flex-col pb-3 h-full bg-[linear-gradient(135deg,#364D3C_0%,_#383838_400px)]">
       <SportHeading data={soccer} />
@@ -92,16 +148,13 @@ const SoccerTable = ({ soccergrouped, bidsSelection, handleAddArr }: any) => {
               {item?.rows.map((column: any, index: number) => {
                 return (
                   <div
-                    onClick={() => {
-                      console.log(oddData, "This is the odd data");
-                      if (bidsSelection.includes(oddData)) {
-                        bidsSelection.filter((item: any) => item !== oddData);
-                      }
-                      const updatedSelected = [...bidsSelection, oddData];
-                      handleAddArr(updatedSelected);
-                    }}
+                    onClick={() => handleSelectingItems(item, column)}
                     key={index}
-                    className=" flex flex-1 h-full justify-center items-center text-[#ffde00] hover:bg-[#ffffff26]"
+                    className={`flex flex-1 h-full justify-center items-center text-[#ffde00] hover:bg-[#ffffff26] ${handleSelectedColors(
+                      selectedArray,
+                      column,
+                      item
+                    )}`}
                   >
                     {column.value}
                   </div>
