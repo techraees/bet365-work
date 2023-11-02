@@ -213,7 +213,7 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
           )}
         </div>
 
-        <div className="w-3/4 flex-shrink-0 overflow-y-auto overflow-x-hidden overscroll-none overflow-y-scroll  max-w-[485px] min-w-[375px]">
+        <div className="hidden md:block w-3/4 overflow-y-auto overflow-x-hidden overscroll-none overflow-y-scroll max-w-[100%] min-w-[50%]">
           <Pitch
             grouped={grouped}
             sport={sport}

@@ -395,7 +395,7 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
 
   return (
     <>
-      <div className="border-b-[hsla(0,0%,100%,.1)] border-b border-solid h-[50px] max-w-[440px]">
+      <div className="border-b-[hsla(0,0%,100%,.1)] border-b border-solid h-[50px]">
         <div className="flex h-full">
           <div className="flex items-center h-full flex-1 justify-end ">
             <div className="pr-[25px] pl-[10px]">
