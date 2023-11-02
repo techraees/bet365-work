@@ -379,6 +379,7 @@ function winAwayClassName(data: any) {
 const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
   const prevPropsRef = useRef();
 
+  console.log(data);
 
   useEffect(() => {
     prevPropsRef.current = data;

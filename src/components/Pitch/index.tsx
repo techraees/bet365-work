@@ -15,7 +15,6 @@ const Pitch: React.FC<PitchInterface> = ({ currentdataId, sport, currentPitchId,
   if (currentdataId || currentPitchId != "") {
 
     let filterID = currentdataId ?? currentPitchId;
-    console.log(currentPitchId);
     const currentdata = [] as any;
     const findData = () => {
       grouped.forEach((group: any) => {
@@ -29,12 +28,12 @@ const Pitch: React.FC<PitchInterface> = ({ currentdataId, sport, currentPitchId,
     findData();
     let data = currentdata?.[0];
 
-    if(sport === "tennis"){
+    if (sport === "tennis") {
       return (
         <TennisPitch data={data} />
       )
     }
-    if(sport === "soccer"){
+    if (sport === "soccer") {
       return <SoccerPitch data={data} />
     }
 
