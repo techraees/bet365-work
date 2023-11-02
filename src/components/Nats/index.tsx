@@ -29,13 +29,13 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
   const route = useRouter();
 
   const addMessage = (err: NatsError | null, message: Msg) => {
-    console.log("PATCH");
+    // console.log("PATCH");
     const data: any = sc.decode(message.data);
-    console.log({ subject: message.subject, patch: data });
+    // console.log({ subject: message.subject, patch: data });
     try {
       const document = jsonpatch.applyPatch(oddsState, data).newDocument;
 
-      console.log({ document });
+      // console.log({ document });
       setOddsState({ ...document });
     } catch (e) {
       console.log({ e });
@@ -49,13 +49,13 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
     if (sport === "esports") {
       connections = ["esport", "esoccer", "basketball"];
     }
-    console.log({ connections });
+    // console.log({ connections });
     connections.forEach((blocks) => {
       const natsChannel = `client.odds.live.${blocks.toLowerCase()}`;
 
       (async () => {
         try {
-          console.log("Created NATS connection ", natsChannel);
+          // console.log("Created NATS connection ", natsChannel);
           const nc = await connect({
             servers: [SERVER_URL],
             tls: null,
@@ -76,12 +76,15 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
 
     natsConnectionsRef.current = newNatsConnections;
     return () => {
-      console.log({ nats: natsConnectionsRef.current });
+      // console.log({ nats: natsConnectionsRef.current });
+
+      setCurrentPitchId("");
+
       natsConnectionsRef.current.forEach((nc: any) => {
         nc.drain();
         nc.close();
       });
-      console.log("Closed NATS connections");
+      // console.log("Closed NATS connections");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sport]);
@@ -135,8 +138,8 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
     }
   );
 
-  console.log({ grouped });
-  console.log({ currentdataId });
+  // console.log({ grouped });
+  // console.log({ currentdataId });
   if (sport === "esports") {
     if (sport && currentdataId) {
       return (

@@ -8,6 +8,9 @@ import SoccerOdds from "./odds";
 import SoccerJersey from "./Jersey";
 import SoccerPoints from "./Points";
 import SoccerField from "./Field";
+import SoccerFieldHover from "./FieldHover";
+import usePitchIdStore from "@/store/use-pitchid";
+
 interface SoccerEventProps {
     data: any;
     sport: string;
@@ -16,7 +19,7 @@ interface SoccerEventProps {
 
 
 const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) => {
-    console.log({ data, sport });
+    // console.log({ data, sport });
 
     const initialSeconds = data?.info?.seconds || "00:00";
     // const initialSecondsIncreased = increaseTimeBySeconds(initialSeconds, 10);
@@ -24,21 +27,24 @@ const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) =
     const [isTimerPaused, setTimerPaused] = useState(false);
     const [totalSeconds, setTotalSeconds] = useState(convertToSeconds(initialSeconds));
 
+    const { currentPitchId, setCurrentPitchId } = usePitchIdStore(
+        (state) => state
+    );
 
     const displayTime = isNaN(totalSeconds) ? "00:00" : formatTime(totalSeconds);
 
-    if ((data?.core?.stopped === "1") && isTimerPaused==false) {
+    if ((data?.core?.stopped === "1") && isTimerPaused == false) {
         setTimerPaused(true);
         setTotalSeconds(convertToSeconds(data?.info?.seconds));
     }
-    if ((data?.core?.stopped === "0") && isTimerPaused==true) {
+    if ((data?.core?.stopped === "0") && isTimerPaused == true) {
         setTotalSeconds(convertToSeconds(data?.info?.seconds));
         setTimerPaused(false);
     }
 
     useEffect(() => {
         let timerInterval: NodeJS.Timer | undefined;
-        
+
         if (!isTimerPaused) {
             timerInterval = setInterval(() => {
                 setTotalSeconds(prevTotalSeconds => prevTotalSeconds + 1);
@@ -50,7 +56,7 @@ const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) =
         return () => {
             clearInterval(timerInterval); // Clean up the interval on component unmount
         };
-    }, [isTimerPaused]); 
+    }, [isTimerPaused]);
 
 
     if (!data) {
@@ -108,8 +114,22 @@ const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) =
                 </div>
                 <div className="flex-1 flex">
                     <SoccerOdds data={data} sport={sport} subcategory={subcategory} />
-                    <div className=" items-center hidden md:flex">
-                        <SoccerField />
+                    <div className="group items-center w-[50px] justify-center cursor-pointer hidden md:flex">
+                        <div
+                            className={`${currentPitchId == data.info.id ? "hidden" : "flex"
+                                } group-hover:hidden`}
+                        >
+                            <SoccerField />
+                        </div>
+                        <div
+                            className={`${currentPitchId == data.info.id ? "flex" : "hidden"
+                                } group-hover:flex`}
+                            onClick={() => {
+                                setCurrentPitchId(data.info.id);
+                            }}
+                        >
+                            <SoccerFieldHover />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -122,14 +142,14 @@ function convertToSeconds(timeString: string) {
     return minutes * 60 + seconds;
 }
 
-function increaseTimeBySeconds(timeString:any, secondsToAdd:any) {
+function increaseTimeBySeconds(timeString: any, secondsToAdd: any) {
     const totalSeconds = convertToSeconds(timeString) + secondsToAdd;
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
     return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
-function formatTime(totalSeconds:any) {
+function formatTime(totalSeconds: any) {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
     return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;

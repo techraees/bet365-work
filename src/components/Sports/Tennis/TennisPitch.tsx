@@ -234,12 +234,50 @@ function getScoreCount(score: number) {
 }
 
 function getServerPosition(data: any) {
+
   return (getScoreCount(data?.stats[1].home) +
     getScoreCount(data?.stats[1].away)) %
     2 ==
     0
     ? "right"
     : "left";
+}
+// show under text
+function getUnderTextClassName(data: any) {
+  const state_number = data?.info.state as number;
+  if (
+    state_number != 11115 &&
+    state_number != 21115
+  ) {
+    return `${pitchStyle.underText} ${pitchStyle.noUnderText}`
+  }
+  if (state_number == 11115) {
+    return `${(getScoreCount(data?.stats[1].home) + getScoreCount(data?.stats[1].away)) %
+      2 ==
+      0
+      ? pitchStyle.homeUnderTextDown
+      : pitchStyle.homeUnderTextUp
+      } ${pitchStyle.underText}`;
+  } else {
+    return `${(getScoreCount(data?.stats[1].home) + getScoreCount(data?.stats[1].away)) %
+      2 ==
+      0
+      ? pitchStyle.awayUnderTextUp
+      : pitchStyle.awayUnderTextDown
+      } ${pitchStyle.underText}`;
+  }
+}
+
+function getUnderText(data: any) {
+  const state_number = data?.info.state as number;
+  if (
+    state_number == 11115 ||
+    state_number == 21115
+  ) {
+    return "Point"
+  } else {
+    return ""
+  }
 }
 
 // show player name
@@ -341,7 +379,8 @@ function winAwayClassName(data: any) {
 const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
   const prevPropsRef = useRef();
 
-  // console.log(data);
+  console.log(data);
+
   useEffect(() => {
     prevPropsRef.current = data;
   });
@@ -580,6 +619,9 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
               </g>
             </g>
           </svg>
+
+
+
           {/* Win Status */}
 
           {
@@ -1263,6 +1305,26 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
               </g>
             ))
           }
+          {/* undertext */}
+          <g
+            id="SVGIRIS_PITCH_TEAM_1"
+            className={getUnderTextClassName(data)}
+            opacity="1"
+          >
+            <text
+              id="SVGIRIS_PITCH_TEAM_1_TXT_NAME1"
+              fill="#9abeff"
+              fontFamily="Roboto"
+              fontSize="16px"
+              fontWeight="400"
+              letterSpacing="0px"
+              wordSpacing="0px"
+              textAnchor="start"
+              xmlSpace="preserve"
+            >
+              {getUnderText(data)}
+            </text>
+          </g>
 
           {/* plyer name */}
           <g
