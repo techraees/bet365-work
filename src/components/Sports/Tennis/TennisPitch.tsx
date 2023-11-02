@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef } from "react";
 import animationStyles from "./animation.module.css";
 import pitchStyle from "./pitchstyle.module.css";
@@ -356,9 +357,45 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
     data?.stats[0]?.away.split("/").slice(-1)[0] ?? "";
   const secondPlayerName = secondPlayerFullName.split(" ");
 
+  var set_scores = [0, 0];
+  var _scores = [] as any;
+  var score_string = data?.info?.score;
+  const sts = data?.sts;
+  console.log({ sts: sts });
+  const [
+    Aces_String,
+    Double_Faults_String,
+    Win_1st_Serve_String,
+    Break_Point_Conversion_String,
+  ] = sts.split("|");
+  var [aces_home, aces_away] = Aces_String.split(":");
+  var [double_faults_home, double_faults_away] = Double_Faults_String.split(
+    ":"
+  );
+  let aces_regex = /Aces=(\d+)/;
+  let double_faults_regex = /Double Faults=(\d+)/;
+  let win_percent_1st_regex = /Win % 1st Serve=(\d+):(\d+)/;
+  let break_point_conversions_regex = /Break Point Conversions=(\d+):(\d+)/;
+
+  aces_home = aces_home.match(aces_regex)[1];
+  double_faults_home = double_faults_home.match(double_faults_regex)[1];
+
+  var win_first_serve_percentage_home = Win_1st_Serve_String.match(
+    win_percent_1st_regex
+  )[1];
+  var win_first_serve_percentage_away = Win_1st_Serve_String.match(
+    win_percent_1st_regex
+  )[2];
+  var break_point_conversion_percentage_home = Break_Point_Conversion_String.match(
+    break_point_conversions_regex
+  )[1];
+  var break_point_conversion_percentage_away = Break_Point_Conversion_String.match(
+    break_point_conversions_regex
+  )[2];
+
   return (
     <>
-      <div className="border-b-[hsla(0,0%,100%,.1)] border-b border-solid h-[50px]">
+      <div className="border-b-[hsla(0,0%,100%,.1)] border-b border-solid h-[50px] max-w-[440px]">
         <div className="flex h-full">
           <div className="flex items-center h-full flex-1 justify-end ">
             <div className="pr-[25px] pl-[10px]">
@@ -393,7 +430,8 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
         </div>
       </div>
       <div className="relative text-center text-[0] h-[50px] flex justify-center items-center bg-transparent border-t-[#474747]"></div>
-      <div className="flex w-full flex-col">
+      {/* <div className="flex w-full flex-col"> */}
+      <div className="max-w-[440px] mx-auto my-0 px-5 py-2.5">
         {/* <div className="flex justify-around p-2 text-base text-white">
           <span>{data?.stats[0].home}</span>
           <span>{data?.stats[0].away}</span>
@@ -1610,7 +1648,8 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
                       dy="20.8"
                       x="0"
                     >
-                      {getHomeScore(data)}
+                      {/* {getHomeScore(data)} */}
+                      {aces_home}
                     </tspan>
                   </text>
                   <rect
@@ -1642,7 +1681,7 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
                       dy="20.8"
                       x="0"
                     >
-                      {getAwayScore(data)}
+                      {aces_away}
                     </tspan>
                   </text>
                   <rect
@@ -1744,7 +1783,6 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
       <div>
         <BottomBorderComponent data={data}></BottomBorderComponent>
       </div>
-
       {/* bottom border end */}
     </>
   );

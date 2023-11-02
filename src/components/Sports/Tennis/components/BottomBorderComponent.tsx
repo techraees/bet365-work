@@ -1,4 +1,5 @@
-import React, { memo, useEffect, useState } from "react";
+"use client";
+import React, { memo, useEffect, useLayoutEffect, useState } from "react";
 
 interface DataInterface {
   data: any;
@@ -48,17 +49,18 @@ function extractSets(data: any) {
 
 const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
   const [activeTab, setActiveTab] = useState("Stats"); // Default to 'Stats'
-  const [stats, setStats] = useState(data?.stats);
-  const [extra, setExtra] = useState(data?.extra);
+  //   const [stats, setStats] = useState(data?.stats);
+  //   const [extra, setExtra] = useState(data?.extra);
 
-  //   useEffect(() => {
-  //     setStats(data.stats);
-  //   }, [data.stats]);
-
-  //   useEffect(() => {
+  //   useLayoutEffect(() => {
   //     setExtra(data.extra);
   //   }, [data.extra]);
 
+  //   useLayoutEffect(() => {
+  //     setStats(data.stats);
+  //   }, [data.stats]);
+
+  console.log("rendering");
   var set_scores = [0, 0];
   var _scores = [] as any;
   var score_string = data?.info?.score;
@@ -88,7 +90,6 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
   console.log({ set_scores: set_scores });
   console.log("rendering");
 
-  var percentage = 50;
   var win_first_serve_percentage_home = Win_1st_Serve_String.match(
     win_percent_1st_regex
   )[1];
@@ -322,12 +323,5 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
     </div>
   );
 };
-function areEqual(prevProps: DataInterface, nextProps: DataInterface) {
-  // Only re-render if data.stats or data.extra changes
-  return (
-    prevProps.data.stats === nextProps.data.stats &&
-    prevProps.data.extra === nextProps.data.extra
-  );
-}
 
 export default BottomBorderComponent;

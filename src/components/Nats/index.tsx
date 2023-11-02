@@ -176,7 +176,7 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
   }
   return (
     <>
-      <div className="flex flex-row">
+      <div className="flex h-full">
         <div
           //@ts-ignore
           className={`${group_colors[sport]} overflow-y-auto overflow-x-hidden overscroll-none h-full w-full flex-shrink-0`}
@@ -212,15 +212,14 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
             </>
           )}
         </div>
+
         <div className="w-3/4 flex-shrink-0 overflow-y-auto overflow-x-hidden overscroll-none overflow-y-scroll  max-w-[485px] min-w-[375px]">
-          <div className="max-w-[440px] mx-auto my-0 px-5 py-2.5">
-            <Pitch
-              grouped={grouped}
-              sport={sport}
-              currentPitchId={currentPitchId}
-              currentdataId={currentdataId}
-            />
-          </div>
+          <Pitch
+            grouped={grouped}
+            sport={sport}
+            currentPitchId={currentPitchId}
+            currentdataId={currentdataId}
+          />
         </div>
       </div>
     </>
