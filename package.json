@@ -25,6 +25,7 @@
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "fast-json-patch": "^3.1.1",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.216.0",
     "nats": "^2.13.1",
     "nats.ws": "^1.14.0",
