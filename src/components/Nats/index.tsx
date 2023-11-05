@@ -28,6 +28,13 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
 
   const route = useRouter();
 
+  useEffect(() => {
+    localStorage.removeItem("ball_pos");
+    localStorage.removeItem("ball_track")
+    localStorage.removeItem("code")
+  }, [currentPitchId])
+
+
   const addMessage = (err: NatsError | null, message: Msg) => {
     // console.log("PATCH");
     const data: any = sc.decode(message.data);

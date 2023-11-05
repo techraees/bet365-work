@@ -7,21 +7,30 @@ function getPosFromString(pos: string) {
     return ballPos ? { x: Number(ballPos[0]) * FIELD_WIDTH, y: Number(ballPos[1]) * FIELD_HEIGHT } : null;
 }
 
-const BallTrack: React.FC<any> = ({ track }) => {
+const trackOpacities = [0.19, 0.36, 0.52, 0.68, 0.84];
+
+const BallTrack: React.FC<any> = ({ track, animate }) => {
     if (!track || track.length < 2)
         return <></>;
-    let content = [], i, prevPos = getPosFromString(track[0]), curPos = getPosFromString(track[1]);
-    for (i = 1; i < track.length - 1;) {
+    let i, content = [];
+    for (i = 0; i < track.length - 2; ++i) {
+        let prevPos = getPosFromString(track[i]);
+        let curPos = getPosFromString(track[i + 1]);
         content.push(
-            <line xmlns="http://www.w3.org/2000/svg" x1={prevPos?.x} y1={prevPos?.y} x2={curPos?.x} y2={curPos?.y} stroke="#a0e06c" strokeWidth="1" opacity="1" />
+            <>
+                <circle xmlns="http://www.w3.org/2000/svg" r="3" cx={prevPos?.x} cy={prevPos?.y} fill="#a0e06c" opacity={trackOpacities[i]} />
+                <line xmlns="http://www.w3.org/2000/svg" x1={prevPos?.x} y1={prevPos?.y} x2={curPos?.x} y2={curPos?.y} stroke="#a0e06c" strokeWidth="1" opacity={trackOpacities[i + 1]} />
+            </>
         )
-        prevPos = Object.assign({}, curPos);
-        curPos = getPosFromString(track[++i]);
     }
+    let prevPos = getPosFromString(track[i]);
+    let curPos = getPosFromString(track[i + 1]);
+    content.push(<circle xmlns="http://www.w3.org/2000/svg" r="3" cx={prevPos?.x} cy={prevPos?.y} fill="#a0e06c" opacity="1" />);
     return (
         <>
-            {/* {content} */}
-            <AnimateLine from={prevPos} to={curPos} />
+            {content}
+            {animate ? <AnimateLine from={getPosFromString(track[i])} to={getPosFromString(track[i + 1])} />
+                : <line xmlns="http://www.w3.org/2000/svg" x1={prevPos?.x} y1={prevPos?.y} x2={curPos?.x} y2={curPos?.y} stroke="#a0e06c" strokeWidth="1" opacity="1" />}
         </>
     )
 }

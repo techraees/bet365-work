@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import { FIELD_HEIGHT, FIELD_WIDTH } from "./constants";
 import BallTrack from './PitchComponents/BallTrack';
-import AnimateLine from "./PitchComponents/AnimateLine";
 
 interface SoccerPitchInterface {
   data: any
@@ -57,11 +56,11 @@ function getStatusFromCode(code: number): string | undefined {
     },
     {
       "code": 11024,
-      "name": "Home Throw"
+      "name": "Home Team Throw"
     },
     {
       "code": 21024,
-      "name": "Away Throw"
+      "name": "Away Team Throw"
     },
     {
       "code": 10008,
@@ -297,52 +296,52 @@ function getStatusFromCode(code: number): string | undefined {
     }, {
       "code": 21936, "name": "Away Team Freekick - Pos. 12"
     }, {
-      "code": 11301, "name": "Home TakeOnAttack"
+      "code": 11301, "name": "Home Team TakeOnAttack"
     }, {
-      "code": 21300, "name": "Away TakeOnDangerousAttack"
+      "code": 21300, "name": "Away Team TakeOnDangerousAttack"
     }, {
-      "code": 11302, "name": "Home TakeOnSafePossession"
+      "code": 11302, "name": "Home Team TakeOnSafePossession"
     }, {
       "code": 1026, "name": "InjuryTime"
     }, {
       "code": 1004, "name": "Corner"
     }, {
-      "code": 21301, "name": "Away TakeOnAttack"
+      "code": 21301, "name": "Away Team TakeOnAttack"
     }, {
-      "code": 21016, "name": "Away Secondhalf"
+      "code": 21016, "name": "Away Team Secondhalf"
     }, {
-      "code": 11300, "name": "Home TakeOnDangerousAttack"
+      "code": 11300, "name": "Home Team TakeOnDangerousAttack"
     }, {
       "code": 1000, "name": "Danger"
     }, {
-      "code": 21026, "name": "Away InjuryTime"
+      "code": 21026, "name": "Away Team InjuryTime"
     }, {
-      "code": 11016, "name": "Home Secondhalf"
+      "code": 11016, "name": "Home Team Secondhalf"
     }, {
-      "code": 21302, "name": "Away TakeOnSafePossession"
+      "code": 21302, "name": "Away Team TakeOnSafePossession"
     },
     {
       "code": 21014,
-      "name": "Away Kickoff"
+      "name": "Away Team Kickoff"
     },
     {
       "code": 11014,
-      "name": "Home Kickoff"
+      "name": "Home Team Kickoff"
     },
     {
       "code": 1005,
       "name": "YellowCard"
     },
     {
-      "code": 21022, "name": "Away Penaltyshootout"
+      "code": 21022, "name": "Away Team Penaltyshootout"
     }, {
-      "code": 11022, "name": "Home Penaltyshootout"
+      "code": 11022, "name": "Home Team Penaltyshootout"
     }, {
       "code": 1009, "name": "Dfreekick"
     }, {
       "code": 1003, "name": "Goal"
     }, {
-      "code": 11026, "name": "Home InjuryTime"
+      "code": 11026, "name": "Home Team InjuryTime"
     }
   ];
 
@@ -357,27 +356,151 @@ function getBallPosition(data: any): any {
   return ballPos ? { x: Number(ballPos[0]) * FIELD_WIDTH, y: Number(ballPos[1]) * FIELD_HEIGHT } : null;
 }
 
+function getTeamFromCode(code: number): number {
+  return Math.floor(code / 10000);
+}
+
+function getStateFromCode(code: number): number {
+  return code % 10000;
+}
+
+function isShowTrackCode(code: number): boolean {
+  const team = getTeamFromCode(code);
+  const status = getStateFromCode(code);
+  return team > 0
+    && (status == 1000 || status == 1001 || status == 1002);
+}
+
+function isShowTrack(curCode: number): boolean {
+  return isShowTrackCode(curCode) == true && getTeamFromCode(curCode) > 0;
+}
+
+function isClearTrack(prevCode: number, curCode: number): boolean {
+  return isShowTrack(curCode) == false || (getTeamFromCode(prevCode) != getTeamFromCode(curCode));
+}
+
+function isSafe(code: number): number {
+  const team = getTeamFromCode(code);
+  const status = getStateFromCode(code);
+  return (status == 1302 || status == 1002) ? team : 0;
+}
+
+function isHomeSafe(code: number): boolean {
+  return isSafe(code) == 1;
+}
+
+function isAwaySafe(code: number): boolean {
+  return isSafe(code) == 2;
+}
+
+function isAttack(code: number): number {
+  const team = getTeamFromCode(code);
+  const status = getStateFromCode(code);
+  return (status == 1001) ? team : 0;
+}
+
+function isHomeAttack(code: number): boolean {
+  return isAttack(code) == 1;
+}
+
+function isAwayAttack(code: number): boolean {
+  return isAttack(code) == 2;
+}
+
+function isDangerousAttack(code: number): number {
+  const team = getTeamFromCode(code);
+  const status = getStateFromCode(code);
+  return (status == 1000) ? team : 0;
+}
+
+function isHomeDangerousAttack(code: number): boolean {
+  return isDangerousAttack(code) == 1;
+}
+
+function isAwayDangerousAttack(code: number): boolean {
+  return isDangerousAttack(code) == 2;
+}
+
+function getTeamMessage(code: number): any {
+  let status = getStatusFromCode(code);
+  let left = status?.substring(0, 9);
+  let right = status?.substring(9);
+  if (left == "Home Team" || left == "Away Team") {
+    return {
+      team: left,
+      message: right
+    }
+  }
+}
+
+
+
 const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
   console.log(">>>>soccer>>>", data);
+
+  const initialSeconds = data?.info?.seconds || "00:00";
+  // const initialSecondsIncreased = increaseTimeBySeconds(initialSeconds, 10);
+
+  const [isTimerPaused, setTimerPaused] = useState(false);
+  const [totalSeconds, setTotalSeconds] = useState(convertToSeconds(initialSeconds));
+
+
+  const displayTime = isNaN(totalSeconds) ? "00:00" : formatTime(totalSeconds);
+
+  if ((data?.core?.stopped === "1") && isTimerPaused == false) {
+    setTimerPaused(true);
+    setTotalSeconds(convertToSeconds(data?.info?.seconds));
+  }
+  if ((data?.core?.stopped === "0") && isTimerPaused == true) {
+    setTotalSeconds(convertToSeconds(data?.info?.seconds));
+    setTimerPaused(false);
+  }
+
+  useEffect(() => {
+    let timerInterval: NodeJS.Timer | undefined;
+
+    if (!isTimerPaused) {
+      timerInterval = setInterval(() => {
+        setTotalSeconds(prevTotalSeconds => prevTotalSeconds + 1);
+      }, 1000); // Increase by 1 second (1000 milliseconds)
+    } else {
+      clearInterval(timerInterval); // Pause the timer
+    }
+
+    return () => {
+      clearInterval(timerInterval); // Clean up the interval on component unmount
+    };
+  }, [isTimerPaused]);
+
+
+  if (!data) {
+    return null;
+  }
+
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
   const prevBallPos = localStorage.getItem("ball_pos");
-  const prevCode = localStorage.getItem("code");
+  const prevCode = Number(localStorage.getItem("code")) ?? 0;
+  const curCode = data?.info.state;
   const ballTrack = JSON.parse(localStorage.getItem("ball_track") ?? "[]");
-  if (data?.info.ball_pos && data?.info.ball_pos != prevBallPos) {
+  const isAnimating = data?.info.ball_pos && data?.info.ball_pos != prevBallPos;
+  const teamMessage = getTeamMessage(curCode);
+
+  if (isShowTrack(curCode) && data?.info.ball_pos && data?.info.ball_pos != prevBallPos) {
     ballTrack.push(data.info.ball_pos);
     if (ballTrack.length > 6) {
       ballTrack.shift();
     }
     localStorage.setItem("ball_pos", data?.info.ball_pos);
-    localStorage.setItem("code", data?.info.state);
     localStorage.setItem("ball_track", JSON.stringify(ballTrack));
+    console.log("ball----", getBallPosition(data?.info.ball_pos));
   }
-  let ballPos = getBallPosition(data);
-
-  useEffect(() => {
-    localStorage.removeItem("ball_pos");
-    localStorage.removeItem("code");
+  if (isClearTrack(prevCode, curCode)) {
     localStorage.removeItem("ball_track");
-  }, []);
+  }
+  localStorage.setItem("code", data?.info.state);
+  let ballPos = getBallPosition(data);
 
   return (
     <>
@@ -569,34 +692,34 @@ const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
             <path d="M399,9.046875 C394.555834,9.046875 390.953125,5.44416635 390.953125,1 L389,1 C389,6.5228475 393.477153,11 399,11 L399,9.046875 L399,9.046875 Z" fill="#3D8246"></path>
             <path d="M399,169 C393.477153,169 389,173.477153 389,179 L391,179 C391,174.581722 394.581722,171 399,171 L399,169 L399,169 Z" fill="#3D8246"></path><rect stroke="#3D8246" strokeWidth="2" x="1" y="1" width="398" height="178"></rect>
           </g>
-          <g id="home_danger_attack" opacity="0">
-            <linearGradient id="home_danger_attack_bg" gradientUnits="userSpaceOnUse" x1="-37.2401" y1="-203.0031" x2="-36.2403" y2="-203.0031" gradientTransform="matrix(-327.2727 0 0 -147.2727 -11919.416 -29781.8125)">
-              <stop offset="0" style={{ stopColor: "#4F291A", stopOpacity: 0.4 }}></stop>
-              <stop offset="0.424" style={{ stopColor: "#185435", stopOpacity: 0.4 }}></stop>
-            </linearGradient>
-            <path d="M2,2 321.04462809917356,2 321.91239669421486,2 C321.91239669421486,1.4 338.40000000000003,28 338.40000000000003,28 C339.26776859504133,29 339.26776859504133,30 338.40000000000003,31 L321.91239669421486,61 L338.40000000000003,88 C339.26776859504133,89 339.26776859504133,90 338.40000000000003,91 L321.91239669421486,121 L338.40000000000003,146 C339.26776859504133,147 339.26776859504133,150 338.40000000000003,151 L321.91239669421486,178 C321.91239669421486,178 2.0,178 2.0,178 L2,2 Z" fill="url(#home_danger_attack_bg)"></path>
-          </g>
-          <g id="away_danger_attack" opacity="0">
+          {
+            isHomeDangerousAttack(curCode) &&
+            <g id="SVGIRIS_PITCH_FX_DNGR_0" transform={`matrix(1,0,0,1,${ballPos?.x - 350},0)`}>
+              <polygon id="SvgjsPolygon3649" points="388,0 400,30 388,60 400,90 388,120 400,150 388,180 0,180 0,0"
+                fill="url(#ml1-Gradient21)"></polygon>
+            </g>
+          }
+          <g id="away_danger_attack" opacity={isAwayDangerousAttack(curCode) ? 1 : 0}>
             <linearGradient id="away_danger_attack_bg" gradientUnits="userSpaceOnUse" x1="-37.7076" y1="-203.0031" x2="-36.7078" y2="-203.0031" gradientTransform="matrix(327.2727 0 0 -147.2727 12434.7266 -29781.8125)">
               <stop offset="0" style={{ stopColor: "#4F291A", stopOpacity: 0.4 }}></stop>
               <stop offset="0.424" style={{ stopColor: "#185435", stopOpacity: 0.4 }}></stop>
             </linearGradient>
             <path d="M398,2 77.9602479338843,2 77.08595041322315,2 C77.08595041322315,1 60.47429752066117,28 60.47429752066117,28 C59.60000000000001,29 59.60000000000001,30 60.47429752066117,31 L77.08595041322315,61 L60.47429752066117,88 C59.60000000000001,89 59.60000000000001,90 60.47429752066117,91 L77.08595041322315,121 L60.47429752066117,146 C59.60000000000001,147 59.60000000000001,150 59.60000000000001,151 L77.08595041322315,178 C77.08595041322315,178 398.0,178 398.0,178 L398,2 Z" fill="url(#away_danger_attack_bg)"></path>
           </g>
-          <g id="away_attack" opacity="0">
-            <linearGradient id="away_attack_bg" gradientUnits="userSpaceOnUse" x1="-37.394" y1="-203.0043" x2="-36.3943" y2="-203.0043" gradientTransform="matrix(327.2727 0 0 -147.2727 12434.7266 -29781.8125)">
-              <stop offset="0.177" style={{ stopColor: "#185435", stopOpacity: 0.4 }}></stop>
-              <stop offset="1" style={{ stopColor: "#183924", stopOpacity: 0.4 }}></stop>
-            </linearGradient>
-            <path d="M398,2 132.03710743801653,2 131.4305785123967,2 C131.4305785123967,1 119.90652892561985,28 119.90652892561985,28 C119.30000000000001,29 119.30000000000001,30 119.90652892561985,31 L131.4305785123967,61 L119.90652892561985,88 C119.30000000000001,89 119.30000000000001,90 119.90652892561985,91 L131.4305785123967,121 L119.90652892561985,146 C119.30000000000001,147 119.30000000000001,150 119.30000000000001,151 L131.4305785123967,178 C131.4305785123967,178 398.0,178 398.0,178 L398,2 Z" fill="url(#away_attack_bg)"></path>
-          </g>
-          <g id="home_attack" opacity="0">
-            <linearGradient id="home_attack_bg" gradientUnits="userSpaceOnUse" x1="-36.3827" y1="-203.0043" x2="-35.3829" y2="-203.0043" gradientTransform="matrix(-327.2727 0 0 -147.2727 -11714.1748 -29781.8125)">
-              <stop offset="0.177" style={{ stopColor: "#185435", stopOpacity: 0.4 }}></stop>
-              <stop offset="1" style={{ stopColor: "#183924", stopOpacity: 0.4 }}></stop>
-            </linearGradient>
-            <path d="M2,2 280.9737190082645,2 281.65603305785123,2 C281.65603305785123,1.4 294.62,28 294.62,28 C295.30231404958676,29 295.30231404958676,30 294.62,31 L281.65603305785123,61 L294.62,88 C295.30231404958676,89 295.30231404958676,90 294.62,91 L281.65603305785123,121 L294.62,146 C295.30231404958676,147 295.30231404958676,150 294.62,151 L281.65603305785123,178 C281.65603305785123,178 2.0,178 2.0,178 L2,2 Z" fill="url(#home_attack_bg)"></path>
-          </g>
+          {
+            isHomeAttack(curCode) &&
+            < g id="SVGIRIS_PITCH_FX_ATTK_0" transform={`matrix(1,0,0,1,${ballPos?.x - 350},0)`}>
+              <polygon id="SvgjsPolygon2060" points="388,0 400,30 388,60 400,90 388,120 400,150 388,180 0,180 0,0"
+                fill="url(#ml1-Gradient11)"></polygon>
+            </g>
+          }
+          {
+            isAwayAttack(curCode) &&
+            <g id="SVGIRIS_PITCH_FX_ATTK_1" transform={`matrix(1,0,0,1,${ballPos?.x - 20},0)`}>
+              <polygon id="SvgjsPolygon1224" points="12,0 0,30 12,60 0,90 12,120 0,150 12,180 400,180 400,0"
+                fill="url(#ml1-Gradient1)"></polygon>
+            </g>
+          }
           <g id="goal_kick" opacity="0">
             <path id="goal_kick_3" fill="#165031" fillOpacity="0.3" d="M94.703,73.698C110.554,53.359,120,27.784,120,0c0-27.764-9.433-53.321-25.262-73.653L0,0.036L94.703,73.698z"></path>
             <path id="goal_kick_2" fill="#165031" fillOpacity="0.5" d="M62.325,48.514C72.765,35.123,79,18.294,79,0c0-18.274-6.222-35.085-16.639-48.469L0,0.036L62.325,48.514z"></path>
@@ -614,10 +737,10 @@ const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
             <path id="throw_1" fillOpacity="0.7" fill="#165031" d="M26.517,26.552c14.646-14.645,14.644-38.39,0-53.033L0,0.035L26.517,26.552z"></path>
             <circle fill="#FFFFFF" r="4" cx="0" cy="0"></circle>
           </g>
-          <g id="away_safe" opacity="0">
+          <g id="away_safe" opacity={isAwaySafe(curCode) ? 1 : 0}>
             <rect x="200" y="0" fill="#183924" fillOpacity="0.4" width="200" height="180"></rect>
           </g>
-          <g id="home_safe" opacity="0" className="" style={{ "opacity": 1 }}>
+          <g id="home_safe" opacity={isHomeSafe(curCode) ? 1 : 0} className="">
             <rect x="0" y="0" fill="#183924" fillOpacity="0.4" width="200" height="180"></rect>
           </g>
           <g id="goal" opacity="0">
@@ -673,16 +796,22 @@ const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
             <path d="M10.9,8.1h8.2v8.2H10.9Z" fill="#a10808"></path>
             <path d="M2.7,0h8.2V8.2H2.7Z" fill="#a10808"></path>
           </g>
-          <g id="home" transform="translate(200,75)" opacity="0" className="" style={{ "transform": "translateX(180px) translateY(75px)", "opacity": 1 }}>
-            <rect id="home_bg" x="-2.5" y="0" fill="#fff" width="2.5" height="30"></rect>
-            <text id="home_team" transform="translate(-10 10)" textAnchor="end" fill="#12e096" fontSize="13px">Home Team</text>
-            <text id="home_action" transform="translate(-10 28)" textAnchor="end" fill="#f0f0f0" fontWeight="bold" fontSize="15px">Ball Safe</text>
-          </g>
-          <g id="away" transform="translate(200,75)" opacity="0" className="" style={{ "transform": "translateX(200px) translateY(90px)" }}>
-            <rect id="away_bg" x="0" y="0" fill="#fff" width="2.5" height="30"></rect>
-            <text id="away_team" transform="translate(10 10)" fill="#12e096" fontSize="13px">Cavalier SC</text>
-            <text id="away_action" transform="translate(10 28)" fill="#f0f0f0" fontWeight="bold" fontSize="15px">Action</text>
-          </g>
+          {
+            (teamMessage && teamMessage.team == "Home Team") &&
+            <g id="home" transform="translate(200,75)" className="">
+              <rect id="home_bg" x="-2.5" y="0" fill="#fff" width="2.5" height="30"></rect>
+              <text id="home_team" transform="translate(-10 10)" textAnchor="end" fill="#12e096" fontSize="13px">{data?.team_info?.home.name}</text>
+              <text id="home_action" transform="translate(-10 28)" textAnchor="end" fill="#f0f0f0" fontWeight="bold" fontSize="15px">{teamMessage?.message}</text>
+            </g>
+          }
+          {
+            (teamMessage && teamMessage.team == "Away Team") &&
+            <g id="away" transform="translate(200,75)">
+              <rect id="away_bg" x="0" y="0" fill="#fff" width="2.5" height="30"></rect>
+              <text id="away_team" transform="translate(10 10)" fill="#12e096" fontSize="13px">{data?.team_info?.away.name}</text>
+              <text id="away_action" transform="translate(10 28)" fill="#f0f0f0" fontWeight="bold" fontSize="15px">{teamMessage?.message}</text>
+            </g>
+          }
           <g id="red_card" opacity="0">
             <path d="M200.78,85.6a24.32,24.32,0,0,0,0,2.7,2.37,2.37,0,0,1,.1.7s-.1.8.4.9c.2,0,1.2.2,1.4,0a4.63,4.63,0,0,0,.7-.7c0-.1-.3-2-.3-2a20.48,20.48,0,0,0-1.7-2.8Z" fill="#cc947b" fillRule="evenodd"></path>
             <path d="M195.78,87.6a6.85,6.85,0,0,0-.5.7,4.46,4.46,0,0,0-.2.8l.2.6.3.5.3.2h.4a3.36,3.36,0,0,0,.6-.3l.4-.4a11.79,11.79,0,0,0,1-2.2l-1-1Z" fill="none"></path>
@@ -738,13 +867,22 @@ const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
               <path d="M195.58,88.42l-4.07-1.12a7.84,7.84,0,0,0,.41,2,7.68,7.68,0,0,0,.87,1.8A7.27,7.27,0,0,0,194,92.57a5.55,5.55,0,0,0,1.55,1Zm0-5.89a3.31,3.31,0,0,0-1.58.11,3.06,3.06,0,0,0-1.25.77,4,4,0,0,0-.85,1.3,5.23,5.23,0,0,0-.38,1.69l4.07,1.07Zm5.12,7.3-4.4-1.21v5.21a3.57,3.57,0,0,0,1.62,0,3.16,3.16,0,0,0,1.38-.69,3.85,3.85,0,0,0,1-1.38A5.6,5.6,0,0,0,200.69,89.83Zm-4.39-7.11v4.94l4.36,1.15a8.34,8.34,0,0,0-.5-2,8.12,8.12,0,0,0-1-1.79,7.16,7.16,0,0,0-1.33-1.41A5.12,5.12,0,0,0,196.3,82.72Z" fill="#fff" opacity="0.3"></path>
             </g>
           </g>
-          {<BallTrack track={ballTrack} />}
+          {<BallTrack track={ballTrack} animate={isAnimating} />}
           {ballPos &&
             <g xmlns="http://www.w3.org/2000/svg" id="SVGIRIS_PITCH_XY" className="transition-transform duration-500" transform={`matrix(1,0,0,1, ${ballPos.x}, ${ballPos.y})`}>
               <circle id="SVGIRIS_PITCH_XY_FX" r="2" cx="0" cy="0" stroke="#f0f0f0" strokeWidth="1.5" fill="none" />
               <circle id="SVGIRIS_PITCH_XY_COL" r="6" cx="0" cy="0" fill="#f0f0f0" /><circle r="3" cx="0" cy="0" fill="#FFFFFF" />
             </g>
           }
+          <g xmlns="http://www.w3.org/2000/svg" id="SVGIRIS_PITCH_MATCHTIME" transform="translate(175, 0)">
+            <rect width="50" height="17" fill="#0b452a" />
+            <text id="SVGIRIS_PITCH_MATCHTIME_TXT" x="25" y="13" fill="#59d496"
+              fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px" text-anchor="middle"
+              wordSpacing="0px" xmlSpace="preserve" style={{ userSelect: "none", cursor: "default" }}
+              textRendering="optimizeLegibility">
+              {displayTime}
+            </text>
+          </g>
         </svg>
 
       </div >
@@ -752,6 +890,24 @@ const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
   )
 }
 
+
+function convertToSeconds(timeString: string) {
+  const [minutes, seconds] = timeString.split(":").map(Number);
+  return minutes * 60 + seconds;
+}
+
+function increaseTimeBySeconds(timeString: any, secondsToAdd: any) {
+  const totalSeconds = convertToSeconds(timeString) + secondsToAdd;
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+function formatTime(totalSeconds: any) {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
 
 
 export default SoccerPitch
