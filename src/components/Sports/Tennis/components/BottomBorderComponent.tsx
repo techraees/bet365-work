@@ -65,6 +65,10 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
   var _scores = [] as any;
   var score_string = data?.info?.score;
   var countSets = countSetWins(score_string);
+  if (countSets === undefined) {
+    return <div></div>;
+  }
+
   set_scores = [countSets.player1, countSets.player2];
   const sts = data?.sts;
   console.log({ sts: sts });
@@ -171,7 +175,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                 </div>
               </div>
               {Object.keys(sets_details).map((key) => (
-                <div className="leading-6">
+                <div key={key} className="leading-6">
                   <div className="flex text-[13px]">
                     <div className="min-w-[30px] text-center leading-6 flex-col font-bold text-[#ccc] ml-[5px]">
                       <div className="font-normal text-[11px] text-[#ccc] leading-4 pb-0.5">
