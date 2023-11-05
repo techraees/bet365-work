@@ -236,7 +236,6 @@ function getScoreCount(score: number) {
 }
 
 function getServerPosition(data: any) {
-
   return (getScoreCount(data?.stats[1].home) +
     getScoreCount(data?.stats[1].away)) %
     2 ==
@@ -247,38 +246,36 @@ function getServerPosition(data: any) {
 // show under text
 function getUnderTextClassName(data: any) {
   const state_number = data?.info.state as number;
-  if (
-    state_number != 11115 &&
-    state_number != 21115
-  ) {
-    return `${pitchStyle.underText} ${pitchStyle.noUnderText}`
+  if (state_number != 11115 && state_number != 21115) {
+    return `${pitchStyle.underText} ${pitchStyle.noUnderText}`;
   }
   if (state_number == 11115) {
-    return `${(getScoreCount(data?.stats[1].home) + getScoreCount(data?.stats[1].away)) %
-      2 ==
+    return `${
+      (getScoreCount(data?.stats[1].home) +
+        getScoreCount(data?.stats[1].away)) %
+        2 ==
       0
-      ? pitchStyle.homeUnderTextDown
-      : pitchStyle.homeUnderTextUp
-      } ${pitchStyle.underText}`;
+        ? pitchStyle.homeUnderTextDown
+        : pitchStyle.homeUnderTextUp
+    } ${pitchStyle.underText}`;
   } else {
-    return `${(getScoreCount(data?.stats[1].home) + getScoreCount(data?.stats[1].away)) %
-      2 ==
+    return `${
+      (getScoreCount(data?.stats[1].home) +
+        getScoreCount(data?.stats[1].away)) %
+        2 ==
       0
-      ? pitchStyle.awayUnderTextUp
-      : pitchStyle.awayUnderTextDown
-      } ${pitchStyle.underText}`;
+        ? pitchStyle.awayUnderTextUp
+        : pitchStyle.awayUnderTextDown
+    } ${pitchStyle.underText}`;
   }
 }
 
 function getUnderText(data: any) {
   const state_number = data?.info.state as number;
-  if (
-    state_number == 11115 ||
-    state_number == 21115
-  ) {
-    return "Point"
+  if (state_number == 11115 || state_number == 21115) {
+    return "Point";
   } else {
-    return ""
+    return "";
   }
 }
 
@@ -386,7 +383,6 @@ function winAwayClassName(data: any) {
 }
 
 const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
-<<<<<<< HEAD
   const prevPropsRef = useRef();
 
   console.log(data);
@@ -396,8 +392,6 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
   });
 
   const prevData = prevPropsRef.current;
-=======
->>>>>>> tennis_finished_side
   // const keys = Object.keys(data.stats);
   const firstPlayerFullName =
     data?.stats[0]?.home.split("/").slice(-1)[0] ?? "";
@@ -672,8 +666,6 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
               </g>
             </g>
           </svg>
-
-
 
           {/* Win Status */}
 
