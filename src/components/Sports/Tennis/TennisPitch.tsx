@@ -1,6 +1,8 @@
+"use client";
 import React, { useEffect, useRef } from "react";
 import animationStyles from "./animation.module.css";
 import pitchStyle from "./pitchstyle.module.css";
+import BottomBorderComponent from "./components/BottomBorderComponent";
 
 interface TennisPitchInterface {
   data: any;
@@ -190,19 +192,19 @@ function getServePlayer(data: any): number {
 
 function getSetNumber(data: any) {
   if (data?.info.period == "Set 1") {
-    return "1"
+    return "1";
   } else if (data?.info.period == "Set 2") {
-    return "2"
+    return "2";
   } else if (data?.info.period == "Set 3") {
-    return "3"
+    return "3";
   } else {
-    return "0"
+    return "0";
   }
 }
 
 function getHomeScore(data: any) {
   let score = "0";
-  let scoreString = data?.info.score.split(",").slice(-1)[0] as string
+  let scoreString = data?.info.score.split(",").slice(-1)[0] as string;
   if (scoreString) {
     score = scoreString[0];
   }
@@ -211,7 +213,7 @@ function getHomeScore(data: any) {
 
 function getAwayScore(data: any) {
   let score = "0";
-  let scoreString = data?.info.score.split(",").slice(-1)[0] as string
+  let scoreString = data?.info.score.split(",").slice(-1)[0] as string;
   if (scoreString) {
     score = scoreString[2];
   }
@@ -225,8 +227,8 @@ function getAcitveColor(player: string, data: any) {
       ? "#9abeff"
       : "#fff"
     : serverPlayer == 0
-      ? "#9abeff"
-      : "#fff";
+    ? "#9abeff"
+    : "#fff";
 }
 
 function getScoreCount(score: number) {
@@ -292,12 +294,13 @@ function getHomeClassName(data: any) {
   ) {
     return `${pitchStyle.playerName} ${pitchStyle.noName}`;
   }
-  return `${(getScoreCount(data?.stats[1].home) + getScoreCount(data?.stats[1].away)) %
-    2 ==
+  return `${
+    (getScoreCount(data?.stats[1].home) + getScoreCount(data?.stats[1].away)) %
+      2 ==
     0
-    ? pitchStyle.homeDown
-    : pitchStyle.homeUp
-    } ${pitchStyle.playerName}`;
+      ? pitchStyle.homeDown
+      : pitchStyle.homeUp
+  } ${pitchStyle.playerName}`;
 }
 
 function getAwayClassName(data: any) {
@@ -311,72 +314,79 @@ function getAwayClassName(data: any) {
   ) {
     return `${pitchStyle.playerName} ${pitchStyle.noName}`;
   }
-  return `${(getScoreCount(data?.stats[1].home) + getScoreCount(data?.stats[1].away)) %
-    2 ==
+  return `${
+    (getScoreCount(data?.stats[1].home) + getScoreCount(data?.stats[1].away)) %
+      2 ==
     0
-    ? pitchStyle.awayUp
-    : pitchStyle.awayDown
-    } ${pitchStyle.playerName}`;
+      ? pitchStyle.awayUp
+      : pitchStyle.awayDown
+  } ${pitchStyle.playerName}`;
 }
 
 // show points
 function getHomePointsClassName(data: any) {
-  return `${!(
-    (data?.info.state as number) == 11119 ||
-    (data?.info.state as number) == 21119 ||
-    (data?.info.state as number) == 11113 ||
-    (data?.info.state as number) == 21113 ||
-    (data?.info.state as number) == 11126 ||
-    (data?.info.state as number) == 21126 ||
-    (data?.info.state as number) == 11120 ||
-    (data?.info.state as number) == 21120
-  )
-    ? pitchStyle.homePointsShowUp
-    : pitchStyle.homePointsShowDown
-    } ${pitchStyle.scoredPoints}`;
+  return `${
+    !(
+      (data?.info.state as number) == 11119 ||
+      (data?.info.state as number) == 21119 ||
+      (data?.info.state as number) == 11113 ||
+      (data?.info.state as number) == 21113 ||
+      (data?.info.state as number) == 11126 ||
+      (data?.info.state as number) == 21126 ||
+      (data?.info.state as number) == 11120 ||
+      (data?.info.state as number) == 21120
+    )
+      ? pitchStyle.homePointsShowUp
+      : pitchStyle.homePointsShowDown
+  } ${pitchStyle.scoredPoints}`;
 }
 
 function getAwayPointsClassName(data: any) {
-  return `${!(
-    (data?.info.state as number) == 11119 ||
-    (data?.info.state as number) == 21119 ||
-    (data?.info.state as number) == 11113 ||
-    (data?.info.state as number) == 21113 ||
-    (data?.info.state as number) == 11126 ||
-    (data?.info.state as number) == 21126 ||
-    (data?.info.state as number) == 11120 ||
-    (data?.info.state as number) == 21120
-  )
-    ? pitchStyle.awayPointsShowUp
-    : pitchStyle.awayPointsShowDown
-    } ${pitchStyle.scoredPoints}`;
+  return `${
+    !(
+      (data?.info.state as number) == 11119 ||
+      (data?.info.state as number) == 21119 ||
+      (data?.info.state as number) == 11113 ||
+      (data?.info.state as number) == 21113 ||
+      (data?.info.state as number) == 11126 ||
+      (data?.info.state as number) == 21126 ||
+      (data?.info.state as number) == 11120 ||
+      (data?.info.state as number) == 21120
+    )
+      ? pitchStyle.awayPointsShowUp
+      : pitchStyle.awayPointsShowDown
+  } ${pitchStyle.scoredPoints}`;
 }
 
 // Injury Status
 function getInjuryClassName(data: any) {
   const state_number = data?.info.state as number;
-  return `${state_number == 11126 || state_number == 21126
-    ? pitchStyle.injuryShowUp
-    : pitchStyle.injuryShowDown
-    } ${pitchStyle.injuryState}`;
+  return `${
+    state_number == 11126 || state_number == 21126
+      ? pitchStyle.injuryShowUp
+      : pitchStyle.injuryShowDown
+  } ${pitchStyle.injuryState}`;
 }
 
 // Win Status
 function winHomeClassName(data: any) {
-  return `${(data?.info.state as number) == 11119
-    ? pitchStyle.winHomeShowUp
-    : pitchStyle.winHomeShowDwon
-    } ${pitchStyle.winState}`;
+  return `${
+    (data?.info.state as number) == 11119
+      ? pitchStyle.winHomeShowUp
+      : pitchStyle.winHomeShowDwon
+  } ${pitchStyle.winState}`;
 }
 
 function winAwayClassName(data: any) {
-  return `${(data?.info.state as number) == 21119
-    ? pitchStyle.winAwayShowUp
-    : pitchStyle.winAwayShowDwon
-    } ${pitchStyle.winState}`;
+  return `${
+    (data?.info.state as number) == 21119
+      ? pitchStyle.winAwayShowUp
+      : pitchStyle.winAwayShowDwon
+  } ${pitchStyle.winState}`;
 }
 
 const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
+<<<<<<< HEAD
   const prevPropsRef = useRef();
 
   console.log(data);
@@ -386,6 +396,8 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
   });
 
   const prevData = prevPropsRef.current;
+=======
+>>>>>>> tennis_finished_side
   // const keys = Object.keys(data.stats);
   const firstPlayerFullName =
     data?.stats[0]?.home.split("/").slice(-1)[0] ?? "";
@@ -394,6 +406,42 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
   const secondPlayerFullName =
     data?.stats[0]?.away.split("/").slice(-1)[0] ?? "";
   const secondPlayerName = secondPlayerFullName.split(" ");
+
+  var set_scores = [0, 0];
+  var _scores = [] as any;
+  var score_string = data?.info?.score;
+  const sts = data?.sts;
+  console.log({ sts: sts });
+  const [
+    Aces_String,
+    Double_Faults_String,
+    Win_1st_Serve_String,
+    Break_Point_Conversion_String,
+  ] = sts.split("|");
+  var [aces_home, aces_away] = Aces_String.split(":");
+  var [double_faults_home, double_faults_away] = Double_Faults_String.split(
+    ":"
+  );
+  let aces_regex = /Aces=(\d+)/;
+  let double_faults_regex = /Double Faults=(\d+)/;
+  let win_percent_1st_regex = /Win % 1st Serve=(\d+):(\d+)/;
+  let break_point_conversions_regex = /Break Point Conversions=(\d+):(\d+)/;
+
+  aces_home = aces_home.match(aces_regex)[1];
+  double_faults_home = double_faults_home.match(double_faults_regex)[1];
+
+  var win_first_serve_percentage_home = Win_1st_Serve_String.match(
+    win_percent_1st_regex
+  )[1];
+  var win_first_serve_percentage_away = Win_1st_Serve_String.match(
+    win_percent_1st_regex
+  )[2];
+  var break_point_conversion_percentage_home = Break_Point_Conversion_String.match(
+    break_point_conversions_regex
+  )[1];
+  var break_point_conversion_percentage_away = Break_Point_Conversion_String.match(
+    break_point_conversions_regex
+  )[2];
 
   return (
     <>
@@ -431,8 +479,10 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="flex w-full flex-col">
-        <div className="flex justify-around p-2 text-base text-white">
+      <div className="relative text-center text-[0] h-[50px] flex justify-center items-center bg-transparent border-t-[#474747]"></div>
+      {/* <div className="flex w-full flex-col"> */}
+      <div className="max-w-[440px] mx-auto my-0 px-5 py-2.5">
+        {/* <div className="flex justify-around p-2 text-base text-white">
           <span>{data?.stats[0].home}</span>
           <span>{data?.stats[0].away}</span>
         </div>
@@ -455,8 +505,11 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
           <span>{data?.info.state}</span>
         </div>
         <div className="flex justify-around p-2 text-base text-white">
-          <span>{getStatusFromCode(data?.info.state as number)}</span>
+          <span>{data?.info.state_info}</span>
         </div>
+        <div className="flex justify-around p-2 text-base text-white">
+          <span>{getStatusFromCode(data?.info.state as number)}</span>
+        </div> */}
         <svg
           id="SVGIRIS_PITCH"
           viewBox="0 0 400 180"
@@ -772,538 +825,538 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
           {
             // Player 1 Serve
             (data?.info.state as number) == 11113 &&
-            (getServerPosition(data) == "left" ? (
-              <g id="SVGIRIS_PITCH_FX">
-                <svg
-                  id="SVGIRIS_PITCH_FX_SISV"
-                  width="90"
-                  height="58"
-                  viewBox="0 0 90 58"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  x="10"
-                  y="70"
-                >
-                  <g
-                    stroke="none"
-                    strokeWidth="1"
-                    fill="none"
-                    fillRule="evenodd"
-                    opacity="1"
-                    id="SvgjsG4132"
-                    transform="matrix(1,0,0,1,0,0)"
+              (getServerPosition(data) == "left" ? (
+                <g id="SVGIRIS_PITCH_FX">
+                  <svg
+                    id="SVGIRIS_PITCH_FX_SISV"
+                    width="90"
+                    height="58"
+                    viewBox="0 0 90 58"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="10"
+                    y="70"
                   >
                     <g
-                      transform="translate(68, 29)"
-                      id="SvgjsG4130"
-                      className={animationStyles.ball4}
+                      stroke="none"
+                      strokeWidth="1"
+                      fill="none"
+                      fillRule="evenodd"
+                      opacity="1"
+                      id="SvgjsG4132"
+                      transform="matrix(1,0,0,1,0,0)"
                     >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath4128"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.9"
-                      ></path>
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath4126"
-                      ></path>
+                      <g
+                        transform="translate(68, 29)"
+                        id="SvgjsG4130"
+                        className={animationStyles.ball4}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath4128"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.9"
+                        ></path>
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath4126"
+                        ></path>
+                      </g>
+                      <g
+                        transform="translate(50, 24)"
+                        id="SvgjsG4124"
+                        className={animationStyles.ball3}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath4122"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.8"
+                        ></path>
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath4120"
+                        ></path>
+                      </g>
+                      <g
+                        transform="translate(33, 17)"
+                        id="SvgjsG4118"
+                        className={animationStyles.ball2}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath4116"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.7"
+                        ></path>
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath4114"
+                        ></path>
+                      </g>
+                      <g
+                        transform="translate(16, 9)"
+                        id="SvgjsG4112"
+                        className={animationStyles.ball1}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath4110"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.6"
+                        ></path>
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath4108"
+                        ></path>
+                      </g>
+                      <g id="SvgjsG4106" className={animationStyles.ball0}>
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath4104"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.5"
+                        ></path>
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath4102"
+                        ></path>
+                      </g>
                     </g>
-                    <g
-                      transform="translate(50, 24)"
-                      id="SvgjsG4124"
-                      className={animationStyles.ball3}
-                    >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath4122"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.8"
-                      ></path>
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath4120"
-                      ></path>
-                    </g>
-                    <g
-                      transform="translate(33, 17)"
-                      id="SvgjsG4118"
-                      className={animationStyles.ball2}
-                    >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath4116"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.7"
-                      ></path>
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath4114"
-                      ></path>
-                    </g>
-                    <g
-                      transform="translate(16, 9)"
-                      id="SvgjsG4112"
-                      className={animationStyles.ball1}
-                    >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath4110"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.6"
-                      ></path>
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath4108"
-                      ></path>
-                    </g>
-                    <g id="SvgjsG4106" className={animationStyles.ball0}>
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath4104"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.5"
-                      ></path>
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath4102"
-                      ></path>
-                    </g>
-                  </g>
-                  <defs id="SvgjsDefs4142">
-                    <radialGradient
-                      cx="51.6688311%"
-                      cy="32.5203781%"
-                      fx="51.6688311%"
-                      fy="32.5203781%"
-                      r="0.108057773%"
-                      id="SvgjsRadialGradient4140"
-                    >
-                      <stop
-                        stopColor="#ECEE44"
-                        offset="6.17426658%"
-                        id="SvgjsStop4138"
-                      ></stop>
-                      <stop
-                        stopColor="#ECEE44"
-                        offset="13.7655453%"
-                        id="SvgjsStop4136"
-                      ></stop>
-                      <stop
-                        stopColor="#ECEE44"
-                        offset="100%"
-                        id="SvgjsStop4134"
-                      ></stop>
-                    </radialGradient>
-                  </defs>
-                </svg>
-              </g>
-            ) : (
-              <g id="SVGIRIS_PITCH_FX">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlnsXlink="http://www.w3.org/1999/xlink"
-                  id="SVGIRIS_PITCH_FX_SISV"
-                  width="90"
-                  height="58"
-                  viewBox="0 0 90 58"
-                  version="1.1"
-                  x="10"
-                  y="65"
-                >
-                  <g
-                    stroke="none"
-                    strokeWidth="1"
-                    fill="none"
-                    fillRule="evenodd"
-                    opacity="1"
-                    id="SvgjsG3629"
-                    transform="matrix(1,0,0,-1,0,43)"
+                    <defs id="SvgjsDefs4142">
+                      <radialGradient
+                        cx="51.6688311%"
+                        cy="32.5203781%"
+                        fx="51.6688311%"
+                        fy="32.5203781%"
+                        r="0.108057773%"
+                        id="SvgjsRadialGradient4140"
+                      >
+                        <stop
+                          stopColor="#ECEE44"
+                          offset="6.17426658%"
+                          id="SvgjsStop4138"
+                        ></stop>
+                        <stop
+                          stopColor="#ECEE44"
+                          offset="13.7655453%"
+                          id="SvgjsStop4136"
+                        ></stop>
+                        <stop
+                          stopColor="#ECEE44"
+                          offset="100%"
+                          id="SvgjsStop4134"
+                        ></stop>
+                      </radialGradient>
+                    </defs>
+                  </svg>
+                </g>
+              ) : (
+                <g id="SVGIRIS_PITCH_FX">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    id="SVGIRIS_PITCH_FX_SISV"
+                    width="90"
+                    height="58"
+                    viewBox="0 0 90 58"
+                    version="1.1"
+                    x="10"
+                    y="65"
                   >
                     <g
-                      transform="translate(68, 29)"
-                      id="SvgjsG3627"
-                      className={animationStyles.ball4}
+                      stroke="none"
+                      strokeWidth="1"
+                      fill="none"
+                      fillRule="evenodd"
+                      opacity="1"
+                      id="SvgjsG3629"
+                      transform="matrix(1,0,0,-1,0,43)"
                     >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath3625"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.9"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath3623"
-                      />
+                      <g
+                        transform="translate(68, 29)"
+                        id="SvgjsG3627"
+                        className={animationStyles.ball4}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath3625"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.9"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath3623"
+                        />
+                      </g>
+                      <g
+                        transform="translate(50, 24)"
+                        id="SvgjsG3621"
+                        className={animationStyles.ball3}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath3619"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.8"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath3617"
+                        />
+                      </g>
+                      <g
+                        transform="translate(33, 17)"
+                        id="SvgjsG3615"
+                        className={animationStyles.ball2}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath3613"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.7"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath3611"
+                        />
+                      </g>
+                      <g
+                        transform="translate(16, 9)"
+                        id="SvgjsG3609"
+                        className={animationStyles.ball1}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath3607"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.6"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath3605"
+                        />
+                      </g>
+                      <g id="SvgjsG3603" className={animationStyles.ball0}>
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath3601"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.5"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath3599"
+                        />
+                      </g>
                     </g>
-                    <g
-                      transform="translate(50, 24)"
-                      id="SvgjsG3621"
-                      className={animationStyles.ball3}
-                    >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath3619"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.8"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath3617"
-                      />
-                    </g>
-                    <g
-                      transform="translate(33, 17)"
-                      id="SvgjsG3615"
-                      className={animationStyles.ball2}
-                    >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath3613"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.7"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath3611"
-                      />
-                    </g>
-                    <g
-                      transform="translate(16, 9)"
-                      id="SvgjsG3609"
-                      className={animationStyles.ball1}
-                    >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath3607"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.6"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath3605"
-                      />
-                    </g>
-                    <g id="SvgjsG3603" className={animationStyles.ball0}>
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath3601"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.5"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath3599"
-                      />
-                    </g>
-                  </g>
-                  <defs id="SvgjsDefs3639">
-                    <radialGradient
-                      cx="51.6688311%"
-                      cy="32.5203781%"
-                      fx="51.6688311%"
-                      fy="32.5203781%"
-                      r="0.108057773%"
-                      id="SvgjsRadialGradient3637"
-                    >
-                      <stop
-                        stopColor="#ECEE44"
-                        offset="6.17426658%"
-                        id="SvgjsStop3635"
-                      />
-                      <stop
-                        stopColor="#ECEE44"
-                        offset="13.7655453%"
-                        id="SvgjsStop3633"
-                      />
-                      <stop
-                        stopColor="#ECEE44"
-                        offset="100%"
-                        id="SvgjsStop3631"
-                      />
-                    </radialGradient>
-                  </defs>
-                </svg>
-              </g>
-            ))
+                    <defs id="SvgjsDefs3639">
+                      <radialGradient
+                        cx="51.6688311%"
+                        cy="32.5203781%"
+                        fx="51.6688311%"
+                        fy="32.5203781%"
+                        r="0.108057773%"
+                        id="SvgjsRadialGradient3637"
+                      >
+                        <stop
+                          stopColor="#ECEE44"
+                          offset="6.17426658%"
+                          id="SvgjsStop3635"
+                        />
+                        <stop
+                          stopColor="#ECEE44"
+                          offset="13.7655453%"
+                          id="SvgjsStop3633"
+                        />
+                        <stop
+                          stopColor="#ECEE44"
+                          offset="100%"
+                          id="SvgjsStop3631"
+                        />
+                      </radialGradient>
+                    </defs>
+                  </svg>
+                </g>
+              ))
           }
           {
             // Player 2 Serve
             (data?.info.state as number) == 21113 &&
-            (getServerPosition(data) == "right" ? (
-              <g id="SVGIRIS_PITCH_FX">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  id="SVGIRIS_PITCH_FX_SISV"
-                  width="90"
-                  height="58"
-                  viewBox="0 0 90 58"
-                  version="1.1"
-                  x="310"
-                  y="65"
-                >
-                  <g
-                    stroke="none"
-                    strokeWidth="1"
-                    fill="none"
-                    fillRule="evenodd"
-                    opacity="1"
-                    id="SvgjsG2908"
-                    transform="matrix(-1,0,0,1,82,0)"
+              (getServerPosition(data) == "right" ? (
+                <g id="SVGIRIS_PITCH_FX">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    id="SVGIRIS_PITCH_FX_SISV"
+                    width="90"
+                    height="58"
+                    viewBox="0 0 90 58"
+                    version="1.1"
+                    x="310"
+                    y="65"
                   >
                     <g
-                      transform="translate(68, 29)"
-                      id="SvgjsG2906"
-                      className={animationStyles.ball4}
+                      stroke="none"
+                      strokeWidth="1"
+                      fill="none"
+                      fillRule="evenodd"
+                      opacity="1"
+                      id="SvgjsG2908"
+                      transform="matrix(-1,0,0,1,82,0)"
                     >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath2904"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.9"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath2902"
-                      />
+                      <g
+                        transform="translate(68, 29)"
+                        id="SvgjsG2906"
+                        className={animationStyles.ball4}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath2904"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.9"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath2902"
+                        />
+                      </g>
+                      <g
+                        transform="translate(50, 24)"
+                        id="SvgjsG2900"
+                        className={animationStyles.ball3}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath2898"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.8"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath2896"
+                        />
+                      </g>
+                      <g
+                        transform="translate(33, 17)"
+                        id="SvgjsG2894"
+                        className={animationStyles.ball2}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath2892"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.7"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath2890"
+                        />
+                      </g>
+                      <g
+                        transform="translate(16, 9)"
+                        id="SvgjsG2888"
+                        className={animationStyles.ball1}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath2886"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.6"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath2884"
+                        />
+                      </g>
+                      <g id="SvgjsG2882" className={animationStyles.ball0}>
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath2880"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.5"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath2878"
+                        />
+                      </g>
                     </g>
-                    <g
-                      transform="translate(50, 24)"
-                      id="SvgjsG2900"
-                      className={animationStyles.ball3}
-                    >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath2898"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.8"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath2896"
-                      />
-                    </g>
-                    <g
-                      transform="translate(33, 17)"
-                      id="SvgjsG2894"
-                      className={animationStyles.ball2}
-                    >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath2892"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.7"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath2890"
-                      />
-                    </g>
-                    <g
-                      transform="translate(16, 9)"
-                      id="SvgjsG2888"
-                      className={animationStyles.ball1}
-                    >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath2886"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.6"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath2884"
-                      />
-                    </g>
-                    <g id="SvgjsG2882" className={animationStyles.ball0}>
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath2880"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.5"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath2878"
-                      />
-                    </g>
-                  </g>
-                  <defs id="SvgjsDefs2918">
-                    <radialGradient
-                      cx="51.6688311%"
-                      cy="32.5203781%"
-                      fx="51.6688311%"
-                      fy="32.5203781%"
-                      r="0.108057773%"
-                      id="SvgjsRadialGradient2916"
-                    >
-                      <stop
-                        stopColor="#ECEE44"
-                        offset="6.17426658%"
-                        id="SvgjsStop2914"
-                      />
-                      <stop
-                        stopColor="#ECEE44"
-                        offset="13.7655453%"
-                        id="SvgjsStop2912"
-                      />
-                      <stop
-                        stopColor="#ECEE44"
-                        offset="100%"
-                        id="SvgjsStop2910"
-                      />
-                    </radialGradient>
-                  </defs>
-                </svg>
-              </g>
-            ) : (
-              <g id="SVGIRIS_PITCH_FX">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlnsXlink="http://www.w3.org/1999/xlink"
-                  id="SVGIRIS_PITCH_FX_SISV"
-                  width="90"
-                  height="58"
-                  viewBox="0 0 90 58"
-                  version="1.1"
-                  x="310"
-                  y="70"
-                >
-                  <g
-                    stroke="none"
-                    strokeWidth="1"
-                    fill="none"
-                    fillRule="evenodd"
-                    opacity="1"
-                    id="SvgjsG2761"
-                    transform="matrix(-1,0,0,-1,82,43)"
+                    <defs id="SvgjsDefs2918">
+                      <radialGradient
+                        cx="51.6688311%"
+                        cy="32.5203781%"
+                        fx="51.6688311%"
+                        fy="32.5203781%"
+                        r="0.108057773%"
+                        id="SvgjsRadialGradient2916"
+                      >
+                        <stop
+                          stopColor="#ECEE44"
+                          offset="6.17426658%"
+                          id="SvgjsStop2914"
+                        />
+                        <stop
+                          stopColor="#ECEE44"
+                          offset="13.7655453%"
+                          id="SvgjsStop2912"
+                        />
+                        <stop
+                          stopColor="#ECEE44"
+                          offset="100%"
+                          id="SvgjsStop2910"
+                        />
+                      </radialGradient>
+                    </defs>
+                  </svg>
+                </g>
+              ) : (
+                <g id="SVGIRIS_PITCH_FX">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    id="SVGIRIS_PITCH_FX_SISV"
+                    width="90"
+                    height="58"
+                    viewBox="0 0 90 58"
+                    version="1.1"
+                    x="310"
+                    y="70"
                   >
                     <g
-                      transform="translate(68, 29)"
-                      id="SvgjsG2759"
-                      className={animationStyles.ball4}
+                      stroke="none"
+                      strokeWidth="1"
+                      fill="none"
+                      fillRule="evenodd"
+                      opacity="1"
+                      id="SvgjsG2761"
+                      transform="matrix(-1,0,0,-1,82,43)"
                     >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath2757"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.9"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath2755"
-                      />
+                      <g
+                        transform="translate(68, 29)"
+                        id="SvgjsG2759"
+                        className={animationStyles.ball4}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath2757"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.9"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath2755"
+                        />
+                      </g>
+                      <g
+                        transform="translate(50, 24)"
+                        id="SvgjsG2753"
+                        className={animationStyles.ball3}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath2751"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.8"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath2749"
+                        />
+                      </g>
+                      <g
+                        transform="translate(33, 17)"
+                        id="SvgjsG2747"
+                        className={animationStyles.ball2}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath2745"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.7"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath2743"
+                        />
+                      </g>
+                      <g
+                        transform="translate(16, 9)"
+                        id="SvgjsG2741"
+                        className={animationStyles.ball1}
+                      >
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath2739"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.6"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath2737"
+                        />
+                      </g>
+                      <g id="SvgjsG2735" className={animationStyles.ball0}>
+                        <path
+                          d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
+                          id="SvgjsPath2733"
+                          fill="url(#def_radialGradient)"
+                          opacity="0.5"
+                        />
+                        <path
+                          d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
+                          fill="#FFFFFF"
+                          id="SvgjsPath2731"
+                        />
+                      </g>
                     </g>
-                    <g
-                      transform="translate(50, 24)"
-                      id="SvgjsG2753"
-                      className={animationStyles.ball3}
-                    >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath2751"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.8"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath2749"
-                      />
-                    </g>
-                    <g
-                      transform="translate(33, 17)"
-                      id="SvgjsG2747"
-                      className={animationStyles.ball2}
-                    >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath2745"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.7"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath2743"
-                      />
-                    </g>
-                    <g
-                      transform="translate(16, 9)"
-                      id="SvgjsG2741"
-                      className={animationStyles.ball1}
-                    >
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath2739"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.6"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath2737"
-                      />
-                    </g>
-                    <g id="SvgjsG2735" className={animationStyles.ball0}>
-                      <path
-                        d="M0,7 C0,3.13394439 3.13395015,0 6.99998714,0 C10.8660241,0 14,3.13394439 14,7 C14,10.8660299 10.8660756,14 6.99998714,14 C3.13395015,14 0,10.8660299 0,7 L0,7 Z"
-                        id="SvgjsPath2733"
-                        fill="url(#def_radialGradient)"
-                        opacity="0.5"
-                      />
-                      <path
-                        d="M13.9285968,5.98472458 C13.9285968,5.98472458 13.7723984,5.99949777 13.4700573,6.05482082 C11.071312,6.4937374 8.47445205,11.2002721 5.54446791,11.2002721 C2.71009086,11.1409756 1.56557622,8.14352071 1.61554741,6.54241252 C1.63689034,5.85871945 1.52558388,4.39754904 3.46145435,2.47313721 C5.06443154,0.879772213 7.96168302,0.551297965 9.24366972,0.392053161 C9.08223816,0.276796804 8.30042508,0.240602488 7.6043685,0.278758073 C3.14605612,0.682295411 1.05660377,4.05891185 1.05660377,6.59289608 C1.05660377,9.09975367 2.67587034,11.8867925 5.61634638,11.8867925 C8.62541736,11.8867925 11.9724608,6.46951446 13.9977305,6.57865778 C14.0149433,6.57962568 13.9285968,5.98472458 13.9285968,5.98472458 L13.9285968,5.98472458 Z"
-                        fill="#FFFFFF"
-                        id="SvgjsPath2731"
-                      />
-                    </g>
-                  </g>
-                  <defs id="SvgjsDefs2771">
-                    <radialGradient
-                      cx="51.6688311%"
-                      cy="32.5203781%"
-                      fx="51.6688311%"
-                      fy="32.5203781%"
-                      r="0.108057773%"
-                      id="SvgjsRadialGradient2769"
-                    >
-                      <stop
-                        stopColor="#ECEE44"
-                        offset="6.17426658%"
-                        id="SvgjsStop2767"
-                      />
-                      <stop
-                        stopColor="#ECEE44"
-                        offset="13.7655453%"
-                        id="SvgjsStop2765"
-                      />
-                      <stop
-                        stopColor="#ECEE44"
-                        offset="100%"
-                        id="SvgjsStop2763"
-                      />
-                    </radialGradient>
-                  </defs>
-                </svg>
-              </g>
-            ))
+                    <defs id="SvgjsDefs2771">
+                      <radialGradient
+                        cx="51.6688311%"
+                        cy="32.5203781%"
+                        fx="51.6688311%"
+                        fy="32.5203781%"
+                        r="0.108057773%"
+                        id="SvgjsRadialGradient2769"
+                      >
+                        <stop
+                          stopColor="#ECEE44"
+                          offset="6.17426658%"
+                          id="SvgjsStop2767"
+                        />
+                        <stop
+                          stopColor="#ECEE44"
+                          offset="13.7655453%"
+                          id="SvgjsStop2765"
+                        />
+                        <stop
+                          stopColor="#ECEE44"
+                          offset="100%"
+                          id="SvgjsStop2763"
+                        />
+                      </radialGradient>
+                    </defs>
+                  </svg>
+                </g>
+              ))
           }
           {/* undertext */}
           <g
@@ -1416,310 +1469,306 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
           </g>
 
           {/* Statistics */}
-          {
-            (data?.info.state as number == 11120 || data?.info.state as number == 21120) && (
-              <>
-                {/* player name */}
-                <g
-                  id="SVGIRIS_PITCH_TEAM_1"
-                  transform="matrix(1,0,0,1,5,125)"
-                  opacity="1"
+          {((data?.info.state as number) == 11120 ||
+            (data?.info.state as number) == 21120) && (
+            <>
+              {/* player name */}
+              <g
+                id="SVGIRIS_PITCH_TEAM_1"
+                transform="matrix(1,0,0,1,5,125)"
+                opacity="1"
+              >
+                <text
+                  id="SVGIRIS_PITCH_TEAM_1_TXT_NAME1"
+                  x="7"
+                  y="14"
+                  fill="#ffffff"
+                  fontFamily="Roboto"
+                  fontSize="15.5"
+                  fontWeight="400"
+                  letterSpacing="0px"
+                  wordSpacing="0px"
+                  textAnchor="start"
+                  xmlSpace="preserve"
                 >
-                  <text
-                    id="SVGIRIS_PITCH_TEAM_1_TXT_NAME1"
-                    x="7"
-                    y="14"
-                    fill="#ffffff"
-                    fontFamily="Roboto"
-                    fontSize="15.5"
-                    fontWeight="400"
-                    letterSpacing="0px"
-                    wordSpacing="0px"
-                    textAnchor="start"
-                    xmlSpace="preserve"
-                  >
-                    {firstPlayerName[0]}
-                  </text>
-                  <text
-                    id="SVGIRIS_PITCH_TEAM_1_TXT_NAME2"
-                    x="7"
-                    y="32"
-                    fill="#ffffff"
-                    fontFamily="Roboto"
-                    fontSize="15.5"
-                    fontWeight="400"
-                    letterSpacing="0px"
-                    wordSpacing="0px"
-                    textAnchor="start"
-                    xmlSpace="preserve"
-                  >
-                    {firstPlayerName.length > 1 && firstPlayerName.slice(-1)[0]}
-                  </text>
-                </g>
-                <g
-                  id="SVGIRIS_PITCH_TEAM_2"
-                  transform="matrix(1,0,0,1,395,125)"
-                  opacity="1"
+                  {firstPlayerName[0]}
+                </text>
+                <text
+                  id="SVGIRIS_PITCH_TEAM_1_TXT_NAME2"
+                  x="7"
+                  y="32"
+                  fill="#ffffff"
+                  fontFamily="Roboto"
+                  fontSize="15.5"
+                  fontWeight="400"
+                  letterSpacing="0px"
+                  wordSpacing="0px"
+                  textAnchor="start"
+                  xmlSpace="preserve"
                 >
+                  {firstPlayerName.length > 1 && firstPlayerName.slice(-1)[0]}
+                </text>
+              </g>
+              <g
+                id="SVGIRIS_PITCH_TEAM_2"
+                transform="matrix(1,0,0,1,395,125)"
+                opacity="1"
+              >
+                <text
+                  id="SVGIRIS_PITCH_TEAM_2_TXT_NAME1"
+                  x="-7"
+                  y="14"
+                  fill="#ffffff"
+                  fontFamily="Roboto"
+                  fontSize="15.5"
+                  fontWeight="400"
+                  letterSpacing="0px"
+                  wordSpacing="0px"
+                  textAnchor="end"
+                  style={{ userSelect: "none" }}
+                  xmlSpace="preserve"
+                >
+                  {secondPlayerName[0]}
+                </text>
+                <text
+                  id="SVGIRIS_PITCH_TEAM_2_TXT_NAME2"
+                  x="-7"
+                  y="32"
+                  fill="#ffffff"
+                  fontFamily="Roboto"
+                  fontSize="15.5"
+                  fontWeight="400"
+                  letterSpacing="0px"
+                  wordSpacing="0px"
+                  textAnchor="end"
+                  style={{ userSelect: "none" }}
+                  xmlSpace="preserve"
+                >
+                  {secondPlayerName.length > 1 && secondPlayerName.slice(-1)[0]}
+                </text>
+              </g>
+              {/* set score status */}
+              <g id="SVGIRIS_PITCH_FX">
+                <g
+                  id="SVGIRIS_PITCH_FX_TYPE_GROUP"
+                  opacity="1"
+                  className={animationStyles.scoreTitle}
+                >
+                  <rect
+                    id="SVGIRIS_PITCH_FX_TYPE_GROUP_RECT"
+                    width="68.25688934326172"
+                    height="22"
+                    fill="#99bcff"
+                    rx="3"
+                    ry="3"
+                    x="-5"
+                    y="13.501590251922607"
+                  ></rect>
                   <text
-                    id="SVGIRIS_PITCH_TEAM_2_TXT_NAME1"
-                    x="-7"
-                    y="14"
-                    fill="#ffffff"
+                    id="SVGIRIS_PITCH_FX_TYPE_GROUP_TXT"
                     fontFamily="Roboto"
-                    fontSize="15.5"
-                    fontWeight="400"
-                    letterSpacing="0px"
-                    wordSpacing="0px"
-                    textAnchor="end"
-                    style={{ userSelect: "none" }}
-                    xmlSpace="preserve"
+                    fontWeight="700"
                   >
-                    {secondPlayerName[0]}
-                  </text>
-                  <text
-                    id="SVGIRIS_PITCH_TEAM_2_TXT_NAME2"
-                    x="-7"
-                    y="32"
-                    fill="#ffffff"
-                    fontFamily="Roboto"
-                    fontSize="15.5"
-                    fontWeight="400"
-                    letterSpacing="0px"
-                    wordSpacing="0px"
-                    textAnchor="end"
-                    style={{ userSelect: "none" }}
-                    xmlSpace="preserve"
-                  >
-                    {secondPlayerName.length > 1 && secondPlayerName.slice(-1)[0]}
-                  </text>
-                </g>
-                {/* set score status */}
-                <g id="SVGIRIS_PITCH_FX">
-                  <g
-                    id="SVGIRIS_PITCH_FX_TYPE_GROUP"
-                    opacity="1"
-                    className={animationStyles.scoreTitle}
-                  >
-                    <rect
-                      id="SVGIRIS_PITCH_FX_TYPE_GROUP_RECT"
-                      width="68.25688934326172"
-                      height="22"
-                      fill="#99bcff"
-                      rx="3"
-                      ry="3"
-                      x="-5"
-                      y="13.501590251922607"
-                    >
-                    </rect>
-                    <text
-                      id="SVGIRIS_PITCH_FX_TYPE_GROUP_TXT"
-                      fontFamily="Roboto"
-                      fontWeight="700"
-                    >
-                      <tspan
-                        id="SVGIRIS_PITCH_FX_TYPE_GROUP_TXT_SPAN"
-                        fontSize="16"
-                        fontFamily="Roboto"
-                        fontWeight="400"
-                        letterSpacing="0px"
-                        wordSpacing="0px"
-                        dy="28.8"
-                        x="10"
-                      >
-                        Set
-                      </tspan>
-                    </text>
-                    <text
-                      id="SVGIRIS_PITCH_FX_TYPE_GROUP_TXT"
-                      fontFamily="Roboto"
-                      fontWeight="700"
-                    >
-                      <tspan
-                        id="SVGIRIS_PITCH_FX_TYPE_GROUP_TXT_SPAN"
-                        fontSize="16"
-                        fontFamily="Roboto"
-                        fontWeight="400"
-                        letterSpacing="0px"
-                        wordSpacing="0px"
-                        dy="28.8"
-                        x="40"
-                      >
-                        {getSetNumber(data)}
-                      </tspan>
-                    </text>
-                  </g>
-                  <g
-                    id="SVGIRIS_PITCH_FX_H_GROUP"
-                    opacity="1"
-                    className={animationStyles.leftScore}
-                  >
-                    <text
-                      id="SVGIRIS_PITCH_FX_H_GROUP_TXT"
+                    <tspan
+                      id="SVGIRIS_PITCH_FX_TYPE_GROUP_TXT_SPAN"
+                      fontSize="16"
                       fontFamily="Roboto"
                       fontWeight="400"
+                      letterSpacing="0px"
+                      wordSpacing="0px"
+                      dy="28.8"
+                      x="10"
                     >
-                      <tspan
-                        id="SVGIRIS_PITCH_FX_H_GROUP_TXT_SPAN"
-                        fontSize="30"
-                        fontFamily="Roboto"
-                        fontWeight="400"
-                        fill="#ffdf1b"
-                        dy="20.8"
-                        x="0"
-                      >
-                        {getHomeScore(data)}
-                      </tspan>
-                    </text>
-                    <rect
-                      id="SVGIRIS_PITCH_FX_H_GROUP_RECT"
-                      width="31.852153778076172"
-                      height="3"
-                      fill={getAcitveColor("home", data) as string}
-                      x="-7.5"
-                      y="29.110437393188477"
-                    >
-                    </rect>
-                  </g>
-                  <g
-                    id="SVGIRIS_PITCH_FX_A_GROUP"
-                    opacity="1"
-                    className={animationStyles.rightScore}
+                      Set
+                    </tspan>
+                  </text>
+                  <text
+                    id="SVGIRIS_PITCH_FX_TYPE_GROUP_TXT"
+                    fontFamily="Roboto"
+                    fontWeight="700"
                   >
-                    <text
-                      id="SVGIRIS_PITCH_FX_A_GROUP_TXT"
-                      fontFamily="Roboto"
-                      fontWeight="400">
-                      <tspan
-                        id="SVGIRIS_PITCH_FX_A_GROUP_TXT_SPAN"
-                        fontSize="30"
-                        fontFamily="Roboto"
-                        fontWeight="400"
-                        fill="#ffdf1b"
-                        dy="20.8"
-                        x="0"
-                      >
-                        {getAwayScore(data)}
-                      </tspan>
-                    </text>
-                    <rect
-                      id="SVGIRIS_PITCH_FX_A_GROUP_RECT"
-                      width="31.852153778076172"
-                      height="3"
-                      fill={getAcitveColor("away", data) as string}
-                      x="-7.5"
-                      y="29.110437393188477"
-                    >
-                    </rect>
-                  </g>
-                </g>
-                {/* set ace status */}
-                <g id="SVGIRIS_PITCH_FX">
-                  <g
-                    id="SVGIRIS_PITCH_FX_TYPE_GROUP"
-                    opacity="1"
-                    transform="matrix(1,0,0,1,170,-150)"
-                    className={animationStyles.aceTitle}
-                  >
-                    <rect
-                      id="SVGIRIS_PITCH_FX_TYPE_GROUP_RECT"
-                      width="68.25688934326172"
-                      height="22"
-                      fill="#99bcff"
-                      rx="3"
-                      ry="3"
-                      x="-5"
-                      y="13.501590251922607"
-                    >
-                    </rect>
-                    <text
-                      id="SVGIRIS_PITCH_FX_TYPE_GROUP_TXT"
-                      fontFamily="Roboto"
-                      fontWeight="700"
-                    >
-                      <tspan
-                        id="SVGIRIS_PITCH_FX_TYPE_GROUP_TXT_SPAN"
-                        fontSize="16"
-                        fontFamily="Roboto"
-                        fontWeight="400"
-                        letterSpacing="0px"
-                        wordSpacing="0px"
-                        dy="28.8"
-                        x="10"
-                      >
-                        Aces
-                      </tspan>
-                    </text>
-                  </g>
-                  <g
-                    id="SVGIRIS_PITCH_FX_H_GROUP"
-                    opacity="1"
-                    transform="matrix(1,0,0,1,-50,75)"
-                    className={animationStyles.leftAceScore}
-                  >
-                    <text
-                      id="SVGIRIS_PITCH_FX_H_GROUP_TXT"
-                      fontFamily="Roboto" fontWeight="400"
-                    >
-                      <tspan
-                        id="SVGIRIS_PITCH_FX_H_GROUP_TXT_SPAN"
-                        fontSize="30"
-                        fontFamily="Roboto"
-                        fontWeight="400"
-                        fill="#ffdf1b"
-                        dy="20.8"
-                        x="0"
-                      >
-                        {getHomeScore(data)}
-                      </tspan>
-                    </text>
-                    <rect
-                      id="SVGIRIS_PITCH_FX_H_GROUP_RECT"
-                      width="31.852153778076172"
-                      height="3"
-                      fill={getAcitveColor("home", data) as string}
-                      x="-7.5"
-                      y="29.110437393188477"
-                    >
-                    </rect>
-                  </g>
-                  <g
-                    id="SVGIRIS_PITCH_FX_A_GROUP"
-                    opacity="1"
-                    transform="matrix(1,0,0,1,500,75)"
-                    className={animationStyles.rightAceScore}
-                  >
-                    <text
-                      id="SVGIRIS_PITCH_FX_A_GROUP_TXT"
+                    <tspan
+                      id="SVGIRIS_PITCH_FX_TYPE_GROUP_TXT_SPAN"
+                      fontSize="16"
                       fontFamily="Roboto"
                       fontWeight="400"
+                      letterSpacing="0px"
+                      wordSpacing="0px"
+                      dy="28.8"
+                      x="40"
                     >
-                      <tspan
-                        id="SVGIRIS_PITCH_FX_A_GROUP_TXT_SPAN"
-                        fontSize="30"
-                        fontFamily="Roboto"
-                        fontWeight="400"
-                        fill="#ffdf1b"
-                        dy="20.8"
-                        x="0"
-                      >
-                        {getAwayScore(data)}
-                      </tspan>
-                    </text>
-                    <rect
-                      id="SVGIRIS_PITCH_FX_A_GROUP_RECT"
-                      width="31.852153778076172"
-                      height="3"
-                      fill={getAcitveColor("away", data) as string}
-                      x="-7.5"
-                      y="29.110437393188477"
-                    >
-                    </rect>
-                  </g>
+                      {getSetNumber(data)}
+                    </tspan>
+                  </text>
                 </g>
-              </>
-            )
-          }
+                <g
+                  id="SVGIRIS_PITCH_FX_H_GROUP"
+                  opacity="1"
+                  className={animationStyles.leftScore}
+                >
+                  <text
+                    id="SVGIRIS_PITCH_FX_H_GROUP_TXT"
+                    fontFamily="Roboto"
+                    fontWeight="400"
+                  >
+                    <tspan
+                      id="SVGIRIS_PITCH_FX_H_GROUP_TXT_SPAN"
+                      fontSize="30"
+                      fontFamily="Roboto"
+                      fontWeight="400"
+                      fill="#ffdf1b"
+                      dy="20.8"
+                      x="0"
+                    >
+                      {getHomeScore(data)}
+                    </tspan>
+                  </text>
+                  <rect
+                    id="SVGIRIS_PITCH_FX_H_GROUP_RECT"
+                    width="31.852153778076172"
+                    height="3"
+                    fill={getAcitveColor("home", data) as string}
+                    x="-7.5"
+                    y="29.110437393188477"
+                  ></rect>
+                </g>
+                <g
+                  id="SVGIRIS_PITCH_FX_A_GROUP"
+                  opacity="1"
+                  className={animationStyles.rightScore}
+                >
+                  <text
+                    id="SVGIRIS_PITCH_FX_A_GROUP_TXT"
+                    fontFamily="Roboto"
+                    fontWeight="400"
+                  >
+                    <tspan
+                      id="SVGIRIS_PITCH_FX_A_GROUP_TXT_SPAN"
+                      fontSize="30"
+                      fontFamily="Roboto"
+                      fontWeight="400"
+                      fill="#ffdf1b"
+                      dy="20.8"
+                      x="0"
+                    >
+                      {getAwayScore(data)}
+                    </tspan>
+                  </text>
+                  <rect
+                    id="SVGIRIS_PITCH_FX_A_GROUP_RECT"
+                    width="31.852153778076172"
+                    height="3"
+                    fill={getAcitveColor("away", data) as string}
+                    x="-7.5"
+                    y="29.110437393188477"
+                  ></rect>
+                </g>
+              </g>
+              {/* set ace status */}
+              <g id="SVGIRIS_PITCH_FX">
+                <g
+                  id="SVGIRIS_PITCH_FX_TYPE_GROUP"
+                  opacity="1"
+                  transform="matrix(1,0,0,1,170,-150)"
+                  className={animationStyles.aceTitle}
+                >
+                  <rect
+                    id="SVGIRIS_PITCH_FX_TYPE_GROUP_RECT"
+                    width="68.25688934326172"
+                    height="22"
+                    fill="#99bcff"
+                    rx="3"
+                    ry="3"
+                    x="-5"
+                    y="13.501590251922607"
+                  ></rect>
+                  <text
+                    id="SVGIRIS_PITCH_FX_TYPE_GROUP_TXT"
+                    fontFamily="Roboto"
+                    fontWeight="700"
+                  >
+                    <tspan
+                      id="SVGIRIS_PITCH_FX_TYPE_GROUP_TXT_SPAN"
+                      fontSize="16"
+                      fontFamily="Roboto"
+                      fontWeight="400"
+                      letterSpacing="0px"
+                      wordSpacing="0px"
+                      dy="28.8"
+                      x="10"
+                    >
+                      Aces
+                    </tspan>
+                  </text>
+                </g>
+                <g
+                  id="SVGIRIS_PITCH_FX_H_GROUP"
+                  opacity="1"
+                  transform="matrix(1,0,0,1,-50,75)"
+                  className={animationStyles.leftAceScore}
+                >
+                  <text
+                    id="SVGIRIS_PITCH_FX_H_GROUP_TXT"
+                    fontFamily="Roboto"
+                    fontWeight="400"
+                  >
+                    <tspan
+                      id="SVGIRIS_PITCH_FX_H_GROUP_TXT_SPAN"
+                      fontSize="30"
+                      fontFamily="Roboto"
+                      fontWeight="400"
+                      fill="#ffdf1b"
+                      dy="20.8"
+                      x="0"
+                    >
+                      {/* {getHomeScore(data)} */}
+                      {aces_home}
+                    </tspan>
+                  </text>
+                  <rect
+                    id="SVGIRIS_PITCH_FX_H_GROUP_RECT"
+                    width="31.852153778076172"
+                    height="3"
+                    fill={getAcitveColor("home", data) as string}
+                    x="-7.5"
+                    y="29.110437393188477"
+                  ></rect>
+                </g>
+                <g
+                  id="SVGIRIS_PITCH_FX_A_GROUP"
+                  opacity="1"
+                  transform="matrix(1,0,0,1,500,75)"
+                  className={animationStyles.rightAceScore}
+                >
+                  <text
+                    id="SVGIRIS_PITCH_FX_A_GROUP_TXT"
+                    fontFamily="Roboto"
+                    fontWeight="400"
+                  >
+                    <tspan
+                      id="SVGIRIS_PITCH_FX_A_GROUP_TXT_SPAN"
+                      fontSize="30"
+                      fontFamily="Roboto"
+                      fontWeight="400"
+                      fill="#ffdf1b"
+                      dy="20.8"
+                      x="0"
+                    >
+                      {aces_away}
+                    </tspan>
+                  </text>
+                  <rect
+                    id="SVGIRIS_PITCH_FX_A_GROUP_RECT"
+                    width="31.852153778076172"
+                    height="3"
+                    fill={getAcitveColor("away", data) as string}
+                    x="-7.5"
+                    y="29.110437393188477"
+                  ></rect>
+                </g>
+              </g>
+            </>
+          )}
           {/* score presentation */}
           <g id="score" transform="translate(175, 0)">
             <rect
@@ -1803,6 +1852,11 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
 				</div>
 			)} */}
       </div>
+
+      <div>
+        <BottomBorderComponent data={data}></BottomBorderComponent>
+      </div>
+      {/* bottom border end */}
     </>
   );
 };
