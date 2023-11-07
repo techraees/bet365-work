@@ -74,6 +74,18 @@ function getEventString(status: number): string {
       status: 1024,
       name: "Throw"
     },
+    {
+      status: 1104,
+      name: "Corner"
+    },
+    {
+      status: 1901,
+      name: "Corner"
+    },
+    {
+      status: 1902,
+      name: "Corner"
+    }
   ];
   const matchingCode = statusCodes.find(
     (code) => code.status == status
@@ -428,8 +440,8 @@ function getStatusFromCode(code: number): string | undefined {
 
 //get angle from ball to gate
 function getAngleFromPos(ballPos: { x: number, y: number }, goalPos: { x: number, y: number }): number {
-  const deltaX = goalPos.x - ballPos?.x ?? 0;
-  const deltaY = ballPos?.y ?? 0 - goalPos.y;
+  const deltaX = goalPos.x - (ballPos?.x ?? 0);
+  const deltaY = (ballPos?.y ?? 0) - goalPos.y;
   const angleRadians = Math.atan2(deltaY, deltaX);
 
   return angleRadians ?? 0;
@@ -704,7 +716,7 @@ const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
 
           {
             (teamMessage && teamMessage.team == "Home Team") &&
-            <g id="home" className="transition-transform duration-500" transform={(status?.status == "Attack" || status?.status == "Dangerous Attack") ? `translate(${msgAttackPos?.x ?? 200},${msgAttackPos?.y ?? 75})` : `translate(200, 75)`}>
+            <g id="home" className="transition-transform duration-500" transform={(status?.status == "Attack" || status?.status == "Dangerous Attack" || status?.status == "Corner" || status?.status == "Free Kick") ? `translate(${msgAttackPos?.x ?? 200},${msgAttackPos?.y ?? 75})` : `translate(200, 75)`}>
               <rect id="home_bg" x="-2.5" y="0" fill={kitColors.home} width="2.5" height="30"></rect>
               <text id="home_team" transform="translate(-10 10)" textAnchor="end" fill="#12e096" fontSize="13px">{data?.team_info?.home.name}</text>
               <text id="home_action" transform="translate(-10 28)" textAnchor="end" fill="#f0f0f0" fontWeight="bold" fontSize="15px">{teamMessage?.message}</text>
@@ -712,7 +724,7 @@ const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
           }
           {
             (teamMessage && teamMessage.team == "Away Team") &&
-            <g id="away" className="transition-transform duration-500" transform={(status?.status == "Attack" || status?.status == "Dangerous Attack") ? `translate(${msgAttackPos?.x ?? 200},${msgAttackPos?.y ?? 75})` : `translate(200, 75)`}>
+            <g id="away" className="transition-transform duration-500" transform={(status?.status == "Attack" || status?.status == "Dangerous Attack" || status?.status == "Corner" || status?.status == "Free Kick") ? `translate(${msgAttackPos?.x ?? 200},${msgAttackPos?.y ?? 75})` : `translate(200, 75)`}>
               <rect id="away_bg" x="0" y="0" fill={kitColors.away} width="2.5" height="30"></rect>
               <text id="away_team" transform="translate(10 10)" fill="#12e096" fontSize="13px">{data?.team_info?.away.name}</text>
               <text id="away_action" transform="translate(10 28)" fill="#f0f0f0" fontWeight="bold" fontSize="15px">{teamMessage?.message}</text>
@@ -742,6 +754,7 @@ const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
               <path id="SvgjsPath1063" fillOpacity="0.7" className={soccerAnimation.kick0} fill="#165031"
                 d="M30.759,23.961C35.918,17.349,39,9.037,39,0c0-9.017-3.068-17.311-8.205-23.917L0,0.036L30.759,23.961z"
                 transform="matrix(1.0000000000000004,0,0,1.0000000000000004,0,0)" opacity="0.8"></path>
+              <circle fill="#FFFFFF" r="4" cx="0" cy="0"></circle>
             </g>
           }
           {
@@ -759,6 +772,32 @@ const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
           }
           {
             (status?.team == 2 && status?.status == "Free Kick") &&
+            <g id="kick" transform={`matrix(${Math.cos(getAngleFromPos(ballPos, homeGoalPos))},
+                                    ${-Math.sin(getAngleFromPos(ballPos, homeGoalPos))},
+                                    ${Math.sin(getAngleFromPos(ballPos, homeGoalPos))},
+                                    ${Math.cos(getAngleFromPos(ballPos, homeGoalPos))},${ballPos?.x}, 
+                                    ${ballPos?.y})`}>
+              <path id="kick_3" className={soccerAnimation.kick2} fill="#165031" fillOpacity="0.3" d="M0.031,0.013l117.647,45.045C123.041,31.064,126,15.881,126,0s-2.959-31.065-8.322-45.059L0.093-0.036L0.031,0.013z"></path>
+              <path id="kick_2" className={soccerAnimation.kick1} fill="#165031" fillOpacity="0.5" d="M0.031,0.013l77.43,29.647c3.536-9.21,5.488-19.204,5.488-29.66s-1.952-20.45-5.487-29.66L0.093-0.036L0.031,0.013z"></path>
+              <path id="kick_1" className={soccerAnimation.kick0} fill="#165031" fillOpacity="0.7" d="M0.031,0.013l38.208,14.629c1.746-4.546,2.71-9.48,2.71-14.642s-0.964-10.096-2.709-14.642L0.093-0.036L0.031,0.013z"></path>
+              <circle fill="#FFFFFF" r="4" cx="0" cy="0"></circle>
+            </g>
+          }
+          {
+            (status?.team == 1 && status?.status == "Corner") &&
+            <g id="kick" transform={`matrix(${Math.cos(getAngleFromPos(ballPos, awayGoalPos))},
+                                    ${-Math.sin(getAngleFromPos(ballPos, awayGoalPos))},
+                                    ${Math.sin(getAngleFromPos(ballPos, awayGoalPos))},
+                                    ${Math.cos(getAngleFromPos(ballPos, awayGoalPos))},${ballPos?.x}, 
+                                    ${ballPos?.y})`}>
+              <path id="kick_3" className={soccerAnimation.kick2} fill="#165031" fillOpacity="0.3" d="M0.031,0.013l117.647,45.045C123.041,31.064,126,15.881,126,0s-2.959-31.065-8.322-45.059L0.093-0.036L0.031,0.013z"></path>
+              <path id="kick_2" className={soccerAnimation.kick1} fill="#165031" fillOpacity="0.5" d="M0.031,0.013l77.43,29.647c3.536-9.21,5.488-19.204,5.488-29.66s-1.952-20.45-5.487-29.66L0.093-0.036L0.031,0.013z"></path>
+              <path id="kick_1" className={soccerAnimation.kick0} fill="#165031" fillOpacity="0.7" d="M0.031,0.013l38.208,14.629c1.746-4.546,2.71-9.48,2.71-14.642s-0.964-10.096-2.709-14.642L0.093-0.036L0.031,0.013z"></path>
+              <circle fill="#FFFFFF" r="4" cx="0" cy="0"></circle>
+            </g>
+          }
+          {
+            (status?.team == 2 && status?.status == "Corner") &&
             <g id="kick" transform={`matrix(${Math.cos(getAngleFromPos(ballPos, homeGoalPos))},
                                     ${-Math.sin(getAngleFromPos(ballPos, homeGoalPos))},
                                     ${Math.sin(getAngleFromPos(ballPos, homeGoalPos))},
