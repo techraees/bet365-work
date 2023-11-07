@@ -75,7 +75,7 @@ function getEventString(status: number): string {
       name: "Throw"
     },
     {
-      status: 1104,
+      status: 1004,
       name: "Corner"
     },
     {
@@ -534,7 +534,6 @@ function getMessagePositionOnAttack(ballPos: { x: number, y: number }, team: num
 const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
   console.log(">>>>soccer>>>", data);
 
-
   //Match Time
   const initialSeconds = data?.info?.seconds || "00:00";
 
@@ -570,7 +569,6 @@ const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
       clearInterval(timerInterval); // Clean up the interval on component unmount
     };
   }, [isTimerPaused]);
-
 
   if (!data) {
     return null;
