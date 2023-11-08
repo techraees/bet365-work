@@ -39,3 +39,39 @@
     animation-duration: 2s;
     animation-iteration-count: infinite;
 }
+
+
+@keyframes leftScoreAnimation {
+    0% {transform: matrix(1,0,0,1,-100,75)}
+    30% {transform: matrix(1,0,0,1,-100,75)}
+    40% {transform: matrix(1,0,0,1,170,75)}
+    100% {transform: matrix(1,0,0,1,170,75)}
+}
+
+.leftScore{
+    animation-name: leftScoreAnimation;
+    animation-duration: 10s;
+}
+
+@keyframes rightScoreAnimation {
+    0% {transform: matrix(1,0,0,1,500,75)}
+    30% {transform: matrix(1,0,0,1,500,75)}
+    40% {transform: matrix(1,0,0,1,218,75)}
+    100% {transform: matrix(1,0,0,1,218,75)}
+}
+
+.rightScore{
+    animation-name: rightScoreAnimation;
+    animation-duration: 10s;
+}
+
+@keyframes goalAnimation {
+    0% { opacity: 1}
+    90% { opacity: 1}
+    100% { opacity: 0}
+}
+
+.goal {
+    animation-name: goalAnimation;
+    animation-duration: 3s;
+}
