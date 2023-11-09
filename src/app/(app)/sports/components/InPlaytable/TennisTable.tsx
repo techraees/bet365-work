@@ -2,6 +2,7 @@ import Chevron from "@/components/ui/icons/chevron";
 import { cn } from "@/lib/utils";
 import React from "react";
 import SportHeading from "./TableHeading";
+import { toWin } from "@/components/Sports/Tennis/Details/mappings/mapping";
 
 const TennisTable = ({
   tennisgrouped,
@@ -43,6 +44,8 @@ const TennisTable = ({
           let awaygame1 = "0";
           let homegame2 = "0";
           let awaygame2 = "0";
+
+          let setTotals = getAllSetScores(dataOfEvent?.stats);
           Object.keys(dataOfEvent?.stats).map((item) => {
             if (dataOfEvent?.stats[item].name === "S1") {
               homegame2 = dataOfEvent?.stats[item].home;
@@ -58,6 +61,7 @@ const TennisTable = ({
             }
           });
 
+          let odd_rows = toWin(dataOfEvent);
           if (suspend === "0") {
             Object.keys(participants).map((participat) => {
               if (participants[participat]?.name === "Home") {
@@ -67,6 +71,7 @@ const TennisTable = ({
               }
             });
           }
+          var rows = [odd_rows.rows[0][1], odd_rows.rows[0][2]];
           oddData.push({
             home: dataOfEvent?.team_info?.home?.name,
             away: dataOfEvent?.team_info?.away?.name,
@@ -79,10 +84,11 @@ const TennisTable = ({
             awayscore1: awaygame1,
             awayscore2: awaygame2,
             awayscore3: dataOfEvent?.stats?.["1"].away,
-            rows: [
-              { title: "", value: home, suspend: suspend },
-              { title: "", value: away, suspend: suspend },
-            ],
+            rows: rows,
+            // rows: [
+            //   { title: "", value: home, suspend: suspend },
+            //   { title: "", value: away, suspend: suspend },
+            // ],
           });
         }
       });
@@ -102,13 +108,63 @@ const TennisTable = ({
       );
     });
     if (foundedData !== undefined) {
-      return "bg-white hover:bg-white";
+      return "bg-[#ffffff26]";
     } else {
       return "";
     }
   };
 
+  function calculateSetTotals(stats: any) {
+    let homeTotal = 0;
+    let awayTotal = 0;
+
+    // Loop through each property in the stats object
+    for (let key in stats) {
+      if (stats.hasOwnProperty(key)) {
+        // Check if the property name starts with 'S' and is followed by a number
+        if (
+          stats[key].name.startsWith("S") &&
+          !isNaN(stats[key].name.substring(1))
+        ) {
+          // Add the home and away values to their respective totals
+          homeTotal += stats[key].home;
+          awayTotal += stats[key].away;
+        }
+      }
+    }
+
+    // Return an object with the total for home and away
+    return {
+      homeTotal: homeTotal,
+      awayTotal: awayTotal,
+    };
+  }
+
+  function getAllSetScores(stats: any) {
+    const setScores = {} as any;
+
+    // Loop through each property in the stats object
+    for (let key in stats) {
+      if (stats.hasOwnProperty(key)) {
+        // Check if the property name starts with 'S' and is followed by a number
+        const setName = stats[key].name;
+        if (setName.startsWith("S") && !isNaN(setName.substring(1))) {
+          // Remove the 'S' and add the formatted score string to the array
+          const setNumber = setName.substring(1); // Remove the 'S'
+          setScores[setNumber] = {
+            Home: stats[key].home,
+            Away: stats[key].away,
+          };
+        }
+      }
+    }
+
+    // Return the array of formatted set score strings
+    return setScores;
+  }
+
   const handleSelectingItems = (item: any, column: any) => {
+    console.log("item", item);
     const alreadyPresent = selectedArray.find(
       (obj: any) =>
         obj.home == item.home &&
@@ -140,6 +196,7 @@ const TennisTable = ({
       setSelectedArray(newArr);
     }
   };
+
   return (
     <div className="flex flex-col pb-3 h-full bg-[linear-gradient(135deg,#3F4D32_0%,_#383838_400px)]">
       <SportHeading data={tennis} />

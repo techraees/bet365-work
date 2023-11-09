@@ -8,8 +8,9 @@ import {
 
 const PopupShowing = ({ selectedArray, setSelectedArray }: any) => {
   const [showingContent, setShowingContent] = useState<any>(false);
-  const [showingFilterCollapse, setShowingFilterCollapse] =
-    useState<any>(false);
+  const [showingFilterCollapse, setShowingFilterCollapse] = useState<any>(
+    false
+  );
   const [isModalOpen, setModalOpen] = useState(false);
   const [clickedItems, setClickedItems] = useState<string[]>([]);
   const [showingPrice, setShowingPrice] = useState<any>(null);
