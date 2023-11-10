@@ -18,7 +18,7 @@ const GameLines: React.FC<CurrentSetProps> = ({ data }) => {
     let totalValue = ['', '']
     let mlTitle = ['', '']
     let mlValue = ['', '']
-    console.log('toshow', toshow)
+    // console.log('toshow', toshow)
     var spread = toshow.rows[0];
     var total = toshow.rows[1];
     var line = toshow.rows[2];
@@ -30,7 +30,7 @@ const GameLines: React.FC<CurrentSetProps> = ({ data }) => {
         spreadValue[1] = spread[2].value
     }
     if(total){
-        console.log('tota', total)
+        // console.log('tota', total)
         totalTitle[0] = total[1]?.title
         totalValue[0] = total[1]?.value
         totalTitle[1] = total[2]?.title

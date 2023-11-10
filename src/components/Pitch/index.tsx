@@ -2,6 +2,7 @@
 import React from "react";
 import TennisPitch from "../Sports/Tennis/TennisPitch";
 import SoccerPitch from "../Sports/Soccer/SoccerPitch";
+import BasketballPitch from "../Sports/Basketball/BasketballPitch";
 
 interface PitchInterface {
   sport: string;
@@ -16,7 +17,6 @@ const Pitch: React.FC<PitchInterface> = ({
   grouped,
 }) => {
   // console.log('grouped comp', { name, events, sport })
-
   if (currentdataId || currentPitchId != "") {
     let filterID = currentdataId ?? currentPitchId;
     const currentdata = [] as any;
@@ -37,6 +37,9 @@ const Pitch: React.FC<PitchInterface> = ({
     }
     if (sport === "soccer") {
       return <SoccerPitch data={data} />;
+    }
+    if (sport == "basketball") {
+      return <BasketballPitch data={data} />;
     }
   }
   return <div>No Match Found</div>;

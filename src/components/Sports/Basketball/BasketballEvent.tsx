@@ -12,6 +12,7 @@ import BasketballOdds from "./odds";
 import BasketballJersey from "./Jersey";
 import BasketballPoints from "./Points";
 import { CheckQuarter } from "@/components/Structure/CheckQuarter";
+import usePitchIdStore from "@/store/use-pitchid";
 interface BaskeballEventProps {
     data: any;
     sport: string;
@@ -19,7 +20,10 @@ interface BaskeballEventProps {
 }
 
 const BaskeballEvent: React.FC<BaskeballEventProps> = ({ data, sport, subcategory }) => {
-    console.log({ data, sport })
+    const { currentPitchId, setCurrentPitchId } = usePitchIdStore(
+        (state) => state
+    );
+    // console.log({ data, sport })
     if (!data) {
         return null;
     }
@@ -87,10 +91,17 @@ const BaskeballEvent: React.FC<BaskeballEventProps> = ({ data, sport, subcategor
                     <BasketballOdds data={data} sport={sport} subcategory={subcategory} />
                 </div>
                 <div className="group w-[50px] md:flex items-center justify-center cursor-pointer hidden">
-                    <div className="flex group-hover:hidden">
+                    <div className={`${currentPitchId == data.info.id ? "hidden" : "flex"
+                        } group-hover:hidden`}>
                         <PlayButton />
                     </div>
-                    <div className="hidden group-hover:flex">
+                    <div
+                        className={`${currentPitchId == data.info.id ? "flex" : "hidden"
+                            } group-hover:flex`}
+                        onClick={() => {
+                            setCurrentPitchId(data.info.id);
+                        }}
+                    >
                         <PlayButtonHover />
                     </div>
                 </div>

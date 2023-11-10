@@ -6,7 +6,7 @@ interface BasketballPointsEventsInterface {
     subcategory?: string;
 }
 const BasketballPoints: React.FC<BasketballPointsEventsInterface> = ({ data, sport, subcategory }) => {
-    console.log('Basketball', { data, sport })
+    // console.log('Basketball', { data, sport })
     return (
         <div className="flex ml-[auto]">
             <div className="flex flex-col">

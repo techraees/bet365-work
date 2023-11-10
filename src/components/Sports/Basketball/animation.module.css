@@ -1,0 +1,196 @@
+@keyframes AwayPoint3 {
+    0% {
+        transform: matrix(.1, 0, 0, .1, 108, 87);
+        opacity: 1;
+    }
+
+    49% {
+        transform: matrix(.2, 0, 0, .2, 58, 87);
+        opacity: 1;
+    }
+
+    100% {
+        transform: matrix(.05, 0, 0, .05, 12, 90);
+        opacity: 1;
+    }
+}
+
+.ballAwayPoint3 {
+    opacity: 0;
+    transform: matrix(.05, 0, 0, .05, 12, 90);
+    animation-name: AwayPoint3;
+    animation-duration: 1s;
+    animation-timing-function: linear; 
+}
+
+@keyframes HomePoint3 {
+    0% {
+        transform: matrix(.1, 0, 0, .1, 292, 87);
+        opacity:1
+    }
+    
+    49% {
+        transform: matrix(.2, 0, 0, .2, 338, 87);
+        opacity:1
+    }
+    
+    100% {
+        transform: matrix(.05, 0, 0, .05, 384, 89);
+        opacity:1
+    }
+}
+
+.ballHomePoint3 {
+    transform: matrix(.05, 0, 0, .05, 384, 89);
+    opacity: 0;
+    animation-name: HomePoint3;
+    animation-duration: 1s;
+    animation-timing-function: linear; 
+}
+
+
+@keyframes AwayPoint2 {
+    0% {
+        transform: matrix(.1, 0, 0, .1, 74, 87);
+        opacity: 1;
+    }
+
+    49% {
+        transform: matrix(.2, 0, 0, .2, 35, 87);
+        opacity: 1;
+    }
+
+    100% {
+        transform: matrix(.05, 0, 0, .05, 12, 90);
+        opacity: 1;
+    }
+}
+
+.ballAwayPoint2 {
+    opacity: 0;
+    transform: matrix(.05, 0, 0, .05, 12, 90);
+    animation-name: AwayPoint2;
+    animation-duration: 1s;
+    animation-timing-function: linear; 
+}
+
+
+@keyframes HomePoint2 {
+    0% {
+        transform: matrix(.1, 0, 0, .1, 315, 87);
+        opacity:1
+    }
+    
+    49% {
+        transform: matrix(.2, 0, 0, .2, 358, 87);
+        opacity:1
+    }
+    
+    100% {
+        transform: matrix(.05, 0, 0, .05, 384, 89);
+        opacity:1
+    }
+}
+
+.ballHomePoint2 {
+    transform: matrix(.05, 0, 0, .05, 384, 89);
+    opacity: 0;
+    animation-name: HomePoint2;
+    animation-duration: 1s;
+    animation-timing-function: linear; 
+}
+
+@keyframes HomeFreeThrowMissed {
+    0% {
+        transform: matrix(.1, 0, 0, .1, 315, 87);
+        opacity: 1;
+    }
+
+    30% {
+        transform: matrix(.2, 0, 0, .2, 350, 87);
+        opacity: 1;
+    }
+
+    60% {
+        transform: matrix(.1, 0, 0, .1, 375, 87);
+        opacity: 1;
+    }
+
+    80% {
+        transform: matrix(.1, 0, 0, .1, 364, 87);
+        opacity: 1;
+    }
+    90% {
+        transform: matrix(.1, 0, 0, .1, 364, 87);
+        opacity: 1;
+    }
+    100% {
+        transform: matrix(.1, 0, 0, .1, 364, 87);
+        opacity: 0;
+    }
+}
+
+.ballHomeFreeThrowMissed {
+    opacity: 0;
+    transform: matrix(.1, 0, 0, .1, 371, 87);
+    animation-name: HomeFreeThrowMissed;
+    animation-duration: 1.5s;
+    animation-timing-function: linear; 
+}
+
+@keyframes AwayFreeThrowMissed {
+    0% {
+        transform: matrix(.1, 0, 0, .1, 74, 87);
+        opacity: 1;
+    }
+
+    30% {
+        transform: matrix(.2, 0, 0, .2, 35, 87);
+        opacity: 1;
+    }
+
+    60% {
+        transform: matrix(.1, 0, 0, .1, 14, 87);
+        opacity: 1;
+    }
+
+    80% {
+        transform: matrix(.1, 0, 0, .1, 25, 87);
+        opacity: 1;
+    }
+    90% {
+        transform: matrix(.1, 0, 0, .1, 25, 87);
+        opacity: 1;
+    }
+    100% {
+        transform: matrix(.1, 0, 0, .1, 25, 87);
+        opacity: 0;
+    }
+}
+
+.ballAwayFreeThrowMissed {
+    opacity: 0;
+    transform: matrix(.1, 0, 0, .1, 25, 87);
+    animation-name: AwayFreeThrowMissed;
+    animation-duration: 1.5s;
+    animation-timing-function: linear; 
+}
+
+@keyframes messageAnimation {
+    0% {
+        transform: matrix(3,0,0,3,200,105);
+        opacity: 0.5;
+    }
+    100% {
+        transform: matrix(1,0,0,1,200,95);
+        opacity: 1;
+    }
+}
+
+.message{
+    opacity: 1;
+    transform: matrix(1,0,0,1,200,95);
+    animation-name: messageAnimation;
+    animation-duration: 0.7s;
+    animation-timing-function: linear; 
+}
