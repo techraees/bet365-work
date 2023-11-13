@@ -3,6 +3,7 @@ import React from "react";
 import TennisPitch from "../Sports/Tennis/TennisPitch";
 import SoccerPitch from "../Sports/Soccer/SoccerPitch";
 import BasketballPitch from "../Sports/Basketball/BasketballPitch";
+import VolleyballPitch from "../Sports/Volleyball/VolleyballPitch";
 
 interface PitchInterface {
   sport: string;
@@ -40,6 +41,9 @@ const Pitch: React.FC<PitchInterface> = ({
     }
     if (sport == "basketball") {
       return <BasketballPitch data={data} />;
+    }
+    if (sport == "volleyball") {
+      return <VolleyballPitch data={data} />
     }
   }
   return <div>No Match Found</div>;

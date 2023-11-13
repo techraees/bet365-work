@@ -629,7 +629,7 @@ function isCorner(status: string): boolean {
 //fix ball pos
 
 function getFixedBallPos(ballPos: { x: number, y: number }, team: number, status: string): { x: number, y: number } | null {
-  if (ballPos)
+  if (ballPos && status != "Corner" && status != "Corner Top" && status != "Corner Bottom")
     return ballPos;
   if (status == "Corner") {
     return {

@@ -290,7 +290,7 @@ const BasketballPitch: React.FC<BasketballPitchInterface> = ({ data }) => {
   if (!data) {
     return null;
   }
-
+  // const curCode = 21080;
   const curCode = data?.info.state;
   const status = getState(curCode);
   const kitColors = getKitColors(data);
@@ -315,11 +315,7 @@ const BasketballPitch: React.FC<BasketballPitchInterface> = ({ data }) => {
         </div>
       </div>
 
-
-
       <svg id="SVGIRIS" width="100%" version="1.1" viewBox="0 0 400 220">
-
-
 
         {/* Team name and score */}
         <svg id="SVGIRIS_TEAMS" y="0" width="400" height="37" version="1.1" viewBox="0 0 400 37">
@@ -516,39 +512,35 @@ const BasketballPitch: React.FC<BasketballPitchInterface> = ({ data }) => {
           }
 
           {/* Home team Free Throw Scored/Missed*/}
-          {(status?.team == 1 && (status?.status == "Free Throw Scored" || status?.status == "Free Throw Missed")) && (
-            <>
-              <g id="SVGIRIS_PITCH_TEAM_1" transform="matrix(1,0,0,1,305,66)" opacity="1">
-                <rect id="SVGIRIS_PITCH_TEAM_1_COL" width="3" height="50" fill={kitColors.home}></rect>
-                <text id="SVGIRIS_PITCH_TEAM_1_TXT_TEAM" x="-5" y="14" fill="#663b29"
-                  font-family="Roboto" fontSize="14" fontWeight="400" textAnchor="end"
-                  xmlSpace="preserve">{data?.team_info?.home.name}</text>
-                <text id="SVGIRIS_PITCH_TEAM_1_TXT_ACTION" x="-5" y="32" fill="#ffffff"
-                  font-family="Roboto" fontSize="16" fontWeight="400" textAnchor="end"
-                  xmlSpace="preserve">{status?.status}</text>
-                <text id="SVGIRIS_PITCH_TEAM_1_TXT_INFO" x="-5" y="47" fill="#663b29"
-                  font-family="Roboto" fontSize="12" fontWeight="400" textAnchor="end"
-                  xmlSpace="preserve">1 of 2</text>
-              </g>
-            </>
+          {(status?.team == 1 && (status?.status == "Free Throw Scored" || status?.status == "Free Throw Missed" || status?.status == "Free Throw")) && (
+            <g id="SVGIRIS_PITCH_TEAM_1" transform="matrix(1,0,0,1,305,66)" opacity="1">
+              <rect id="SVGIRIS_PITCH_TEAM_1_COL" width="3" height="50" fill={kitColors.home}></rect>
+              <text id="SVGIRIS_PITCH_TEAM_1_TXT_TEAM" x="-5" y="14" fill="#663b29"
+                font-family="Roboto" fontSize="14" fontWeight="400" textAnchor="end"
+                xmlSpace="preserve">{data?.team_info?.home.name}</text>
+              <text id="SVGIRIS_PITCH_TEAM_1_TXT_ACTION" x="-5" y="32" fill="#ffffff"
+                font-family="Roboto" fontSize="16" fontWeight="400" textAnchor="end"
+                xmlSpace="preserve">{status?.status}</text>
+              <text id="SVGIRIS_PITCH_TEAM_1_TXT_INFO" x="-5" y="47" fill="#663b29"
+                font-family="Roboto" fontSize="12" fontWeight="400" textAnchor="end"
+                xmlSpace="preserve">1 of 2</text>
+            </g>
           )}
 
           {/* Away team Free Throw Scored/Missed*/}
-          {(status?.team == 2 && (status?.status == "Free Throw Scored" || status?.status == "Free Throw Missed")) && (
-            <>
-              <g id="SVGIRIS_PITCH_TEAM_1" transform="matrix(1,0,0,1,95,66)" opacity="1">
-                <rect id="SVGIRIS_PITCH_TEAM_1_COL" width="3" height="50" fill={kitColors.away}></rect>
-                <text id="SVGIRIS_PITCH_TEAM_1_TXT_TEAM" x="5" y="14" fill="#663b29"
-                  font-family="Roboto" fontSize="14" fontWeight="400" textAnchor="start"
-                  xmlSpace="preserve">{data?.team_info?.away.name}</text>
-                <text id="SVGIRIS_PITCH_TEAM_1_TXT_ACTION" x="5" y="32" fill="#ffffff"
-                  font-family="Roboto" fontSize="16" fontWeight="400" textAnchor="start"
-                  xmlSpace="preserve">{status?.status}</text>
-                <text id="SVGIRIS_PITCH_TEAM_1_TXT_INFO" x="5" y="47" fill="#663b29"
-                  font-family="Roboto" fontSize="12" fontWeight="400" textAnchor="start"
-                  xmlSpace="preserve">1 of 2</text>
-              </g>
-            </>
+          {(status?.team == 2 && (status?.status == "Free Throw Scored" || status?.status == "Free Throw Missed" || status?.status == "Free Throw")) && (
+            <g id="SVGIRIS_PITCH_TEAM_1" transform="matrix(1,0,0,1,95,66)" opacity="1">
+              <rect id="SVGIRIS_PITCH_TEAM_1_COL" width="3" height="50" fill={kitColors.away}></rect>
+              <text id="SVGIRIS_PITCH_TEAM_1_TXT_TEAM" x="5" y="14" fill="#663b29"
+                font-family="Roboto" fontSize="14" fontWeight="400" textAnchor="start"
+                xmlSpace="preserve">{data?.team_info?.away.name}</text>
+              <text id="SVGIRIS_PITCH_TEAM_1_TXT_ACTION" x="5" y="32" fill="#ffffff"
+                font-family="Roboto" fontSize="16" fontWeight="400" textAnchor="start"
+                xmlSpace="preserve">{status?.status}</text>
+              <text id="SVGIRIS_PITCH_TEAM_1_TXT_INFO" x="5" y="47" fill="#663b29"
+                font-family="Roboto" fontSize="12" fontWeight="400" textAnchor="start"
+                xmlSpace="preserve">1 of 2</text>
+            </g>
           )}
 
           {/* Free throw missed ball animation */}
@@ -611,66 +603,42 @@ const BasketballPitch: React.FC<BasketballPitchInterface> = ({ data }) => {
             </>
           )}
 
-          {/* Home team Free Throw */}
+          {/* Home team Free Throw ball point*/}
           {(status?.team == 1 && status?.status == "Free Throw") && (
-            <>
-              <g id="SVGIRIS_PITCH_TEAM_2" transform="matrix(1,0,0,1,306,74)" opacity="1">
-                <rect id="SVGIRIS_PITCH_TEAM_2_COL" width="3" height="35" fill={kitColors.home}></rect>
-                <text id="SVGIRIS_PITCH_TEAM_2_TXT_TEAM" x="-8" y="14" fill="#663b29"
-                  fontFamily="Roboto" fontSize="14" fontWeight="400" textAnchor="end"
-                  xmlSpace="preserve">{data?.team_info?.home.name}</text>
-                <text id="SVGIRIS_PITCH_TEAM_2_TXT_ACTION" x="-8" y="32" fill="#ffffff"
-                  fontFamily="Roboto" fontSize="16" fontWeight="400" textAnchor="end"
-                  xmlSpace="preserve">Free Throw</text>
+            <g id="SVGIRIS_PITCH_DEF_POINT" opacity={1} transform="matrix(1,0,0,1,321,91)">
+              <g id="SVGIRIS_PITCH_DEF_POINT_G" transform="translate(-60,-60)" fill="#ffffff">
+                <circle cx="60" cy="60" r="10" opacity=".3">
+                  <animate attributeName="r" attributeType="XML" dur="1.5s"
+                    keyTimes="0; 0.15; 0.3; 0.5; 0.7; 0.85; 1" repeatCount="indefinite"
+                    values="3; 14; 18; 20; 18; 14; 3"></animate>
+                </circle>
+                <circle cx="60" cy="60" r="10" opacity=".3">
+                  <animate attributeName="r" attributeType="XML" dur="1.5s"
+                    keyTimes="0; 0.15; 0.3; 0.5; 0.7; 0.85; 1" repeatCount="indefinite"
+                    values="3; 10; 12; 15; 12; 10; 3"></animate>
+                </circle>
+                <circle cx="60" cy="60" r="3"></circle>
               </g>
-              {/* ball point free throw */}
-              <g id="SVGIRIS_PITCH_DEF_POINT" opacity={1} transform="matrix(1,0,0,1,321,91)">
-                <g id="SVGIRIS_PITCH_DEF_POINT_G" transform="translate(-60,-60)" fill="#ffffff">
-                  <circle cx="60" cy="60" r="10" opacity=".3">
-                    <animate attributeName="r" attributeType="XML" dur="1.5s"
-                      keyTimes="0; 0.15; 0.3; 0.5; 0.7; 0.85; 1" repeatCount="indefinite"
-                      values="3; 14; 18; 20; 18; 14; 3"></animate>
-                  </circle>
-                  <circle cx="60" cy="60" r="10" opacity=".3">
-                    <animate attributeName="r" attributeType="XML" dur="1.5s"
-                      keyTimes="0; 0.15; 0.3; 0.5; 0.7; 0.85; 1" repeatCount="indefinite"
-                      values="3; 10; 12; 15; 12; 10; 3"></animate>
-                  </circle>
-                  <circle cx="60" cy="60" r="3"></circle>
-                </g>
-              </g>
-            </>
+            </g>
           )}
 
-          {/* Away team Free Throw */}
+          {/* Away team Free Throw ball point*/}
           {(status?.team == 2 && status?.status == "Free Throw") && (
-            <>
-              <g id="SVGIRIS_PITCH_TEAM_2" transform="matrix(1,0,0,1,94,74)" opacity="1">
-                <rect id="SVGIRIS_PITCH_TEAM_2_COL" width="3" height="35" fill={kitColors.away}></rect>
-                <text id="SVGIRIS_PITCH_TEAM_2_TXT_TEAM" x="8" y="14" fill="#663b29"
-                  fontFamily="Roboto" fontSize="14" fontWeight="400" textAnchor="start"
-                  xmlSpace="preserve">{data?.team_info?.away.name}</text>
-                <text id="SVGIRIS_PITCH_TEAM_2_TXT_ACTION" x="8" y="32" fill="#ffffff"
-                  fontFamily="Roboto" fontSize="16" fontWeight="400" textAnchor="start"
-                  xmlSpace="preserve">Free Throw</text>
+            <g id="SVGIRIS_PITCH_DEF_POINT" opacity={1} transform="matrix(1,0,0,1,79,91)">
+              <g id="SVGIRIS_PITCH_DEF_POINT_G" transform="translate(-60,-60)" fill="#ffffff">
+                <circle cx="60" cy="60" r="10" opacity=".3">
+                  <animate attributeName="r" attributeType="XML" dur="1.5s"
+                    keyTimes="0; 0.15; 0.3; 0.5; 0.7; 0.85; 1" repeatCount="indefinite"
+                    values="3; 14; 18; 20; 18; 14; 3"></animate>
+                </circle>
+                <circle cx="60" cy="60" r="10" opacity=".3">
+                  <animate attributeName="r" attributeType="XML" dur="1.5s"
+                    keyTimes="0; 0.15; 0.3; 0.5; 0.7; 0.85; 1" repeatCount="indefinite"
+                    values="3; 10; 12; 15; 12; 10; 3"></animate>
+                </circle>
+                <circle cx="60" cy="60" r="3"></circle>
               </g>
-              {/* ball point free throw */}
-              <g id="SVGIRIS_PITCH_DEF_POINT" opacity={1} transform="matrix(1,0,0,1,79,91)">
-                <g id="SVGIRIS_PITCH_DEF_POINT_G" transform="translate(-60,-60)" fill="#ffffff">
-                  <circle cx="60" cy="60" r="10" opacity=".3">
-                    <animate attributeName="r" attributeType="XML" dur="1.5s"
-                      keyTimes="0; 0.15; 0.3; 0.5; 0.7; 0.85; 1" repeatCount="indefinite"
-                      values="3; 14; 18; 20; 18; 14; 3"></animate>
-                  </circle>
-                  <circle cx="60" cy="60" r="10" opacity=".3">
-                    <animate attributeName="r" attributeType="XML" dur="1.5s"
-                      keyTimes="0; 0.15; 0.3; 0.5; 0.7; 0.85; 1" repeatCount="indefinite"
-                      values="3; 10; 12; 15; 12; 10; 3"></animate>
-                  </circle>
-                  <circle cx="60" cy="60" r="3"></circle>
-                </g>
-              </g>
-            </>
+            </g>
           )}
 
           {/* home time in possession */}

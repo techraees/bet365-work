@@ -7,7 +7,11 @@ import Chevron from "@/components/ui/icons/chevron";
 import BasketballJersey from "./Jersey";
 import ValleyballPoints from "./Points";
 import VolleyballOdds from "./odds";
-import TennisFieldHover from "@/components/ui/icons/tennisfield";
+
+
+import usePitchIdStore from "@/store/use-pitchid";
+import TennisField from "@/components/ui/icons/tennisfield";
+import TennisFieldHover from "@/components/ui/icons/tennisfieldHover";
 interface VolleyballEventProps {
     data: any;
     sport: string;
@@ -15,7 +19,10 @@ interface VolleyballEventProps {
 }
 
 const VolleyballEvent: React.FC<VolleyballEventProps> = ({ data, sport, subcategory }) => {
-    console.log({ data, sport })
+    const { currentPitchId, setCurrentPitchId } = usePitchIdStore(
+        (state) => state
+    );
+    // console.log({ data, sport })
     if (!data) {
         return null;
     }
@@ -66,8 +73,20 @@ const VolleyballEvent: React.FC<VolleyballEventProps> = ({ data, sport, subcateg
                     </Link>
                 </div>
                 <VolleyballOdds data={data} sport={sport} subcategory={subcategory} />
-                <div className="group flex col-span-1 items-center justify-center cursor-pointer">
-                    <div className="flex">
+                <div className="group items-center col-span-1 justify-center cursor-pointer hidden md:flex">
+                    <div
+                        className={`${currentPitchId == data.info.id ? "hidden" : "flex"
+                            } group-hover:hidden`}
+                    >
+                        <TennisField />
+                    </div>
+                    <div
+                        className={`${currentPitchId == data.info.id ? "flex" : "hidden"
+                            } group-hover:flex`}
+                        onClick={() => {
+                            setCurrentPitchId(data.info.id);
+                        }}
+                    >
                         <TennisFieldHover />
                     </div>
                 </div>

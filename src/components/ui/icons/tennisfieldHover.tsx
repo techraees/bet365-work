@@ -1,7 +1,7 @@
 import * as React from "react"
 import { SVGProps } from "react"
 
-export const TennisField = (props: SVGProps<SVGSVGElement>) => (
+export const TennisFieldHover = (props: SVGProps<SVGSVGElement>) => (
 
   <svg xmlns="http://www.w3.org/2000/svg" width={22} height={13} {...props}>
     <g fill="none">
@@ -12,7 +12,7 @@ export const TennisField = (props: SVGProps<SVGSVGElement>) => (
         y={0.5}
         stroke="#FFF"
         rx={1}
-        className="fill-[none]"
+        className="fill-[#B36E60]"
       />
       <g fill="#FFF">
         <path d="M10.45.542h1.101v11.916H10.45z" opacity={0.9} />
@@ -24,4 +24,4 @@ export const TennisField = (props: SVGProps<SVGSVGElement>) => (
     </g>
   </svg>
 )
-export default TennisField
+export default TennisFieldHover

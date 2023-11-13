@@ -1,0 +1,51 @@
+.homePointsShowUp {
+    transform : matrix(1,0,0,1,170,0);
+    opacity: 1;
+}
+
+.homePointsShowDown {
+    transform: matrix(1,0,0,1,-100,0);
+    opacity: 0.5;
+}
+
+.awayPointsShowUp {
+    transform : matrix(1,0,0,1,230,0);
+    opacity: 1;
+}
+
+.awayPointsShowDown {
+    transform: matrix(1,0,0,1,500,0);
+    opacity: 0.5;
+}
+
+
+
+
+.homeDecorationShowUp {
+    transform : matrix(1,0,0,1,10,-6);
+    opacity: 1;
+}
+
+.homeDecorationShowDown {
+    transform: matrix(1,0,0,1,10,-40);
+    opacity: 0;
+}
+
+.awayDecorationShowUp {
+    transform : matrix(1,0,0,1,-10,-6);
+    opacity: 1;
+}
+
+.awayDecorationShowDown {
+    transform: matrix(1,0,0,1,-10,-40);
+    opacity: 0;
+}
+
+
+
+
+
+
+.scoredPoints {
+    transition: all 0.5s linear;
+}
