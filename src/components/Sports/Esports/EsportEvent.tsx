@@ -9,6 +9,7 @@ import TennisFieldHover from "@/components/ui/icons/tennisfield";
 import EsportPoints from "./Points";
 import EsportOdds from "./EsportOdds";
 import PlayButton, { PlayButtonHover } from "@/components/ui/icons/playButton";
+import usePitchIdStore from "@/store/use-pitchid";
 interface EsportEventProps {
     title: string;
     data: any;
@@ -17,6 +18,9 @@ interface EsportEventProps {
 }
 
 const EsportEvent: React.FC<EsportEventProps> = ({ title, data, sport, subcategory }) => {
+    const { currentPitchId, setCurrentPitchId } = usePitchIdStore(
+        (state) => state
+    );
     console.log('EsportEvent', { title, data, sport, subcategory })
     if (!data) {
         return null;
@@ -33,13 +37,13 @@ const EsportEvent: React.FC<EsportEventProps> = ({ title, data, sport, subcatego
                         <div className="flex items-left text-[11px] font-[400]">
                             <div className="flex flex-1 flex-col text-[13px] font-semibold hover:text-brand-green-light cursor-pointer overflow-hidden">
                                 <div className="flex h-[25px] items-center">
-                                <div className="truncate overflow-hidden">
+                                    <div className="truncate overflow-hidden">
                                         {data?.team_info?.home.name}
                                     </div>
                                 </div>
                                 <div className="flex h-[25px] items-center">
 
-                                <div className="truncate overflow-hidden">
+                                    <div className="truncate overflow-hidden">
                                         {data?.team_info?.away.name}
                                     </div>
                                 </div>
@@ -55,10 +59,19 @@ const EsportEvent: React.FC<EsportEventProps> = ({ title, data, sport, subcatego
                     <EsportOdds title={title} data={data} sport={sport} subcategory={subcategory} />
                 </div>
                 <div className="group w-[50px] md:flex items-center justify-center cursor-pointer hidden">
-                    <div className="flex group-hover:hidden">
+                    <div
+                        className={`${currentPitchId == data.info.id ? "hidden" : "flex"
+                            } group-hover:hidden`}
+                    >
                         <PlayButton />
                     </div>
-                    <div className="hidden group-hover:flex">
+                    <div
+                        className={`${currentPitchId == data.info.id ? "flex" : "hidden"
+                            } group-hover:flex`}
+                        onClick={() => {
+                            setCurrentPitchId(data.info.id);
+                        }}
+                    >
                         <PlayButtonHover />
                     </div>
                 </div>

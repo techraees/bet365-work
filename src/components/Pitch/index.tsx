@@ -45,6 +45,14 @@ const Pitch: React.FC<PitchInterface> = ({
     if (sport == "volleyball") {
       return <VolleyballPitch data={data} />
     }
+    if (sport == "esports") {
+      if (data?.info.sport == "esoccer"){
+        return <SoccerPitch data={data} />
+      }
+      if (data?.info.sport == "Basketball"){
+        return <BasketballPitch data={data} />
+      }
+    }
   }
   return <div>No Match Found</div>;
 };

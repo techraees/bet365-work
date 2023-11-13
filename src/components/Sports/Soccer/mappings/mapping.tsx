@@ -29,7 +29,7 @@ export const fulltimeResult = (data: any) => {
             tosend.push(arr)
         }
     }
-    console.log('Sending New Data', data)
+    // console.log('Sending New Data', data)
     return tosend;
 }
 export const doubleChance = (data: any) => {
@@ -63,7 +63,7 @@ export const doubleChance = (data: any) => {
             tosend.push(arr)
         }
     }
-    console.log('Sending New Data', data)
+    // console.log('Sending New Data', data)
     return tosend;
 }
 
@@ -95,7 +95,7 @@ export const halfTimeResult = (data: any) => {
             tosend.push(arr)
         }
     }
-    console.log('Sending New Data', data)
+    // console.log('Sending New Data', data)
     return tosend;
 }
 
@@ -114,7 +114,7 @@ export const nthGoalMarketName = (data: any, oddData: any) => {
             if (data.odds[item].name.startsWith('Which team will score the ') && data.odds[item].name.includes('goal?')) {
                 let ngoal = data.odds[item].name.replace('Which team will score the ', '');
                 goal = ngoal.replace(' goal?', '')
-                console.log(data.odds[item])
+                // console.log(data.odds[item])
                 const spread = Object.entries(data?.odds?.[item]?.participants)
                 const arr = [] as any;
                 spread.map((item: any, index: number) => {
@@ -155,7 +155,7 @@ export const matchGoals = (data: any) => {
         const participantsObject = { ...data?.odds?.[421]?.participants };
         const keys = Object.keys(participantsObject).slice(-2);
 
-        console.log(keys);
+        // console.log(keys);
         let arr = [] as any;
         keys.map((key: any, index: number) => {
             if (index === 0) {
@@ -253,7 +253,7 @@ export const threeWayHandicap = (data: any) => {
 
         }
     }
-    console.log('Sending New Data', data)
+    // console.log('Sending New Data', data)
     return tosend;
 }
 export const goalOddEven = (data: any) => {
@@ -278,7 +278,7 @@ export const goalOddEven = (data: any) => {
             tosend.push(arr)
         }
     }
-    console.log('Sending New Data', data)
+    // console.log('Sending New Data', data)
     return tosend;
 }
 
@@ -310,7 +310,7 @@ export const toWin2ndHalf = (data: any) => {
             tosend.push(arr)
         }
     }
-    console.log('Sending New Data', data)
+    // console.log('Sending New Data', data)
     return tosend;
 }
 
@@ -342,7 +342,7 @@ export const drawNoBet = (data: any) => {
             tosend.push(arr)
         }
     }
-    console.log('Sending New Data', data)
+    // console.log('Sending New Data', data)
     return tosend;
 }
 
@@ -374,7 +374,7 @@ export const lastTeamToScore = (data: any) => {
             tosend.push(arr)
         }
     }
-    console.log('Sending New Data', data)
+    // console.log('Sending New Data', data)
     return tosend;
 }
 
@@ -411,7 +411,7 @@ export const firstHalfGoals = (data: any) => {
             return array;
         }
     }
-    console.log('Sending New Data', data)
+    // console.log('Sending New Data', data)
     return tosend;
 }
 
@@ -448,7 +448,7 @@ export const goalLine = (data: any) => {
             return array;
         }
     }
-    console.log('Sending New Data', data)
+    // console.log('Sending New Data', data)
     return tosend;
 }
 interface FormattedData {
@@ -493,7 +493,7 @@ export const finalScore = (data: any) => {
                 }
             }
         })
-        console.log({ left: left, middle: middle, right: right })
+        // console.log({ left: left, middle: middle, right: right })
         let maxlength = left.length;
         if (middle.length > maxlength) {
             maxlength = middle.length
@@ -942,7 +942,7 @@ export const matchCorners = (data: any, oddData: any) => {
     oddData.rows = tosend
     data && Object.keys(data?.stats).map((item) => {
         if (data.stats[item].name === "ICorner") {
-            console.log('ICORNER')
+            // console.log('ICORNER')
             oddData.currentCorners = Number(data.stats[item].home) + Number(data.stats[item].away)
         }
 
@@ -1103,7 +1103,7 @@ export const goalsOverUnder = (data: any, oddData: any, fn: string) => {
             return array;
         }
     }
-    console.log('Sending New Data', data)
+    // console.log('Sending New Data', data)
 
     oddData.rows = tosend
     return oddData;

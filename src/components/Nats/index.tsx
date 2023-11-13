@@ -150,23 +150,51 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
   if (sport === "esports") {
     if (sport && currentdataId) {
       return (
-        <div>
-          <DetailView
-            grouped={grouped}
-            sport={sport}
-            subcategory={subcategory}
-            currentdataId={currentdataId}
-          />
+        <div className="flex h-full">
+          <div
+            //@ts-ignore
+            className={`overflow-y-auto overflow-x-hidden overscroll-none h-full w-full flex-shrink-0`}
+          >
+            <DetailView
+              grouped={grouped}
+              sport={sport}
+              subcategory={subcategory}
+              currentdataId={currentdataId}
+            />
+          </div>
+          <div className="hidden md:block w-3/4 overflow-y-auto overflow-x-hidden overscroll-none max-w-[100%] min-w-[50%]">
+            <Pitch
+              grouped={grouped}
+              sport={sport}
+              currentPitchId={currentPitchId}
+              currentdataId={currentdataId}
+            />
+          </div>
         </div>
       );
     }
     return (
-      <Esports
-        sport={sport}
-        subcategory={subcategory}
-        currentdataId={currentdataId}
-        grouped={grouped}
-      />
+      <div className="flex h-full">
+        <div
+          //@ts-ignore
+          className={`overflow-y-auto overflow-x-hidden overscroll-none h-full w-full flex-shrink-0`}
+        >
+          <Esports
+            sport={sport}
+            subcategory={subcategory}
+            currentdataId={currentdataId}
+            grouped={grouped}
+          />
+        </div>
+        <div className="hidden md:block w-3/4 overflow-y-auto overflow-x-hidden overscroll-none max-w-[100%] min-w-[50%]">
+          <Pitch
+            grouped={grouped}
+            sport={sport}
+            currentPitchId={currentPitchId}
+            currentdataId={currentdataId}
+          />
+        </div>
+      </div>
     );
   }
 

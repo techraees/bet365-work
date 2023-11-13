@@ -211,8 +211,8 @@ function getStateFromCode(code: number): string | undefined {
 }
 //get kit colors of two teams
 function getKitColors(data: any): { home: string, away: string } {
-  let homeColors = data?.team_info?.home.kit_color.split(",") ?? ["#ff0000"];
-  let awayColors = data?.team_info?.away.kit_color.split(",") ?? ["#ffffff"];
+  let homeColors = data?.team_info?.home.kit_color?.split(",") ?? ["#ff0000"];
+  let awayColors = data?.team_info?.away.kit_color?.split(",") ?? ["#ffffff"];
   for (let i = 0; i < homeColors.length; ++i)
     if (homeColors[i] != awayColors[i])
       return {

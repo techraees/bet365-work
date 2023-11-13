@@ -119,7 +119,7 @@ const SoccerMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
     }
 
 
-    console.log('detail market soccer', data)
+    // console.log('detail market soccer', data)
 
     return (
         <div className='w-[100%] bg-[#383838]'>
@@ -128,7 +128,7 @@ const SoccerMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
                     if(oddData[key]?.subtabs?.length>0){
                         let skip = true
                         oddData[key]?.subtabs.map((subtab:any)=>{
-                            console.log('subtab',subtab ,oddData[key][subtab])
+                            // console.log('subtab',subtab ,oddData[key][subtab])
                             if(oddData[key][subtab] && oddData[key][subtab].length > 0){
                                 skip = false
                             }
