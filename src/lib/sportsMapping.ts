@@ -48,13 +48,6 @@ export const sportsDetailsMapping = {
       { label: "Total Maps", value: "totalMaps" },
     ],
   },
-
-  mainHeaderFilters: [
-    { label: "Fulltime Result", value: "fulltimeResult" },
-    { label: "Match Goals", value: "matchGoals" },
-    { label: "Asian Handicap In-play", value: "asianHandicapInPlay" },
-    { label: "Goal Line In-Play", value: "goalLineInPlay" },
-  ],
   "hockey": {
     name: "Hockey",
     mainHeaderFilters: [
