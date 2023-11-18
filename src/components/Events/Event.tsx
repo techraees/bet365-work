@@ -13,6 +13,8 @@ import TennisEvent from "../Sports/Tennis/TennisEvent";
 import BaskeballEvent from "../Sports/Basketball/BasketballEvent";
 import BaseballEvent from "../Sports/Baseball/BaseballEvent";
 import SoccerEvent from "../Sports/Soccer/SoccerEvent";
+import HockeyEvent from "../Sports/Hockey/HockeyEvent";
+import HockeyJersey from "../Sports/Hockey/Jersey";
 interface EventProps {
   data: any;
   sport: string;
@@ -32,13 +34,15 @@ const Event: React.FC<EventProps> = ({ data, sport, subcategory }) => {
     return <BaseballEvent data={data} sport={sport} subcategory={subcategory} />
   } else if (sport === "soccer") {
     return <SoccerEvent data={data} sport={sport} subcategory={subcategory} />
+  } else if (sport == "hockey") {
+    return <HockeyEvent data={data} sport={sport} subcategory={subcategory} />
   }
   return (
     <div className="flex flex-col border-t-[#ffffff1a] border-t border-solid">
       <div className={cn(`grid grid-cols-8 w-full px-8  justify-center h-[70px]`,
       )}>
         <div className=" col-span-4 flex items-center text-xs font-bold text-white gap-4 py-[10px]">
-          <StarOutlineIcon className=" hover:fill-[#333] fill-transparent cursor-pointer" />
+          <StarOutlineIcon className=" hover:fill-[#333] filSoccerEventl-transparent cursor-pointer" />
           {/* {name} */}
           <Link
             href={`/in-play/${sport}/${subcategory ? subcategory : defaultSubcategories[sport as keyof typeof defaultSubcategories]}/${data?.info?.id}`}
@@ -59,6 +63,9 @@ const Event: React.FC<EventProps> = ({ data, sport, subcategory }) => {
                     {sport === "soccer" &&
                       <SoccerJersey data={data} team={'home'} />
                     }
+                    {sport == "hockey" &&
+                      <HockeyJersey data={data} team={'home'} />
+                    }
                   </div>
                   <div className="whitespace-nowrap overflow-hidden text-ellipsis">
                     {data?.team_info?.home.name}
@@ -71,6 +78,9 @@ const Event: React.FC<EventProps> = ({ data, sport, subcategory }) => {
                     }
                     {sport === "soccer" &&
                       <SoccerJersey data={data} team={'away'} />
+                    }
+                    {sport == "hockey" &&
+                      <HockeyJersey data={data} team={'away'} />
                     }
                   </div>
                   <div className="whitespace-nowrap overflow-hidden text-ellipsis">

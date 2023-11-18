@@ -5,8 +5,8 @@ import MarketGroupBody from '../../../Structure/MarketGroupBody';
 import { categoriesMapping } from '@/lib/sportsMapping';
 import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
-import { soccerAll, soccerAsianLines, soccerBetBuilder, soccerCornersCards, soccerGoals, soccerHalf } from './datastructure';
-import { fulltimeResult, doubleChance, halfTimeResult, nthGoalMarketName, lastTeamToScore, firstHalfGoals, alternativematchGoals,
+import { hockeyAll, soccerAsianLines, soccerBetBuilder, soccerCornersCards, soccerGoals, soccerHalf } from './datastructure';
+import { gameLines, doubleChance, halfTimeResult, nthGoalMarketName, lastTeamToScore, firstHalfGoals, alternativematchGoals,
     matchGoals, asianHandicap, threeWayHandicap, goalOddEven, toWin2ndHalf, drawNoBet, goalLine, finalScore, 
     halfTimeCorrectScore, halfTimeFullTime, firstHalfAsianHandicap, firstHalfGoalLine, firstHalfHandicap,
      resultBothTeamsToScore, bothTeamsToScore, asianCorners, firstHalfAsianCorners, cornerRace, corners, matchCorners,
@@ -14,7 +14,9 @@ import { fulltimeResult, doubleChance, halfTimeResult, nthGoalMarketName, lastTe
      toQualify, goalsOverUnder,
      twoCellTitleValue,
      betResult, betBothTeamsToScore, betDoubleChance, betMatchGoals, betNextGoal, betTeamGoals, betScore, betGoalOddEven,
-     BetTeamToScoreinBothHalf, BetTeamToScorein2ndHalf, betMatchCorners
+     BetTeamToScoreinBothHalf, BetTeamToScorein2ndHalf, betMatchCorners, whenWillGameEnd, willMatchGoOvertime, exactGoals, 
+     homeExactGoals, awayExactGoals, doubleChance2nd, doubleChance3rd, period3Lines,
+     homeTotalGoals, awayTotalGoals
     } from '../mappings/mapping';
 
 interface MarketGroupProps {
@@ -23,54 +25,73 @@ interface MarketGroupProps {
 }
 
 
-const SoccerMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
+const HockeyMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
 
     if (!data) {
         return null
     }
-    ["All", "Bet Builder", "Instant", "Team", "Quarter", "Half"]
+    console.log('---->>hockeydata<<----', data);
+    ["All", "Same Game Parlay", "Period", "Score"]
     let oddData = {} as any;
-    oddData = soccerAll as any;
+    oddData = hockeyAll as any;
     if (active === "All") {
-        soccerAll.fulltimeResult.rows = fulltimeResult(data);
-        soccerAll.toQualify.rows = toQualify(data);
-        soccerAll.doubleChance.rows = doubleChance(data);
-        soccerAll.toWintheTrophy.rows = twoCellTitleValue(data, 'toWintheTrophy');
-        soccerAll.gameWonInExtraTime.rows = twoCellTitleValue(data, 'gameWonInExtraTime');
-        soccerAll.gameWonAfterPenaltiesShootout.rows = twoCellTitleValue(data, 'gameWonAfterPenaltiesShootout');
-        soccerAll.halfTimeResult.rows = halfTimeResult(data);
-        soccerAll.nthGoal = nthGoalMarketName(data, soccerAll.nthGoal);
-        soccerAll.matchGoals.rows = matchGoals(data);
-        soccerAll.alternativematchGoals.rows = alternativematchGoals(data);
-        soccerAll.asianHandicap = asianHandicap(data, soccerAll.asianHandicap);
-        soccerAll.firstHalfGoals.rows = firstHalfGoals(data);
-        soccerAll["3-WayHandicap"].rows = threeWayHandicap(data);
-        soccerAll.goalOddEven.rows = goalOddEven(data);
-        soccerAll.toWin2ndHalf.rows = toWin2ndHalf(data);
-        soccerAll.drawNoBet.rows = drawNoBet(data);
-        soccerAll.lastTeamToScore.rows = lastTeamToScore(data);
-        soccerAll.goalLine.rows = goalLine(data);
-        soccerAll.finalScore.rows = finalScore(data);
-        soccerAll.halfTimeCorrectScore.rows = halfTimeCorrectScore(data);
-        soccerAll.halfTimeFullTime.rows = halfTimeFullTime(data)
-        soccerAll.firstHalfAsianHandicap = firstHalfAsianHandicap(data, soccerAll.firstHalfAsianHandicap);
-        soccerAll.firstHalfGoalLine = firstHalfGoalLine(data, soccerAll.firstHalfGoalLine);
-        soccerAll.firstHalfHandicap.rows = firstHalfHandicap(data);
-        soccerAll.resultBothTeamsToScore.rows = resultBothTeamsToScore(data);
-        soccerAll.bothTeamsToScore.rows = bothTeamsToScore(data);
-        soccerAll.asianCorners.rows = asianCorners(data);
-        soccerAll.firstHalfAsianCorners.rows = firstHalfAsianCorners(data);
-        soccerAll.cornerRace.rows = cornerRace(data);
-        soccerAll.corners.rows = corners(data);
-        soccerAll.matchCorners = matchCorners(data, soccerAll.matchCorners);
-        soccerAll.twoWayCorners.rows = twoWayCorners(data);
-        soccerAll.bothTeamsToScoreFirstHalf.rows = twoCellTitleValue(data, 'bothTeamsToScoreFirstHalf');
-        soccerAll.bothTeamsToScoreSecondHalf.rows = twoCellTitleValue(data, 'bothTeamsToScoreSecondHalf');
-        soccerAll.teamCleanSheet.rows =  twoCellTitleValue(data, 'teamCleanSheet');
-        soccerAll.homeGoals = goalsOverUnder(data, soccerAll.homeGoals, 'homeGoals');
-        soccerAll.awayGoals = goalsOverUnder(data, soccerAll.awayGoals, 'awayGoals');
-        oddData = soccerAll as any;
-        console.log(">>>>>odd data>>>>", soccerAll);
+        let gameLinesData: any = gameLines(data);
+        hockeyAll.gameLines.rows = gameLinesData?.rows;
+        hockeyAll.gameLines.header = gameLinesData?.header;
+        let period3LinesData: any = period3Lines(data);
+        hockeyAll.period3Lines.rows = period3LinesData?.rows;
+        hockeyAll.period3Lines.header = period3LinesData?.header;
+
+        hockeyAll.toQualify.rows = toQualify(data);
+        hockeyAll.doubleChance.rows = doubleChance(data);
+        hockeyAll.toWintheTrophy.rows = twoCellTitleValue(data, 'toWintheTrophy');
+        hockeyAll.gameWonInExtraTime.rows = twoCellTitleValue(data, 'gameWonInExtraTime');
+        hockeyAll.gameWonAfterPenaltiesShootout.rows = twoCellTitleValue(data, 'gameWonAfterPenaltiesShootout');
+        hockeyAll.halfTimeResult.rows = halfTimeResult(data);
+        hockeyAll.nthGoal = nthGoalMarketName(data, hockeyAll.nthGoal);
+        hockeyAll.matchGoals.rows = matchGoals(data);
+        hockeyAll.alternativematchGoals.rows = alternativematchGoals(data);
+        hockeyAll.asianHandicap = asianHandicap(data, hockeyAll.asianHandicap);
+        hockeyAll.firstHalfGoals.rows = firstHalfGoals(data);
+        hockeyAll["3-WayHandicap"].rows = threeWayHandicap(data);
+        hockeyAll.goalOddEven.rows = goalOddEven(data);
+        hockeyAll.toWin2ndHalf.rows = toWin2ndHalf(data);
+        hockeyAll.drawNoBet.rows = drawNoBet(data);
+        hockeyAll.lastTeamToScore.rows = lastTeamToScore(data);
+        hockeyAll.goalLine.rows = goalLine(data);
+        hockeyAll.finalScore.rows = finalScore(data);
+        hockeyAll.halfTimeCorrectScore.rows = halfTimeCorrectScore(data);
+        hockeyAll.halfTimeFullTime.rows = halfTimeFullTime(data)
+        hockeyAll.firstHalfAsianHandicap = firstHalfAsianHandicap(data, hockeyAll.firstHalfAsianHandicap);
+        hockeyAll.firstHalfGoalLine = firstHalfGoalLine(data, hockeyAll.firstHalfGoalLine);
+        hockeyAll.firstHalfHandicap.rows = firstHalfHandicap(data);
+        hockeyAll.resultBothTeamsToScore.rows = resultBothTeamsToScore(data);
+        hockeyAll.bothTeamsToScore.rows = bothTeamsToScore(data);
+        hockeyAll.asianCorners.rows = asianCorners(data);
+        hockeyAll.firstHalfAsianCorners.rows = firstHalfAsianCorners(data);
+        hockeyAll.cornerRace.rows = cornerRace(data);
+        hockeyAll.corners.rows = corners(data);
+        hockeyAll.matchCorners = matchCorners(data, hockeyAll.matchCorners);
+        hockeyAll.twoWayCorners.rows = twoWayCorners(data);
+        hockeyAll.bothTeamsToScoreFirstHalf.rows = twoCellTitleValue(data, 'bothTeamsToScoreFirstHalf');
+        hockeyAll.bothTeamsToScoreSecondHalf.rows = twoCellTitleValue(data, 'bothTeamsToScoreSecondHalf');
+        hockeyAll.teamCleanSheet.rows =  twoCellTitleValue(data, 'teamCleanSheet');
+        hockeyAll.homeGoals = goalsOverUnder(data, hockeyAll.homeGoals, 'homeGoals');
+        hockeyAll.awayGoals = goalsOverUnder(data, hockeyAll.awayGoals, 'awayGoals');
+
+        hockeyAll.doubleChance2nd.rows = doubleChance2nd(data);
+        hockeyAll.doubleChance3rd.rows = doubleChance3rd(data);
+
+        hockeyAll.whenWillGameEnd.rows = whenWillGameEnd(data);
+        hockeyAll.willMatchGoOvertime.rows = willMatchGoOvertime(data);
+        hockeyAll.exactGoals.rows = exactGoals(data);
+        hockeyAll.homeExactGoals = { ...hockeyAll.homeExactGoals, ...homeExactGoals(data)}
+        hockeyAll.awayExactGoals = { ...hockeyAll.awayExactGoals, ...awayExactGoals(data)}
+        hockeyAll.homeTotalGoals = { ...hockeyAll.homeTotalGoals, ...homeTotalGoals(data)}
+        hockeyAll.awayTotalGoals = { ...hockeyAll.awayTotalGoals, ...awayTotalGoals(data)}
+                
+        oddData = hockeyAll as any;
+        console.log('-----hockey all-----', hockeyAll);
     } else if (active === "Bet Builder") {
         soccerBetBuilder.result.rows = betResult(data);
         soccerBetBuilder.bothTeamsToScore.rows = betBothTeamsToScore(data);
@@ -122,7 +143,6 @@ const SoccerMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
 
     // console.log('detail market soccer', data)
 
-
     return (
         <div className='w-[100%] bg-[#383838]'>
             {Object.keys(oddData).map((key, index) => {
@@ -151,7 +171,7 @@ const SoccerMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
 
 };
 
-export default SoccerMarketGroup
+export default HockeyMarketGroup
 
 interface GroupwithHeadProps {
     keytag: string;

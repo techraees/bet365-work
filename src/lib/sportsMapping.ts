@@ -47,6 +47,21 @@ export const sportsDetailsMapping = {
       { label: "Match Handicap", value: "matchHandicap" },
       { label: "Total Maps", value: "totalMaps" },
     ],
+  },
+
+  mainHeaderFilters: [
+    { label: "Fulltime Result", value: "fulltimeResult" },
+    { label: "Match Goals", value: "matchGoals" },
+    { label: "Asian Handicap In-play", value: "asianHandicapInPlay" },
+    { label: "Goal Line In-Play", value: "goalLineInPlay" },
+  ],
+  "hockey": {
+    name: "Hockey",
+    mainHeaderFilters: [
+      { label: "Game Lines", value: "gamelines" },
+      { label: "Game Lines 3-Way", value: "gamelines3way"},
+      { label: "Period Lines", value: "periodlines"}
+    ],
   }
 };
 
@@ -57,11 +72,18 @@ export const categoriesMapping = {
   "goalLineInPlay": "Over/Under Line"
 }
 
+export const hockeyCategoriesMapping = {
+  "gamelines": "Game Lines Line",
+  "gamelines3way": "Over/Under (3 Ways)",
+  "periodlines": "Game Lines Total"
+}
+
 export const defaultSubcategories={
   "soccer": "fulltimeResult",
   "tennis": "winner",
   "basketball": "gamelines",
   "volleyball": "matchWinner",
   "esports": "mapWinner",
-  "baseball": "gamelines"
+  "baseball": "gamelines",
+  "hockey": "gamelines",
 }

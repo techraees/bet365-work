@@ -83,7 +83,7 @@ export const navItems = [
     },
     {
         label: "Ice Hockey",
-        link: "/sports/ice-hockey",
+        link: "/sports/hockey",
         icon: IceHockeyIcon,
     },
     {

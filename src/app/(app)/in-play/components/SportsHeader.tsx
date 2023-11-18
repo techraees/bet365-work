@@ -78,7 +78,7 @@ const SportsHeader = () => {
     },
     {
       label: "Ice Hockey",
-      link: "/in-play/icehockey",
+      link: "/in-play/hockey",
       active: false,
       icon: IceHockeyIcon,
     },

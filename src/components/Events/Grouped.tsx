@@ -7,6 +7,7 @@ import VolleyballSubcategoryHeader from "../Sports/Volleyball/Details/Volleyball
 import BaseballSubcategoryHeader from "../Sports/Baseball/Details/BaseballSubcategoryHeader";
 import EsportSubcategoryHeader from "../Sports/Esports/EsportSubcategoryHeader";
 import TennisSubcategoryHeader from "../Sports/Tennis/Details/TennisSubcategoryHeader";
+import HockeySubcategoryHeader from "../Sports/Hockey/Details/HockeySubcategoryHeader";
 
 interface GropedEventsInterface {
   name: string;
@@ -41,6 +42,11 @@ const Grouped: React.FC<GropedEventsInterface> = ({ name, events, sport, subcate
   if(sport === "tennis"){
     return(
       <TennisSubcategoryHeader  subcategory={subcategory} name={name} events={events} sport={sport}   /> 
+    )
+  }
+  if(sport === "hockey"){
+    return(
+      <HockeySubcategoryHeader  subcategory={subcategory} name={name} events={events} sport={sport}   /> 
     )
   }
   return (

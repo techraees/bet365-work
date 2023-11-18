@@ -11,7 +11,7 @@ interface SportDetailHeaderProps {
 const SportDetailHeader: React.FC<SportDetailHeaderProps> = ({ sport, subcategory }) => {
   // const sportDetail = sportsDetailsMapping["soccer"];
   // console.log({sport})
-  const sportDetail = sportsDetailsMapping[sport as keyof typeof sportsDetailsMapping] || sportsDetailsMapping["soccer"];
+  const sportDetail : any = sportsDetailsMapping[sport as keyof typeof sportsDetailsMapping] || sportsDetailsMapping["soccer"];
   if (!sportDetail) {
     return null;
   }
@@ -19,14 +19,14 @@ const SportDetailHeader: React.FC<SportDetailHeaderProps> = ({ sport, subcategor
     <div className="flex justify-between h-16 items-center px-8 gap-4">
       <div className="flex items-center gap-4">
         <div className=" text-xl font-extrabold text-white italic">
-          {sportDetail.name}
+          {sportDetail?.name}
         </div>
         <div>
           <StatsIcon />
         </div>
       </div>
       <div className="text-base overflow-hidden gap-5 hidden md:flex h-full">
-        {sportDetail.mainHeaderFilters.map((filter, index) => (
+        {sportDetail.mainHeaderFilters.map((filter: any, index: any) => (
           <div key={index} className="overflow-hidden truncate h-full flex items-center">
             {" "}
             <CustomLink

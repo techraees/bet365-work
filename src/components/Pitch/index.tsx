@@ -4,6 +4,7 @@ import TennisPitch from "../Sports/Tennis/TennisPitch";
 import SoccerPitch from "../Sports/Soccer/SoccerPitch";
 import BasketballPitch from "../Sports/Basketball/BasketballPitch";
 import VolleyballPitch from "../Sports/Volleyball/VolleyballPitch";
+import HockeyPitch from "../Sports/Hockey/HockeyPitch";
 
 interface PitchInterface {
   sport: string;
@@ -44,6 +45,9 @@ const Pitch: React.FC<PitchInterface> = ({
     }
     if (sport == "volleyball") {
       return <VolleyballPitch data={data} />
+    }
+    if (sport == "hockey") {
+      return <HockeyPitch data={data} />
     }
     if (sport == "esports") {
       if (data?.info.sport == "esoccer"){

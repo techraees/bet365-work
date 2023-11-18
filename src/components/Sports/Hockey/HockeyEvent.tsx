@@ -3,24 +3,26 @@ import Link from "next/link";
 import { defaultSubcategories } from "@/lib/sportsMapping";
 import { cn } from "@/lib/utils";
 import StarOutlineIcon from "@/components/ui/icons/star-outline";
-import Stats from "../Soccer/stats";
-import SoccerOdds from "./odds";
-import SoccerJersey from "./Jersey";
-import SoccerPoints from "./Points";
-import SoccerField from "./Field";
-import SoccerFieldHover from "./FieldHover";
+import Stats from "./stats";
+import HockeyOdds from "./odds";
+import HockeyJersey from "./Jersey";
+import HockeyPoints from "./Points";
+import HockeyField from "./Field";
+import HockeyFieldHover from "./FieldHover";
 import usePitchIdStore from "@/store/use-pitchid";
 
-interface SoccerEventProps {
+interface HockeyEventProps {
     data: any;
     sport: string;
     subcategory?: string;
 }
 
 
-const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) => {
+const HockeyEvent: React.FC<HockeyEventProps> = ({ data, sport, subcategory }) => {
     // console.log({ data, sport });
-    console.log(">>>SOCCER!>>>", {data, sport});
+
+    // console.log(">>>>!HOCKEY!>>>>", {data, sport});
+
 
     const initialSeconds = data?.info?.seconds || "00:00";
     // const initialSecondsIncreased = increaseTimeBySeconds(initialSeconds, 10);
@@ -85,7 +87,7 @@ const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) =
                             <div className="flex flex-col text-[13px] font-semibold hover:text-brand-green-light cursor-pointer overflow-hidden">
                                 <div className="flex h-[25px] items-center truncate overflow-hidden">
                                     <div className="min-w-[15px] min-h-[15px] h-[15px] w-[15px] mr-[10px]">
-                                        <SoccerJersey data={data} team={'home'} />
+                                        <HockeyJersey data={data} team={'home'} />
                                     </div>
                                     <div className="truncate overflow-hidden ">
                                         {data?.team_info?.home.name}
@@ -93,7 +95,7 @@ const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) =
                                 </div>
                                 <div className="flex h-[25px] items-center truncate overflow-hidden">
                                     <div className="min-w-[15px] min-h-[15px] h-[15px] w-[15px] mr-[10px]">
-                                        <SoccerJersey data={data} team={'away'} />
+                                        <HockeyJersey data={data} team={'away'} />
                                     </div>
                                     <div className="truncate overflow-hidden">
                                         {data?.team_info?.away.name}
@@ -107,20 +109,20 @@ const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) =
                                 </div>
                             </div>
                             <div className="flex items-center ml-[auto] mr-2 flex-col md:flex-row">
-                                <SoccerPoints data={data} sport={sport} />
+                                <HockeyPoints data={data} sport={sport} />
                                 <Stats />
                             </div>
                         </div>
                     </Link>
                 </div>
                 <div className="flex-1 flex">
-                    <SoccerOdds data={data} sport={sport} subcategory={subcategory} />
+                    <HockeyOdds data={data} sport={sport} subcategory={subcategory} />
                     <div className="group items-center w-[50px] justify-center cursor-pointer hidden md:flex">
                         <div
                             className={`${currentPitchId == data.info.id ? "hidden" : "flex"
                                 } group-hover:hidden`}
                         >
-                            <SoccerField />
+                            <HockeyField />
                         </div>
                         <div
                             className={`${currentPitchId == data.info.id ? "flex" : "hidden"
@@ -129,7 +131,7 @@ const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) =
                                 setCurrentPitchId(data.info.id);
                             }}
                         >
-                            <SoccerFieldHover />
+                            <HockeyFieldHover />
                         </div>
                     </div>
                 </div>
@@ -157,4 +159,4 @@ function formatTime(totalSeconds: any) {
 }
 
 
-export default SoccerEvent;
+export default HockeyEvent;

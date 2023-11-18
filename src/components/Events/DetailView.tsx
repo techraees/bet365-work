@@ -14,6 +14,7 @@ import BaseballMarketGroup from '../Sports/Baseball/Details/MarketGroup';
 import { useRouter } from 'next/navigation';
 import { CheckQuarter } from '../Structure/CheckQuarter';
 import SoccerMarketGroup from '../Sports/Soccer/Details/MarketGroup';
+import HockeyMarketGroup from '../Sports/Hockey/Details/MarketGroup';
 
 interface DetailViewProps {
     grouped: any;
@@ -95,7 +96,8 @@ const DetailView: React.FC<DetailViewProps> = ({ grouped, sport, subcategory, cu
         volleyball: [],
         baseball: ["All", "Bet Builder", "Main", "Innings", "Team"],
         lol: ["All", "Match", "Map1"],
-        dota2: ["All", "Match", "Map3"]
+        dota2: ["All", "Match", "Map3"],
+        hockey: ["All", "Same Game Parlay", "Period", "Score"],
     }
     if (data?.info?.sport === "esoccer") {
         sport = "soccer"
@@ -176,6 +178,9 @@ const DetailView: React.FC<DetailViewProps> = ({ grouped, sport, subcategory, cu
                 }
                 {sport === 'baseball' &&
                     <BaseballMarketGroup data={data} active={active} />
+                }
+                {sport === 'hockey' &&
+                    <HockeyMarketGroup data={data} active={active} />
                 }
             </div>
         </div>

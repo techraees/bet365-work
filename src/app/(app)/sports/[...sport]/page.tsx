@@ -136,7 +136,7 @@ const Home = async ({ params }: any) => {
             <NatsTableTennis odds={odds} sport={sport} getLeagues={getLeagues} />
         )
     }
-    if (sport[0] === 'ice-hockey') {
+    if (sport[0] === 'hockey') {
         let getLeagues = await getPregameLeagues(sport[0]);
         let odds = await getPregameNames();
         return (
