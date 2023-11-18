@@ -15,6 +15,10 @@ function getEventString(status: number): string {
       name: "On Possession",
     },
     {
+      code: 1295,
+      name: "On Possession"
+    },
+    {
       code: 1271,
       name: "Penalty",
     },
@@ -222,24 +226,20 @@ function getStatusFromCode(code: number): string | undefined {
       code: 11287,
       name: "Home Team Timeout",
     },
+    {
+      code: 11295,
+      name: "Home Team On Posession",
+    },
+    {
+      code: 21295,
+      name: "Away Team On Possession"
+    }
   ];
 
   const matchingCode = hockeyCodes.find(
     (soccerCode) => soccerCode.code == code
   );
   return matchingCode?.name;
-}
-
-//get angle from ball to gate
-function getAngleFromPos(
-  ballPos: { x: number; y: number },
-  goalPos: { x: number; y: number }
-): number {
-  const deltaX = goalPos.x - (ballPos?.x ?? 0);
-  const deltaY = (ballPos?.y ?? 0) - goalPos.y;
-  const angleRadians = Math.atan2(deltaY, deltaX);
-
-  return angleRadians ?? 0;
 }
 
 //get ball position
@@ -267,7 +267,7 @@ function getEventFromCode(code: number): number {
 function isShowTrailFromCode(code: number): boolean {
   const team = getTeamFromCode(code);
   const status = getEventFromCode(code);
-  return team > 0 && (status == 1000 || status == 1001 || status == 1002);
+  return team > 0 && (status == 1270 || status == 1295);
 }
 
 //whether clear trail
@@ -346,24 +346,6 @@ function getMessagePositionOnAttack(
     y: y,
   };
 }
-//position match message on corner
-function getMessagePositionOnCorner(
-  ballPos: { x: number; y: number },
-  team: number
-): { x: number; y: number } {
-  let x, y;
-  if (!ballPos || team == 0)
-    return {
-      x: 200,
-      y: 75,
-    };
-  y = ballPos.y < 75 ? ballPos.y + 20 : ballPos.y - 40;
-  x = team == 1 ? ballPos.x - 40 : ballPos.x + 40;
-  return {
-    x: x,
-    y: y,
-  };
-}
 //position match message on possession
 function getMessagePositionOnPossession(
   ballPos: { x: number; y: number },
@@ -388,9 +370,7 @@ function getMessagePosition(
   status: string
 ) {
   if (
-    status == "Attack" ||
-    status == "Dangerous Attack" ||
-    status == "Free Kick"
+    isAttack(ballPos, team, status) || isDangerousAttack(ballPos, team, status)
   ) {
     let msgAttackPos = getMessagePositionOnAttack(ballPos, team, status);
     return {
@@ -398,14 +378,7 @@ function getMessagePosition(
       y: msgAttackPos.y ?? 75,
     };
   }
-  if (isCorner(status)) {
-    let msgAttackPos = getMessagePositionOnCorner(ballPos, team);
-    return {
-      x: msgAttackPos.x ?? 200,
-      y: msgAttackPos.y ?? 75,
-    };
-  }
-  if (status == "In possession") {
+  if (isPossession(ballPos, team, status)) {
     let msgPossessionPos = getMessagePositionOnPossession(ballPos, team);
     return {
       x: msgPossessionPos.x ?? 200,
@@ -417,12 +390,6 @@ function getMessagePosition(
     y: 75,
   };
 }
-//is Corner
-function isCorner(status: string): boolean {
-  return (
-    status == "Corner" || status == "Corner Top" || status == "Corner Bottom"
-  );
-}
 
 //fix ball pos
 
@@ -431,48 +398,26 @@ function getFixedBallPos(
   team: number,
   status: string
 ): { x: number; y: number } | null {
-  if (
-    ballPos &&
-    status != "Corner" &&
-    status != "Corner Top" &&
-    status != "Corner Bottom"
-  )
-    return ballPos;
-  if (status == "Corner") {
-    return {
-      x: team == 2 ? 0 : 400,
-      y: team == 2 ? 0 : 175,
-    };
-  }
-  if (status == "Corner Top") {
-    return {
-      x: team == 2 ? 0 : 400,
-      y: 0,
-    };
-  }
-  if (status == "Corner Bottom") {
-    return {
-      x: team == 2 ? 0 : 400,
-      y: 175,
-    };
-  }
-  if (status == "Free Kick") {
-    return {
-      x: team == 1 ? 100 : 300,
-      y: 75,
-    };
-  }
-  if (status == "Throw") {
-    return {
-      x: team == 1 ? 100 : 300,
-      y: team == 1 ? 0 : 175,
-    };
-  }
-  return null;
+  return ballPos;
+}
+
+function isPossession( ballPos: { x: number, y: number}, team: number, status: string): boolean {
+  return status == "On Possession" && team > 0 &&
+    ((team == 1 && ballPos.x <= FIELD_WIDTH / 2) || (team == 2 && ballPos.x >= FIELD_WIDTH / 2));
+}
+
+function isDangerousAttack( ballPos: { x: number, y: number}, team: number, status: string): boolean {
+  return status == "On Possession" && team > 0 &&
+    ((team == 1 && ballPos.x >= FIELD_WIDTH * 3 / 4) || (team == 2 && ballPos.x <= FIELD_WIDTH / 4));
+}
+
+function isAttack(ballPos: { x: number, y: number}, team: number, status: string): boolean {
+  return status == "On Possession" && team > 0 &&
+    !isPossession(ballPos, team, status) && !isDangerousAttack(ballPos, team, status);
 }
 
 const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
-  if (Number(data?.info.state) < 10000) console.log(">>>>hockey>>>", data);
+  console.log(">>>>hockey>>>", data);
   //Match Time
   const initialSeconds = data?.info?.seconds || "00:00";
 
@@ -499,7 +444,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
 
     if (!isTimerPaused) {
       timerInterval = setInterval(() => {
-        setTotalSeconds((prevTotalSeconds) => prevTotalSeconds + 1);
+        setTotalSeconds((prevTotalSeconds) => prevTotalSeconds - 1);
       }, 1000); // Increase by 1 second (1000 milliseconds)
     } else {
       clearInterval(timerInterval); // Pause the timer
@@ -521,11 +466,6 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
   const isAnimating = data?.info.ball_pos && data?.info.ball_pos != prevBallPos;
   const teamMessage = getTeamMessage(curCode);
 
-  const homeGoalPos = { x: 0, y: 75 };
-  const awayGoalPos = { x: 400, y: 75 };
-  const homeCornerTarget = { x: 30, y: 75 };
-  const awayCornerTarget = { x: 370, y: 75 };
-
   const status = getState(curCode);
 
   if (
@@ -546,7 +486,9 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
   localStorage.setItem("code", data?.info.state);
   let ballPos = getBallPosition(data);
   let lastBallPos = getBallPosition(prevBallPos);
-  ballPos = getFixedBallPos(ballPos, status.team, status.status);
+  if(!ballPos && lastBallPos)
+    ballPos = lastBallPos;
+  // ballPos = getFixedBallPos(ballPos, status.team, status.status);
   const msgPos = getMessagePosition(ballPos, status.team, status.status);
 
   return (
@@ -862,7 +804,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               </g>
             </g>
             <g transform="translate(3.997767, 71.000000)">
-              <g stroke="#D55468" stroke-width="2" opacity="0">
+              <g stroke="#D55468" strokeWidth="2" opacity="0">
                 <ellipse
                   cx="18.9893914"
                   cy="19"
@@ -876,7 +818,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               </g>
             </g>
             <g transform="translate(3.997767, 71.000000)">
-              <g stroke="#8F99CC" stroke-width="2" opacity="0">
+              <g stroke="#8F99CC" strokeWidth="2" opacity="0">
                 <ellipse
                   cx="18.9893914"
                   cy="19"
@@ -890,7 +832,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               </g>
             </g>
             <g transform="translate(357.800112, 71.000000)">
-              <g stroke="#D55468" stroke-width="2" opacity="0">
+              <g stroke="#D55468" strokeWidth="2" opacity="0">
                 <ellipse
                   cx="18.9893914"
                   cy="19"
@@ -904,7 +846,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               </g>
             </g>
             <g transform="translate(357.800112, 71.000000)">
-              <g stroke="#8F99CC" stroke-width="2" opacity="0">
+              <g stroke="#8F99CC" strokeWidth="2" opacity="0">
                 <ellipse
                   cx="18.9893914"
                   cy="19"
@@ -946,9 +888,37 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               r="2.5"
             ></circle>
           </g>
+          {
+            (status?.team == 1 && isDangerousAttack(ballPos, status.team, status.status)) &&
+            <g id="SVGIRIS_PITCH_FX_DNGR_0" className="transition-transform duration-500" transform={`matrix(1,0,0,1,${Math.min((ballPos?.x ?? 320) - 370), -5},0)`}>
+              <polygon id="SvgjsPolygon3649" points="388,0 400,30 388,60 400,90 388,120 400,150 388,180 0,180 0,0"
+                fill="url(#ml1-Gradient21)"></polygon>
+            </g>
+          }
+          {
+            (status?.team == 2 && isDangerousAttack(ballPos, status.team, status.status)) &&
+            <g id="SVGIRIS_PITCH_FX_DNGR_1" transform={`matrix(1,0,0,1,${Math.max((ballPos?.x ?? 80) - 20, 5)},0)`}>
+              <polygon id="SvgjsPolygon2003" points="12,0 0,30 12,60 0,90 12,120 0,150 12,180 400,180 400,0"
+                fill="url(#ml1-Gradient2)"></polygon>
+            </g>
+          }
 
+          {
+            (status?.team == 1 &&  isAttack(ballPos, status.team, status.status)) &&
+            < g id="SVGIRIS_PITCH_FX_ATTK_0" className="transition-transform duration-500" transform={`matrix(1,0,0,1,${(ballPos?.x ?? 190) - 350},0)`}>
+              <polygon id="SvgjsPolygon2060" points="388,0 400,30 388,60 400,90 388,120 400,150 388,180 0,180 0,0"
+                fill="url(#ml1-Gradient11)"></polygon>
+            </g>
+          }
+          {
+            (status?.team == 2 &&  isDangerousAttack(ballPos, status.team, status.status)) &&
+            <g id="SVGIRIS_PITCH_FX_ATTK_1" className={"transition-transform duration-500" + status?.status == "Goal " ? " goal" : ""} transform={`matrix(1,0,0,1,${(ballPos?.x ?? 190) - 20},0)`}>
+              <polygon id="SvgjsPolygon1224" points="12,0 0,30 12,60 0,90 12,120 0,150 12,180 400,180 400,0"
+                fill="url(#ml1-Gradient1)"></polygon>
+            </g>
+          }
           {status?.team == 2 &&
-            (status?.status == "Safe" || status?.status == "In possession") && (
+            (status?.status == "On Possession") && (
               <g id="away_safe">
                 <rect
                   x="200"
@@ -961,7 +931,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               </g>
             )}
           {status?.team == 1 &&
-            (status?.status == "Safe" || status?.status == "In possession") && (
+            (status?.status == "On Possession") && (
               <g id="home_safe">
                 <rect
                   x="0"
@@ -973,67 +943,6 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
                 ></rect>
               </g>
             )}
-          {status?.team == 1 && status?.status == "Dangerous Attack" && (
-            <g
-              id="SVGIRIS_PITCH_FX_DNGR_0"
-              className="transition-transform duration-500"
-              transform={`matrix(1,0,0,1,${
-                (Math.min((ballPos?.x ?? 320) - 370), -5)
-              },0)`}
-            >
-              <polygon
-                id="SvgjsPolygon3649"
-                points="388,0 400,30 388,60 400,90 388,120 400,150 388,180 0,180 0,0"
-                fill="url(#ml1-Gradient21)"
-              ></polygon>
-            </g>
-          )}
-          {status?.team == 2 && status?.status == "Dangerous Attack" && (
-            <g
-              id="SVGIRIS_PITCH_FX_DNGR_1"
-              transform={`matrix(1,0,0,1,${Math.max(
-                (ballPos?.x ?? 80) - 20,
-                5
-              )},0)`}
-            >
-              <polygon
-                id="SvgjsPolygon2003"
-                points="12,0 0,30 12,60 0,90 12,120 0,150 12,180 400,180 400,0"
-                fill="url(#ml1-Gradient2)"
-              ></polygon>
-            </g>
-          )}
-
-          {status?.team == 1 && status?.status == "Attack" && (
-            <g
-              id="SVGIRIS_PITCH_FX_ATTK_0"
-              className="transition-transform duration-500"
-              transform={`matrix(1,0,0,1,${(ballPos?.x ?? 190) - 350},0)`}
-            >
-              <polygon
-                id="SvgjsPolygon2060"
-                points="388,0 400,30 388,60 400,90 388,120 400,150 388,180 0,180 0,0"
-                fill="url(#ml1-Gradient11)"
-              ></polygon>
-            </g>
-          )}
-          {status?.team == 2 && status?.status == "Attack" && (
-            <g
-              id="SVGIRIS_PITCH_FX_ATTK_1"
-              className={
-                "transition-transform duration-500" + status?.status == "Goal "
-                  ? " goal"
-                  : ""
-              }
-              transform={`matrix(1,0,0,1,${(ballPos?.x ?? 190) - 20},0)`}
-            >
-              <polygon
-                id="SvgjsPolygon1224"
-                points="12,0 0,30 12,60 0,90 12,120 0,150 12,180 400,180 400,0"
-                fill="url(#ml1-Gradient1)"
-              ></polygon>
-            </g>
-          )}
 
           {teamMessage && teamMessage.team == "Global" && (
             <g
@@ -1085,7 +994,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
                 id="home_action"
                 transform="translate(-10 28)"
                 textAnchor="end"
-                fill="#f0f0f0"
+                fill="#545454"
                 fontWeight="bold"
                 fontSize="15px"
               >
@@ -1123,7 +1032,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               <text
                 id="away_action"
                 transform="translate(10 28)"
-                fill="#f0f0f0"
+                fill="#545454"
                 fontWeight="bold"
                 fontSize="15px"
               >
@@ -1159,7 +1068,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
                 fillOpacity="0.7"
                 d="M30.759,23.961C35.918,17.349,39,9.037,39,0c0-9.017-3.068-17.311-8.205-23.917L0,0.036L30.759,23.961z"
               ></path>
-              <circle fill="#FFFFFF" r="4" cx="0" cy="0"></circle>
+              <circle fill="#000000" r="4" cx="0" cy="0"></circle>
             </g>
           )}
           {status?.team == 2 && status?.status == "Goal Kick" && (
@@ -1197,228 +1106,6 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
                 d="M30.759,23.961C35.918,17.349,39,9.037,39,0c0-9.017-3.068-17.311-8.205-23.917L0,0.036L30.759,23.961z"
                 transform="matrix(1.0000000000000004,0,0,1.0000000000000004,0,0)"
                 opacity="0.8"
-              ></path>
-              <circle fill="#FFFFFF" r="4" cx="0" cy="0"></circle>
-            </g>
-          )}
-          {status?.team == 1 && status?.status == "Free Kick" && (
-            <g
-              id="kick"
-              transform={`matrix(${Math.cos(
-                getAngleFromPos(ballPos, awayGoalPos)
-              )},
-                                    ${-Math.sin(
-                                      getAngleFromPos(ballPos, awayGoalPos)
-                                    )},
-                                    ${Math.sin(
-                                      getAngleFromPos(ballPos, awayGoalPos)
-                                    )},
-                                    ${Math.cos(
-                                      getAngleFromPos(ballPos, awayGoalPos)
-                                    )},${ballPos?.x ?? lastBallPos?.x}, 
-                                    ${ballPos?.y ?? lastBallPos?.y})`}
-            >
-              <path
-                id="kick_3"
-                className={hockeyAnimation.kick2}
-                fill="#165031"
-                fillOpacity="0.3"
-                d="M0.031,0.013l117.647,45.045C123.041,31.064,126,15.881,126,0s-2.959-31.065-8.322-45.059L0.093-0.036L0.031,0.013z"
-              ></path>
-              <path
-                id="kick_2"
-                className={hockeyAnimation.kick1}
-                fill="#165031"
-                fillOpacity="0.5"
-                d="M0.031,0.013l77.43,29.647c3.536-9.21,5.488-19.204,5.488-29.66s-1.952-20.45-5.487-29.66L0.093-0.036L0.031,0.013z"
-              ></path>
-              <path
-                id="kick_1"
-                className={hockeyAnimation.kick0}
-                fill="#165031"
-                fillOpacity="0.7"
-                d="M0.031,0.013l38.208,14.629c1.746-4.546,2.71-9.48,2.71-14.642s-0.964-10.096-2.709-14.642L0.093-0.036L0.031,0.013z"
-              ></path>
-              <circle fill="#FFFFFF" r="4" cx="0" cy="0"></circle>
-            </g>
-          )}
-          {status?.team == 2 && status?.status == "Free Kick" && (
-            <g
-              id="kick"
-              transform={`matrix(${Math.cos(
-                getAngleFromPos(ballPos, homeGoalPos)
-              )},
-                                    ${-Math.sin(
-                                      getAngleFromPos(ballPos, homeGoalPos)
-                                    )},
-                                    ${Math.sin(
-                                      getAngleFromPos(ballPos, homeGoalPos)
-                                    )},
-                                    ${Math.cos(
-                                      getAngleFromPos(ballPos, homeGoalPos)
-                                    )},${ballPos?.x ?? lastBallPos?.x}, 
-                                    ${ballPos?.y ?? lastBallPos?.x})`}
-            >
-              <path
-                id="kick_3"
-                className={hockeyAnimation.kick2}
-                fill="#165031"
-                fillOpacity="0.3"
-                d="M0.031,0.013l117.647,45.045C123.041,31.064,126,15.881,126,0s-2.959-31.065-8.322-45.059L0.093-0.036L0.031,0.013z"
-              ></path>
-              <path
-                id="kick_2"
-                className={hockeyAnimation.kick1}
-                fill="#165031"
-                fillOpacity="0.5"
-                d="M0.031,0.013l77.43,29.647c3.536-9.21,5.488-19.204,5.488-29.66s-1.952-20.45-5.487-29.66L0.093-0.036L0.031,0.013z"
-              ></path>
-              <path
-                id="kick_1"
-                className={hockeyAnimation.kick0}
-                fill="#165031"
-                fillOpacity="0.7"
-                d="M0.031,0.013l38.208,14.629c1.746-4.546,2.71-9.48,2.71-14.642s-0.964-10.096-2.709-14.642L0.093-0.036L0.031,0.013z"
-              ></path>
-              <circle fill="#FFFFFF" r="4" cx="0" cy="0"></circle>
-            </g>
-          )}
-          {status?.team == 1 && isCorner(status?.status) && (
-            <g
-              id="kick"
-              transform={`matrix(${Math.cos(
-                getAngleFromPos(ballPos, awayCornerTarget)
-              )},
-                                    ${-Math.sin(
-                                      getAngleFromPos(ballPos, awayCornerTarget)
-                                    )},
-                                    ${Math.sin(
-                                      getAngleFromPos(ballPos, awayCornerTarget)
-                                    )},
-                                    ${Math.cos(
-                                      getAngleFromPos(ballPos, awayCornerTarget)
-                                    )},${ballPos?.x ?? lastBallPos?.x}, 
-                                    ${ballPos?.y ?? lastBallPos?.y})`}
-            >
-              <path
-                id="kick_3"
-                className={hockeyAnimation.kick2}
-                fill="#165031"
-                fillOpacity="0.3"
-                d="M0.031,0.013l117.647,45.045C123.041,31.064,126,15.881,126,0s-2.959-31.065-8.322-45.059L0.093-0.036L0.031,0.013z"
-              ></path>
-              <path
-                id="kick_2"
-                className={hockeyAnimation.kick1}
-                fill="#165031"
-                fillOpacity="0.5"
-                d="M0.031,0.013l77.43,29.647c3.536-9.21,5.488-19.204,5.488-29.66s-1.952-20.45-5.487-29.66L0.093-0.036L0.031,0.013z"
-              ></path>
-              <path
-                id="kick_1"
-                className={hockeyAnimation.kick0}
-                fill="#165031"
-                fillOpacity="0.7"
-                d="M0.031,0.013l38.208,14.629c1.746-4.546,2.71-9.48,2.71-14.642s-0.964-10.096-2.709-14.642L0.093-0.036L0.031,0.013z"
-              ></path>
-              <circle fill="#FFFFFF" r="4" cx="0" cy="0"></circle>
-            </g>
-          )}
-          {status?.team == 2 && isCorner(status?.status) && (
-            <g
-              id="kick"
-              transform={`matrix(${Math.cos(
-                getAngleFromPos(ballPos, homeCornerTarget)
-              )},
-                                    ${-Math.sin(
-                                      getAngleFromPos(ballPos, homeCornerTarget)
-                                    )},
-                                    ${Math.sin(
-                                      getAngleFromPos(ballPos, homeCornerTarget)
-                                    )},
-                                    ${Math.cos(
-                                      getAngleFromPos(ballPos, homeCornerTarget)
-                                    )},${ballPos?.x ?? lastBallPos?.x}, 
-                                    ${ballPos?.y ?? lastBallPos?.y})`}
-            >
-              <path
-                id="kick_3"
-                className={hockeyAnimation.kick2}
-                fill="#165031"
-                fillOpacity="0.3"
-                d="M0.031,0.013l117.647,45.045C123.041,31.064,126,15.881,126,0s-2.959-31.065-8.322-45.059L0.093-0.036L0.031,0.013z"
-              ></path>
-              <path
-                id="kick_2"
-                className={hockeyAnimation.kick1}
-                fill="#165031"
-                fillOpacity="0.5"
-                d="M0.031,0.013l77.43,29.647c3.536-9.21,5.488-19.204,5.488-29.66s-1.952-20.45-5.487-29.66L0.093-0.036L0.031,0.013z"
-              ></path>
-              <path
-                id="kick_1"
-                className={hockeyAnimation.kick0}
-                fill="#165031"
-                fillOpacity="0.7"
-                d="M0.031,0.013l38.208,14.629c1.746-4.546,2.71-9.48,2.71-14.642s-0.964-10.096-2.709-14.642L0.093-0.036L0.031,0.013z"
-              ></path>
-              <circle fill="#FFFFFF" r="4" cx="0" cy="0"></circle>
-            </g>
-          )}
-          {status?.team == 1 && status?.status == "Throw" && (
-            <g
-              id="throw"
-              transform={`matrix(${Math.cos(
-                getAngleFromPos(ballPos, awayGoalPos)
-              )},
-              ${-Math.sin(getAngleFromPos(ballPos, awayGoalPos))},
-              ${Math.sin(getAngleFromPos(ballPos, awayGoalPos))},
-              ${Math.cos(getAngleFromPos(ballPos, awayGoalPos))},${
-                ballPos?.x ?? lastBallPos?.x
-              }, 
-              ${ballPos?.y ?? lastBallPos?.x})`}
-            >
-              <path
-                id="throw_2"
-                fillOpacity="0.3"
-                className={hockeyAnimation.kick0}
-                fill="#165031"
-                d="M53.033,53.068c29.289-29.289,29.289-76.777,0-106.066L0,0.035L53.033,53.068z"
-              ></path>
-              <path
-                id="throw_1"
-                fillOpacity="0.7"
-                className={hockeyAnimation.kick1}
-                fill="#165031"
-                d="M26.517,26.552c14.646-14.645,14.644-38.39,0-53.033L0,0.035L26.517,26.552z"
-              ></path>
-              <circle fill="#FFFFFF" r="4" cx="0" cy="0"></circle>
-            </g>
-          )}
-          {status?.team == 2 && status?.status == "Throw" && (
-            <g
-              id="throw"
-              transform={`matrix(${Math.cos(
-                getAngleFromPos(ballPos, homeGoalPos)
-              )},
-              ${-Math.sin(getAngleFromPos(ballPos, homeGoalPos))},
-              ${Math.sin(getAngleFromPos(ballPos, homeGoalPos))},
-              ${Math.cos(getAngleFromPos(ballPos, homeGoalPos))},${ballPos?.x}, 
-              ${ballPos?.y})`}
-            >
-              <path
-                id="throw_2"
-                fillOpacity="0.3"
-                className={hockeyAnimation.kick0}
-                fill="#165031"
-                d="M53.033,53.068c29.289-29.289,29.289-76.777,0-106.066L0,0.035L53.033,53.068z"
-              ></path>
-              <path
-                id="throw_1"
-                fillOpacity="0.7"
-                className={hockeyAnimation.kick1}
-                fill="#165031"
-                d="M26.517,26.552c14.646-14.645,14.644-38.39,0-53.033L0,0.035L26.517,26.552z"
               ></path>
               <circle fill="#FFFFFF" r="4" cx="0" cy="0"></circle>
             </g>
@@ -2017,343 +1704,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               </g>
             </g>
           )}
-          {status?.team == 1 && status?.status == "Offside" && (
-            <g id="offside" transform={`matrix(1, 0, 0, 1, 210, 75)`}>
-              <path d="M0,0H2.7V32.7H0Z" fill="#e3e3e3"></path>
-              <path d="M2.7.1H19.1V16.5H2.7Z" fill="#d4ec3d"></path>
-              <path d="M10.9,8.1h8.2v8.2H10.9Z" fill="#a10808"></path>
-              <path d="M2.7,0h8.2V8.2H2.7Z" fill="#a10808"></path>
-            </g>
-          )}
-          {status?.team == 2 && status?.status == "Offside" && (
-            <g id="offside" transform={`matrix(-1, 0, 0, 1,190, 75)`}>
-              <path d="M0,0H2.7V32.7H0Z" fill="#e3e3e3"></path>
-              <path d="M2.7.1H19.1V16.5H2.7Z" fill="#d4ec3d"></path>
-              <path d="M10.9,8.1h8.2v8.2H10.9Z" fill="#a10808"></path>
-              <path d="M2.7,0h8.2V8.2H2.7Z" fill="#a10808"></path>
-            </g>
-          )}
-          {status?.team == 1 && status?.status == "Red Card" && (
-            <g id="red_card" transform={`matrix(1,0,0,1,10,0)`}>
-              <path
-                d="M200.78,85.6a24.32,24.32,0,0,0,0,2.7,2.37,2.37,0,0,1,.1.7s-.1.8.4.9c.2,0,1.2.2,1.4,0a4.63,4.63,0,0,0,.7-.7c0-.1-.3-2-.3-2a20.48,20.48,0,0,0-1.7-2.8Z"
-                fill="#cc947b"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M195.78,87.6a6.85,6.85,0,0,0-.5.7,4.46,4.46,0,0,0-.2.8l.2.6.3.5.3.2h.4a3.36,3.36,0,0,0,.6-.3l.4-.4a11.79,11.79,0,0,0,1-2.2l-1-1Z"
-                fill="none"
-              ></path>
-              <path
-                d="M196.5,89.7a4.34,4.34,0,0,1,.2-.5v-.6l-.3-.3-.2-.1h-.3c-.1,0-.4.3-.4.3v1Z"
-                fill="#f9dfd5"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M197.38,85.4l-.6.6s-.2.3-.3.3a1.31,1.31,0,0,0-.4.5l-.4.8.1.5.2.2.4.2c.1.1.6,0,.6,0l.6-.2s1.5-1.1,1.7-1.6l-.4-1.2A5,5,0,0,0,197.38,85.4Z"
-                fill="none"
-              ></path>
-              <path
-                d="M194.18,85.3h0c0-.1,0-.4.1-.5l.4-.4s.5-.2.5-.3a12.25,12.25,0,0,1,1.3-.5l.2-.1,1.4-.3s.5,1.1.8.9a7.31,7.31,0,0,1,.9-.3l1.2.1.7-1,1.4,2,1.7,2.3s.2.5.3.8v.8s-.1.8-.1.9-.7,2.3-.7,2.3l-.7,2-.8,2.1-.1.9-.9.5-2.2.8a3.37,3.37,0,0,0-1.8.7c-.3.3.1-.2-.1-.9-.1-.3.1.5,0-1.4a9.93,9.93,0,0,0-.3-1.7,12.7,12.7,0,0,1-.4-2.2,9,9,0,0,1,.1-2.2,14.39,14.39,0,0,0,.5-1.7l.7-.9a21,21,0,0,1,2.6,1.3,2.25,2.25,0,0,0,1,.4l.9-.1a3.64,3.64,0,0,0,.4-.9c0-.2-.1-1.3-.1-1.3l-1.7-2.6-.8,1a2.16,2.16,0,0,1-.8.5c-.6.2-2.5-1-2.5-1l-1.2.6a2.28,2.28,0,0,1-.7.3h-.5l-.4-.1-.3-.1-.1-.4v-.3Z"
-                fill="#daa58f"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M194.18,85.3h0c0-.1,0-.4.1-.5l.4-.4s.5-.2.5-.3a12.25,12.25,0,0,1,1.3-.5l.2-.1,1.4-.3s.5,1.1.8.9a7.31,7.31,0,0,1,.9-.3l1.2.1.7-1,1.4,2,1.7,2.3s.2.5.3.8v.8s-.1.8-.1.9-.7,2.3-.7,2.3l-.7,2-.8,2.1-.1.9-.9.5-2.2.8a3.37,3.37,0,0,0-1.8.7c-.3.3.1-.2-.1-.9-.1-.3.1.5,0-1.4a9.93,9.93,0,0,0-.3-1.7,12.7,12.7,0,0,1-.4-2.2,9,9,0,0,1,.1-2.2,14.39,14.39,0,0,0,.5-1.7l.7-.9a21,21,0,0,1,2.6,1.3,2.25,2.25,0,0,0,1,.4l.9-.1a3.64,3.64,0,0,0,.4-.9c0-.2-.1-1.3-.1-1.3l-1.7-2.6-.8,1a2.16,2.16,0,0,1-.8.5c-.6.2-2.5-1-2.5-1l-1.2.6a2.28,2.28,0,0,1-.7.3h-.5l-.4-.1-.3-.1-.1-.4v-.3Z"
-                fill="none"
-              ></path>
-              <path
-                d="M197.28,88h0a2.11,2.11,0,0,0,.1-.5v-.6s-.8-.1-.9-.1-.2.3-.2.3a.85.85,0,0,0,0,.8A1.14,1.14,0,0,0,197.28,88Z"
-                fill="#efcdbe"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M198.28,72.4l5.8,2a1,1,0,0,1,.61,1.28v0l-3.1,8.9a1,1,0,0,1-1.28.61h0l-5.8-2a1,1,0,0,1-.61-1.28v0L197,73C197.08,72.5,197.68,72.3,198.28,72.4Z"
-                fill="red"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M201,85.7l.4,1.4-.5.7-.1.1v.6l.8-.1-.5-.1v-.4c0-.1.5-.6.5-.6h.5c.3,0,1,.1,1,.1a9.67,9.67,0,0,1-1.58-.5c-.12-.34-.25-.67-.4-1l1-.8Z"
-                fill="#3f140f"
-                fillOpacity="0.53"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M200.78,97.9a23.83,23.83,0,0,1-3.1,1l1.82,5.9h7.7s-4.1-8-4.2-8A20.81,20.81,0,0,0,200.78,97.9Z"
-                fill="#222"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M197.68,99.4s-.7-2.6-1-3.8a9.91,9.91,0,0,1,.3-5.5,9.06,9.06,0,0,1,.52-1.2,16.19,16.19,0,0,0,1.2-2.3V83.9a5.3,5.3,0,0,1,.1-.8,2.11,2.11,0,0,0,.1-.5,1.27,1.27,0,0,1,.4-.4,2.11,2.11,0,0,1,.5-.1h.5l.3.1c.3.1.3.3.3.3l.1.5v1.3l-.1,1.2-.1,1.2v.5l2.2,9.3Z"
-                fill="#daa58f"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M198.88,85.7l.7.1.9-.1Zm0-.2.7.1.9-.1Z"
-                fill="#3f140f"
-                fillOpacity="0.53"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M199.38,83.9c.1.1.5.1.5.1s.4.1.5,0,.1-.4.1-.4v-.8c0-.1-.1-.2-.2-.3h-.7a.35.35,0,0,0-.4.4l.1.8Z"
-                fill="#f3d5c9"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M202.18,96.7c-.9.4-3.1,1.2-3.3,1.3l-1.38.7s.1.6.1.8a2.39,2.39,0,0,0,.3.7l5.6-2.4a2.9,2.9,0,0,0-.3-.7,3.94,3.94,0,0,1-.1-.9S202.58,96.5,202.18,96.7Z"
-                fill="#e5e5e5"
-                fillRule="evenodd"
-              ></path>
-            </g>
-          )}
-          {status?.team == 2 && status?.status == "Red Card" && (
-            <g id="red_card" transform={`matrix(1,0,0,1,-10,0)`}>
-              <path
-                d="M200.78,85.6a24.32,24.32,0,0,0,0,2.7,2.37,2.37,0,0,1,.1.7s-.1.8.4.9c.2,0,1.2.2,1.4,0a4.63,4.63,0,0,0,.7-.7c0-.1-.3-2-.3-2a20.48,20.48,0,0,0-1.7-2.8Z"
-                fill="#cc947b"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M195.78,87.6a6.85,6.85,0,0,0-.5.7,4.46,4.46,0,0,0-.2.8l.2.6.3.5.3.2h.4a3.36,3.36,0,0,0,.6-.3l.4-.4a11.79,11.79,0,0,0,1-2.2l-1-1Z"
-                fill="none"
-              ></path>
-              <path
-                d="M196.5,89.7a4.34,4.34,0,0,1,.2-.5v-.6l-.3-.3-.2-.1h-.3c-.1,0-.4.3-.4.3v1Z"
-                fill="#f9dfd5"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M197.38,85.4l-.6.6s-.2.3-.3.3a1.31,1.31,0,0,0-.4.5l-.4.8.1.5.2.2.4.2c.1.1.6,0,.6,0l.6-.2s1.5-1.1,1.7-1.6l-.4-1.2A5,5,0,0,0,197.38,85.4Z"
-                fill="none"
-              ></path>
-              <path
-                d="M194.18,85.3h0c0-.1,0-.4.1-.5l.4-.4s.5-.2.5-.3a12.25,12.25,0,0,1,1.3-.5l.2-.1,1.4-.3s.5,1.1.8.9a7.31,7.31,0,0,1,.9-.3l1.2.1.7-1,1.4,2,1.7,2.3s.2.5.3.8v.8s-.1.8-.1.9-.7,2.3-.7,2.3l-.7,2-.8,2.1-.1.9-.9.5-2.2.8a3.37,3.37,0,0,0-1.8.7c-.3.3.1-.2-.1-.9-.1-.3.1.5,0-1.4a9.93,9.93,0,0,0-.3-1.7,12.7,12.7,0,0,1-.4-2.2,9,9,0,0,1,.1-2.2,14.39,14.39,0,0,0,.5-1.7l.7-.9a21,21,0,0,1,2.6,1.3,2.25,2.25,0,0,0,1,.4l.9-.1a3.64,3.64,0,0,0,.4-.9c0-.2-.1-1.3-.1-1.3l-1.7-2.6-.8,1a2.16,2.16,0,0,1-.8.5c-.6.2-2.5-1-2.5-1l-1.2.6a2.28,2.28,0,0,1-.7.3h-.5l-.4-.1-.3-.1-.1-.4v-.3Z"
-                fill="#daa58f"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M194.18,85.3h0c0-.1,0-.4.1-.5l.4-.4s.5-.2.5-.3a12.25,12.25,0,0,1,1.3-.5l.2-.1,1.4-.3s.5,1.1.8.9a7.31,7.31,0,0,1,.9-.3l1.2.1.7-1,1.4,2,1.7,2.3s.2.5.3.8v.8s-.1.8-.1.9-.7,2.3-.7,2.3l-.7,2-.8,2.1-.1.9-.9.5-2.2.8a3.37,3.37,0,0,0-1.8.7c-.3.3.1-.2-.1-.9-.1-.3.1.5,0-1.4a9.93,9.93,0,0,0-.3-1.7,12.7,12.7,0,0,1-.4-2.2,9,9,0,0,1,.1-2.2,14.39,14.39,0,0,0,.5-1.7l.7-.9a21,21,0,0,1,2.6,1.3,2.25,2.25,0,0,0,1,.4l.9-.1a3.64,3.64,0,0,0,.4-.9c0-.2-.1-1.3-.1-1.3l-1.7-2.6-.8,1a2.16,2.16,0,0,1-.8.5c-.6.2-2.5-1-2.5-1l-1.2.6a2.28,2.28,0,0,1-.7.3h-.5l-.4-.1-.3-.1-.1-.4v-.3Z"
-                fill="none"
-              ></path>
-              <path
-                d="M197.28,88h0a2.11,2.11,0,0,0,.1-.5v-.6s-.8-.1-.9-.1-.2.3-.2.3a.85.85,0,0,0,0,.8A1.14,1.14,0,0,0,197.28,88Z"
-                fill="#efcdbe"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M198.28,72.4l5.8,2a1,1,0,0,1,.61,1.28v0l-3.1,8.9a1,1,0,0,1-1.28.61h0l-5.8-2a1,1,0,0,1-.61-1.28v0L197,73C197.08,72.5,197.68,72.3,198.28,72.4Z"
-                fill="red"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M201,85.7l.4,1.4-.5.7-.1.1v.6l.8-.1-.5-.1v-.4c0-.1.5-.6.5-.6h.5c.3,0,1,.1,1,.1a9.67,9.67,0,0,1-1.58-.5c-.12-.34-.25-.67-.4-1l1-.8Z"
-                fill="#3f140f"
-                fillOpacity="0.53"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M200.78,97.9a23.83,23.83,0,0,1-3.1,1l1.82,5.9h7.7s-4.1-8-4.2-8A20.81,20.81,0,0,0,200.78,97.9Z"
-                fill="#222"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M197.68,99.4s-.7-2.6-1-3.8a9.91,9.91,0,0,1,.3-5.5,9.06,9.06,0,0,1,.52-1.2,16.19,16.19,0,0,0,1.2-2.3V83.9a5.3,5.3,0,0,1,.1-.8,2.11,2.11,0,0,0,.1-.5,1.27,1.27,0,0,1,.4-.4,2.11,2.11,0,0,1,.5-.1h.5l.3.1c.3.1.3.3.3.3l.1.5v1.3l-.1,1.2-.1,1.2v.5l2.2,9.3Z"
-                fill="#daa58f"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M198.88,85.7l.7.1.9-.1Zm0-.2.7.1.9-.1Z"
-                fill="#3f140f"
-                fillOpacity="0.53"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M199.38,83.9c.1.1.5.1.5.1s.4.1.5,0,.1-.4.1-.4v-.8c0-.1-.1-.2-.2-.3h-.7a.35.35,0,0,0-.4.4l.1.8Z"
-                fill="#f3d5c9"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M202.18,96.7c-.9.4-3.1,1.2-3.3,1.3l-1.38.7s.1.6.1.8a2.39,2.39,0,0,0,.3.7l5.6-2.4a2.9,2.9,0,0,0-.3-.7,3.94,3.94,0,0,1-.1-.9S202.58,96.5,202.18,96.7Z"
-                fill="#e5e5e5"
-                fillRule="evenodd"
-              ></path>
-            </g>
-          )}
-          {status?.team == 1 && status?.status == "Yellow Card" && (
-            <g id="yellow_card" transform={`matrix(1,0,0,1,10,0)`}>
-              <path
-                d="M200.9,87.5a26.15,26.15,0,0,0,0,2.8,2.37,2.37,0,0,1,.1.7s-.1.8.4.9c.2,0,1.2.2,1.4,0a2.22,2.22,0,0,0,.69-.8c0-.1-.3-2-.3-2a20.48,20.48,0,0,0-1.7-2.8Z"
-                fill="#cc947b"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M195.8,89.59a6.85,6.85,0,0,0-.5.7,4.46,4.46,0,0,0-.2.8l.2.6.3.5.3.2h.4a3.36,3.36,0,0,0,.6-.3l.4-.4a11.79,11.79,0,0,0,1-2.2l-1-1Z"
-                fill="none"
-              ></path>
-              <path
-                d="M196.6,91.9a4.34,4.34,0,0,1,.2-.5v-.6l-.31-.3-.2-.1H196c-.1,0-.4.3-.4.3v1l1,.2Z"
-                fill="#f3d5c9"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M197.4,87.3l-.6.6s-.2.3-.3.3a1.31,1.31,0,0,0-.4.5l-.4.8.1.5.2.2.4.2c.1.1.6,0,.6,0l.6-.2a11,11,0,0,0,1.8-1.61l-.4-1.2A5.39,5.39,0,0,0,197.4,87.3Z"
-                fill="none"
-              ></path>
-              <path
-                d="M194.4,87.9v-.2s0-.3.1-.4l.4-.4s.5-.2.5-.3a6,6,0,0,1,.7-.4l1.7-.7s.9.7,1.2.5a7.31,7.31,0,0,1,.9-.3l1.2.1.7-1,1.4,2,1.7,2.4s.2.5.3.8v.8s-.1.8-.1.9-.7,2.4-.7,2.4l-.7,2-.8,2.1-.1.9-.9.5-2.2.8a3.37,3.37,0,0,0-1.8.7c-.3.3.1-.2-.1-.9-.1-.3.1.5,0-1.4a10,10,0,0,0-.31-1.7,12.7,12.7,0,0,1-.4-2.2,9,9,0,0,1,.1-2.2,14.39,14.39,0,0,0,.5-1.7l.7-.9A21.15,21.15,0,0,1,201,91.4a2.44,2.44,0,0,0,1.1.4l.9-.1a3.64,3.64,0,0,0,.4-.9c0-.2-.1-1.3-.1-1.3l-1.7-2.6-.8,1a2.16,2.16,0,0,1-.8.5c-.6.2-2.1-.8-2.1-.8l-1.4.8a2.28,2.28,0,0,1-.7.3h-.5l-.4-.1-.3-.1-.1-.1Z"
-                fill="#daa58f"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M194.4,87.9v-.2s0-.3.1-.4l.4-.4s.5-.2.5-.3a6,6,0,0,1,.7-.4l1.7-.7s.9.7,1.2.5a7.31,7.31,0,0,1,.9-.3l1.2.1.7-1,1.4,2,1.7,2.4s.2.5.3.8v.8s-.1.8-.1.9-.7,2.4-.7,2.4l-.7,2-.8,2.1-.1.9-.9.5-2.2.8a3.37,3.37,0,0,0-1.8.7c-.3.3.1-.2-.1-.9-.1-.3.1.5,0-1.4a10,10,0,0,0-.31-1.7,12.7,12.7,0,0,1-.4-2.2,9,9,0,0,1,.1-2.2,14.39,14.39,0,0,0,.5-1.7l.7-.9A21.15,21.15,0,0,1,201,91.4a2.44,2.44,0,0,0,1.1.4l.9-.1a3.64,3.64,0,0,0,.4-.9c0-.2-.1-1.3-.1-1.3l-1.7-2.6-.8,1a2.16,2.16,0,0,1-.8.5c-.6.2-2.1-.8-2.1-.8l-1.4.8a2.28,2.28,0,0,1-.7.3h-.5l-.4-.1-.3-.1-.1-.1Z"
-                fill="none"
-              ></path>
-              <path
-                d="M197.4,90h0a2.11,2.11,0,0,0,.1-.5v-.6s-.8-.1-.9-.1-.2.3-.2.3a.85.85,0,0,0,0,.8A1.5,1.5,0,0,0,197.4,90Z"
-                fill="#efcdbe"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M198.2,74.4l5.8,2a1.21,1.21,0,0,1,.7,1.3l-3.1,8.89a1.21,1.21,0,0,1-1.3.7l-5.8-2a1.21,1.21,0,0,1-.7-1.3l3.1-8.9A1.21,1.21,0,0,1,198.2,74.4Z"
-                fill="#f4e845"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M201.1,87.59l.39,1.41-.5.7-.1.1v.6l.8-.1-.5-.1v-.5c0-.1.5-.6.5-.6h.5c.3,0,1.1.1,1.1.1a9.89,9.89,0,0,1-1.6-.5c-.12-.34-.25-.67-.4-1l1.1-.8Z"
-                fill="#3f140f"
-                fillOpacity="0.53"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M200.8,99.8a30.2,30.2,0,0,1-3.2,1.1l1.8,5.9h7.8s-4.1-8-4.2-8S201.6,99.5,200.8,99.8Z"
-                fill="#222"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M197.8,101.4s-.7-2.6-1.1-3.8a9.91,9.91,0,0,1,.3-5.5,8.89,8.89,0,0,1,.49-1.2,15.88,15.88,0,0,0,1.21-2.31v-2.7a5.3,5.3,0,0,1,.1-.8,2.11,2.11,0,0,0,.1-.5,1.27,1.27,0,0,1,.4-.4,2.11,2.11,0,0,1,.5-.1h.5l.3.1c.3.1.3.3.3.3l.1.5v1.3l-.1,1.2-.1,1.2v.5l2.2,9.4Z"
-                fill="#daa58f"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M199,87.7l.7.1.9-.1Zm0-.3.7.1.9-.1Z"
-                fill="#3f140f"
-                fillOpacity="0.53"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M199.49,85.8c.1.1.5.1.5.1s.4.1.5,0,.1-.4.1-.4v-.8c0-.1-.1-.2-.2-.3h-.7a.35.35,0,0,0-.4.4l-.1.7C199.39,85.6,199.39,85.8,199.49,85.8Z"
-                fill="#f3d5c9"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M202.3,98.59c-.9.4-3.1,1.2-3.3,1.3l-1.4.7s.1.6.1.8a2.39,2.39,0,0,0,.3.7l5.7-2.4a2.9,2.9,0,0,0-.3-.7,3.94,3.94,0,0,1-.1-.9A9.33,9.33,0,0,1,202.3,98.59Z"
-                fill="#e5e5e5"
-                fillRule="evenodd"
-              ></path>
-            </g>
-          )}
-          {status?.team == 2 && status?.status == "Yellow Card" && (
-            <g id="yellow_card" transform={`matrix(1,0,0,1,-10,0)`}>
-              <path
-                d="M200.9,87.5a26.15,26.15,0,0,0,0,2.8,2.37,2.37,0,0,1,.1.7s-.1.8.4.9c.2,0,1.2.2,1.4,0a2.22,2.22,0,0,0,.69-.8c0-.1-.3-2-.3-2a20.48,20.48,0,0,0-1.7-2.8Z"
-                fill="#cc947b"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M195.8,89.59a6.85,6.85,0,0,0-.5.7,4.46,4.46,0,0,0-.2.8l.2.6.3.5.3.2h.4a3.36,3.36,0,0,0,.6-.3l.4-.4a11.79,11.79,0,0,0,1-2.2l-1-1Z"
-                fill="none"
-              ></path>
-              <path
-                d="M196.6,91.9a4.34,4.34,0,0,1,.2-.5v-.6l-.31-.3-.2-.1H196c-.1,0-.4.3-.4.3v1l1,.2Z"
-                fill="#f3d5c9"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M197.4,87.3l-.6.6s-.2.3-.3.3a1.31,1.31,0,0,0-.4.5l-.4.8.1.5.2.2.4.2c.1.1.6,0,.6,0l.6-.2a11,11,0,0,0,1.8-1.61l-.4-1.2A5.39,5.39,0,0,0,197.4,87.3Z"
-                fill="none"
-              ></path>
-              <path
-                d="M194.4,87.9v-.2s0-.3.1-.4l.4-.4s.5-.2.5-.3a6,6,0,0,1,.7-.4l1.7-.7s.9.7,1.2.5a7.31,7.31,0,0,1,.9-.3l1.2.1.7-1,1.4,2,1.7,2.4s.2.5.3.8v.8s-.1.8-.1.9-.7,2.4-.7,2.4l-.7,2-.8,2.1-.1.9-.9.5-2.2.8a3.37,3.37,0,0,0-1.8.7c-.3.3.1-.2-.1-.9-.1-.3.1.5,0-1.4a10,10,0,0,0-.31-1.7,12.7,12.7,0,0,1-.4-2.2,9,9,0,0,1,.1-2.2,14.39,14.39,0,0,0,.5-1.7l.7-.9A21.15,21.15,0,0,1,201,91.4a2.44,2.44,0,0,0,1.1.4l.9-.1a3.64,3.64,0,0,0,.4-.9c0-.2-.1-1.3-.1-1.3l-1.7-2.6-.8,1a2.16,2.16,0,0,1-.8.5c-.6.2-2.1-.8-2.1-.8l-1.4.8a2.28,2.28,0,0,1-.7.3h-.5l-.4-.1-.3-.1-.1-.1Z"
-                fill="#daa58f"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M194.4,87.9v-.2s0-.3.1-.4l.4-.4s.5-.2.5-.3a6,6,0,0,1,.7-.4l1.7-.7s.9.7,1.2.5a7.31,7.31,0,0,1,.9-.3l1.2.1.7-1,1.4,2,1.7,2.4s.2.5.3.8v.8s-.1.8-.1.9-.7,2.4-.7,2.4l-.7,2-.8,2.1-.1.9-.9.5-2.2.8a3.37,3.37,0,0,0-1.8.7c-.3.3.1-.2-.1-.9-.1-.3.1.5,0-1.4a10,10,0,0,0-.31-1.7,12.7,12.7,0,0,1-.4-2.2,9,9,0,0,1,.1-2.2,14.39,14.39,0,0,0,.5-1.7l.7-.9A21.15,21.15,0,0,1,201,91.4a2.44,2.44,0,0,0,1.1.4l.9-.1a3.64,3.64,0,0,0,.4-.9c0-.2-.1-1.3-.1-1.3l-1.7-2.6-.8,1a2.16,2.16,0,0,1-.8.5c-.6.2-2.1-.8-2.1-.8l-1.4.8a2.28,2.28,0,0,1-.7.3h-.5l-.4-.1-.3-.1-.1-.1Z"
-                fill="none"
-              ></path>
-              <path
-                d="M197.4,90h0a2.11,2.11,0,0,0,.1-.5v-.6s-.8-.1-.9-.1-.2.3-.2.3a.85.85,0,0,0,0,.8A1.5,1.5,0,0,0,197.4,90Z"
-                fill="#efcdbe"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M198.2,74.4l5.8,2a1.21,1.21,0,0,1,.7,1.3l-3.1,8.89a1.21,1.21,0,0,1-1.3.7l-5.8-2a1.21,1.21,0,0,1-.7-1.3l3.1-8.9A1.21,1.21,0,0,1,198.2,74.4Z"
-                fill="#f4e845"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M201.1,87.59l.39,1.41-.5.7-.1.1v.6l.8-.1-.5-.1v-.5c0-.1.5-.6.5-.6h.5c.3,0,1.1.1,1.1.1a9.89,9.89,0,0,1-1.6-.5c-.12-.34-.25-.67-.4-1l1.1-.8Z"
-                fill="#3f140f"
-                fillOpacity="0.53"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M200.8,99.8a30.2,30.2,0,0,1-3.2,1.1l1.8,5.9h7.8s-4.1-8-4.2-8S201.6,99.5,200.8,99.8Z"
-                fill="#222"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M197.8,101.4s-.7-2.6-1.1-3.8a9.91,9.91,0,0,1,.3-5.5,8.89,8.89,0,0,1,.49-1.2,15.88,15.88,0,0,0,1.21-2.31v-2.7a5.3,5.3,0,0,1,.1-.8,2.11,2.11,0,0,0,.1-.5,1.27,1.27,0,0,1,.4-.4,2.11,2.11,0,0,1,.5-.1h.5l.3.1c.3.1.3.3.3.3l.1.5v1.3l-.1,1.2-.1,1.2v.5l2.2,9.4Z"
-                fill="#daa58f"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M199,87.7l.7.1.9-.1Zm0-.3.7.1.9-.1Z"
-                fill="#3f140f"
-                fillOpacity="0.53"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M199.49,85.8c.1.1.5.1.5.1s.4.1.5,0,.1-.4.1-.4v-.8c0-.1-.1-.2-.2-.3h-.7a.35.35,0,0,0-.4.4l-.1.7C199.39,85.6,199.39,85.8,199.49,85.8Z"
-                fill="#f3d5c9"
-                fillRule="evenodd"
-              ></path>
-              <path
-                d="M202.3,98.59c-.9.4-3.1,1.2-3.3,1.3l-1.4.7s.1.6.1.8a2.39,2.39,0,0,0,.3.7l5.7-2.4a2.9,2.9,0,0,0-.3-.7,3.94,3.94,0,0,1-.1-.9A9.33,9.33,0,0,1,202.3,98.59Z"
-                fill="#e5e5e5"
-                fillRule="evenodd"
-              ></path>
-            </g>
-          )}
-          {status?.team == 1 && status?.status == "Substitution" && (
-            <g id="sub" transform={`matrix(1 0 0 1 20 0)`}>
-              <path
-                id="sub_down"
-                d="M205.05,105.43a1,1,0,0,0,1.34.47,1,1,0,0,0,.46-.47l5.1-7.2c.5-.7.2-1.3-.7-1.3h-10.8c-.9,0-1.2.6-.7,1.3C200,98.23,205.05,105.43,205.05,105.43Zm-2.6-8.5h7v-8.1a1.58,1.58,0,0,0-1.56-1.6h-3.84a1.58,1.58,0,0,0-1.6,1.56v8.14Z"
-                fill="#6f4e39"
-              ></path>
-              <path
-                id="sub_up"
-                d="M193.35,74.53a.88.88,0,0,1,1.14-.46.9.9,0,0,1,.46.46l5.2,8.8c.4.7.1,1.3-.8,1.3H188.78c-.9,0-1.2-.6-.8-1.3Zm-2.3,10.1h6.1v9.6a1.55,1.55,0,0,1-1.5,1.6h-3a1.5,1.5,0,0,1-1.5-1.49v-.11C191.05,94.23,191.05,84.63,191.05,84.63Z"
-                fill="#51cc66"
-              ></path>
-            </g>
-          )}
-          {status?.team == 2 && status?.status == "Substitution" && (
-            <g id="sub" transform={`matrix(1 0 0 1 -20 0)`}>
-              <path
-                id="sub_down"
-                d="M205.05,105.43a1,1,0,0,0,1.34.47,1,1,0,0,0,.46-.47l5.1-7.2c.5-.7.2-1.3-.7-1.3h-10.8c-.9,0-1.2.6-.7,1.3C200,98.23,205.05,105.43,205.05,105.43Zm-2.6-8.5h7v-8.1a1.58,1.58,0,0,0-1.56-1.6h-3.84a1.58,1.58,0,0,0-1.6,1.56v8.14Z"
-                fill="#6f4e39"
-              ></path>
-              <path
-                id="sub_up"
-                d="M193.35,74.53a.88.88,0,0,1,1.14-.46.9.9,0,0,1,.46.46l5.2,8.8c.4.7.1,1.3-.8,1.3H188.78c-.9,0-1.2-.6-.8-1.3Zm-2.3,10.1h6.1v9.6a1.55,1.55,0,0,1-1.5,1.6h-3a1.5,1.5,0,0,1-1.5-1.49v-.11C191.05,94.23,191.05,84.63,191.05,84.63Z"
-                fill="#51cc66"
-              ></path>
-            </g>
-          )}
-          {status?.team == 1 && status?.status == "Shot On Goal" && (
+          {status?.team == 1 && status?.status == "Shot" && (
             <g id="shot" transform="matrix(1.5,0,0,1.5,70,-50)">
               <g id="shot_gate">
                 <path
@@ -2420,7 +1771,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               </g>
             </g>
           )}
-          {status?.team == 2 && status?.status == "Shot On Goal" && (
+          {status?.team == 2 && status?.status == "Shot" && (
             <g id="shot" transform="matrix(-1.5,0,0,1.5,330,-40)">
               <g id="shot_gate">
                 <path
@@ -2487,7 +1838,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               </g>
             </g>
           )}
-          {status?.team == 1 && status?.status == "Shot Off Goal" && (
+          {status?.team == 1 && status?.status == "Penalty Shot Missed" && (
             <svg
               id="SvgjsSvg1489"
               width="60"
@@ -2632,8 +1983,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               </defs>
             </svg>
           )}
-
-          {status?.team == 2 && status?.status == "Shot Off Goal" && (
+          {status?.team == 2 && status?.status == "Penalty Shot Missed" && (
             <svg
               id="SvgjsSvg2472"
               width="60"
@@ -3229,7 +2579,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
                 cy="0"
                 fill={status?.team == 1 ? kitColors.home : kitColors.away}
               />
-              <circle r="3" cx="0" cy="0" fill="#FFFFFF" />
+              <circle r="3" cx="0" cy="0" fill="#000000" />
             </g>
           )}
           {status?.status == "Goal" && (
@@ -3305,12 +2655,12 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
             id="SVGIRIS_PITCH_MATCHTIME"
             transform="translate(175, 0)"
           >
-            <rect width="50" height="17" fill="#0b452a" />
+            <rect width="50" height="17" fill="#898989" />
             <text
               id="SVGIRIS_PITCH_MATCHTIME_TXT"
               x="25"
               y="13"
-              fill="#59d496"
+              fill="#232323"
               fontFamily="Roboto"
               fontSize="11px"
               fontWeight="300"

@@ -50,7 +50,7 @@ const HockeyEvent: React.FC<HockeyEventProps> = ({ data, sport, subcategory }) =
 
         if (!isTimerPaused) {
             timerInterval = setInterval(() => {
-                setTotalSeconds(prevTotalSeconds => prevTotalSeconds + 1);
+                setTotalSeconds(prevTotalSeconds => prevTotalSeconds - 1);
             }, 1000); // Increase by 1 second (1000 milliseconds)
         } else {
             clearInterval(timerInterval); // Pause the timer

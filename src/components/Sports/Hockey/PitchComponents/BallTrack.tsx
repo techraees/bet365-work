@@ -18,19 +18,19 @@ const BallTrack: React.FC<any> = ({ track, animate }) => {
         let curPos = getPosFromString(track[i + 1]);
         content.push(
             <g key={i}>
-                <circle xmlns="http://www.w3.org/2000/svg" r="3" cx={prevPos?.x} cy={prevPos?.y} fill="#a0e06c" opacity={trackOpacities[i]} />
-                <line xmlns="http://www.w3.org/2000/svg" x1={prevPos?.x} y1={prevPos?.y} x2={curPos?.x} y2={curPos?.y} stroke="#a0e06c" strokeWidth="1" opacity={trackOpacities[i + 1]} />
+                <circle xmlns="http://www.w3.org/2000/svg" r="3" cx={prevPos?.x} cy={prevPos?.y} fill="#343434" opacity={trackOpacities[i]} />
+                <line xmlns="http://www.w3.org/2000/svg" x1={prevPos?.x} y1={prevPos?.y} x2={curPos?.x} y2={curPos?.y} stroke="#343434" strokeWidth="1" opacity={trackOpacities[i + 1]} />
             </g>
         )
     }
     let prevPos = getPosFromString(track[i]);
     let curPos = getPosFromString(track[i + 1]);
-    content.push(<circle xmlns="http://www.w3.org/2000/svg" r="3" cx={prevPos?.x} cy={prevPos?.y} fill="#a0e06c" opacity="1" />);
+    content.push(<circle xmlns="http://www.w3.org/2000/svg" r="3" cx={prevPos?.x} cy={prevPos?.y} fill="#343434" opacity="1" />);
     return (
         <>
             {content}
             {animate ? <AnimateLine from={getPosFromString(track[i])} to={getPosFromString(track[i + 1])} />
-                : <line xmlns="http://www.w3.org/2000/svg" x1={prevPos?.x} y1={prevPos?.y} x2={curPos?.x} y2={curPos?.y} stroke="#a0e06c" strokeWidth="1" opacity="1" />}
+                : <line xmlns="http://www.w3.org/2000/svg" x1={prevPos?.x} y1={prevPos?.y} x2={curPos?.x} y2={curPos?.y} stroke="#343434" strokeWidth="1" opacity="1" />}
         </>
     )
 }
