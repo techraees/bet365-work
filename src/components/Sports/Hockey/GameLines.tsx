@@ -71,36 +71,52 @@ const GameLines: React.FC<GameLinesProps> = ({ data }) => {
     })
     return (
         <div className=" col-span-5 flex w-full">
-            <div className={cn("flex flex-1 items-center py-4", suspend === "0" ? 'hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer' : '')}>
-                <div className="bg-[hsla(0,0%,100%,.1)] w-[1px] h-full" />
+            <div className={cn("flex flex-1 items-center")}>
+                <div className="bg-[hsla(0,0%,100%,.1)] w-[1px] h-full my-4" />
                 <div className="flex-1 h-full flex flex-col justify-between">
-                    <div className="w-full text-center text-[13px] font-normal">
-                        <span className="text-white">{handicaps[0]?.homeHandicap > 0 && '+'}{handicaps[0]?.homeHandicap}</span>{' '}
-                        <span className="text-[#ffdf1b]">{handicaps[0]?.homeValue}</span>
+                    <div className={cn("w-full flex items-center justify-center h-1/2", suspend === "0" ? 'hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer' : '')}>
+                        <div className="text-center text-[13px] font-normal">
+                            <span className="text-white">{handicaps[0]?.homeHandicap > 0 && '+'}{handicaps[0]?.homeHandicap}</span>{' '}
+                            <span className="text-[#ffdf1b]">{handicaps[0]?.homeValue}</span>
+                        </div>
                     </div>
-                    <div className="w-full text-center text-[13px] font-normal">
-                        <span className="text-white">{handicaps[0]?.awayHandicap > 0 && '+'}{handicaps[0]?.awayHandicap}</span>{' '}
-                        <span className="text-[#ffdf1b]">{handicaps[0]?.awayValue}</span>
+                    <div className={cn("w-full h-1/2 flex items-center justify-center", suspend === "0" ? 'hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer' : '')}>
+                        <div className="text-center text-[13px] font-normal">
+                            <span className="text-white">{handicaps[0]?.awayHandicap > 0 && '+'}{handicaps[0]?.awayHandicap}</span>{' '}
+                            <span className="text-[#ffdf1b]">{handicaps[0]?.awayValue}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className={cn("flex flex-1 items-center py-4", suspend === "0" ? 'hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer' : '')}>
+            <div className={cn("flex flex-1 items-center")}>
                 <div className="flex-1 h-full flex flex-col justify-between">
-                    <div className="w-full text-center text-[13px] font-normal">
-                        <span className="text-white">O {total[0]?.overHandicap}</span>{' '}
-                        <span className="text-[#ffdf1b]">{total[0]?.overValue}</span>
+                    <div className={cn("w-full flex items-center justify-center h-1/2", suspend === "0" ? 'hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer' : '')}>
+                        <div className="text-center text-[13px] font-normal">
+                            <span className="text-white">O {total[0]?.overHandicap}</span>{' '}
+                            <span className="text-[#ffdf1b]">{total[0]?.overValue}</span>
+                        </div>
                     </div>
-                    <div className="w-full text-center text-[13px] font-normal">
-                        <span className="text-white">U {total[0]?.underHandicap}</span>{' '}
-                        <span className="text-[#ffdf1b]">{total[0]?.underValue}</span>
+                    <div className={cn("w-full flex items-center justify-center h-1/2", suspend === "0" ? 'hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer' : '')}>
+                        <div className="text-center text-[13px] font-normal">
+                            <span className="text-white">U {total[0]?.underHandicap}</span>{' '}
+                            <span className="text-[#ffdf1b]">{total[0]?.underValue}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className={cn("flex flex-1 items-center flex-row-reverse py-4", suspend === "0" ? 'hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer' : '')}>
+            <div className={cn("flex flex-1 items-center flex-row-reverse")}>
                 <div className="bg-[hsla(0,0%,100%,.1)] w-[1px] h-full" />
                 <div className="flex-1 h-full flex flex-col justify-between">
-                    <div className="text-[#ffdf1b] w-full text-center text-[13px] font-normal">{objs[0]?.home}</div>
-                    <div className="text-[#ffdf1b] w-full text-center text-[13px] font-normal">{objs[0]?.away}</div>
+                    <div className={cn("h-1/2 w-full flex items-center justify-center", suspend === "0" ? 'hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer' : '')}>
+                        <div className="text-center text-[13px] font-normal text-[#ffdf1b]">
+                            {objs[0]?.home}
+                        </div>
+                    </div>
+                    <div className={cn("h-1/2 w-full flex items-center justify-center", suspend === "0" ? 'hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer' : '')}>
+                        <div className="text-center text-[13px] font-normal text-[#ffdf1b]">
+                            {objs[0]?.away}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
