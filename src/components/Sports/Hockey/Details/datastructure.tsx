@@ -5,14 +5,47 @@ export const hockeyAll = {
         header: [],
         rows: []
     },
-    "period3Lines": {
-        marketname: "Period 3 Lines",
+    "drawNoBet": {
+        marketname: "Draw No Bet",
         suspend: "0",
         header: [],
         rows: []
     },
+    "doubleChance": {
+        marketname: "Double Chance",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "nthGoal": {
+        marketname: "nth Goal",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "raceTo": {
+        marketname: "Race To",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+
+    "period2Lines": {
+        marketname: "Period 2 Lines",
+        suspend: "0",
+        header: ['', '1', '2', 'Neither'],
+        rows: []
+    },
+
     "doubleChance2nd": {
         marketname: "Period 2 Double Chance",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+
+    "period3Lines": {
+        marketname: "Period 3 Lines",
         suspend: "0",
         header: [],
         rows: []
@@ -53,6 +86,12 @@ export const hockeyAll = {
         header: [],
         rows: []
     },
+    "teamToWinTheMostPeriods": {
+        marketname: "Team To Win The Most Periods",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
     "whenWillGameEnd": {
         marketname: "When Will Game End",
         suspend: "0",
@@ -65,14 +104,14 @@ export const hockeyAll = {
         header: [],
         rows: []
     },
-    "toQualify": {
-        marketname: "To Qualify",
+    "homeTeamToScoreInBothHalves": {
+        marketname: "Home Team To Score In Both Halves",
         suspend: "0",
         header: [],
         rows: []
     },
-    "doubleChance": {
-        marketname: "Double Chance",
+    "awayTeamToScoreInBothHalves": {
+        marketname: "Away Team To Score In Both Halves",
         suspend: "0",
         header: [],
         rows: []
@@ -91,12 +130,6 @@ export const hockeyAll = {
     },
     "halfTimeResult": {
         marketname: "Half Time Result",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "nthGoal": {
-        marketname: "nth Goal",
         suspend: "0",
         header: [],
         rows: []
@@ -125,26 +158,6 @@ export const hockeyAll = {
         header: [],
         rows: []
     },
-    "matchCorners": {
-        marketname: "Match Corners",
-        currentCorners: "",
-        firstCellBorderRight: true,
-        suspend: "0",
-        header: ["", "Over", "Exactly", "Under"],
-        rows: []
-    },
-    "twoWayCorners": {
-        marketname: "2-Way Corners",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "firstHalfGoals": {
-        marketname: "First Half Goals",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
     "asianHandicap": {
         marketname: "Asian Handicap",
         suspend: "0",
@@ -157,84 +170,16 @@ export const hockeyAll = {
         header: ["", "Over", "Under"],
         rows: []
     },
-    "firstHalfAsianHandicap": {
-        marketname: "1st Half Asian Handicap",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: []
-    },
-    "firstHalfGoalLine": {
-        marketname: "1st Half Goal Line",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "halfTimeFullTime": {
-        marketname: "Half Time/Full Time",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "halfTimeCorrectScore": {
-        marketname: "Half Time Correct Score",
-        suspend: "0",
-        header: ["1", "x", "2"],
-        rows: []
-    },
-    "correctScore": {
-        marketname: "Correct Score",
-        suspend: "0",
-        header: ["Home", "Draw", "Away"],
-        rows: []
-    },
     "finalScore": {
         marketname: "Final Score",
         suspend: "0",
         header: ["1", "x", "2"],
         rows: []
     },
-    "asianCorners": {
-        marketname: "Asian Corners",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "firstHalfAsianCorners": {
-        marketname: "First Half Asian Corners",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "cornerRace": {
-        marketname: "Corner Race",
-        suspend: "0",
-        firstCellBorderRight: true,
-        header: ["", "Home", "Away", "Neither"],
-        rows: []
-    },
-    "corners": {
-        marketname: "Corners",
-        suspend: "0",
-        header: ["", "Home", "Away"],
-        rows: []
-    },
     "3-WayHandicap": {
         marketname: "3-Way Handicap",
         suspend: "0",
         header: ["Home", "Draw", "Away"],
-        rows: []
-    },
-    "firstHalfHandicap": {
-        marketname: "1st Half - Handicap",
-        suspend: "0",
-        header: ["Home", "Draw", "Away"],
-        rows: [
-        ]
-    },
-    "drawNoBet": {
-        marketname: "Draw No Bet",
-        suspend: "0",
-        header: [],
         rows: []
     },
     "handicapResult": {
@@ -308,13 +253,24 @@ export const hockeyAll = {
         suspend: "0",
         header: ["", "Over", "Under"],
         rows: []
-    }
-
+    },
+    "correctScore": {
+        marketname: "Correct Score",
+        suspend: "0",
+        header: ["1", "x", "2"],
+        rows: []
+    },
+    "winningMargin": {
+        marketname: "Winning Margin",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
 }
 // ["Result", "Double Chance", "Match Goals", "Next Goal", "Score", "Goals Odd/Even"]
 
 
-export const soccerBetBuilder = {
+export const hockeyBetBuilder = {
     "result": {
         marketname: "Result",
         suspend: "0",
@@ -400,7 +356,7 @@ export const soccerBetBuilder = {
         rows: []
     }
 }
-export const soccerAsianLines = {
+export const hockeyAsianLines = {
     "asianHandicap": {
         marketname: "Asian Handicap",
         suspend: "0",
@@ -430,7 +386,7 @@ export const soccerAsianLines = {
         ]
     },
 }
-export const soccerCornersCards = {
+export const hockeyCornersCards = {
     "matchCorners": {
         marketname: "Match Corners",
         currentCorners: "",
@@ -472,7 +428,7 @@ export const soccerCornersCards = {
     },
 }
 
-export const soccerGoals = {
+export const hockeyGoals = {
     "nthGoal": {
         marketname: "nth Goal",
         suspend: "0",
@@ -505,7 +461,7 @@ export const soccerGoals = {
     },
 }
 
-export const soccerHalf = {
+export const hockeyHalf = {
     "halfTimeResult": {
         marketname: "Half Time Result",
         suspend: "0",
@@ -536,16 +492,10 @@ export const soccerHalf = {
         header: [],
         rows: []
     },
-    "halfTimeCorrectScore": {
-        marketname: "Half Time Correct Score",
+    "correctScore": {
+        marketname: "Correct Score",
         suspend: "0",
         header: ["1", "x", "2"],
-        rows: []
-    },
-    "firstHalfAsianCorners": {
-        marketname: "First Half Asian Corners",
-        suspend: "0",
-        header: ["", "Over", "Under"],
         rows: []
     },
     "firstHalfHandicap": {

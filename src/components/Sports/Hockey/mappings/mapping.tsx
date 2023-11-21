@@ -74,6 +74,73 @@ export const gameLines = (data: any) => {
     return {header, rows: rows};
 }
 
+export const period2Lines = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    const header = ['', data?.team_info?.home?.name, data?.team_info?.away?.name];
+    const total = [{title: 'Total', value: null, suspend: 0}] as any;
+    const spreads = [] as any;
+    const moneys = [{title: 'Money', value: null, suspend: 0}] as any;
+    const arr = {title: 'Spread', value: null, suspend: 0};
+    spreads.push(arr);
+    if (data?.odds?.[9312459]?.participants) {
+        const spread = Object.entries(data?.odds?.[9312459]?.participants)
+        if (spread.length > 0) {
+            spread.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (spreads.length < 3 && (title === "Home" || title == "Away")) {
+                    spreads.push({title: `${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                }
+            })
+        }
+    }
+    if(data?.odds?.[85]?.participants) {
+        const ou = Object.entries(data?.odds?.[85]?.participants)
+        if (ou.length > 0) {
+            ou.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (total.length < 3 && title === "Over"){
+                    total.push({title: `O ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                }
+                if (total.length < 3 && title === "Under"){
+                    total.push({title: `U ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                }
+            })
+        }
+    }
+    if(data?.odds?.[58]?.participants) {
+        const money = Object.entries(data?.odds?.[58]?.participants)
+        if (money.length > 0) {
+            money.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (moneys.length < 3 && title === "Home"){
+                    moneys.push({title: '', value: item[1].value_eu, suspend});
+                }
+                if (moneys.length < 3 && title === "Away"){
+                    moneys.push({title: '', value: item[1].value_eu, suspend});
+                }
+            })
+        }
+    }
+    let rows = [] as any;
+    if(spreads.length > 1)
+        rows.push(spreads);
+    if(total.length > 1)
+        rows.push(total);
+    if(moneys.length > 1)
+        rows.push(moneys);
+    return {header, rows: rows};
+}
+
 export const period3Lines = (data: any) => {
     if (!data && !data.odds) {
         return [];
@@ -139,6 +206,38 @@ export const period3Lines = (data: any) => {
     if(moneys.length > 1)
         rows.push(moneys);
     return {header, rows: rows};
+}
+
+export const raceTo = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    const header = ['', data?.team_info?.home?.name, data?.team_info?.away?.name, 'Neither'];
+    let races = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[9312467]?.participants) {
+        const race = Object.entries(data?.odds?.[9312467]?.participants)
+        if (race.length > 0) {
+            race.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name;
+                if(title == "1") {
+                    if(row.length == 4) {
+                        races.push(row);
+                        row = [] as any;
+                    }
+                    row.push({ title: item[1].handicap, value: '', suspend});
+                }
+                row.push({title: '', value: item[1]?.value_eu, suspend: item[1].suspend});
+            })
+        }
+    }
+    if(row.length > 0)
+        races.push(row);
+    return {header, rows: races};
 }
 
 export const doubleChance = (data: any) => {
@@ -344,70 +443,6 @@ export const matchGoals = (data: any) => {
     }
     return tosend
 
-}
-export const alternativematchGoals = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-    const tosend = [] as any;
-    const participantsObject = { ...data?.odds?.[421]?.participants };
-    const keysToRemove = Object.keys(participantsObject).slice(-2);
-
-    keysToRemove.forEach(key => {
-        delete participantsObject[key];
-    });
-    if (participantsObject) {
-        let array = [] as any;
-        array = Object.values(participantsObject).reduce((acc: any, participant: any) => {
-            const existingIndex = acc.findIndex((arr: any) => arr[0].title === participant.handicap);
-
-            if (existingIndex !== -1) {
-                acc[existingIndex].push({
-                    title: "",
-                    value: participant.value_eu,
-                    suspend: participant.suspend
-                });
-            } else {
-                acc.push([
-                    { title: participant.handicap, value: null, suspend: participant.suspend },
-                    { title: "", value: participant.value_eu, suspend: participant.suspend }
-                ]);
-            }
-            return acc;
-        }, []);
-        array.sort((a: any, b: any) => a[0].title - b[0].title);
-        return array;
-    }
-    return tosend
-
-}
-
-export const asianHandicap = (data: any, oddData: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-    oddData.suspend = data.odds[12]?.suspend;
-
-    let score = `(${data?.team_info?.home?.score} - ${data?.team_info?.away?.score})`
-
-    const tosend = [] as any;
-    if (data?.odds?.[12]?.participants) {
-        const spread = Object.entries(data?.odds?.[12]?.participants)
-        if (spread.length > 0) {
-            let existing = [] as any;
-            spread.forEach(([key, value]: [any, any]) => {
-                existing.push({ title: value.handicap, value: value.value_eu, suspend: value.suspend });
-                if (existing.length == 2) {
-                    tosend.push(existing);
-                    existing = []
-                }
-            });
-        }
-    }
-
-    oddData.marketname = `Asian Handicap ${score}`
-    oddData.rows = tosend
-    return oddData
 }
 
 export const threeWayHandicap = (data: any) => {
@@ -633,6 +668,7 @@ interface FormattedData {
     value: string;
     suspend: string;
 }
+
 export const finalScore = (data: any) => {
     if (!data && !data.odds) {
         return []
@@ -691,39 +727,40 @@ export const finalScore = (data: any) => {
     return tosend
 }
 
-export const halfTimeCorrectScore = (data: any) => {
+export const correctScore = (data: any) => {
     if (!data && !data.odds) {
         return []
     }
+    let header = [data?.team_info?.home?.name, 'Draw', data?.team_info?.away?.name];
     let tosend = [] as any;
 
-    if (data?.odds?.[227]?.participants) {
+    if (data?.odds?.[9200261]?.participants) {
         const result = [] as any;
         const left = [] as any;
         const middle = [] as any;
         const right = [] as any;
-        Object.keys(data?.odds?.[227]?.participants).map(item => {
-            let checkingData = data?.odds?.[227]?.participants[item]?.name.split('-');
+        Object.keys(data?.odds?.[9200261]?.participants).map(item => {
+            let checkingData = data?.odds?.[9200261]?.participants[item]?.name.split('-');
             checkingData[0] = Number(checkingData[0]);
             checkingData[1] = Number(checkingData[1]);
-            if (data?.odds?.[227]?.participants[item]?.suspend === "0") {
+            if (data?.odds?.[9200261]?.participants[item]?.suspend === "0") {
                 if (checkingData[0] > checkingData[1]) {
                     left.push({
-                        title: data?.odds?.[227]?.participants[item]?.name,
-                        value: data?.odds?.[227]?.participants[item]?.value_eu,
-                        suspend: data?.odds?.[227]?.participants[item]?.suspend
+                        title: data?.odds?.[9200261]?.participants[item]?.name,
+                        value: data?.odds?.[9200261]?.participants[item]?.value_eu,
+                        suspend: data?.odds?.[9200261]?.participants[item]?.suspend
                     })
                 } else if (checkingData[0] === checkingData[1]) {
                     middle.push({
-                        title: data?.odds?.[227]?.participants[item]?.name,
-                        value: data?.odds?.[227]?.participants[item]?.value_eu,
-                        suspend: data?.odds?.[227]?.participants[item]?.suspend
+                        title: data?.odds?.[9200261]?.participants[item]?.name,
+                        value: data?.odds?.[9200261]?.participants[item]?.value_eu,
+                        suspend: data?.odds?.[9200261]?.participants[item]?.suspend
                     })
                 } else {
                     right.push({
-                        title: data?.odds?.[227]?.participants[item]?.name,
-                        value: data?.odds?.[227]?.participants[item]?.value_eu,
-                        suspend: data?.odds?.[227]?.participants[item]?.suspend
+                        title: data?.odds?.[9200261]?.participants[item]?.name,
+                        value: data?.odds?.[9200261]?.participants[item]?.value_eu,
+                        suspend: data?.odds?.[9200261]?.participants[item]?.suspend
                     })
                 }
             }
@@ -746,7 +783,7 @@ export const halfTimeCorrectScore = (data: any) => {
         tosend = result
     }
     // console.log({ tosend })
-    return tosend
+    return { header, rows: tosend }
 }
 
 
@@ -780,90 +817,6 @@ export const halfTimeFullTime = (data: any) => {
 
     return tosend
 
-}
-
-export const firstHalfAsianHandicap = (data: any, oddData: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-    oddData.suspend = data.odds[29]?.suspend;
-
-    let score = `(${data?.team_info?.home?.score} - ${data?.team_info?.away?.score})`
-
-    const tosend = [] as any;
-    if (data?.odds?.[29]?.participants) {
-        const spread = Object.entries(data?.odds?.[29]?.participants)
-        if (spread.length > 0) {
-            let existing = [] as any;
-            spread.forEach(([key, value]: [any, any]) => {
-                existing.push({ title: value.handicap, value: value.value_eu, suspend: value.suspend });
-                if (existing.length == 2) {
-                    tosend.push(existing);
-                    existing = []
-                }
-            });
-        }
-    }
-
-    oddData.marketname = `1st Half Asian Handicap ${score}`
-    oddData.rows = tosend
-    return oddData
-}
-
-
-export const firstHalfGoalLine = (data: any, oddData: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-    oddData.suspend = data.odds[31]?.suspend;
-
-    let score = `(${data?.team_info?.home?.score} - ${data?.team_info?.away?.score})`
-
-    const tosend = [] as any;
-    if (data?.odds?.[31]?.participants) {
-        const spread = Object.entries(data?.odds?.[31]?.participants)
-        if (spread.length > 0) {
-            let existing = [] as any;
-            spread.forEach(([key, value]: [any, any]) => {
-                if (existing.length == 0) {
-                    existing.push({ title: value.handicap, value: '', suspend: value.suspend });
-                }
-                existing.push({ title: '', value: value.value_eu, suspend: value.suspend });
-                if (existing.length == 3) {
-                    tosend.push(existing);
-                    existing = []
-                }
-            });
-        }
-    }
-
-    oddData.marketname = `1st Half Goal Line ${score}`
-    oddData.rows = tosend
-    return oddData
-}
-
-export const firstHalfHandicap = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-
-    const tosend = [] as any;
-    if (data?.odds?.[2000]?.participants) {
-        console.log('data?.odds?.[2000]?.participants', data?.odds?.[2000]?.participants)
-        const spread = Object.entries(data?.odds?.[2000]?.participants)
-        if (spread.length > 0) {
-            let existing = [] as any;
-            spread.forEach(([key, value]: [any, any]) => {
-                existing.push({ title: value.handicap, value: value.value_eu, suspend: value.suspend });
-                if (existing.length == 3) {
-                    tosend.push(existing);
-                    existing = []
-                }
-            });
-
-        }
-    }
-    return tosend;
 }
 
 export const resultBothTeamsToScore = (data: any) => {
@@ -936,356 +889,6 @@ export const bothTeamsToScore = (data: any) => {
     }
     return tosend;
 }
-
-export const asianCorners = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-
-    let tosend = [] as any;
-    if (data?.odds?.[90006]?.participants) {
-        const participantsObject = data?.odds?.[90006]?.participants;
-        if (participantsObject) {
-            let array = [] as any;
-            array = Object.values(participantsObject).reduce((acc: any, participant: any) => {
-                const existingIndex = acc.findIndex((arr: any) => arr[0].title === participant.handicap);
-
-                if (existingIndex !== -1) {
-                    acc[existingIndex].push({
-                        title: "",
-                        value: participant.value_eu,
-                        suspend: participant.suspend
-                    });
-                } else {
-                    acc.push([
-                        { title: participant.handicap, value: null, suspend: participant.suspend },
-                        { title: "", value: participant.value_eu, suspend: participant.suspend }
-                    ]);
-                }
-                return acc;
-            }, []);
-            array.sort((a: any, b: any) => a[0].title - b[0].title);
-            return array;
-        }
-    }
-    return tosend;
-}
-export const firstHalfAsianCorners = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-
-    let tosend = [] as any;
-    if (data?.odds?.[906]?.participants) {
-        const participantsObject = data?.odds?.[906]?.participants;
-        if (participantsObject) {
-            let array = [] as any;
-            array = Object.values(participantsObject).reduce((acc: any, participant: any) => {
-                const existingIndex = acc.findIndex((arr: any) => arr[0].title === participant.handicap);
-
-                if (existingIndex !== -1) {
-                    acc[existingIndex].push({
-                        title: "",
-                        value: participant.value_eu,
-                        suspend: participant.suspend
-                    });
-                } else {
-                    acc.push([
-                        { title: participant.handicap, value: null, suspend: participant.suspend },
-                        { title: "", value: participant.value_eu, suspend: participant.suspend }
-                    ]);
-                }
-                return acc;
-            }, []);
-            array.sort((a: any, b: any) => a[0].title - b[0].title);
-            return array;
-        }
-    }
-    return tosend;
-}
-
-export const cornerRace = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-
-    let tosend = [] as any;
-    if (data) {
-        Object.keys(data?.odds).map((item) => {
-            if (data.odds[item].name.startsWith('Race to the ') && data.odds[item].name.includes('corner?')) {
-                let corner = data.odds[item].name.replace('Race to the ', '');
-                corner = corner.replace(' corner?', '')
-                corner = corner.slice(0, -2);
-                const spread = Object.entries(data?.odds?.[item]?.participants)
-                const arr = [{ title: corner, value: null, suspend: data.odds[item].suspend }] as any;
-                spread.map((item: any, index: number) => {
-                    let title = '';
-                    let value = '';
-                    let suspend = "0";
-                    value = item[1]?.value_eu
-                    suspend = item[1]?.suspend
-                    arr.push({ title: title, value: value, suspend: suspend })
-                })
-                tosend.push(arr)
-            }
-        })
-    }
-    return tosend;
-}
-
-export const corners = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-
-    let tosend = [] as any;
-    if (data) {
-        Object.keys(data?.odds).map((item) => {
-            if (data.odds[item].name.startsWith('Which team will score the ') && data.odds[item].name.includes(' corner? (2 Way)')) {
-                let corner = data.odds[item].name.replace('Which team will score the ', '');
-                corner = corner.replace(' corner? (2 Way)', '')
-                corner = corner + ' Corner';
-                const spread = Object.entries(data?.odds?.[item]?.participants)
-                const arr = [{ title: corner, value: null, suspend: data.odds[item].suspend }] as any;
-                spread.map((item: any, index: number) => {
-                    let title = '';
-                    let value = '';
-                    let suspend = "0";
-                    value = item[1]?.value_eu
-                    suspend = item[1]?.suspend
-                    arr.push({ title: title, value: value, suspend: suspend })
-                })
-                tosend.push(arr)
-            }
-            if (data.odds[item].name === "Last Corner") {
-                const spread = Object.entries(data?.odds?.[item]?.participants)
-                const arr = [{ title: "Last", value: null, suspend: data.odds[item].suspend }] as any;
-                spread.map((item: any, index: number) => {
-                    let title = '';
-                    let value = '';
-                    let suspend = "0";
-                    value = item[1]?.value_eu
-                    suspend = item[1]?.suspend
-                    arr.push({ title: title, value: value, suspend: suspend })
-                })
-                tosend.push(arr)
-            }
-        })
-        // formatting making Last to alway appear at last
-        if (tosend.length > 1) {
-            const newData = [...tosend];
-            let lastArray = null;
-
-            for (const array of newData) {
-                if (array[0].title === 'Last') {
-                    lastArray = array;
-                    newData.splice(newData.indexOf(array), 1);
-                    break;
-                }
-            }
-            if (lastArray) {
-                newData.push(lastArray);
-            }
-            tosend = newData
-        }
-
-    }
-    return tosend;
-}
-
-export const matchCorners = (data: any, oddData: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-
-    let tosend = [] as any;
-    if (data?.odds?.[16]?.participants) {
-        const spread = Object.entries(data?.odds?.[16]?.participants)
-        if (spread.length > 0) {
-            let existing = [] as any;
-            spread.forEach(([key, value]: [any, any]) => {
-                if (existing.length == 0) {
-                    existing.push({ title: value.handicap, value: '', suspend: value.suspend });
-                }
-                existing.push({ title: '', value: value.value_eu, suspend: value.suspend });
-                if (existing.length == 4) {
-                    tosend.push(existing);
-                    existing = []
-                }
-            });
-        }
-    }
-    tosend.sort((a: any, b: any) => a[0].title - b[0].title);
-    oddData.rows = tosend
-    data && Object.keys(data?.stats).map((item) => {
-        if (data.stats[item].name === "ICorner") {
-            // console.log('ICORNER')
-            oddData.currentCorners = Number(data.stats[item].home) + Number(data.stats[item].away)
-        }
-
-    })
-    return oddData
-}
-
-
-export const twoWayCorners = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-
-    const tosend = [] as any;
-    if (data?.odds?.[520]?.participants) {
-        const spread = Object.entries(data?.odds?.[520]?.participants)
-        if (spread.length > 0) {
-            let existing = [] as any;
-            spread.forEach(([key, value]: [any, any]) => {
-                if (existing.length == 0) {
-                    existing.push({ title: value.handicap, value: '', suspend: value.suspend });
-                }
-                existing.push({ title: '', value: value.value_eu, suspend: value.suspend });
-                if (existing.length == 3) {
-                    existing
-                    tosend.push(existing);
-                    existing = []
-                }
-            });
-
-        }
-    }
-    return tosend;
-}
-
-export const toQualify = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-
-    const tosend = [] as any;
-    if (data?.odds?.[93005]?.participants) {
-        const spread = Object.entries(data?.odds?.[93005]?.participants)
-        if (spread.length > 0) {
-            const arr = [] as any;
-            spread.map((item: any, index: number) => {
-                let title = '';
-                let value = '';
-                let suspend = '0';
-                title = item[1]?.name
-                if (title === "1") {
-                    title = data?.team_info?.home?.name
-                }
-                if (title === "2") {
-                    title = data?.team_info?.away?.name
-                }
-                value = item[1]?.value_eu
-                suspend = item[1]?.suspend
-                arr.push({ title: title, value: value, suspend: suspend })
-            })
-            tosend.push(arr)
-        }
-    }
-    return tosend;
-}
-
-export const twoCellTitleValue = (data: any, fn: string) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-    if (!fn) {
-        return []
-    }
-    let id = 1111111110 as number;
-    if (fn === "toWintheTrophy") {
-        id = 9200415
-    } else if (fn === "gameWonInExtraTime") {
-        id = 93009
-    } else if (fn === "gameWonAfterPenaltiesShootout") {
-        id = 50009
-    } else if (fn === "bothTeamsToScoreFirstHalf") {
-        id = 317
-    } else if (fn === "bothTeamsToScoreSecondHalf") {
-        id = 318
-    } else if (fn === "teamCleanSheet") {
-        id = 307
-    } else {
-        return []
-    }
-    const tosend = [] as any;
-    if (data?.odds?.[id]?.participants) {
-        const spread = Object.entries(data?.odds?.[id]?.participants)
-        if (spread.length > 0) {
-            const arr = [] as any;
-            spread.map((item: any, index: number) => {
-                let title = '';
-                let value = '';
-                let suspend = '0';
-                title = item[1]?.name
-                if (title === "1") {
-                    title = data?.team_info?.home?.name
-                }
-                if (title === "2") {
-                    title = data?.team_info?.away?.name
-                }
-                value = item[1]?.value_eu
-                suspend = item[1]?.suspend
-                arr.push({ title: title, value: value, suspend: suspend })
-            })
-            tosend.push(arr)
-        }
-    }
-    return tosend;
-}
-
-export const goalsOverUnder = (data: any, oddData: any, fn: string) => {
-
-    if (!data && !data.odds) {
-        return [];
-    }
-
-    let id = 10101010010100;
-    if (fn === "homeGoals") {
-        id = 1;
-        oddData.marketname = oddData?.marketname?.replace('Home', data?.team_info?.home?.name)
-    } else if (fn === "awayGoals") {
-        id = 2;
-        oddData.marketname = oddData?.marketname?.replace('Away', data?.team_info?.home?.name)
-    } else {
-        return oddData;
-    }
-
-
-    const tosend = [] as any;
-    if (data?.odds?.[id]?.participants) {
-        const participantsObject = data?.odds?.[id]?.participants;
-        if (participantsObject) {
-            let array = [] as any;
-            array = Object.values(participantsObject).reduce((acc: any, participant: any) => {
-                const existingIndex = acc.findIndex((arr: any) => arr[0].title === participant.handicap);
-
-                if (existingIndex !== -1) {
-                    acc[existingIndex].push({
-                        title: "",
-                        value: participant.value_eu,
-                        suspend: participant.suspend
-                    });
-                } else {
-                    acc.push([
-                        { title: participant.handicap, value: null, suspend: participant.suspend },
-                        { title: "", value: participant.value_eu, suspend: participant.suspend }
-                    ]);
-                }
-
-                return acc;
-            }, []);
-            array.sort((a: any, b: any) => a[0].title - b[0].title);
-            return array;
-        }
-    }
-    // console.log('Sending New Data', data)
-
-    oddData.rows = tosend
-    return oddData;
-}
-
 
 export const betResult = (data: any) => {
 
@@ -1801,15 +1404,13 @@ export const betMatchCorners = (data: any, oddData: any) => {
     return oddData
 }
 
-
-
 export const whenWillGameEnd = (data: any) => {
     if (!data && !data.odds) {
         return [];
     }
 
     const tosend = [] as any;
-    if (data?.odds?.[5100008]?.participants) {
+    if (data?.odds?.[5100009]?.participants) {
         const spread = Object.entries(data?.odds?.[5100008]?.participants)
         if (spread.length > 0) {
             const arr = [] as any;
@@ -2012,4 +1613,108 @@ export const awayTotalGoals = (data: any) => {
     }
     // console.log('Sending New Data', data)
     return {marketname: `${data?.team_info?.away?.name} Total Goals`, rows: tosend}
+}
+
+export const teamToWinTheMostPeriods = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    const tosend = [] as any;
+    if (data?.odds?.[5100009]?.participants) {
+        const spread = Object.entries(data?.odds?.[5100009]?.participants)
+        if (spread.length > 0) {
+            const arr = [] as any;
+            spread.map((item: any, index: number) => {
+                let title = '';
+                let value = '';
+                let suspend = '0';
+                title = item[1]?.name == 1 ? data?.team_info?.home?.name : (item[1]?.name == 2 ? data?.team_info?.away?.name : "Tie");
+                value = item[1]?.value_eu
+                suspend = item[1]?.suspend
+                arr.push({ title: title, value: value, suspend: suspend })
+            })
+            tosend.push(arr)
+        }
+    }
+    // console.log('Sending New Data', data)
+    return tosend;
+}
+
+
+export const winningMargin = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    const header = ['', data?.team_info?.home?.name, data?.team_info?.away?.name];
+    const sends = [] as any;
+    if (data?.odds?.[9312465]?.participants && data?.odds?.[9312466]?.participants) {
+        const homeMargin = Object.entries(data?.odds?.[9312465]?.participants)
+        const awayMargin = Object.entries(data?.odds?.[9312466]?.participants)
+        for(let i = 0; i < homeMargin.length; ++ i) {
+            const homeData: any = homeMargin[i];
+            const awayData: any = awayMargin[i];
+            let title = homeData[1]?.name;
+            const rowData = [{title: title, value: '', suspend: '0'},
+            {title: '', value: `${homeData[1].value_eu > 0 ? '+' : ''}${homeData[1].value_eu}`, suspend: homeData[1].suspend},
+            {title: '', value: `${awayData[1].value_eu > 0 ? '+' : ''}${awayData[1].value_eu}`, suspend: awayData[1].suspend}];
+            sends.push(rowData);
+        }
+    }
+
+    return {header, rows: sends};
+}
+
+export const homeTeamToScoreInBothHalves = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    const tosend = [] as any;
+    if (data?.odds?.[9312487]?.participants) {
+        const spread = Object.entries(data?.odds?.[9312487]?.participants)
+        if (spread.length > 0) {
+            const arr = [] as any;
+            spread.map((item: any, index: number) => {
+                let title = '';
+                let value = '';
+                let suspend = '0';
+                title = item[1]?.name
+                value = item[1]?.value_eu
+                suspend = item[1]?.suspend
+                arr.push({ title: title, value: value, suspend: suspend })
+            })
+            tosend.push(arr)
+        }
+    }
+    // console.log('Sending New Data', data)
+    return tosend;
+}
+
+export const awayTeamToScoreInBothHalves = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    const tosend = [] as any;
+    if (data?.odds?.[9312491]?.participants) {
+        const spread = Object.entries(data?.odds?.[9312491]?.participants)
+        if (spread.length > 0) {
+            const arr = [] as any;
+            spread.map((item: any, index: number) => {
+                let title = '';
+                let value = '';
+                let suspend = '0';
+                title = item[1]?.name
+                value = item[1]?.value_eu
+                suspend = item[1]?.suspend
+                arr.push({ title: title, value: value, suspend: suspend })
+            })
+            tosend.push(arr)
+        }
+    }
+    // console.log('Sending New Data', data)
+    return tosend;
 }
