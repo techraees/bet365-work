@@ -245,7 +245,7 @@ function getStatusFromCode(code: number): string | undefined {
 //get ball position
 function getBallPosition(data: any): any {
   let ballPos = data?.info?.ball_pos?.split(",");
-  return ballPos
+  return ballPos && ballPos.length == 2
     ? {
         x: Number(ballPos[0]) * FIELD_WIDTH,
         y: Number(ballPos[1]) * FIELD_HEIGHT,
@@ -403,12 +403,12 @@ function getFixedBallPos(
 
 function isPossession( ballPos: { x: number, y: number}, team: number, status: string): boolean {
   return status == "On Possession" && team > 0 &&
-    ((team == 1 && ballPos.x <= FIELD_WIDTH / 2) || (team == 2 && ballPos.x >= FIELD_WIDTH / 2));
+    ((team == 1 && (!ballPos || ballPos.x <= FIELD_WIDTH / 2)) || (team == 2 && (!ballPos || ballPos.x >= FIELD_WIDTH / 2)));
 }
 
 function isDangerousAttack( ballPos: { x: number, y: number}, team: number, status: string): boolean {
   return status == "On Possession" && team > 0 &&
-    ((team == 1 && ballPos.x >= FIELD_WIDTH * 3 / 4) || (team == 2 && ballPos.x <= FIELD_WIDTH / 4));
+    ((team == 1 && ballPos && ballPos.x >= FIELD_WIDTH * 3 / 4) || (team == 2 && ballPos && ballPos.x <= FIELD_WIDTH / 4));
 }
 
 function isAttack(ballPos: { x: number, y: number}, team: number, status: string): boolean {

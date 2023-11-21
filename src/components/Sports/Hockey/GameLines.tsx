@@ -72,7 +72,7 @@ const GameLines: React.FC<GameLinesProps> = ({ data }) => {
     return (
         <div className=" col-span-5 flex w-full">
             <div className={cn("flex flex-1 items-center")}>
-                <div className="bg-[hsla(0,0%,100%,.1)] w-[1px] h-full my-4" />
+                <div className="bg-[hsla(0,0%,100%,.1)] w-[1px] h-4/5" />
                 <div className="flex-1 h-full flex flex-col justify-between">
                     <div className={cn("w-full flex items-center justify-center h-1/2", suspend === "0" ? 'hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer' : '')}>
                         <div className="text-center text-[13px] font-normal">
@@ -105,7 +105,7 @@ const GameLines: React.FC<GameLinesProps> = ({ data }) => {
                 </div>
             </div>
             <div className={cn("flex flex-1 items-center flex-row-reverse")}>
-                <div className="bg-[hsla(0,0%,100%,.1)] w-[1px] h-full" />
+                <div className="bg-[hsla(0,0%,100%,.1)] w-[1px] h-4/5" />
                 <div className="flex-1 h-full flex flex-col justify-between">
                     <div className={cn("h-1/2 w-full flex items-center justify-center", suspend === "0" ? 'hover:bg-[hsla(0,0%,100%,.15)] cursor-pointer' : '')}>
                         <div className="text-center text-[13px] font-normal text-[#ffdf1b]">
