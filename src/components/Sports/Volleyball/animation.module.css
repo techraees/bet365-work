@@ -1,62 +1,114 @@
 @keyframes ballfade {
-    from {opacity: 0}
-    25% {opacity: 1}
-    50% {opacity: 0}
-    to {opacity: 0}
+  from {
+    opacity: 0
+  }
+
+  25% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: 0
+  }
+
+  to {
+    opacity: 0
+  }
 }
 
 
 .ball0 {
-    animation-name: ballfade;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
+  animation-name: ballfade;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
 }
+
 .ball1 {
-    opacity: 0;
-    animation-name: ballfade;
-    animation-duration: 2s;
-    animation-delay: .2s;
-    animation-iteration-count: infinite;
+  opacity: 0;
+  animation-name: ballfade;
+  animation-duration: 2s;
+  animation-delay: .2s;
+  animation-iteration-count: infinite;
 }
+
 .ball2 {
-    opacity: 0;
-    animation-name: ballfade;
-    animation-duration: 2s;
-    animation-delay: .4s;
-    animation-iteration-count: infinite;
+  opacity: 0;
+  animation-name: ballfade;
+  animation-duration: 2s;
+  animation-delay: .4s;
+  animation-iteration-count: infinite;
 }
+
 .ball3 {
-    opacity: 0;
-    animation-name: ballfade;
-    animation-duration: 2s;
-    animation-delay: .6s;
-    animation-iteration-count: infinite;
+  opacity: 0;
+  animation-name: ballfade;
+  animation-duration: 2s;
+  animation-delay: .6s;
+  animation-iteration-count: infinite;
 }
+
 .ball4 {
-    opacity: 0;
-    animation-name: ballfade;
-    animation-duration: 2s;
-    animation-delay: .8s;
-    animation-iteration-count: infinite;
+  opacity: 0;
+  animation-name: ballfade;
+  animation-duration: 2s;
+  animation-delay: .8s;
+  animation-iteration-count: infinite;
 }
+
 .ball5 {
-    opacity: 0;
-    animation-name: ballfade;
-    animation-duration: 2s;
-    animation-delay: 1s;
-    animation-iteration-count: infinite;
+  opacity: 0;
+  animation-name: ballfade;
+  animation-duration: 2s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
 }
+
 .ball6 {
-    opacity: 0;
-    animation-name: ballfade;
-    animation-duration: 2s;
-    animation-delay: 1.2s;
-    animation-iteration-count: infinite;
+  opacity: 0;
+  animation-name: ballfade;
+  animation-duration: 2s;
+  animation-delay: 1.2s;
+  animation-iteration-count: infinite;
 }
+
 .ball7 {
-    opacity: 0;
-    animation-name: ballfade;
-    animation-duration: 2s;
-    animation-delay: 1.4s;
-    animation-iteration-count: infinite;
+  opacity: 0;
+  animation-name: ballfade;
+  animation-duration: 2s;
+  animation-delay: 1.4s;
+  animation-iteration-count: infinite;
+}
+
+
+@keyframes rally {
+  from {
+    opacity: 0.2
+  }
+
+  50% {
+    opacity: 0.2
+  }
+
+  51% {
+    opacity: 0
+  }
+
+  to {
+    opacity: 0
+  }
+}
+
+.homeRally1 {
+  opacity: 0;
+  animation-name: rally;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+.awayRally1 {
+  opacity: 0;
+  animation-name: rally;
+  animation-duration: 3s;
+  animation-delay: 1.5s;
+  animation-iteration-count: infinite;
 }
