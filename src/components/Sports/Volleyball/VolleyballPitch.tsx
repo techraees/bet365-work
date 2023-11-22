@@ -224,6 +224,8 @@ function getHomeDecorationClassName(curCode: number) {
     : pitchStyle.homeDecorationShowDown
     } ${pitchStyle.scoredPoints}`;
 }
+
+
 function getAwayDecorationClassName(curCode: number) {
   const curEvent = getEventFromCode(curCode);
   const team = getTeamFromCode(curCode);
@@ -231,6 +233,28 @@ function getAwayDecorationClassName(curCode: number) {
     (curEvent) == 1250 ||
     (curEvent) == 1260 ||
     (curEvent) == 1258
+  )
+    ? (team == 2 ? pitchStyle.awayDecorationShowUp : pitchStyle.awayDecorationShowDown)
+    : pitchStyle.awayDecorationShowDown
+    } ${pitchStyle.scoredPoints}`;
+}
+
+function getRallyHomeDecorationClassName(curCode: number) {
+  const curEvent = getEventFromCode(curCode);
+  const team = getTeamFromCode(curCode);
+  return `${(
+    (curEvent) == 1249
+  )
+    ? (team == 1 ? pitchStyle.homeDecorationShowUp : pitchStyle.homeDecorationShowDown)
+    : pitchStyle.homeDecorationShowDown
+    } ${pitchStyle.scoredPoints}`;
+}
+
+function getRallyAwayDecorationClassName(curCode: number) {
+  const curEvent = getEventFromCode(curCode);
+  const team = getTeamFromCode(curCode);
+  return `${(
+    (curEvent) == 1249
   )
     ? (team == 2 ? pitchStyle.awayDecorationShowUp : pitchStyle.awayDecorationShowDown)
     : pitchStyle.awayDecorationShowDown
@@ -264,7 +288,7 @@ const VolleyballPitch: React.FC<VolleyballPitchInterface> = ({ data }) => {
   if (!data) {
     return null;
   }
-  // const curCode = 11250;
+  // const curCode = 11249;
   const curCode = data?.info.state as number;
   const curEvent = getEventFromCode(curCode);
   const status = getState(curCode);
@@ -319,7 +343,7 @@ const VolleyballPitch: React.FC<VolleyballPitchInterface> = ({ data }) => {
         </g>
 
         {/* ball server animation */}
-        {(curEvent == 1248 || curEvent == 1249 || curEvent == 1254 || curEvent == 1257) && (
+        {(curEvent == 1248 || curEvent == 1254 || curEvent == 1257) && (
           <>
             {status.team == 1 ? (
               // home ball serve animation 
@@ -469,12 +493,15 @@ const VolleyballPitch: React.FC<VolleyballPitchInterface> = ({ data }) => {
             <g id="home" transform="translate(10 145)">
               <rect id="home_active" fill={getAcitveColor('home', data)} width="3" height="15"></rect>
               <text id="home_action" className={getHomeDecorationClassName(curCode)} fill="#ffc0a0" fontSize="12px">Point</text>
+              <text id="home_action" className={getRallyHomeDecorationClassName(curCode)} fill="#ffc0a0" fontSize="12px">Served</text>
               <text id="home_text" transform="translate(10 12)" fill="#FFF" fontSize="13px">{data?.team_info?.home.name}</text>
             </g>
             <g id="away" transform="translate(390 145)">
               <rect id="away_active" width="3" height="15" fill={getAcitveColor('away', data)}></rect>
               <text id="away_action" className={getAwayDecorationClassName(curCode)} fill="#ffc0a0" textAnchor="end"
-                fontSize="12px">point</text>
+                fontSize="12px">Point</text>
+              <text id="away_action" className={getRallyAwayDecorationClassName(curCode)} fill="#ffc0a0" textAnchor="end"
+                fontSize="12px">Served</text>
               <text id="away_text" transform="translate(-10 12)" textAnchor="end" fill="#FFF"
                 fontSize="13px">{data?.team_info?.away.name}</text>
             </g>
@@ -544,14 +571,30 @@ const VolleyballPitch: React.FC<VolleyballPitchInterface> = ({ data }) => {
           </g>
         )}
 
-        <g id="rally" display="none">
-          <rect id="rally_a" fill="#690e0e" x="0" y="0" width="200" height="190" opacity="0"></rect>
-          <rect id="rally_b" fill="#690e0e" x="200" y="0" width="200" height="190" opacity="0"></rect>
-          <g transform="translate(180 30)">
-            <rect fill="#f0aa9c" width="40" height="16"></rect>
-            <text fontSize="13px" fill="#944c44" transform="translate(5 12)">Rally</text>
-          </g>
-        </g>
+        {
+          curCode == 11249 && (
+            <g id="rally" >
+              <rect id="rally_a" fill="#690e0e" x="0" y="0" width="200" height="190" className={animationStyle.homeRally1}></rect>
+              <rect id="rally_b" fill="#690e0e" x="200" y="0" width="200" height="190" className={animationStyle.awayRally1}></rect>
+              <g transform="translate(180 30)" opacity={1}>
+                <rect fill="#f0aa9c" width="40" height="16"></rect>
+                <text fontSize="13px" fill="#944c44" transform="translate(5 12)">Rally</text>
+              </g>
+            </g>
+          )
+        }
+        {
+          curCode == 21249 && (
+            <g id="rally" >
+              <rect id="rally_a" fill="#690e0e" x="0" y="0" width="200" height="190" className={animationStyle.awayRally1}></rect>
+              <rect id="rally_b" fill="#690e0e" x="200" y="0" width="200" height="190" className={animationStyle.homeRally1}></rect>
+              <g transform="translate(180 30)" opacity={1}>
+                <rect fill="#f0aa9c" width="40" height="16"></rect>
+                <text fontSize="13px" fill="#944c44" transform="translate(5 12)">Rally</text>
+              </g>
+            </g>
+          )
+        }
 
 
       </svg>

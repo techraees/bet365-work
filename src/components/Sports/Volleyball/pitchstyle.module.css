@@ -41,11 +41,18 @@
     opacity: 0;
 }
 
-
-
-
-
-
 .scoredPoints {
+    transition: all 0.5s linear;
+}
+
+.rallyShowUp{
+    opacity: 1;
+}
+
+.rallyShowDown{
+    opacity: 0;
+}
+
+.rally {
     transition: all 0.5s linear;
 }
