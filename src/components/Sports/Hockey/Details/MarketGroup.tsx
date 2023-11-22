@@ -5,15 +5,16 @@ import MarketGroupBody from '../../../Structure/MarketGroupBody';
 import { categoriesMapping } from '@/lib/sportsMapping';
 import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
-import { hockeyAll, hockeyAsianLines, hockeyBetBuilder, hockeyCornersCards, hockeyGoals, hockeyHalf } from './datastructure';
-import { gameLines, doubleChance, halfTimeResult, nthGoalMarketName, lastTeamToScore, firstHalfGoals,
+import { hockeyAll, hockeyAsianLines, hockeyBetBuilder, hockeyScore } from './datastructure';
+import { gameLines, doubleChance, halfTimeResult, nthGoalMarketName, lastTeamToScore,
     matchGoals, threeWayHandicap, goalOddEven, toWin2ndHalf, drawNoBet, goalLine, finalScore, 
     correctScore, halfTimeFullTime, resultBothTeamsToScore, bothTeamsToScore,
      betResult, betBothTeamsToScore, betDoubleChance, betMatchGoals, betNextGoal, betTeamGoals, betScore, betGoalOddEven,
      BetTeamToScoreinBothHalf, BetTeamToScorein2ndHalf, betMatchCorners, whenWillGameEnd, willMatchGoOvertime, exactGoals, 
      homeExactGoals, awayExactGoals, doubleChance2nd, doubleChance3rd, period3Lines, period2Lines,
      homeTotalGoals, awayTotalGoals, teamToWinTheMostPeriods, winningMargin,
-     homeTeamToScoreInBothHalves, awayTeamToScoreInBothHalves, raceTo
+     homeTeamToScoreInBothHalves, awayTeamToScoreInBothHalves, raceTo, highestScoringPeriod,
+     asianGoalLine, period2AsianGoalLine, period2TeamTotals, period3TeamTotals, period3CorrectScore
     } from '../mappings/mapping';
 
 interface MarketGroupProps {
@@ -27,8 +28,7 @@ const HockeyMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
     if (!data) {
         return null
     }
-    console.log('---->>hockeydata<<----', data);
-    ["All", "Same Game Parlay", "Period", "Score"]
+    ["All", "Same Game Parlay", "Score"]
     let oddData = {} as any;
     oddData = hockeyAll as any;
     if (active === "All") {
@@ -47,6 +47,24 @@ const HockeyMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         let raceToData: any = raceTo(data);
         hockeyAll.raceTo.rows = raceToData?.rows;
         hockeyAll.raceTo.header = raceToData?.header;
+        let asianGoalLineData: any = asianGoalLine(data);
+        hockeyAll.asianGoalLine.rows = asianGoalLineData?.rows;
+        hockeyAll.asianGoalLine.header = asianGoalLineData?.header;
+        hockeyAll.asianGoalLine.marketname = asianGoalLineData?.marketname;
+        let period2AsianGoalLineData: any = period2AsianGoalLine(data);
+        hockeyAll.period2AsianGoalLine.rows = period2AsianGoalLineData?.rows;
+        let period3CorrectScoreData: any = period3CorrectScore(data);
+        hockeyAll.period3CorrectScore.rows = period3CorrectScoreData?.rows;
+
+        // hockeyAll.period2TeamTotals.rows = period2TeamTotals(data);
+
+        let period2TeamTotalsData: any = period2TeamTotals(data);
+        hockeyAll.period2TeamTotals.rows = period2TeamTotalsData?.rows;
+        hockeyAll.period2TeamTotals.header = period2TeamTotalsData?.header;
+
+        let period3TeamTotalsData: any = period3TeamTotals(data);
+        hockeyAll.period3TeamTotals.rows = period3TeamTotalsData?.rows;
+        hockeyAll.period3TeamTotals.header = period3TeamTotalsData?.header;
 
         hockeyAll.doubleChance.rows = doubleChance(data);
         hockeyAll.halfTimeResult.rows = halfTimeResult(data);
@@ -75,6 +93,7 @@ const HockeyMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         hockeyAll.awayExactGoals = { ...hockeyAll.awayExactGoals, ...awayExactGoals(data)}
         hockeyAll.homeTotalGoals = { ...hockeyAll.homeTotalGoals, ...homeTotalGoals(data)}
         hockeyAll.awayTotalGoals = { ...hockeyAll.awayTotalGoals, ...awayTotalGoals(data)}
+        hockeyAll.highestScoringPeriod.rows = highestScoringPeriod(data);
                 
         const correctScoreData: any = correctScore(data);
         hockeyAll.correctScore.rows = correctScoreData?.rows;
@@ -95,22 +114,15 @@ const HockeyMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         hockeyBetBuilder.teamToScorein2ndHalf.rows = BetTeamToScorein2ndHalf(data);
         hockeyBetBuilder.teamToScoreinBothHalf.rows = BetTeamToScoreinBothHalf(data);
         oddData = hockeyBetBuilder as any;
-    } else if (active === "Asian Lines") {
+    } else if (active === "Asian Lines") { 
         hockeyAsianLines.goalLine.rows = goalLine(data);
         oddData = hockeyAsianLines as any;
-    } else if (active === "Goals") {
-        hockeyGoals.nthGoal = nthGoalMarketName(data, hockeyGoals.nthGoal);
-        hockeyGoals.matchGoals.rows = matchGoals(data);
-        hockeyGoals.lastTeamToScore.rows = lastTeamToScore(data);
-        hockeyGoals.goalOddEven.rows = goalOddEven(data);
-        oddData =hockeyGoals as any;
-    } else if (active === "Half") {
-        hockeyHalf.halfTimeResult.rows = halfTimeResult(data);
-        hockeyHalf.firstHalfGoals.rows = firstHalfGoals(data);
-        hockeyHalf.toWin2ndHalf.rows = toWin2ndHalf(data);
-        // hockeyHalf.correctScore.rows = correctScore(data);
-        hockeyHalf.halfTimeFullTime.rows = halfTimeFullTime(data)
-        oddData =hockeyHalf as any;
+    } else if (active === "Score") {
+        hockeyScore.nthGoal = nthGoalMarketName(data, hockeyScore.nthGoal);
+        // hockeyScore.matchGoals.rows = matchGoals(data);
+        // hockeyScore.lastTeamToScore.rows = lastTeamToScore(data);
+        // hockeyScore.goalOddEven.rows = goalOddEven(data);
+        oddData =hockeyScore as any;
     }
 
 

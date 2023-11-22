@@ -97,7 +97,7 @@ const DetailView: React.FC<DetailViewProps> = ({ grouped, sport, subcategory, cu
         baseball: ["All", "Bet Builder", "Main", "Innings", "Team"],
         lol: ["All", "Match", "Map1"],
         dota2: ["All", "Match", "Map3"],
-        hockey: ["All", "Same Game Parlay", "Period", "Score"],
+        hockey: ["All", "Same Game Parlay", "Score"],
     }
     if (data?.info?.sport === "esoccer") {
         sport = "soccer"

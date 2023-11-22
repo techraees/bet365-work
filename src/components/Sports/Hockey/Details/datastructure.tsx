@@ -5,24 +5,59 @@ export const hockeyAll = {
         header: [],
         rows: []
     },
+
+    //Todo
+    "10MinTeamToScore": {
+        marketname: "10 Minute Team To Score",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+
+    //Todo
+    "10MinBothTeamsToScore": {
+        marketname: "10 Minute Both Teams To Score",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+
+    //Todo
+    "10MinCorrectScore": {
+        marketname: "10 Minute Correct Score",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+
     "drawNoBet": {
         marketname: "Draw No Bet",
         suspend: "0",
         header: [],
         rows: []
     },
+
     "doubleChance": {
         marketname: "Double Chance",
         suspend: "0",
         header: [],
         rows: []
     },
+
     "nthGoal": {
         marketname: "nth Goal",
         suspend: "0",
         header: [],
         rows: []
     },
+
+    "asianGoalLine": {
+        marketname: "Asian Goal Line",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+
     "raceTo": {
         marketname: "Race To",
         suspend: "0",
@@ -36,9 +71,31 @@ export const hockeyAll = {
         header: ['', '1', '2', 'Neither'],
         rows: []
     },
-
+    
     "doubleChance2nd": {
         marketname: "Period 2 Double Chance",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+
+    "period2AsianGoalLine": {
+        marketname: "Period 2 Asian Goal Line",
+        suspend: "0",
+        header: ['', 'Over', 'Under'],
+        rows: []
+    },
+
+    "period2TeamTotals": {
+        marketname: "Period 2 Team Totals",
+        suspend: "0",
+        header: ['1', '2'],
+        rows: []
+    },
+
+    //Todo
+    "period2Winner3Way": {
+        marketname: "Period 2 Winner 3-Way",
         suspend: "0",
         header: [],
         rows: []
@@ -50,14 +107,51 @@ export const hockeyAll = {
         header: [],
         rows: []
     },
+
+    "period3CorrectScore": {
+        marketname: "Period 3 Correct Score",
+        suspend: "0",
+        header: ["1", "x", "2"],
+        rows: []
+    },
+
     "doubleChance3rd": {
         marketname: "Period 3 Double Chance",
         suspend: "0",
         header: [],
         rows: []
     },
-    "exactGoals": {
-        marketname: "Exact Goals",
+
+    "period3AsianGoalLine": {
+        marketname: "Period 3 Asian Goal Line",
+        suspend: "0",
+        header: ['', 'Over', 'Under'],
+        rows: []
+    },
+
+    "period3TeamTotals": {
+        marketname: "Period 3 Team Totals",
+        suspend: "0",
+        header: ['1', '2'],
+        rows: []
+    },
+
+    //Todo
+    "period3Winner3Way": {
+        marketname: "Period 3 Winner 3-Way",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+
+    "awayTotalGoals": {
+        marketname: "Home Total Goals",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "homeTotalGoals": {
+        marketname: "Home Total Goals",
         suspend: "0",
         header: [],
         rows: []
@@ -74,14 +168,20 @@ export const hockeyAll = {
         header: [],
         rows: []
     },
-    "homeTotalGoals": {
-        marketname: "Home Total Goals",
+    "whenWillGameEnd": {
+        marketname: "When Will Game End",
         suspend: "0",
         header: [],
         rows: []
     },
-    "awayTotalGoals": {
-        marketname: "Home Total Goals",
+    "willMatchGoOvertime": {
+        marketname: "Will Match Go Overtime",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "exactGoals": {
+        marketname: "Exact Goals",
         suspend: "0",
         header: [],
         rows: []
@@ -92,14 +192,8 @@ export const hockeyAll = {
         header: [],
         rows: []
     },
-    "whenWillGameEnd": {
-        marketname: "When Will Game End",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "willMatchGoOvertime": {
-        marketname: "Will Match Go Overtime",
+    "highestScoringPeriod": {
+        marketname: "Highest Scorng Period",
         suspend: "0",
         header: [],
         rows: []
@@ -428,7 +522,7 @@ export const hockeyCornersCards = {
     },
 }
 
-export const hockeyGoals = {
+export const hockeyScore = {
     "nthGoal": {
         marketname: "nth Goal",
         suspend: "0",

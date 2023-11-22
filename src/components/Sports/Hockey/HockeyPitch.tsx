@@ -51,6 +51,10 @@ function getEventString(status: number): string {
       name: "Keeper Back In Goal",
     },
     {
+      code: 1280,
+      name: "End of Period"
+    },
+    {
       code: 1281,
       name: "Overtime Start",
     },
@@ -340,7 +344,7 @@ function getMessagePositionOnAttack(
       y: 75,
     };
   y = ballPos.y < 75 ? ballPos.y + 20 : ballPos.y - 40;
-  x = team == 1 ? ballPos.x - 10 : ballPos.x + 10;
+  x = team == 1 ? ballPos.x - 20 : ballPos.x + 20;
   return {
     x: x,
     y: y,
@@ -474,7 +478,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
     data?.info?.ball_pos != prevBallPos
   ) {
     ballTrack.push(data.info.ball_pos);
-    if (ballTrack.length > 6) {
+    if (ballTrack.length > 2) {
       ballTrack.shift();
     }
     localStorage.setItem("ball_pos", data?.info.ball_pos);
@@ -523,24 +527,24 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               <stop
                 className="gradStart"
                 offset="17.7%"
-                style={{ stopOpacity: 0.4, stopColor: "rgb(24, 84, 53)" }}
+                style={{ stopOpacity: 0.4, stopColor: "rgb(99, 130, 187)" }}
               ></stop>
               <stop
                 className="gradEnd"
                 offset="100%"
-                style={{ stopOpacity: 0.4, stopColor: "rgb(24, 57, 36)" }}
+                style={{ stopOpacity: 0.4, stopColor: "rgb(99, 130, 187)" }}
               ></stop>
             </linearGradient>
             <linearGradient id="ml1-Gradient11">
               <stop
                 className="gradStart"
                 offset="0%"
-                style={{ stopOpacity: 0.4, stopColor: "rgb(24, 57, 36)" }}
+                style={{ stopOpacity: 0.4, stopColor: "rgb(99, 130, 187)" }}
               ></stop>
               <stop
                 className="gradEnd"
                 offset="82.3%"
-                style={{ stopOpacity: 0.4, stopColor: "rgb(24, 84, 53)" }}
+                style={{ stopOpacity: 0.4, stopColor: "rgb(99, 130, 187)" }}
               ></stop>
             </linearGradient>
             <linearGradient id="ml1-Gradient2">
@@ -552,14 +556,14 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               <stop
                 className="gradEnd"
                 offset="42.4%"
-                style={{ stopOpacity: 0.4, stopColor: "rgb(24, 84, 53)" }}
+                style={{ stopOpacity: 0.4, stopColor: "rgb(99, 130, 187)" }}
               ></stop>
             </linearGradient>
             <linearGradient id="ml1-Gradient21">
               <stop
                 className="gradStart"
                 offset="57.6%"
-                style={{ stopOpacity: 0.4, stopColor: "rgb(24, 84, 53)" }}
+                style={{ stopOpacity: 0.4, stopColor: "rgb(99, 130, 187)" }}
               ></stop>
               <stop
                 className="gradEnd"
@@ -890,14 +894,14 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
           </g>
           {
             (status?.team == 1 && isDangerousAttack(ballPos, status.team, status.status)) &&
-            <g id="SVGIRIS_PITCH_FX_DNGR_0" className="transition-transform duration-500" transform={`matrix(1,0,0,1,${Math.min((ballPos?.x ?? 320) - 370), -5},0)`}>
+            <g id="SVGIRIS_PITCH_FX_DNGR_0" className="transition-transform duration-500" transform={`matrix(1,0,0,1,${Math.min((ballPos?.x ?? 320) - 380), -5},0)`}>
               <polygon id="SvgjsPolygon3649" points="388,0 400,30 388,60 400,90 388,120 400,150 388,180 0,180 0,0"
                 fill="url(#ml1-Gradient21)"></polygon>
             </g>
           }
           {
             (status?.team == 2 && isDangerousAttack(ballPos, status.team, status.status)) &&
-            <g id="SVGIRIS_PITCH_FX_DNGR_1" transform={`matrix(1,0,0,1,${Math.max((ballPos?.x ?? 80) - 20, 5)},0)`}>
+            <g id="SVGIRIS_PITCH_FX_DNGR_1" transform={`matrix(1,0,0,1,${Math.max((ballPos?.x ?? 80) - 10, 5)},0)`}>
               <polygon id="SvgjsPolygon2003" points="12,0 0,30 12,60 0,90 12,120 0,150 12,180 400,180 400,0"
                 fill="url(#ml1-Gradient2)"></polygon>
             </g>
@@ -905,45 +909,44 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
 
           {
             (status?.team == 1 &&  isAttack(ballPos, status.team, status.status)) &&
-            < g id="SVGIRIS_PITCH_FX_ATTK_0" className="transition-transform duration-500" transform={`matrix(1,0,0,1,${(ballPos?.x ?? 190) - 350},0)`}>
+            < g id="SVGIRIS_PITCH_FX_ATTK_0" className="transition-transform duration-500" transform={`matrix(1,0,0,1,${(ballPos?.x ?? 190) - 380},0)`}>
               <polygon id="SvgjsPolygon2060" points="388,0 400,30 388,60 400,90 388,120 400,150 388,180 0,180 0,0"
                 fill="url(#ml1-Gradient11)"></polygon>
             </g>
           }
           {
             (status?.team == 2 &&  isDangerousAttack(ballPos, status.team, status.status)) &&
-            <g id="SVGIRIS_PITCH_FX_ATTK_1" className={"transition-transform duration-500" + status?.status == "Goal " ? " goal" : ""} transform={`matrix(1,0,0,1,${(ballPos?.x ?? 190) - 20},0)`}>
+            <g id="SVGIRIS_PITCH_FX_ATTK_1" className={"transition-transform duration-500" + status?.status == "Goal " ? " goal" : ""} transform={`matrix(1,0,0,1,${(ballPos?.x ?? 190) - 10},0)`}>
               <polygon id="SvgjsPolygon1224" points="12,0 0,30 12,60 0,90 12,120 0,150 12,180 400,180 400,0"
                 fill="url(#ml1-Gradient1)"></polygon>
             </g>
           }
-          {status?.team == 2 &&
-            (status?.status == "On Possession") && (
+          { (status?.team == 2 &&
+            isPossession(ballPos, status.team, status.status)) && (
               <g id="away_safe">
                 <rect
                   x="200"
                   y="0"
-                  fill="#183924"
+                  fill="rgb(99, 130, 187)"
                   fillOpacity="0.4"
                   width="200"
                   height="180"
                 ></rect>
               </g>
             )}
-          {status?.team == 1 &&
-            (status?.status == "On Possession") && (
+          { (status?.team == 1 &&
+            isPossession(ballPos, status.team, status.status)) && (
               <g id="home_safe">
                 <rect
                   x="0"
                   y="0"
-                  fill="#183924"
+                  fill="rgb(99, 130, 187)"
                   fillOpacity="0.4"
                   width="200"
                   height="180"
                 ></rect>
               </g>
             )}
-
           {teamMessage && teamMessage.team == "Global" && (
             <g
               className="transition-transform duration-500"
@@ -954,11 +957,11 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               <text
                 y="0"
                 textAnchor="middle"
-                fill="#f0f0f0"
+                fill="rgb(83, 123, 163)"
                 fontWeight="bold"
                 fontSize="15px"
               >
-                {teamMessage?.message}
+                {data?.info?.state_info}
               </text>
             </g>
           )}
@@ -985,8 +988,8 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
                 id="home_team"
                 transform="translate(-10 10)"
                 textAnchor="end"
-                fill="#12e096"
-                fontSize="13px"
+                fill="#000000"
+                fontSize="15px"
               >
                 {data?.team_info?.home.name}
               </text>
@@ -994,7 +997,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
                 id="home_action"
                 transform="translate(-10 28)"
                 textAnchor="end"
-                fill="#545454"
+                fill="rgb(83, 123, 163)"
                 fontWeight="bold"
                 fontSize="15px"
               >
@@ -1024,15 +1027,15 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               <text
                 id="away_team"
                 transform="translate(10 10)"
-                fill="#12e096"
-                fontSize="13px"
+                fill="#000000"
+                fontSize="15px"
               >
                 {data?.team_info?.away.name}
               </text>
               <text
                 id="away_action"
                 transform="translate(10 28)"
-                fill="#545454"
+                fill="rgb(83, 123, 163)"
                 fontWeight="bold"
                 fontSize="15px"
               >
@@ -2655,12 +2658,12 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
             id="SVGIRIS_PITCH_MATCHTIME"
             transform="translate(175, 0)"
           >
-            <rect width="50" height="17" fill="#898989" />
+            <rect width="50" height="17" fill="#537ba3" />
             <text
               id="SVGIRIS_PITCH_MATCHTIME_TXT"
               x="25"
               y="13"
-              fill="#232323"
+              fill="#ffffff"
               fontFamily="Roboto"
               fontSize="11px"
               fontWeight="300"

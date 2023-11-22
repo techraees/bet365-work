@@ -240,6 +240,69 @@ export const raceTo = (data: any) => {
     return {header, rows: races};
 }
 
+export const asianGoalLine = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    const header = ['', 'Over', 'Under'];
+    const marketname = `Asian Goal Line (${data?.team_info?.home?.score}-${data?.team_info?.away?.score})`
+    let races = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[95108]?.participants) {
+        const race = Object.entries(data?.odds?.[95108]?.participants)
+        if (race.length > 0) {
+            race.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name;
+                if(title == "Over") {
+                    if(row.length == 3) {
+                        races.push(row);
+                        row = [] as any;
+                    }
+                    row.push({ title: item[1].handicap, value: '', suspend});
+                }
+                row.push({title: '', value: item[1]?.value_eu, suspend: item[1].suspend});
+            })
+        }
+    }
+    if(row.length > 0)
+        races.push(row);
+    return {marketname, header, rows: races};
+}
+
+export const period2AsianGoalLine = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    let races = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[95110]?.participants) {
+        const race = Object.entries(data?.odds?.[95110]?.participants)
+        if (race.length > 0) {
+            race.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name;
+                if(title == "Over") {
+                    if(row.length == 3) {
+                        races.push(row);
+                        row = [] as any;
+                    }
+                    row.push({ title: item[1].handicap, value: '', suspend});
+                }
+                row.push({title: '', value: item[1]?.value_eu, suspend: item[1].suspend});
+            })
+        }
+    }
+    if(row.length > 0)
+        races.push(row);
+    return {rows: races};
+}
 export const doubleChance = (data: any) => {
     if (!data && !data.odds) {
         return [];
@@ -786,6 +849,44 @@ export const correctScore = (data: any) => {
     return { header, rows: tosend }
 }
 
+export const period3CorrectScore = (data: any) => {
+    if (!data && !data.odds) {
+        return []
+    }
+    let header = ['', data?.team_info?.home?.name, data?.team_info?.away?.name];
+    let tosend = [] as any;
+
+    if (data?.odds?.[9200261]?.participants) {
+        let result = [] as any;
+        Object.keys(data?.odds?.[9200261]?.participants).map(item => {
+            let correctScore = data?.odds?.[9200261]?.participants[item]?.name;
+            let score = correctScore.split('-');
+            if(score.length != 2 || isNaN(score[0])) {
+                result.push({title: correctScore.name, value: '', suspend: correctScore.suspend});
+                result.push({title: '', value: correctScore.value_eu, suspend: correctScore.suspend});
+                tosend.push(result);
+                result = [] as any;
+            } else {
+                score[0] = Number(score[0]);
+                score[1] = Number(score[1]);
+                if (correctScore?.suspend === "0") {
+                    if(score[0] > score[1]) {
+                        if(result.length > 0) {
+                            tosend.push(result);
+                            result = [] as any;
+                        }
+                        result.push({title: correctScore.name, value: '', suspend: correctScore.suspend});
+                    }
+                    result.push({title: '', value: correctScore.value_eu, suspend: correctScore.suspend});
+                }
+            }
+        })
+        if(result.length > 0)
+            tosend.push(result);
+    }
+    // console.log({ tosend })
+    return { header, rows: tosend }
+}
 
 export const halfTimeFullTime = (data: any) => {
     if (!data && !data.odds) {
@@ -1410,7 +1511,7 @@ export const whenWillGameEnd = (data: any) => {
     }
 
     const tosend = [] as any;
-    if (data?.odds?.[5100009]?.participants) {
+    if (data?.odds?.[5100008]?.participants) {
         const spread = Object.entries(data?.odds?.[5100008]?.participants)
         if (spread.length > 0) {
             const arr = [] as any;
@@ -1615,6 +1716,87 @@ export const awayTotalGoals = (data: any) => {
     return {marketname: `${data?.team_info?.away?.name} Total Goals`, rows: tosend}
 }
 
+
+export const period2TeamTotals = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    const header = [data?.team_info?.home?.name, data?.team_info?.away?.name];
+    const total = [] as any;
+    const rows = [] as any;
+    if(data?.odds?.[437]?.participants) {
+        const ou = Object.entries(data?.odds?.[437]?.participants)
+        if (ou.length > 0) {
+            ou.map((item: any, index: number) => {
+                let title = '';
+                let suspend = item[1].suspend;
+                title = item[1]?.name
+                total.push({ title: `${title} ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+            })
+        }
+    }
+    if(data?.odds?.[438]?.participants) {
+        const ou = Object.entries(data?.odds?.[438]?.participants)
+        if (ou.length > 0) {
+            ou.map((item: any, index: number) => {
+                let title = '';
+                let suspend = item[1].suspend;
+                title = item[1]?.name
+                total.push({ title: `${title} ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+            })
+        }
+    }
+    if(total.length > 0)
+        rows.push(total);
+
+
+    // console.log('Sending New Data', data)
+
+    return {header, rows: rows};
+}
+
+export const period3TeamTotals = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    const header = [data?.team_info?.home?.name, data?.team_info?.away?.name];
+    const total = [] as any;
+    const rows = [] as any;
+    if(data?.odds?.[439]?.participants) {
+        const ou = Object.entries(data?.odds?.[439]?.participants)
+        if (ou.length > 0) {
+            ou.map((item: any, index: number) => {
+                let title = '';
+                let suspend = item[1].suspend;
+                title = item[1]?.name
+                total.push({ title: `${title} ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+            })
+        }
+    }
+    if(data?.odds?.[440]?.participants) {
+        const ou = Object.entries(data?.odds?.[440]?.participants)
+        if (ou.length > 0) {
+            ou.map((item: any, index: number) => {
+                let title = '';
+                let suspend = item[1].suspend;
+                title = item[1]?.name
+                total.push({ title: `${title} ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+            })
+        }
+    }
+    if(total.length > 0)
+        rows.push(total);
+
+
+    // console.log('Sending New Data', data)
+
+    return {header, rows: rows};
+}
+
 export const teamToWinTheMostPeriods = (data: any) => {
     if (!data && !data.odds) {
         return [];
@@ -1641,6 +1823,36 @@ export const teamToWinTheMostPeriods = (data: any) => {
     return tosend;
 }
 
+export const highestScoringPeriod = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    const tosend = [] as any;
+    if (data?.odds?.[483]?.participants) {
+        const spread = Object.entries(data?.odds?.[483]?.participants)
+        if (spread.length > 0) {
+            let arr = [] as any;
+            spread.map((item: any, index: number) => {
+                let title = '';
+                let value = '';
+                let suspend = '0';
+                title = item[1]?.name == 'X' ? "Tie" : item[1].name;
+                value = item[1]?.value_eu
+                suspend = item[1]?.suspend
+                arr.push({ title: title, value: value, suspend: suspend })
+                if(arr.length == 3) {
+                    tosend.push(arr);
+                    arr = [] as any;
+                }
+            })
+            if(arr.length > 0)
+                tosend.push(arr)
+        }
+    }
+    // console.log('Sending New Data', data)
+    return tosend;
+}
 
 export const winningMargin = (data: any) => {
     if (!data && !data.odds) {
@@ -1666,6 +1878,7 @@ export const winningMargin = (data: any) => {
 
     return {header, rows: sends};
 }
+
 
 export const homeTeamToScoreInBothHalves = (data: any) => {
     if (!data && !data.odds) {

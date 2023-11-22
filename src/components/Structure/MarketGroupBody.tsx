@@ -68,6 +68,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
     return (
         <>
             {odd?.rows?.map((rowdata: any, index: number) => {
+                // console.log('>>>>rowdata>>>', rowdata);
                 return (
                     <div key={index} className={'flex flex-col w-[100%] h-[100%]'}>
                         <div className='border-t border-solid border-t-[#ffffff1a] h-[1px]' />
