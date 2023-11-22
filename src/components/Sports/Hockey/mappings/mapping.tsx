@@ -22,7 +22,7 @@ export const gameLines = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (spreads.length < 3 && (title === "Home" || title == "Away")) {
-                    spreads.push({title: `${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                    spreads.push({title: `${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend});
                 }
             })
         }
@@ -36,10 +36,10 @@ export const gameLines = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (total.length < 3 && title === "Over"){
-                    total.push({title: `O ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                    total.push({title: `O ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend});
                 }
                 if (total.length < 3 && title === "Under"){
-                    total.push({title: `U ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                    total.push({title: `U ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend});
                 }
             })
         }
@@ -94,7 +94,7 @@ export const period2Lines = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (spreads.length < 3 && (title === "Home" || title == "Away")) {
-                    spreads.push({title: `${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                    spreads.push({title: `${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend});
                 }
             })
         }
@@ -107,10 +107,10 @@ export const period2Lines = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (total.length < 3 && title === "Over"){
-                    total.push({title: `O ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                    total.push({title: `O ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend});
                 }
                 if (total.length < 3 && title === "Under"){
-                    total.push({title: `U ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                    total.push({title: `U ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend});
                 }
             })
         }
@@ -161,7 +161,7 @@ export const period3Lines = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (spreads.length < 3 && (title === "Home" || title == "Away")) {
-                    spreads.push({title: `${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                    spreads.push({title: `${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend});
                 }
             })
         }
@@ -174,10 +174,10 @@ export const period3Lines = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (total.length < 3 && title === "Over"){
-                    total.push({title: `O ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                    total.push({title: `O ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend});
                 }
                 if (total.length < 3 && title === "Under"){
-                    total.push({title: `U ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                    total.push({title: `U ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend});
                 }
             })
         }
@@ -1733,7 +1733,7 @@ export const period2TeamTotals = (data: any) => {
                 let title = '';
                 let suspend = item[1].suspend;
                 title = item[1]?.name
-                total.push({ title: `${title} ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                total.push({ title: `${title} ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend});
             })
         }
     }
@@ -1744,7 +1744,7 @@ export const period2TeamTotals = (data: any) => {
                 let title = '';
                 let suspend = item[1].suspend;
                 title = item[1]?.name
-                total.push({ title: `${title} ${item[1].value_eu}`, value: ` ${Number(item[1].handicap) > 0 ? '+' : ''}${item[1].handicap}`, suspend});
+                total.push({ title: `${title} ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend});
             })
         }
     }
