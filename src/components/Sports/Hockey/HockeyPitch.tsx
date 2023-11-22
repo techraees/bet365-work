@@ -961,7 +961,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
                 fontWeight="bold"
                 fontSize="15px"
               >
-                {data?.info?.state_info}
+                {data?.info?.state_info ?? teamMessage.message}
               </text>
             </g>
           )}
