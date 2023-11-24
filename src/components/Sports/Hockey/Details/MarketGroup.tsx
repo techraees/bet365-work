@@ -14,7 +14,9 @@ import { gameLines, doubleChance, halfTimeResult, nthGoalMarketName, lastTeamToS
      homeExactGoals, awayExactGoals, doubleChance2nd, doubleChance3rd, period3Lines, period2Lines,
      homeTotalGoals, awayTotalGoals, teamToWinTheMostPeriods, winningMargin,
      homeTeamToScoreInBothHalves, awayTeamToScoreInBothHalves, raceTo, highestScoringPeriod,
-     asianGoalLine, period2AsianGoalLine, period2TeamTotals, period3TeamTotals, period3CorrectScore
+     asianGoalLine, period2AsianGoalLine, period2TeamTotals, period3TeamTotals, period3CorrectScore, asianPuckLine,
+     period2AsianPuckLine, period3AsianPuckLine, alternativePuckLines, goalScorer, toScore2OrMore, toScore3OrMore,
+     _10MinWinner3Way, homeTeamGoalScorer, awayTeamGoalScorer
     } from '../mappings/mapping';
 
 interface MarketGroupProps {
@@ -47,6 +49,21 @@ const HockeyMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         let raceToData: any = raceTo(data);
         hockeyAll.raceTo.rows = raceToData?.rows;
         hockeyAll.raceTo.header = raceToData?.header;
+        let asianPuckLineData: any = asianPuckLine(data);
+        hockeyAll.asianPuckLine.rows = asianPuckLineData?.rows;
+        hockeyAll.asianPuckLine.header = asianPuckLineData?.header;
+        hockeyAll.asianPuckLine.marketname = asianPuckLineData?.marketname;
+        let period2AsianPuckLineData: any = period2AsianPuckLine(data);
+        hockeyAll.period2AsianPuckLine.rows = period2AsianPuckLineData?.rows;
+        hockeyAll.period2AsianPuckLine.header = period2AsianPuckLineData?.header;
+        hockeyAll.period2AsianPuckLine.marketname = period2AsianPuckLineData?.marketname;
+        let period3AsianPuckLineData: any = period3AsianPuckLine(data);
+        hockeyAll.period3AsianPuckLine.rows = period3AsianPuckLineData?.rows;
+        hockeyAll.period3AsianPuckLine.header = period3AsianPuckLineData?.header;
+        hockeyAll.period3AsianPuckLine.marketname = period3AsianPuckLineData?.marketname;
+        let alternativePuckLinesData: any = alternativePuckLines(data);
+        hockeyAll.alternativePuckLines.rows = alternativePuckLinesData?.rows;
+        hockeyAll.alternativePuckLines.header = alternativePuckLinesData?.header;
         let asianGoalLineData: any = asianGoalLine(data);
         hockeyAll.asianGoalLine.rows = asianGoalLineData?.rows;
         hockeyAll.asianGoalLine.header = asianGoalLineData?.header;
@@ -55,6 +72,17 @@ const HockeyMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         hockeyAll.period2AsianGoalLine.rows = period2AsianGoalLineData?.rows;
         let period3CorrectScoreData: any = period3CorrectScore(data);
         hockeyAll.period3CorrectScore.rows = period3CorrectScoreData?.rows;
+        let goalScorerData: any = goalScorer(data);
+        hockeyAll.goalScorer.marketname = goalScorerData?.marketname;
+        hockeyAll.goalScorer.rows = goalScorerData?.rows;
+        let homeTeamGoalScorerData: any = homeTeamGoalScorer(data);
+        hockeyAll.homeTeamGoalScorer.marketname = homeTeamGoalScorerData?.marketname;
+        hockeyAll.homeTeamGoalScorer.rows = homeTeamGoalScorerData?.rows;
+        let awayTeamGoalScorerData: any = awayTeamGoalScorer(data);
+        hockeyAll.awayTeamGoalScorer.marketname = awayTeamGoalScorerData?.marketname;
+        hockeyAll.awayTeamGoalScorer.rows = awayTeamGoalScorerData?.rows;
+        hockeyAll.toScore2OrMore.rows = toScore2OrMore(data);
+        hockeyAll.toScore3OrMore.rows = toScore3OrMore(data);
 
         // hockeyAll.period2TeamTotals.rows = period2TeamTotals(data);
 
@@ -94,6 +122,7 @@ const HockeyMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         hockeyAll.homeTotalGoals = { ...hockeyAll.homeTotalGoals, ...homeTotalGoals(data)}
         hockeyAll.awayTotalGoals = { ...hockeyAll.awayTotalGoals, ...awayTotalGoals(data)}
         hockeyAll.highestScoringPeriod.rows = highestScoringPeriod(data);
+        hockeyAll._10MinWinner3Way.rows = _10MinWinner3Way(data);
                 
         const correctScoreData: any = correctScore(data);
         hockeyAll.correctScore.rows = correctScoreData?.rows;

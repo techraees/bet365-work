@@ -51,6 +51,13 @@ export const hockeyAll = {
         rows: []
     },
 
+    "asianPuckLine": {
+        marketname: "Asian Puck Line",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: []
+    },
+
     "asianGoalLine": {
         marketname: "Asian Goal Line",
         suspend: "0",
@@ -58,6 +65,13 @@ export const hockeyAll = {
         rows: []
     },
 
+    "_10MinWinner3Way": {
+        marketname: "10 Minute Winner 3-Way",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    
     "raceTo": {
         marketname: "Race To",
         suspend: "0",
@@ -76,6 +90,14 @@ export const hockeyAll = {
         marketname: "Period 2 Double Chance",
         suspend: "0",
         header: [],
+        rows: []
+    },
+
+
+    "period2AsianPuckLine": {
+        marketname: "Period 2 Asian Puck Line",
+        suspend: "0",
+        header: ["Home", "Away"],
         rows: []
     },
 
@@ -122,6 +144,13 @@ export const hockeyAll = {
         rows: []
     },
 
+    "period3AsianPuckLine": {
+        marketname: "Period 3 Asian Puck Line",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: []
+    },
+
     "period3AsianGoalLine": {
         marketname: "Period 3 Asian Goal Line",
         suspend: "0",
@@ -141,6 +170,13 @@ export const hockeyAll = {
         marketname: "Period 3 Winner 3-Way",
         suspend: "0",
         header: [],
+        rows: []
+    },
+
+    "alternativePuckLines": {
+        marketname: "Alternative Puck Lines",
+        suspend: "0",
+        header: ["Home", "Away"],
         rows: []
     },
 
@@ -356,6 +392,36 @@ export const hockeyAll = {
     },
     "winningMargin": {
         marketname: "Winning Margin",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "goalScorer": {
+        marketname: "Goal Scorer",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "homeTeamGoalScorer": {
+        marketname: "Home Team Goal Scorer",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "awayTeamGoalScorer": {
+        marketname: "Away Team Goal Scorer",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "toScore2OrMore": {
+        marketname: "To Score 2 Or More",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "toScore3OrMore": {
+        marketname: "To Score 3 Or More",
         suspend: "0",
         header: [],
         rows: []

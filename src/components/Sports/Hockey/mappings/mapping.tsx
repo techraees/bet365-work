@@ -240,6 +240,248 @@ export const raceTo = (data: any) => {
     return {header, rows: races};
 }
 
+export const goalScorer = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    let marketname : string = ``; 
+    Object.keys(data?.odds).map((item) => {
+        if (data.odds[item].name.startsWith('Which team will score the ') && data.odds[item].name.includes('goal?')) {
+            let ngoal = data.odds[item].name.replace('Which team will score the ', '');
+            marketname = ngoal.replace(' goal?', '')
+        }
+    });
+    marketname = `${marketname} Goal Scorer`;
+
+    let lines = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[5100001]?.participants) {
+        const items: any = Object.entries(data?.odds?.[5100001]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            row.push({ title: item.name,  value: `${item.value_eu >= 0 ? '+' : ''}${item.value_eu}`, suspend: item.suspend});
+            if(row.length == 2) {
+                lines.push(row);
+                row = [] as any;
+            }
+        });
+    }
+    return {marketname, rows: lines};
+}
+
+export const homeTeamGoalScorer = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    let marketname : string = ``;
+    let suffix = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
+
+    let lines = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[5100002]?.participants) {
+        const items: any = Object.entries(data?.odds?.[5100002]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            if(lines.length == 0 && row.length == 0)
+                marketname = `${data?.team_info?.home?.name} ${item.handicap}${suffix[item.handicap]} Goalscorer`;
+            row.push({ title: item.name,  value: `${item.value_eu >= 0 ? '+' : ''}${item.value_eu}`, suspend: item.suspend});
+            if(row.length == 2) {
+                lines.push(row);
+                row = [] as any;
+            }
+        });
+    }
+    return {marketname, rows: lines};
+}
+
+export const awayTeamGoalScorer = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    let marketname : string = ``;
+    let suffix = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
+
+    let lines = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[5100003]?.participants) {
+        const items: any = Object.entries(data?.odds?.[5100003]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            if(lines.length == 0 && row.length == 0)
+                marketname = `${data?.team_info?.away?.name} ${item.handicap}${suffix[item.handicap]} Goalscorer`;
+            row.push({ title: item.name,  value: `${item.value_eu >= 0 ? '+' : ''}${item.value_eu}`, suspend: item.suspend});
+            if(row.length == 2) {
+                lines.push(row);
+                row = [] as any;
+            }
+        });
+    }
+    return {marketname, rows: lines};
+}
+
+export const toScore2OrMore = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    let lines = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[5100012]?.participants) {
+        const items: any = Object.entries(data?.odds?.[5100012]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            row.push({ title: item.name,  value: `${item.value_eu >= 0 ? '+' : ''}${item.value_eu}`, suspend: item.suspend});
+            if(row.length == 2) {
+                lines.push(row);
+                row = [] as any;
+            }
+        });
+    }
+    return lines;
+}
+
+export const toScore3OrMore = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    let lines = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[5100013]?.participants) {
+        const items: any = Object.entries(data?.odds?.[5100013]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            row.push({ title: item.name,  value: `${item.value_eu >= 0 ? '+' : ''}${item.value_eu}`, suspend: item.suspend});
+            if(row.length == 2) {
+                lines.push(row);
+                row = [] as any;
+            }
+        });
+    }
+    return lines;
+}
+
+export const _10MinWinner3Way = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    let lines = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[9312475]?.participants) {
+        const items: any = Object.entries(data?.odds?.[9312475]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            const name = item.name == "Home" ? data?.team_info?.home?.name : "Away" ? data?.team_info?.away?.name : item.name;
+            row.push({ title: name,  value: `${item.value_eu >= 0 ? '+' : ''}${item.value_eu}`, suspend: item.suspend});
+        });
+    }
+    if(row.length > 0)
+        lines.push(row);
+    return lines;
+}
+
+export const alternativePuckLines = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    const header = [data?.team_info?.home?.name, data?.team_info?.away?.name];
+    let lines = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[9312464]?.participants) {
+        const items: any = Object.entries(data?.odds?.[9312464]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            row.push({ title: item.handicap,  value: `${item.value_eu >= 0 ? '+' : ''}${item.value_eu}`, suspend: item.suspend});
+            if(row.length == 2) {
+                lines.push(row);
+                row = [] as any;
+            }
+        });
+    }
+    return {header, rows: lines};
+}
+
+export const asianPuckLine = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    const header = [data?.team_info?.home?.name, data?.team_info?.away?.name];
+    const marketname = `Asian Puck Line (${data?.team_info?.home?.score}-${data?.team_info?.away?.score})`
+    let lines = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[9312457]?.participants) {
+        const items: any = Object.entries(data?.odds?.[9312457]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            row.push({ title: item.handicap,  value: `${item.value_eu >= 0 ? '+' : ''}${item.value_eu}`, suspend: item.suspend});
+            if(row.length == 2) {
+                lines.push(row);
+                row = [] as any;
+            }
+        });
+    }
+    return {marketname, header, rows: lines};
+}
+
+export const period2AsianPuckLine = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    const header = [data?.team_info?.home?.name, data?.team_info?.away?.name];
+    const marketname = `Period 2 Asian Puck Line (${data?.stats[2]?.home}-${data?.stats[2]?.home})`
+    let lines = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[9312459]?.participants) {
+        const items: any = Object.entries(data?.odds?.[9312459]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            row.push({ title: item.handicap,  value: `${item.value_eu >= 0 ? '+' : ''}${item.value_eu}`, suspend: item.suspend});
+            if(row.length == 2) {
+                lines.push(row);
+                row = [] as any;
+            }
+        });
+    }
+    return {marketname, header, rows: lines};
+}
+
+export const period3AsianPuckLine = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    const header = [data?.team_info?.home?.name, data?.team_info?.away?.name];
+    const marketname = `Period 3 Asian Puck Line (${data?.stats[3]?.home}-${data?.stats[3]?.home})`
+    let lines = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[9312460]?.participants) {
+        const items: any = Object.entries(data?.odds?.[9312460]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            row.push({ title: item.handicap,  value: `${item.value_eu >= 0 ? '+' : ''}${item.value_eu}`, suspend: item.suspend});
+            if(row.length == 2) {
+                lines.push(row);
+                row = [] as any;
+            }
+        });
+    }
+    return {marketname, header, rows: lines};
+}
+
 export const asianGoalLine = (data: any) => {
     if (!data && !data.odds) {
         return [];
