@@ -9,9 +9,6 @@ export const nextQuarter = {
   "3rd Quarter": "4th Quarter",
 };
 
-function getNextQuarter(current: string): string {
-  return nextQuarter[current as keyof typeof nextQuarter];
-}
 
 const base_arr_is_suspended = (base_arr: any) => {
   var total_suspended_values = 0;
@@ -592,29 +589,28 @@ export const currentSetLeadAfter = (data: any) => {
   {
     var search_line = "Lead After (" + current_period_str + " Set)";
     var odd_id = findIdByName(data, search_line);
-    console.log(odd_id, search_line, "Checking Stringasdasd");
     var odds = data?.odds?.[odd_id];
     if (odds) {
       var participants = odds.participants;
-      var group = 
-      groupParticipantsByHandicapAndName(participants);
+      var group =
+        groupParticipantsByHandicapAndName(participants);
       for (var handicap in group) {
         var arr = [] as any;
-                var group_obj = group[handicap]
-                if(group_obj["Home"] && group_obj["Away"] && group_obj["Tie"]){
-                    var home_obj = group_obj["Home"][0]
-                    var away_obj = group_obj["Away"][0]
+        var group_obj = group[handicap]
+        if (group_obj["Home"] && group_obj["Away"] && group_obj["Tie"]) {
+          var home_obj = group_obj["Home"][0]
+          var away_obj = group_obj["Away"][0]
 
-                    var tie_obj = group_obj["Tie"][0]
+          var tie_obj = group_obj["Tie"][0]
 
-                    var _title = {title:handicap, value:null, suspend:odds.suspend};
-                    var _home = {title: "", value:home_obj.value_eu, suspend: home_obj.suspend}
-                    var _away = {title: "", value:away_obj.value_eu, suspend: away_obj.suspend}
-                    var _tie = {title: "", value:tie_obj.value_eu, suspend: tie_obj.suspend}
-                    arr = [_title, _home, _away, _tie]
-                    base_arr.push(arr)
+          var _title = { title: handicap, value: null, suspend: odds.suspend };
+          var _home = { title: "", value: home_obj.value_eu, suspend: home_obj.suspend }
+          var _away = { title: "", value: away_obj.value_eu, suspend: away_obj.suspend }
+          var _tie = { title: "", value: tie_obj.value_eu, suspend: tie_obj.suspend }
+          arr = [_title, _home, _away, _tie]
+          base_arr.push(arr)
 
-                }
+        }
       }
     }
   }
@@ -778,11 +774,11 @@ export const oddEven = (data: any) => {
     if (odds) {
       var participants = odds.participants;
       var title_row_obj: { title: string; value: null; suspend: string | any } =
-        {
-          title: current_period,
-          value: null,
-          suspend: "1",
-        };
+      {
+        title: current_period,
+        value: null,
+        suspend: "1",
+      };
 
       arr.push(title_row_obj);
       var odd_1 = _getParticipantsFieldWithoutHandicap(participants, "Odd");
@@ -914,14 +910,33 @@ export const currentSetWinningMargin = (data: any) => {
   return { rows: base_arr, suspend: suspend_value };
 };
 
+
+
 function groupAndFilterParticipants(participants: any, threshold: number) {
   const groupedAndFilteredParticipants = {} as any;
 
+
   for (const participantId in participants) {
     const participant = participants[participantId];
+
     var [homeScore, awayScore] = participant.name.split("-");
+
     homeScore = parseInt(homeScore);
     awayScore = parseInt(awayScore);
+
+    if (participant.name === 'T1 After extra points' || participant.name === 'T2 After extra points' || participant.name === 'T1 25-15 or better' || participant.name === 'T2 25-15 or better') {
+      const afterPoints_str = participant.name.split(" ")
+
+      const scoreKey = afterPoints_str.slice(1).join(" ")
+
+      if (!groupedAndFilteredParticipants[scoreKey]) {
+        groupedAndFilteredParticipants[scoreKey] = [];
+      }
+
+      groupedAndFilteredParticipants[scoreKey].push(participant);
+    }
+
+
 
     if (homeScore >= threshold && awayScore >= threshold) {
       const scoreKey = [homeScore, awayScore].sort().reverse().join("-");
@@ -934,9 +949,12 @@ function groupAndFilterParticipants(participants: any, threshold: number) {
     }
   }
 
+
   return groupedAndFilteredParticipants;
 }
-// PENDING Set Correct Score
+
+
+// Completed Set Correct Score
 export const currentSetCorrectScore = (data: any) => {
   if (!data && !data.odds) {
     return { rows: [], suspend: "0" };
@@ -979,13 +997,13 @@ export const currentSetCorrectScore = (data: any) => {
       : current_set_stats.home;
   // console.log("stats", data?.stats);
   // console.log("lenght", Object.keys(data?.stats).length - 1);
-  // console.log("ll least game", least_game);
+  // console.log("ll least gamell least game", least_game);
   const grouped_participants = groupAndFilterParticipants(
     participants,
     least_game
   );
 
-  console.log(grouped_participants,"GROUPING Grouping")
+
 
   for (var group in grouped_participants) {
     var arr = [] as any;
@@ -1005,6 +1023,7 @@ export const currentSetCorrectScore = (data: any) => {
     base_arr.push(arr);
   }
   var suspend_value = areAllSuspended(base_arr);
+
   return { rows: base_arr, suspend: suspend_value };
 };
 
@@ -1018,7 +1037,6 @@ export const scoreAfter3rdSet = (data: any) => {
 
   const _odd_id_current_set_winner = findIdByName(data, 'Score After 3rd Set');
   var odds = data?.odds[_odd_id_current_set_winner];
-  console.log(odds,"ASHASHASH")
   if (odds === undefined) {
     return { rows: [], suspend: "0" };
   }
@@ -1141,7 +1159,7 @@ export const correctSetScore = (data: any) => {
   var search_line = "Set Betting";
   const _odd_id_current_set_winner = findIdByName(data, search_line);
   var odds = data?.odds[_odd_id_current_set_winner];
-  
+
   if (odds === undefined) {
     return { rows: [], suspend: "0" };
   }
@@ -1152,23 +1170,19 @@ export const correctSetScore = (data: any) => {
     current_set_stats.home > current_set_stats.away
       ? current_set_stats.away
       : current_set_stats.home;
-  // console.log("stats", data?.stats);
-  // console.log("lenght", Object.keys(data?.stats).length - 1);
-  // console.log("ll least game", least_game);
+
+ 
+
   const grouped_participants = groupAndFilterParticipants(
     participants,
     least_game
   );
 
-  // console.log(
-  //   "This is the group participants",
-  //   grouped_participants,
-  //   participants,
-  //   least_game
-  // );
+
   for (var group in grouped_participants) {
     var arr = [] as any;
     var group_obj = grouped_participants[group];
+ 
     var title_obj = { title: group, value: "", suspend: group_obj[0].suspend };
     var home_obj = {
       title: "",
@@ -1185,122 +1199,119 @@ export const correctSetScore = (data: any) => {
   }
   var suspend_value = areAllSuspended(base_arr);
 
-  console.log('ASHASHASH',odds,{ rows: base_arr, suspend: suspend_value })
   return { rows: base_arr, suspend: suspend_value };
 
 };
 
 
-// PENDING Team Totals
+// Completed Team Totals
 export const teamTotals = (data: any) => {
-  console.log(data,"Aslam here to show!")
   if (!data && !data.odds) {
-      return {rows:[], suspend:"0"};
+    return { rows: [], suspend: "0" };
   }
 
   const base_arr = [] as any;
   var arr = [] as any;
 
   {
-      var search_string = "Home Team Total Points"
-      // var search_string = "Home Team Total ("+ current_quarter + ")"
-      var odd_id = findIdByName(data, search_string);
-      var odds = data?.odds?.[odd_id];
-      console.log('Current Team Team Totals', odds,search_string,odd_id)
-      if(odds){
-          var participants = odds.participants;
-          var group = groupParticipantsByHandicapAndName(participants);
-          var length = Object.keys(group).length;
-          if(length > 1){
+    var search_string = "Home Team Total Points"
+    // var search_string = "Home Team Total ("+ current_quarter + ")"
+    var odd_id = findIdByName(data, search_string);
+    var odds = data?.odds?.[odd_id];
+    if (odds) {
+      var participants = odds.participants;
+      var group = groupParticipantsByHandicapAndName(participants);
+      var length = Object.keys(group).length;
+      if (length > 1) {
 
-              for(var handicap in group){
-                  var group_obj = group[handicap];
-                  if(group_obj["Over"] === undefined || group_obj["Under"] === undefined){
-                      return {rows:[], suspend:"0"};
-                  }
-
-
-                  if(group_obj["Over"][0].is_main === "1" || group_obj["Under"][0].is_main === "1"){
-                      var over_obj = group_obj["Over"][0]
-                      var under_obj = group_obj["Under"][0]
-                      var _over = {title:"Over " + handicap, value: over_obj.value_eu, suspend: over_obj.suspend}
-                      var _under = {title:"Under " + handicap, value: under_obj.value_eu, suspend: under_obj.suspend}
-                      arr.push(_over, _under)
-                  }
-              }
+        for (var handicap in group) {
+          var group_obj = group[handicap];
+          if (group_obj["Over"] === undefined || group_obj["Under"] === undefined) {
+            return { rows: [], suspend: "0" };
           }
-          if(length === 1){
-              for(var handicap in group){
-                  var group_obj = group[handicap];
-                  if(group_obj["Over"] === undefined || group_obj["Under"] === undefined){
-                      return {rows:[], suspend:"0"};
-                  }
 
 
-                  var over_obj = group_obj["Over"][0]
-                  var under_obj = group_obj["Under"][0]
-                  var _over = {title:"Over " + handicap, value: over_obj.value_eu, suspend: over_obj.suspend}
-                  var _under = {title:"Under " + handicap, value: under_obj.value_eu, suspend: under_obj.suspend}
-                  arr.push(_over, _under)
-              }
-              
+          if (group_obj["Over"][0].is_main === "1" || group_obj["Under"][0].is_main === "1") {
+            var over_obj = group_obj["Over"][0]
+            var under_obj = group_obj["Under"][0]
+            var _over = { title: "Over " + handicap, value: over_obj.value_eu, suspend: over_obj.suspend }
+            var _under = { title: "Under " + handicap, value: under_obj.value_eu, suspend: under_obj.suspend }
+            arr.push(_over, _under)
           }
+        }
       }
+      if (length === 1) {
+        for (var handicap in group) {
+          var group_obj = group[handicap];
+          if (group_obj["Over"] === undefined || group_obj["Under"] === undefined) {
+            return { rows: [], suspend: "0" };
+          }
+
+
+          var over_obj = group_obj["Over"][0]
+          var under_obj = group_obj["Under"][0]
+          var _over = { title: "Over " + handicap, value: over_obj.value_eu, suspend: over_obj.suspend }
+          var _under = { title: "Under " + handicap, value: under_obj.value_eu, suspend: under_obj.suspend }
+          arr.push(_over, _under)
+        }
+
+      }
+    }
   }
 
   {
-      // var search_string = "Away Team Total ("+ current_quarter + ")"
-      var search_string = "Away Team Total Points"
-      var odd_id = findIdByName(data, search_string);
-      var odds = data?.odds?.[odd_id];
+    // var search_string = "Away Team Total ("+ current_quarter + ")"
+    var search_string = "Away Team Total Points"
+    var odd_id = findIdByName(data, search_string);
+    var odds = data?.odds?.[odd_id];
 
-      if(odds){
-     
-          var participants = odds.participants;
-          var group = groupParticipantsByHandicapAndName(participants);
-          var length = Object.keys(group).length;
-          if(length > 1){
-              for(var handicap in group){
-                  var group_obj = group[handicap];
-                  if(group_obj["Over"] === undefined || group_obj["Under"] === undefined){
-                      return {rows:[], suspend:"0"};
-                  }
+    if (odds) {
 
-
-                  if(group_obj["Over"][0].is_main === "1" || group_obj["Under"][0].is_main === "1"){
-                      var over_obj = group_obj["Over"][0]
-                      var under_obj = group_obj["Under"][0]
-                      var _over = {title:"Over " + handicap, value: over_obj.value_eu, suspend: over_obj.suspend}
-                      var _under = {title:"Under " + handicap, value: under_obj.value_eu, suspend: under_obj.suspend}
-                      arr.push(_over, _under)
-                  }
-              }
+      var participants = odds.participants;
+      var group = groupParticipantsByHandicapAndName(participants);
+      var length = Object.keys(group).length;
+      if (length > 1) {
+        for (var handicap in group) {
+          var group_obj = group[handicap];
+          if (group_obj["Over"] === undefined || group_obj["Under"] === undefined) {
+            return { rows: [], suspend: "0" };
           }
-          if(length === 1){
-              for(var handicap in group){
-                  var group_obj = group[handicap];
-                  if(group_obj["Over"] === undefined || group_obj["Under"] === undefined){
-                      return {rows:[], suspend:"0"};
-                  }
 
 
-                  var over_obj = group_obj["Over"][0]
-                  var under_obj = group_obj["Under"][0]
-                  var _over = {title:"Over " + handicap, value: over_obj.value_eu, suspend: over_obj.suspend}
-                  var _under = {title:"Under " + handicap, value: under_obj.value_eu, suspend: under_obj.suspend}
-                  arr.push(_over, _under)
-              }
-              
+          if (group_obj["Over"][0].is_main === "1" || group_obj["Under"][0].is_main === "1") {
+            var over_obj = group_obj["Over"][0]
+            var under_obj = group_obj["Under"][0]
+            var _over = { title: "Over " + handicap, value: over_obj.value_eu, suspend: over_obj.suspend }
+            var _under = { title: "Under " + handicap, value: under_obj.value_eu, suspend: under_obj.suspend }
+            arr.push(_over, _under)
           }
+        }
+      }
+      if (length === 1) {
+        for (var handicap in group) {
+          var group_obj = group[handicap];
+          if (group_obj["Over"] === undefined || group_obj["Under"] === undefined) {
+            return { rows: [], suspend: "0" };
+          }
+
+
+          var over_obj = group_obj["Over"][0]
+          var under_obj = group_obj["Under"][0]
+          var _over = { title: "Over " + handicap, value: over_obj.value_eu, suspend: over_obj.suspend }
+          var _under = { title: "Under " + handicap, value: under_obj.value_eu, suspend: under_obj.suspend }
+          arr.push(_over, _under)
+        }
 
       }
+
+    }
   }
-  if(arr.length == 4){
-      base_arr.push(arr);
+  if (arr.length == 4) {
+    base_arr.push(arr);
   }
 
   // TODO Suspend value
 
   var suspend_value = areAllSuspended(base_arr);
-  return {rows:base_arr, suspend:suspend_value}
+  return { rows: base_arr, suspend: suspend_value }
 }

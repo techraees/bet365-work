@@ -171,7 +171,7 @@ const VolleyballMarketGroup: React.FC<MarketGroupProps> = ({
         oddData.setXCorrectScore.rows = rows;
       }
     }
-   // Completed
+    
    {
     const obj = scoreAfter2ndSet(data);
 
@@ -184,7 +184,6 @@ const VolleyballMarketGroup: React.FC<MarketGroupProps> = ({
     }
   }
   
-    // Completed
     {
       const obj = scoreAfter3rdSet(data);
 
@@ -201,13 +200,14 @@ const VolleyballMarketGroup: React.FC<MarketGroupProps> = ({
     {
       const obj = correctSetScore(data);
       var rows = obj.rows;
-      console.log(obj, "THESE ARE THE ODDS ASDASD");
+      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",rows)
       oddData.correctSetScore.suspend = obj.suspend;
-      // if (rows.length === 0 || rows[0].length === 0) {
-      //   delete oddData.correctSetScore;
-      // } else {
-      //   oddData.correctSetScore.rows = rows;
-      // }
+
+      if (rows.length === 0 || rows[0].length === 0) {
+        delete oddData.correctSetScore;
+      } else {
+        oddData.correctSetScore.rows = rows;
+      }
     }
 
     
