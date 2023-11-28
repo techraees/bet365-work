@@ -95,7 +95,7 @@ export const authOption: NextAuthOptions = {
             }
             const updatedUserData = await res.json();
 
-            console.log("UPDATED DATA", updatedUserData)
+            // console.log("UPDATED DATA", updatedUserData)
             // Update the session object with new data
             return {
                 ...session,

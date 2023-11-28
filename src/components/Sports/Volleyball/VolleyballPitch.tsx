@@ -268,7 +268,7 @@ const VolleyballPitch: React.FC<VolleyballPitchInterface> = ({ data }) => {
   const curCode = data?.info.state as number;
   const curEvent = getEventFromCode(curCode);
   const status = getState(curCode);
-  console.log(data);
+  // console.log(data);
 
   return (
     <>
