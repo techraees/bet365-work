@@ -10,8 +10,6 @@ const TypesofGames = ["All Esports", "LOL", "CS:GO", "DOTA2", "Honor of Kings", 
 
 const Esports = ({ sport, subcategory, currentdataId, grouped }: any) => {
     const [header, setHeader] = useState("All Esports");
-
-    console.log({ sport, subcategory, currentdataId, grouped })
     return (
         <div>
              <SportsHeader />

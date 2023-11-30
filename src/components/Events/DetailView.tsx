@@ -15,6 +15,11 @@ import { useRouter } from 'next/navigation';
 import { CheckQuarter } from '../Structure/CheckQuarter';
 import SoccerMarketGroup from '../Sports/Soccer/Details/MarketGroup';
 import HockeyMarketGroup from '../Sports/Hockey/Details/MarketGroup';
+import Dota2MarketGroup from '../Sports/Esports/Dota2/Details/MarketGroup';
+import ValorantMarketGroup from '../Sports/Esports/Valorant/Details/MarketGroup';
+import LolMarketGroup from '../Sports/Esports/Lol/Details/MarketGroup';
+import Cs2MarketGroup from '../Sports/Esports/Cs2/Details/MarketGroup';
+import HonorOfKingsMarketGroup from '../Sports/Esports/HonorOfKings/Details/MarketGroup';
 
 interface DetailViewProps {
     grouped: any;
@@ -95,9 +100,12 @@ const DetailView: React.FC<DetailViewProps> = ({ grouped, sport, subcategory, cu
         basketball: ["All", "Bet Builder", "Instant", "Team", "Quarter", "Half"],
         volleyball: [],
         baseball: ["All", "Bet Builder", "Main", "Innings", "Team"],
-        lol: ["All", "Match", "Map1"],
-        dota2: ["All", "Match", "Map3"],
+        lol: ["All"],
+        dota2: ["All", "Match", "Map2"],
+        cs2: ["All", "Match", "Map2"],
+        valorant: ["All", "Match", "Map2"],
         hockey: ["All", "Same Game Parlay", "Score"],
+        honorofkings: ["All"]
     }
     if (data?.info?.sport === "esoccer") {
         sport = "soccer"
@@ -108,6 +116,12 @@ const DetailView: React.FC<DetailViewProps> = ({ grouped, sport, subcategory, cu
             sport = "lol"
         } else if (data?.info?.league.startsWith("DOTA2")) {
             sport = "dota2"
+        } else if (data?.info?.league.startsWith("VALORANT")) {
+            sport = "valorant"
+        } else if (data?.info?.league.startsWith("CS2")) {
+            sport = "cs2"
+        } else if (data?.info?.league.startsWith("Honor")) {
+            sport = "honorofkings"
         }
     }
     return (
@@ -181,6 +195,21 @@ const DetailView: React.FC<DetailViewProps> = ({ grouped, sport, subcategory, cu
                 }
                 {sport === 'hockey' &&
                     <HockeyMarketGroup data={data} active={active} />
+                }
+                {sport === 'lol' &&
+                    <LolMarketGroup data={data} active={active} />
+                }
+                {sport === 'dota2' &&
+                    <Dota2MarketGroup data={data} active={active} />
+                }
+                {sport === 'valorant' &&
+                    <ValorantMarketGroup data={data} active={active} />
+                }
+                {sport === 'cs2' &&
+                    <Cs2MarketGroup data={data} active={active} />
+                }
+                {sport === 'honorofkings' &&
+                    <HonorOfKingsMarketGroup data={data} active={active} />
                 }
             </div>
         </div>

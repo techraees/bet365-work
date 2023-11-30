@@ -18,7 +18,7 @@ const EsportTag: React.FC<EsportTagInterface> = ({ data }) => {
 }
 const EsportBody = ({ header, sport, subcategory, grouped }: any) => {
     let bodyparts: Record<string, string[]> = {
-        "Live Map Games": ["CS:GO", "LOL", "DOTA2", "Starcraft"],
+        "Live Map Games": ["CS2", "LOL", "DOTA2", "Starcraft"],
         "Next Map Games": ["VALORANT", "Crossfire", "Honor of Kings"],
         "Sports Based Games": ["Esoccer", "Ebasketball"],
     };

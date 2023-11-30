@@ -665,8 +665,6 @@ function getFixedBallPos(ballPos: { x: number, y: number }, team: number, status
 }
 
 const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
-  if (Number(data?.info.state) < 10000)
-    console.log(">>>>soccer>>>", data);
   //Match Time
   const initialSeconds = data?.info?.seconds || "00:00";
 
