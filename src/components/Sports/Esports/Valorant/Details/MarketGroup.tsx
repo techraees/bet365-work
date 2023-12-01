@@ -7,8 +7,9 @@ import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
 import { valorantAll, valorantMatch, valorantMap2 } from './datastructure';
 import {
-    map2ToGoToOverTime, map2TotalRoundsOddEven,
-    gameLines, map2Lines, correctMapScore,
+    map1AltRoundsHandicap, map1ToGoToOverTime, map1TotalRoundsOddEven,
+    map2AltRoundsHandicap, map2ToGoToOverTime, map2TotalRoundsOddEven,
+    gameLines, map2Lines, correctMapScore,toWinAtLeastOneMap,
 } from '../mappings/mapping';
 
 interface MarketGroupProps {
@@ -27,6 +28,15 @@ const ValorantMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
     oddData = valorantAll as any;
     if (active === "All") {
         //map2ToGoToOverTime
+        valorantAll.map1AltRoundsHandicap.rows = map1AltRoundsHandicap(data);
+        //map1ToGoToOverTime
+        valorantAll.map1ToGoToOverTime.rows = map1ToGoToOverTime(data);
+        //map1TotalRoundsOddEven
+        valorantAll.map1TotalRoundsOddEven.rows = map1TotalRoundsOddEven(data);
+        
+        //map2ToGoToOverTime
+        valorantAll.map2AltRoundsHandicap.rows = map2AltRoundsHandicap(data);
+        //map2ToGoToOverTime
         valorantAll.map2ToGoToOverTime.rows = map2ToGoToOverTime(data);
         //map2TotalRoundsOddEven
         valorantAll.map2TotalRoundsOddEven.rows = map2TotalRoundsOddEven(data);
@@ -38,15 +48,17 @@ const ValorantMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         let map2LinesData: any = map2Lines(data);
         valorantAll.map2Lines.rows = map2LinesData?.rows;
         valorantAll.map2Lines.header = map2LinesData?.header;
-
+        
         //correctMapScore
         let correctMapScoreData: any = correctMapScore(data);
         valorantAll.correctMapScore.rows = correctMapScoreData?.rows;
         valorantAll.correctMapScore.header = correctMapScoreData?.header;
-
+        //toWinAtLeastOneMap
+        valorantAll.toWinAtLeastOneMap.rows = toWinAtLeastOneMap(data);
+        
 
         oddData = valorantAll as any;
-
+        console.log("------", valorantAll);
     } else if (active === "Match") {
         let gameLinesData: any = gameLines(data);
         valorantMatch.gameLines.rows = gameLinesData?.rows;

@@ -1,6 +1,135 @@
 'use client';
 import React from "react";
 
+//map1AltRoundsHandicap
+export const map1AltRoundsHandicap = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+
+    let row = [] as any;
+    if (data?.odds?.[1659]?.participants) {
+        const items = Object.entries(data?.odds?.[1659]?.participants)
+        if (items.length > 0) {
+            items.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (row.length < 2) {
+                    row.push({ title: item[1].handicap, value: item[1].value_eu, suspend });
+                }
+                if (row.length == 2) {
+                    rows.push(row);
+                    row = [];
+                }
+            })
+        }
+    }
+
+
+    return rows;
+}
+//map2ToGoToOverTime
+export const map1ToGoToOverTime = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+
+    let row = [] as any;
+    if (data?.odds?.[9209562]?.participants) {
+        const items = Object.entries(data?.odds?.[9209562]?.participants)
+        if (items.length > 0) {
+            items.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (row.length == 0 && title == "Yes") {
+                    row.push({ title: 'Yes', value: null, suspend });
+                }
+                if (row.length == 0 && title == "No") {
+                    row.push({ title: 'No', value: null, suspend });
+                }
+                if (row.length == 1) {
+                    row.push({ title: '', value: item[1].value_eu, suspend });
+                }
+                if (row.length == 2) {
+                    rows.push(row);
+                    row = [];
+                }
+            })
+        }
+    }
+
+
+    return rows;
+}
+
+//map1TotalRoundsOddEven
+export const map1TotalRoundsOddEven = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+
+    let row = [] as any;
+    if (data?.odds?.[9290513]?.participants) {
+        const items = Object.entries(data?.odds?.[9290513]?.participants)
+        if (items.length > 0) {
+            items.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (row.length == 0 && title == "Odd") {
+                    row.push({ title: 'Odd', value: null, suspend });
+                }
+                if (row.length == 0 && title == "Even") {
+                    row.push({ title: 'Even', value: null, suspend });
+                }
+                if (row.length == 1) {
+                    row.push({ title: '', value: item[1].value_eu, suspend });
+                }
+                if (row.length == 2) {
+                    rows.push(row);
+                    row = [];
+                }
+            })
+        }
+    }
+
+
+    return rows;
+}
+//map2AltRoundsHandicap
+export const map2AltRoundsHandicap = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+
+    let row = [] as any;
+    if (data?.odds?.[1660]?.participants) {
+        const items = Object.entries(data?.odds?.[1660]?.participants)
+        if (items.length > 2) {
+            items.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (row.length < 2) {
+                    row.push({ title: item[1].handicap, value: item[1].value_eu, suspend });
+                }
+                if (row.length == 2) {
+                    rows.push(row);
+                    row = [];
+                }
+            })
+        }
+    }
+
+
+    return rows;
+}
 //map2TotalRoundsOddEven
 export const map2TotalRoundsOddEven = (data: any) => {
     if (!data && !data.odds) {
@@ -9,23 +138,23 @@ export const map2TotalRoundsOddEven = (data: any) => {
     let rows = [] as any;
 
     let row = [] as any;
-    if (data?.odds?.[9209563]?.participants) {
-        const items = Object.entries(data?.odds?.[9209563]?.participants)
+    if (data?.odds?.[9290514]?.participants) {
+        const items = Object.entries(data?.odds?.[9290514]?.participants)
         if (items.length > 0) {
             items.map((item: any, index: number) => {
                 let title = '';
                 let suspend = '0';
                 title = item[1]?.name
-                if (row.length == 0 && title=="Odd") {
+                if (row.length == 0 && title == "Odd") {
                     row.push({ title: 'Odd', value: null, suspend });
                 }
-                if (row.length == 0 && title=="Even") {
+                if (row.length == 0 && title == "Even") {
                     row.push({ title: 'Even', value: null, suspend });
                 }
                 if (row.length == 1) {
-                    row.push({ title: '', value: item.value_eu, suspend });
+                    row.push({ title: '', value: item[1].value_eu, suspend });
                 }
-                if (row.length == 2){
+                if (row.length == 2) {
                     rows.push(row);
                     row = [];
                 }
@@ -51,16 +180,16 @@ export const map2ToGoToOverTime = (data: any) => {
                 let title = '';
                 let suspend = '0';
                 title = item[1]?.name
-                if (row.length == 0 && title=="Yes") {
+                if (row.length == 0 && title == "Yes") {
                     row.push({ title: 'Yes', value: null, suspend });
                 }
-                if (row.length == 0 && title=="No") {
+                if (row.length == 0 && title == "No") {
                     row.push({ title: 'No', value: null, suspend });
                 }
                 if (row.length == 1) {
-                    row.push({ title: '', value: item.value_eu, suspend });
+                    row.push({ title: '', value: item[1].value_eu, suspend });
                 }
-                if (row.length == 2){
+                if (row.length == 2) {
                     rows.push(row);
                     row = [];
                 }
@@ -266,3 +395,40 @@ export const correctMapScore = (data: any) => {
     return { header, rows: rows };
 }
 
+//toWinAtLeastOneMap
+export const toWinAtLeastOneMap = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+
+    let row1 = [{ title: data?.team_info?.home?.name, value: '', suspend: "0" }] as any;
+    let row2 = [{ title: data?.team_info?.away?.name, value: '', suspend: "0" }] as any;
+    if (data?.odds?.[11808]?.participants) {
+        const items = Object.entries(data?.odds?.[11808]?.participants)
+        if (items.length > 0) {
+            items.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (row1.length == 1 && title == "1/Yes") {
+                    row1.push({ title: '', value: item[1].value_eu, suspend });
+                }
+                if (row2.length == 1 && title == "2/Yes") {
+                    row2.push({ title: '', value: item[1].value_eu, suspend });
+                }
+                if (row1.length == 2 && title == "1/No") {
+                    row1.push({ title: '', value: item[1].value_eu, suspend });
+                }
+                if (row2.length == 2 && title == "2/No") {
+                    row2.push({ title: '', value: item[1].value_eu, suspend });
+                }
+            })
+        }
+
+        rows.push(row1);
+        rows.push(row2);
+    }
+
+    return rows;
+}

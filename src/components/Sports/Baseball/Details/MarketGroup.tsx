@@ -6,7 +6,7 @@ import { categoriesMapping } from '@/lib/sportsMapping';
 import { BaseballAll, BaseballBetBuilder, BaseballMains, BaseballInnings, BaseballTeam } from './datastructure';
 import {
     gameLines, alternativeRunLine, alternativeGameTotal, teamTotals, teamAlternativeTotals,
-    // aRunScoredHomeInning1, aRunScoredAwayInning1, runsInThe1thInning, _1thInningRuns, _1thInningLines,
+    aRunScoredAwayInning1, aRunScoredHomeInning1, runsInThe1thInning, _1thInningRuns, _1thInningLines,
     aRunScoredHomeInning2, aRunScoredAwayInning2, runsInThe2thInning, _2thInningRuns, _2thInningLines,
     aRunScoredHomeInning3, aRunScoredAwayInning3, runsInThe3thInning, _3thInningRuns, _3thInningLines,
     aRunScoredHomeInning4, aRunScoredAwayInning4, runsInThe4thInning, _4thInningRuns, _4thInningLines,
@@ -14,7 +14,11 @@ import {
     aRunScoredHomeInning6, aRunScoredAwayInning6, runsInThe6thInning, _6thInningRuns, _6thInningLines,
     aRunScoredHomeInning7, aRunScoredAwayInning7, runsInThe7thInning, _7thInningRuns, _7thInningLines,
     aRunScoredHomeInning8, aRunScoredAwayInning8, runsInThe8thInning, _8thInningRuns, _8thInningLines,
-    winningMargin, runLineIncl, matchCorrectScore,bothTeamsToScore, raceToRuns, leadAfter, extraInnings, 
+    winningMargin, runLineIncl, matchCorrectScore, totalRuns3Way,
+    _3innings, alternative3InningsTotals, alternative3InningsRunLines,
+    _5innings, alternative5InningsTotals, alternative5InningsRunLines,
+    _7innings, alternative7InningsTotals, alternative7InningsRunLines,
+    bothTeamsToScore, raceToRuns, leadAfter, extraInnings,
     monyLinesAndTotal, alternativeMonyLinesAndTotal, runLineAndTotal
 } from '../mappings/mapping';
 import Chevron from '@/components/ui/icons/chevron';
@@ -46,20 +50,20 @@ const BaseballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         // teamAlternativeTotals
         BaseballAll.teamAlternativeTotals.rows = teamAlternativeTotals(data);
 
-        // // aRunScoredHomeInning1
-        // let aRunScoredHomeInning1Data: any = aRunScoredHomeInning1(data);
-        // BaseballAll.aRunScoredHomeInning1.rows = aRunScoredHomeInning1Data?.rows;
-        // BaseballAll.aRunScoredHomeInning1.marketname = aRunScoredHomeInning1Data?.marketname;
-        // // aRunScoredAwayInning1
-        // let aRunScoredAwayInning1Data: any = aRunScoredAwayInning1(data);
-        // BaseballAll.aRunScoredAwayInning1.rows = aRunScoredAwayInning1Data?.rows;
-        // BaseballAll.aRunScoredAwayInning1.marketname = aRunScoredAwayInning1Data?.marketname;
+        // aRunScoredHomeInning1
+        let aRunScoredHomeInning1Data: any = aRunScoredHomeInning1(data);
+        BaseballAll.aRunScoredHomeInning1.rows = aRunScoredHomeInning1Data?.rows;
+        BaseballAll.aRunScoredHomeInning1.marketname = aRunScoredHomeInning1Data?.marketname;
+        // aRunScoredAwayInning1
+        let aRunScoredAwayInning1Data: any = aRunScoredAwayInning1(data);
+        BaseballAll.aRunScoredAwayInning1.rows = aRunScoredAwayInning1Data?.rows;
+        BaseballAll.aRunScoredAwayInning1.marketname = aRunScoredAwayInning1Data?.marketname;
         // // runsInThe1thInning
-        // BaseballAll.runsInThe1thInning.rows = runsInThe1thInning(data);
-        // // runsInThe1thInning
-        // BaseballAll._1thInningRuns.rows = _1thInningRuns(data);
-        // // _1thInningLines
-        // BaseballAll._1thInningLines.rows = _1thInningLines(data);
+        BaseballAll.runsInThe1thInning.rows = runsInThe1thInning(data);
+        // runsInThe1thInning
+        BaseballAll._1thInningRuns.rows = _1thInningRuns(data);
+        _1thInningLines
+        BaseballAll._1thInningLines.rows = _1thInningLines(data);
 
         // aRunScoredHomeInning2
         let aRunScoredHomeInning2Data: any = aRunScoredHomeInning2(data);
@@ -173,6 +177,40 @@ const BaseballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         BaseballAll.runLineIncl.header = runLineInclData?.header;
         // matchCorrectScore
         BaseballAll.matchCorrectScore.rows = matchCorrectScore(data);
+        // totalRuns3Way
+        BaseballAll.totalRuns3Way.rows = totalRuns3Way(data);
+
+
+        //_3innings
+        let _3inningsData: any = _3innings(data);
+        BaseballAll._3innings.rows = _3inningsData?.rows;
+        BaseballAll._3innings.header = _3inningsData?.header;
+        //game alternative3InningsTotals
+        BaseballAll.alternative3InningsTotals.rows = alternative3InningsTotals(data);
+
+        //alternative3InningsRunLines
+        BaseballAll.alternative3InningsRunLines.rows = alternative3InningsRunLines(data);
+
+
+        //_5innings
+        let _5inningsData: any = _5innings(data);
+        BaseballAll._5innings.rows = _5inningsData?.rows;
+        BaseballAll._5innings.header = _5inningsData?.header;
+        //game alternative5InningsTotals
+        BaseballAll.alternative5InningsTotals.rows = alternative5InningsTotals(data);
+        //alternative5InningsRunLines
+        BaseballAll.alternative5InningsRunLines.rows = alternative5InningsRunLines(data);
+
+
+        //_7innings
+        let _7inningsData: any = _7innings(data);
+        BaseballAll._7innings.rows = _7inningsData?.rows;
+        BaseballAll._7innings.header = _7inningsData?.header;
+        //game alternative7InningsTotals
+        BaseballAll.alternative7InningsTotals.rows = alternative7InningsTotals(data);
+        //alternative7InningsRunLines
+        BaseballAll.alternative7InningsRunLines.rows = alternative7InningsRunLines(data);
+
         // bothTeamsToScore
         BaseballAll.bothTeamsToScore.rows = bothTeamsToScore(data);
         // raceToRuns
@@ -187,7 +225,7 @@ const BaseballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         BaseballAll.alternativeMonyLinesAndTotal.rows = alternativeMonyLinesAndTotal(data);
         // runLineAndTotal
         BaseballAll.runLineAndTotal.rows = runLineAndTotal(data);
-        
+
         oddData = BaseballAll as any;
     } else if (active === "Bet Builder") {
         oddData = BaseballBetBuilder as any;
