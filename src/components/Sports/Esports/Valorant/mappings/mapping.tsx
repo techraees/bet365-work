@@ -658,7 +658,165 @@ export const map2Lines = (data: any) => {
 
     return { header, rows: rows };
 }
+//map1Round1Lines
+export const map1Round1Lines = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
 
+    // title = data?.team_info?.home?.name
+    const header = ['', data?.team_info?.home?.name, data?.team_info?.away?.name];
+    const toWin = [{ title: 'To Win', value: null, suspend: 0 }] as any;
+    const line = [{ title: 'Rounds Line', value: null, suspend: 0 }] as any;
+    const total = [{ title: 'Total Rounds', value: null, suspend: 0 }] as any;
+    if (data?.odds?.[1182875]?.participants) {
+        const towins = Object.entries(data?.odds?.[1182875]?.participants)
+        if (towins.length > 0) {
+            towins.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (toWin.length < 3 && (title === "Home" || title == "Away")) {
+                    toWin.push({ title: ``, value: item[1].value_eu, suspend });
+                }
+            })
+        }
+    }
+
+    if (data?.odds?.[1668]?.participants) {
+        const ou = Object.entries(data?.odds?.[1668]?.participants)
+        if (ou.length > 0) {
+            ou.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (total.length < 3 && title === "Over") {
+                    total.push({ title: `O ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend });
+                }
+                if (total.length < 3 && title === "Under") {
+                    total.push({ title: `U ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend });
+                }
+            })
+        }
+    }
+
+    if (data?.odds?.[1660]?.participants) {
+        const lines = Object.entries(data?.odds?.[1660]?.participants)
+        if (lines.length > 0) {
+            lines.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (line.length < 3 && title === "Home" && item[1].is_main == "1") {
+                    line.push({ title: item[1].handicap, value: item[1].value_eu, suspend });
+                }
+                if (line.length < 3 && title === "Away" && item[1].is_main == "1") {
+                    line.push({ title: item[1].handicap, value: item[1].value_eu, suspend });
+                }
+            })
+        }
+    }
+
+    // console.log('Sending New Data', data)
+    let rows = [] as any;
+    if (toWin.length > 1)
+        rows.push(toWin);
+
+
+    return { header, rows: rows };
+}
+//map2Round1Lines
+export const map2Round1Lines = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    // title = data?.team_info?.home?.name
+    const header = ['', data?.team_info?.home?.name, data?.team_info?.away?.name];
+    const toWin = [{ title: 'To Win', value: null, suspend: 0 }] as any;
+    const line = [{ title: 'Rounds Line', value: null, suspend: 0 }] as any;
+    const total = [{ title: 'Total Rounds', value: null, suspend: 0 }] as any;
+    if (data?.odds?.[1182895]?.participants) {
+        const towins = Object.entries(data?.odds?.[1182895]?.participants)
+        if (towins.length > 0) {
+            towins.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (toWin.length < 3 && (title === "Home" || title == "Away")) {
+                    toWin.push({ title: ``, value: item[1].value_eu, suspend });
+                }
+            })
+        }
+    }
+
+    if (data?.odds?.[1668]?.participants) {
+        const ou = Object.entries(data?.odds?.[1668]?.participants)
+        if (ou.length > 0) {
+            ou.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (total.length < 3 && title === "Over") {
+                    total.push({ title: `O ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend });
+                }
+                if (total.length < 3 && title === "Under") {
+                    total.push({ title: `U ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend });
+                }
+            })
+        }
+    }
+
+    if (data?.odds?.[1660]?.participants) {
+        const lines = Object.entries(data?.odds?.[1660]?.participants)
+        if (lines.length > 0) {
+            lines.map((item: any, index: number) => {
+                let title = '';
+                let suspend = '0';
+                title = item[1]?.name
+                if (line.length < 3 && title === "Home" && item[1].is_main == "1") {
+                    line.push({ title: item[1].handicap, value: item[1].value_eu, suspend });
+                }
+                if (line.length < 3 && title === "Away" && item[1].is_main == "1") {
+                    line.push({ title: item[1].handicap, value: item[1].value_eu, suspend });
+                }
+            })
+        }
+    }
+
+    // console.log('Sending New Data', data)
+    let rows = [] as any;
+    if (toWin.length > 1)
+        rows.push(toWin);
+
+
+    return { header, rows: rows };
+}
+//matchAlternativeHandicap
+export const matchAlternativeHandicap = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+
+    let row = [] as any;
+    if (data?.odds?.[443]?.participants) {
+        const items = Object.entries(data?.odds?.[443]?.participants)
+        if (items.length > 0) {
+            items.map((item: any, index: number) => {
+                let title = '';
+                title = item[1]?.name
+                if (row.length < 2 && item[1].is_main != "1") {
+                    row.push({ title: item[1].handicap, value: item[1].value_eu, suspend: item[1].suspend });
+                }
+            })
+        }
+        rows.push(row);
+    }
+
+
+    return rows;
+}
 //correctMapScore
 export const correctMapScore = (data: any) => {
     if (!data && !data.odds) {

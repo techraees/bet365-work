@@ -90,7 +90,24 @@ export const valorantAll = {
         header: [],
         rows: []
     },
-
+    "map1Round1Lines": {
+        marketname: "Map 1 - Round 1 - Lines",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "map2Round1Lines": {
+        marketname: "Map 2 - Round 1 - Lines",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: []
+    },
+    "matchAlternativeHandicap": {
+        marketname: "Match - Alternative Handicap",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: []
+    },
     "correctMapScore": {
         marketname: "Correct Map Score - Best of 3",
         suspend: "0",

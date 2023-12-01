@@ -9,7 +9,7 @@ import { valorantAll, valorantMatch, valorantMap2 } from './datastructure';
 import {
     Map1FirstHalfWinnerIncTie, Map1FirstHalfWinnerMapWinner, map1AltRoundsHandicap, map1MapWinnerTotalRounds, map1ToGoToOverTime, map1TotalRoundsOddEven,
     Map2FirstHalfWinnerIncTie, Map2FirstHalfWinnerMapWinner, map2AltRoundsHandicap, map2MapWinnerTotalRounds, map2ToGoToOverTime, map2TotalRoundsOddEven,
-    gameLines, map1Lines, map2Lines, correctMapScore, toWinAtLeastOneMap,
+    gameLines, map1Lines, map2Lines, map1Round1Lines, map2Round1Lines, matchAlternativeHandicap, correctMapScore, toWinAtLeastOneMap,
 } from '../mappings/mapping';
 
 interface MarketGroupProps {
@@ -65,7 +65,17 @@ const ValorantMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         let map2LinesData: any = map2Lines(data);
         valorantAll.map2Lines.rows = map2LinesData?.rows;
         valorantAll.map2Lines.header = map2LinesData?.header;
+        //map1Round1Lines
+        let map1Round1LinesData: any = map1Round1Lines(data);
+        valorantAll.map1Round1Lines.rows = map1Round1LinesData?.rows;
+        valorantAll.map1Round1Lines.header = map1Round1LinesData?.header;
+        //map2Round1Lines
+        let map2Round1LinesData: any = map2Round1Lines(data);
+        valorantAll.map2Round1Lines.rows = map2Round1LinesData?.rows;
+        valorantAll.map2Round1Lines.header = map2Round1LinesData?.header;
 
+        //matchAlternativeHandicap
+        valorantAll.matchAlternativeHandicap.rows = matchAlternativeHandicap(data);
         //correctMapScore
         let correctMapScoreData: any = correctMapScore(data);
         valorantAll.correctMapScore.rows = correctMapScoreData?.rows;
