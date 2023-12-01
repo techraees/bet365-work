@@ -54,6 +54,32 @@ export const lolAll = {
         header: [],
         rows: []
     },
+
+    "map3KillHandicap": {
+        marketname: "Map 3 - Kill Handicap",
+        suspend: "0",
+        header: ["Home", "Away"],
+        rows: []
+    },
+    "map3Totals": {
+        marketname: "Map 3 - Totals",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "map3EitherTeamToScore": {
+        marketname: "Map 3 - Either Team to Score",
+        suspend: "0",
+        header: ["Yes", "No"],
+        rows: []
+    },
+    "map3TotalKills": {
+        marketname: "Map 3 Total Kills Odd/Even",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+
     "correctMapScore": {
         marketname: "Correct Map Score - Best of 3",
         suspend: "0",

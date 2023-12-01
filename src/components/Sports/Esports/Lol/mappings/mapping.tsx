@@ -123,7 +123,6 @@ export const map1KillHandicap = (data: any) => {
     }
     return { header, rows: rows };;
 }
-
 //map 1 Totals
 export const map1Totals = (data: any) => {
     if (!data && !data.odds) {
@@ -149,7 +148,6 @@ export const map1Totals = (data: any) => {
     }
     return { header, rows: rows };;
 }
-
 //map 1 TotalKills odd/even
 export const map1TotalKills = (data: any) => {
     if (!data && !data.odds) {
@@ -202,7 +200,6 @@ export const map2Winner = (data: any) => {
     }
     return rows;
 }
-
 //map 2 Kill Handicap
 export const map2KillHandicap = (data: any) => {
     if (!data && !data.odds) {
@@ -228,7 +225,6 @@ export const map2KillHandicap = (data: any) => {
     }
     return { header, rows: rows };;
 }
-
 //map 2 Totals
 export const map2Totals = (data: any) => {
     if (!data && !data.odds) {
@@ -254,7 +250,6 @@ export const map2Totals = (data: any) => {
     }
     return { header, rows: rows };;
 }
-
 //map 2 TotalKills odd/even
 export const map2TotalKills = (data: any) => {
     if (!data && !data.odds) {
@@ -265,6 +260,115 @@ export const map2TotalKills = (data: any) => {
     let row = [] as any;
     if (data?.odds?.[9291514]?.participants) {
         const items: any = Object.entries(data?.odds?.[9291514]?.participants);
+        items.map((itm: any) => {
+            let title = '';
+            const item = itm[1];
+            title = item?.name;
+            if (row.length < 3 && title === "Odd") {
+                row.push({ title: 'Odd', value: item.value_eu, suspend: item.suspend });
+            }
+            if (row.length < 3 && title === "Even") {
+                row.push({ title: 'Even', value: item.value_eu, suspend: item.suspend });
+            }
+        });
+        rows.push(row);
+    }
+    return rows;
+}
+
+//map 3 Kill Handicap
+export const map3KillHandicap = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[9510037]?.participants) {
+        const items: any = Object.entries(data?.odds?.[9510037]?.participants);
+        items.map((itm: any) => {
+            let title = '';
+            const item = itm[1];
+            title = item?.name;
+            if (row.length < 2 && title === "Home") {
+                row.push({ title: item.handicap, value: item.value_eu, suspend: item.suspend });
+            }
+            if (row.length < 2 && title === "Away") {
+                row.push({ title: item.handicap, value: item.value_eu, suspend: item.suspend });
+            }
+        });
+        rows.push(row);
+    }
+    return rows;
+}
+//map 3 Totals
+export const map3Totals = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    const header = ['', 'Over', 'Under'];
+    let rows = [] as any;
+    let kills = [{ title: 'Kills', value: null, suspend: 0 }] as any;
+    if (data?.odds?.[9510030]?.participants) {
+        const items: any = Object.entries(data?.odds?.[9510030]?.participants);
+        items.map((itm: any) => {
+            let title = '';
+            const item = itm[1];
+            title = item?.name;
+            if (kills.length < 3 && title === "Over") {
+                kills.push({ title: item.handicap, value: item.value_eu, suspend: item.suspend });
+            }
+            if (kills.length < 3 && title === "Under") {
+                kills.push({ title: item.handicap, value: item.value_eu, suspend: item.suspend });
+            }
+        });
+        rows.push(kills);
+    }
+    return { header, rows: rows };;
+}
+//map3EitherTeamToScore
+export const map3EitherTeamToScore = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+    let quadraKill = [{ title: 'Quadra Kill', value: null, suspend: 0 }] as any;
+    if (data?.odds?.[100000000]?.participants) {
+        const items: any = Object.entries(data?.odds?.[100000000]?.participants);
+        items.map((itm: any) => {
+            let title = '';
+            const item = itm[1];
+            title = item?.name;
+            if (quadraKill.length < 3) {
+                quadraKill.push({ title: '', value: item.value_eu, suspend: item.suspend });
+            }
+        });
+        rows.push(quadraKill);
+    }
+    let pentalKill = [{ title: 'Penta Kill', value: null, suspend: 0 }] as any;
+    if (data?.odds?.[100000000]?.participants) {
+        const items: any = Object.entries(data?.odds?.[100000000]?.participants);
+        items.map((itm: any) => {
+            let title = '';
+            const item = itm[1];
+            title = item?.name;
+            if (pentalKill.length < 3) {
+                pentalKill.push({ title: '', value: item.value_eu, suspend: item.suspend });
+            }
+        });
+        rows.push(pentalKill);
+    }
+    return rows;
+}
+//map 3 TotalKills odd/even
+export const map3TotalKills = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    let rows = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[9291515]?.participants) {
+        const items: any = Object.entries(data?.odds?.[9291515]?.participants);
         items.map((itm: any) => {
             let title = '';
             const item = itm[1];

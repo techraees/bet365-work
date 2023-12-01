@@ -7,8 +7,10 @@ import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
 import { lolAll } from './datastructure';
 import {
-    gameLines, map1Winner, map1KillHandicap, map1Totals, map1TotalKills, map2Winner, map2KillHandicap,
-    map2Totals, map2TotalKills,
+    gameLines,
+    map1Winner, map1KillHandicap, map1Totals, map1TotalKills, 
+    map2Winner, map2KillHandicap, map2Totals, map2TotalKills,
+    map3KillHandicap, map3Totals, map3TotalKills,
     correctMapScore, toWinAtLeastOneMap,
 } from '../mappings/mapping';
 
@@ -55,6 +57,16 @@ const LolMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         lolAll.map2Totals.header = map2TotalsData?.header;
         //map2 Total Kills
         lolAll.map2TotalKills.rows = map2TotalKills(data);
+
+        //map3KillHandicap
+        lolAll.map3KillHandicap.rows = map3KillHandicap(data);
+        //map 3 totals
+        let map3TotalsData: any = map3Totals(data);
+        lolAll.map3Totals.rows = map3TotalsData?.rows;
+        lolAll.map3Totals.header = map3TotalsData?.header;
+                //map3 Total Kills
+                lolAll.map3TotalKills.rows = map3TotalKills(data);
+
         //correctMapScore
         let correctMapScoreData: any = correctMapScore(data);
         lolAll.correctMapScore.rows = correctMapScoreData?.rows;
@@ -67,7 +79,7 @@ const LolMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
 
         oddData = lolAll as any;
 
-    } 
+    }
 
 
     return (

@@ -7,7 +7,14 @@ import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
 import { HonorOfKingsAll } from './datastructure';
 import {
-    gameLines, map5Winner, map6Winner, map6Kills, map6Towers, map6FirstTyrant,
+    gameLines,
+    map1Winner, map1Kills,
+    map2Winner, map2Kills,
+    map3Winner, map3Kills,
+    map4Winner, map4Kills,
+    map5Winner, map5Kills,
+    map6Winner, map6Kills, map6Towers, map6FirstTyrant,
+    map7Winner, map7Kills, map7RaceToKills, map7Towers, map7FirstTyrant,
     correctMapScore, matchEitherTeamsToScore,
 } from '../mappings/mapping';
 
@@ -31,8 +38,41 @@ const HonorOfKingsMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) =
         let gameLinesData: any = gameLines(data);
         HonorOfKingsAll.gameLines.rows = gameLinesData?.rows;
         HonorOfKingsAll.gameLines.header = gameLinesData?.header;
+        //map 1 winner
+        HonorOfKingsAll.map1Winner.rows = map1Winner(data);
+        //map 1 kills
+        let map1KillsData: any = map1Kills(data);
+        HonorOfKingsAll.map1Kills.rows = map1KillsData?.rows;
+        HonorOfKingsAll.map1Kills.header = map1KillsData?.header;
+
+        //map 2 winner
+        HonorOfKingsAll.map2Winner.rows = map2Winner(data);
+        //map 2 kills
+        let map2KillsData: any = map2Kills(data);
+        HonorOfKingsAll.map2Kills.rows = map2KillsData?.rows;
+        HonorOfKingsAll.map2Kills.header = map2KillsData?.header;
+
+        //map 3 winner
+        HonorOfKingsAll.map3Winner.rows = map3Winner(data);
+        //map 3 kills
+        let map3KillsData: any = map3Kills(data);
+        HonorOfKingsAll.map3Kills.rows = map3KillsData?.rows;
+        HonorOfKingsAll.map3Kills.header = map3KillsData?.header;
+
+        //map 4 winner
+        HonorOfKingsAll.map4Winner.rows = map4Winner(data);
+        //map 4 kills
+        let map4KillsData: any = map4Kills(data);
+        HonorOfKingsAll.map4Kills.rows = map4KillsData?.rows;
+        HonorOfKingsAll.map4Kills.header = map4KillsData?.header;
+
         //map 5 winner
         HonorOfKingsAll.map5Winner.rows = map5Winner(data);
+        //map 5 kills
+        let map5KillsData: any = map5Kills(data);
+        HonorOfKingsAll.map5Kills.rows = map5KillsData?.rows;
+        HonorOfKingsAll.map5Kills.header = map5KillsData?.header;
+
         //map 6 winner
         HonorOfKingsAll.map6Winner.rows = map6Winner(data);
         //map 6 kills
@@ -46,6 +86,21 @@ const HonorOfKingsMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) =
         //map6FirstTyrant
         HonorOfKingsAll.map6FirstTyrant.rows = map6FirstTyrant(data);
 
+        //map 7 winner
+        HonorOfKingsAll.map7Winner.rows = map7Winner(data);
+        //map 7 kills
+        let map7KillsData: any = map7Kills(data);
+        HonorOfKingsAll.map7Kills.rows = map7KillsData?.rows;
+        HonorOfKingsAll.map7Kills.header = map7KillsData?.header;
+        //map7RaceToKills
+        HonorOfKingsAll.map7RaceToKills.rows = map7RaceToKills(data);
+        //map7Towers
+        let map7TowersData: any = map7Towers(data);
+        HonorOfKingsAll.map7Towers.rows = map7TowersData?.rows;
+        HonorOfKingsAll.map7Towers.header = map7TowersData?.header;
+        //map7FirstTyrant
+        HonorOfKingsAll.map7FirstTyrant.rows = map7FirstTyrant(data);
+
         //correctMapScore
         HonorOfKingsAll.correctMapScore.rows = correctMapScore(data);;
         //matchEitherTeamsToScore
@@ -53,13 +108,12 @@ const HonorOfKingsMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) =
         HonorOfKingsAll.matchEitherTeamsToScore.rows = matchEitherTeamsToScoreData?.rows;
         HonorOfKingsAll.matchEitherTeamsToScore.header = matchEitherTeamsToScoreData?.header;
 
-
+        console.log(HonorOfKingsAll);
         oddData = HonorOfKingsAll as any;
 
     }
 
 
-    console.log('detail market HonorOfKings', data)
 
     return (
         <div className='w-[100%] bg-[#383838]'>
