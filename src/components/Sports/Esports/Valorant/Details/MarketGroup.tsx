@@ -7,9 +7,9 @@ import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
 import { valorantAll, valorantMatch, valorantMap2 } from './datastructure';
 import {
-    map1AltRoundsHandicap, map1ToGoToOverTime, map1TotalRoundsOddEven,
-    map2AltRoundsHandicap, map2ToGoToOverTime, map2TotalRoundsOddEven,
-    gameLines, map2Lines, correctMapScore,toWinAtLeastOneMap,
+    Map1FirstHalfWinnerIncTie, Map1FirstHalfWinnerMapWinner, map1AltRoundsHandicap, map1MapWinnerTotalRounds, map1ToGoToOverTime, map1TotalRoundsOddEven,
+    Map2FirstHalfWinnerIncTie, Map2FirstHalfWinnerMapWinner, map2AltRoundsHandicap, map2MapWinnerTotalRounds, map2ToGoToOverTime, map2TotalRoundsOddEven,
+    gameLines, map1Lines, map2Lines, correctMapScore, toWinAtLeastOneMap,
 } from '../mappings/mapping';
 
 interface MarketGroupProps {
@@ -27,35 +27,52 @@ const ValorantMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
     let oddData = {} as any;
     oddData = valorantAll as any;
     if (active === "All") {
-        //map2ToGoToOverTime
+        //Map1FirstHalfWinnerIncTie
+        valorantAll.Map1FirstHalfWinnerIncTie.rows = Map1FirstHalfWinnerIncTie(data);
+        //Map1FirstHalfWinnerMapWinner
+        valorantAll.Map1FirstHalfWinnerMapWinner.rows = Map1FirstHalfWinnerMapWinner(data);
+        //map1ToGoToOverTime
         valorantAll.map1AltRoundsHandicap.rows = map1AltRoundsHandicap(data);
+        //map1MapWinnerTotalRounds
+        valorantAll.map1MapWinnerTotalRounds.rows = map1MapWinnerTotalRounds(data);
         //map1ToGoToOverTime
         valorantAll.map1ToGoToOverTime.rows = map1ToGoToOverTime(data);
         //map1TotalRoundsOddEven
         valorantAll.map1TotalRoundsOddEven.rows = map1TotalRoundsOddEven(data);
-        
+
+        //Map2FirstHalfWinnerIncTie
+        valorantAll.Map2FirstHalfWinnerIncTie.rows = Map2FirstHalfWinnerIncTie(data);
+        //Map2FirstHalfWinnerMapWinner
+        valorantAll.Map2FirstHalfWinnerMapWinner.rows = Map2FirstHalfWinnerMapWinner(data);
         //map2ToGoToOverTime
         valorantAll.map2AltRoundsHandicap.rows = map2AltRoundsHandicap(data);
+        //map2MapWinnerTotalRounds
+        valorantAll.map2MapWinnerTotalRounds.rows = map2MapWinnerTotalRounds(data);
         //map2ToGoToOverTime
         valorantAll.map2ToGoToOverTime.rows = map2ToGoToOverTime(data);
         //map2TotalRoundsOddEven
         valorantAll.map2TotalRoundsOddEven.rows = map2TotalRoundsOddEven(data);
+
         //game lines
         let gameLinesData: any = gameLines(data);
         valorantAll.gameLines.rows = gameLinesData?.rows;
         valorantAll.gameLines.header = gameLinesData?.header;
+        //map1Lines
+        let map1LinesData: any = map1Lines(data);
+        valorantAll.map1Lines.rows = map1LinesData?.rows;
+        valorantAll.map1Lines.header = map1LinesData?.header;
         //map2Lines
         let map2LinesData: any = map2Lines(data);
         valorantAll.map2Lines.rows = map2LinesData?.rows;
         valorantAll.map2Lines.header = map2LinesData?.header;
-        
+
         //correctMapScore
         let correctMapScoreData: any = correctMapScore(data);
         valorantAll.correctMapScore.rows = correctMapScoreData?.rows;
         valorantAll.correctMapScore.header = correctMapScoreData?.header;
         //toWinAtLeastOneMap
         valorantAll.toWinAtLeastOneMap.rows = toWinAtLeastOneMap(data);
-        
+
 
         oddData = valorantAll as any;
         console.log("------", valorantAll);
