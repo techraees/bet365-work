@@ -169,6 +169,7 @@ const BaseballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         BaseballAll._8thInningRuns.rows = _8thInningRuns(data);
         // _8thInningLines
         BaseballAll._8thInningLines.rows = _8thInningLines(data);
+
         // winningMargin
         BaseballAll.winningMargin.rows = winningMargin(data);
         // runLineIncl
@@ -228,12 +229,166 @@ const BaseballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
 
         oddData = BaseballAll as any;
     } else if (active === "Bet Builder") {
+        // leadAfter
+        BaseballBetBuilder.leadAfter.rows = leadAfter(data);
+        // extraInnings
+        BaseballBetBuilder.extraInnings.rows = extraInnings(data);
+        // bothTeamsToScore
+        BaseballBetBuilder.bothTeamsToScore.rows = bothTeamsToScore(data);
         oddData = BaseballBetBuilder as any;
     } else if (active === "Main") {
+        //game lines
+        let gameLinesData: any = gameLines(data);
+        BaseballMains.gameLines.rows = gameLinesData?.rows;
+        BaseballMains.gameLines.header = gameLinesData?.header;
+        // alternativeRunLine
+        BaseballMains.alternativeRunLine.rows = alternativeRunLine(data);
+        // laternative game total
+        BaseballMains.alternativeGameTotal.rows = alternativeGameTotal(data);
+        // winningMargin
+        BaseballMains.winningMargin.rows = winningMargin(data);
+        // runLineIncl
+        let runLineInclData: any = runLineIncl(data);
+        BaseballMains.runLineIncl.rows = runLineInclData?.rows;
+        BaseballMains.runLineIncl.header = runLineInclData?.header;
+        // totalRuns3Way
+        BaseballMains.totalRuns3Way.rows = totalRuns3Way(data);
+        // monyLinesAndTotal
+        BaseballMains.monyLinesAndTotal.rows = monyLinesAndTotal(data);
+        // alternativeMonyLinesAndTotal
+        BaseballMains.alternativeMonyLinesAndTotal.rows = alternativeMonyLinesAndTotal(data);
+        // runLineAndTotal
+        BaseballMains.runLineAndTotal.rows = runLineAndTotal(data);
+
         oddData = BaseballMains as any;
     } else if (active === "Innings") {
+        // aRunScoredHomeInning1
+        let aRunScoredHomeInning1Data: any = aRunScoredHomeInning1(data);
+        BaseballInnings.aRunScoredHomeInning1.rows = aRunScoredHomeInning1Data?.rows;
+        BaseballInnings.aRunScoredHomeInning1.marketname = aRunScoredHomeInning1Data?.marketname;
+        // aRunScoredAwayInning1
+        let aRunScoredAwayInning1Data: any = aRunScoredAwayInning1(data);
+        BaseballInnings.aRunScoredAwayInning1.rows = aRunScoredAwayInning1Data?.rows;
+        BaseballInnings.aRunScoredAwayInning1.marketname = aRunScoredAwayInning1Data?.marketname;
+        // // runsInThe1thInning
+        BaseballInnings.runsInThe1thInning.rows = runsInThe1thInning(data);
+        // runsInThe1thInning
+        BaseballInnings._1thInningRuns.rows = _1thInningRuns(data);
+        _1thInningLines
+        BaseballInnings._1thInningLines.rows = _1thInningLines(data);
+
+        // aRunScoredHomeInning2
+        let aRunScoredHomeInning2Data: any = aRunScoredHomeInning2(data);
+        BaseballInnings.aRunScoredHomeInning2.rows = aRunScoredHomeInning2Data?.rows;
+        BaseballInnings.aRunScoredHomeInning2.marketname = aRunScoredHomeInning2Data?.marketname;
+        // aRunScoredAwayInning2
+        let aRunScoredAwayInning2Data: any = aRunScoredAwayInning2(data);
+        BaseballInnings.aRunScoredAwayInning2.rows = aRunScoredAwayInning2Data?.rows;
+        BaseballInnings.aRunScoredAwayInning2.marketname = aRunScoredAwayInning2Data?.marketname;
+        // runsInThe2thInning
+        BaseballInnings.runsInThe2thInning.rows = runsInThe2thInning(data);
+        // runsInThe2thInning
+        BaseballInnings._2thInningRuns.rows = _2thInningRuns(data);
+        // _2thInningLines
+        BaseballInnings._2thInningLines.rows = _2thInningLines(data);
+
+        // aRunScoredHomeInning3
+        let aRunScoredHomeInning3Data: any = aRunScoredHomeInning3(data);
+        BaseballInnings.aRunScoredHomeInning3.rows = aRunScoredHomeInning3Data?.rows;
+        BaseballInnings.aRunScoredHomeInning3.marketname = aRunScoredHomeInning3Data?.marketname;
+        // aRunScoredAwayInning3
+        let aRunScoredAwayInning3Data: any = aRunScoredAwayInning3(data);
+        BaseballInnings.aRunScoredAwayInning3.rows = aRunScoredAwayInning3Data?.rows;
+        BaseballInnings.aRunScoredAwayInning3.marketname = aRunScoredAwayInning3Data?.marketname;
+        // runsInThe3thInning
+        BaseballInnings.runsInThe3thInning.rows = runsInThe3thInning(data);
+        // runsInThe3thInning
+        BaseballInnings._3thInningRuns.rows = _3thInningRuns(data);
+        // _3thInningLines
+        BaseballInnings._3thInningLines.rows = _3thInningLines(data);
+
+        // aRunScoredHomeInning4
+        let aRunScoredHomeInning4Data: any = aRunScoredHomeInning4(data);
+        BaseballInnings.aRunScoredHomeInning4.rows = aRunScoredHomeInning4Data?.rows;
+        BaseballInnings.aRunScoredHomeInning4.marketname = aRunScoredHomeInning4Data?.marketname;
+        // aRunScoredAwayInning4
+        let aRunScoredAwayInning4Data: any = aRunScoredAwayInning4(data);
+        BaseballInnings.aRunScoredAwayInning4.rows = aRunScoredAwayInning4Data?.rows;
+        BaseballInnings.aRunScoredAwayInning4.marketname = aRunScoredAwayInning4Data?.marketname;
+        // runsInThe4thInning
+        BaseballInnings.runsInThe4thInning.rows = runsInThe4thInning(data);
+        // runsInThe4thInning
+        BaseballInnings._4thInningRuns.rows = _4thInningRuns(data);
+        // _4thInningLines
+        BaseballInnings._4thInningLines.rows = _4thInningLines(data);
+
+        // aRunScoredHomeInning5
+        let aRunScoredHomeInning5Data: any = aRunScoredHomeInning5(data);
+        BaseballInnings.aRunScoredHomeInning5.rows = aRunScoredHomeInning5Data?.rows;
+        BaseballInnings.aRunScoredHomeInning5.marketname = aRunScoredHomeInning5Data?.marketname;
+        // aRunScoredAwayInning5
+        let aRunScoredAwayInning5Data: any = aRunScoredAwayInning5(data);
+        BaseballInnings.aRunScoredAwayInning5.rows = aRunScoredAwayInning5Data?.rows;
+        BaseballInnings.aRunScoredAwayInning5.marketname = aRunScoredAwayInning5Data?.marketname;
+        // runsInThe5thInning
+        BaseballInnings.runsInThe5thInning.rows = runsInThe5thInning(data);
+        // runsInThe5thInning
+        BaseballInnings._5thInningRuns.rows = _5thInningRuns(data);
+        // _5thInningLines
+        BaseballInnings._5thInningLines.rows = _5thInningLines(data);
+
+        // aRunScoredHomeInning6
+        let aRunScoredHomeInning6Data: any = aRunScoredHomeInning6(data);
+        BaseballInnings.aRunScoredHomeInning6.rows = aRunScoredHomeInning6Data?.rows;
+        BaseballInnings.aRunScoredHomeInning6.marketname = aRunScoredHomeInning6Data?.marketname;
+        // aRunScoredAwayInning6
+        let aRunScoredAwayInning6Data: any = aRunScoredAwayInning6(data);
+        BaseballInnings.aRunScoredAwayInning6.rows = aRunScoredAwayInning6Data?.rows;
+        BaseballInnings.aRunScoredAwayInning6.marketname = aRunScoredAwayInning6Data?.marketname;
+        // runsInThe6thInning
+        BaseballInnings.runsInThe6thInning.rows = runsInThe6thInning(data);
+        // runsInThe6thInning
+        BaseballInnings._6thInningRuns.rows = _6thInningRuns(data);
+        // _6thInningLines
+        BaseballInnings._6thInningLines.rows = _6thInningLines(data);
+
+        // aRunScoredHomeInning7
+        let aRunScoredHomeInning7Data: any = aRunScoredHomeInning7(data);
+        BaseballInnings.aRunScoredHomeInning7.rows = aRunScoredHomeInning7Data?.rows;
+        BaseballInnings.aRunScoredHomeInning7.marketname = aRunScoredHomeInning7Data?.marketname;
+        // aRunScoredAwayInning7
+        let aRunScoredAwayInning7Data: any = aRunScoredAwayInning7(data);
+        BaseballInnings.aRunScoredAwayInning7.rows = aRunScoredAwayInning7Data?.rows;
+        BaseballInnings.aRunScoredAwayInning7.marketname = aRunScoredAwayInning7Data?.marketname;
+        // runsInThe7thInning
+        BaseballInnings.runsInThe7thInning.rows = runsInThe7thInning(data);
+        // runsInThe7thInning
+        BaseballInnings._7thInningRuns.rows = _7thInningRuns(data);
+        // _7thInningLines
+        BaseballInnings._7thInningLines.rows = _7thInningLines(data);
+
+        // aRunScoredHomeInning8
+        let aRunScoredHomeInning8Data: any = aRunScoredHomeInning8(data);
+        BaseballInnings.aRunScoredHomeInning8.rows = aRunScoredHomeInning8Data?.rows;
+        BaseballInnings.aRunScoredHomeInning8.marketname = aRunScoredHomeInning8Data?.marketname;
+        // aRunScoredAwayInning8
+        let aRunScoredAwayInning8Data: any = aRunScoredAwayInning8(data);
+        BaseballInnings.aRunScoredAwayInning8.rows = aRunScoredAwayInning8Data?.rows;
+        BaseballInnings.aRunScoredAwayInning8.marketname = aRunScoredAwayInning8Data?.marketname;
+        // runsInThe8thInning
+        BaseballInnings.runsInThe8thInning.rows = runsInThe8thInning(data);
+        // runsInThe8thInning
+        BaseballInnings._8thInningRuns.rows = _8thInningRuns(data);
+        // _8thInningLines
+        BaseballInnings._8thInningLines.rows = _8thInningLines(data);
         oddData = BaseballInnings as any;
     } else if (active === "Team") {
+        // teamTotals
+        BaseballTeam.teamTotals.rows = teamTotals(data);
+        // teamAlternativeTotals
+        BaseballTeam.teamAlternativeTotals.rows = teamAlternativeTotals(data);
+        // bothTeamsToScore
+        BaseballTeam.bothTeamsToScore.rows = bothTeamsToScore(data);
         oddData = BaseballTeam as any;
     }
     console.log(oddData);

@@ -54,6 +54,30 @@ export const dota2All = {
         header: [],
         rows: []
     },
+    "map3Winner": {
+        marketname: "Map 3 Winner",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "map3KillHandicap": {
+        marketname: "Map 3 - Kill Handicap",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "map3Totals": {
+        marketname: "Map 3 - Totals",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "map3TotalKills": {
+        marketname: "Map 3 Total Kills Odd/Even",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
     "correctMapScore": {
         marketname: "Correct Map Score - Best of 3",
         suspend: "0",

@@ -7,8 +7,9 @@ import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
 import { dota2All, dota2Match, Dota2Map2 } from './datastructure';
 import {
-    gameLines, map1Winner, map1KillHandicap, map1Totals, map1TotalKills, map2Winner, map2KillHandicap,
-    map2Totals, map2TotalKills,
+    gameLines, map1Winner, map1KillHandicap, map1Totals, map1TotalKills,
+    map2Winner, map2KillHandicap, map2Totals, map2TotalKills,
+    map3Winner, map3KillHandicap, map3Totals, map3TotalKills,
     correctMapScore, matchEitherTeamsToScore,
 } from '../mappings/mapping';
 
@@ -44,6 +45,7 @@ const Dota2MarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         dota2All.map1Totals.header = map1TotalsData?.header;
         //map1 Total Kills
         dota2All.map1TotalKills.rows = map1TotalKills(data);
+ 
         //map 2 winner
         dota2All.map2Winner.rows = map2Winner(data);
         //map 2 kill handicap
@@ -56,6 +58,20 @@ const Dota2MarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         dota2All.map2Totals.header = map2TotalsData?.header;
         //map2 Total Kills
         dota2All.map2TotalKills.rows = map2TotalKills(data);
+
+        //map 3 winner
+        dota2All.map3Winner.rows = map3Winner(data);
+        //map 3 kill handicap
+        let map3KillHandicapData: any = map3KillHandicap(data);
+        dota2All.map3KillHandicap.rows = map3KillHandicapData?.rows;
+        dota2All.map3KillHandicap.header = map3KillHandicapData?.header;
+        //map 3 totals
+        let map3TotalsData: any = map3Totals(data);
+        dota2All.map3Totals.rows = map3TotalsData?.rows;
+        dota2All.map3Totals.header = map3TotalsData?.header;
+        //map3 Total Kills
+        dota2All.map3TotalKills.rows = map3TotalKills(data);
+        
         //correctMapScore
         let correctMapScoreData: any = correctMapScore(data);
         dota2All.correctMapScore.rows = correctMapScoreData?.rows;
