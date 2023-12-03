@@ -5,6 +5,13 @@ export const HonorOfKingsAll = {
         header: [],
         rows: []
     },
+    "matchWinner3Ways": {
+        marketname: "Match winner - 3 ways",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+
 
     "map1Winner": {
         marketname: "Map 1 Winner",

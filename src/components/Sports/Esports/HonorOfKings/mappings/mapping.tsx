@@ -20,7 +20,7 @@ export const gameLines = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (toWin.length < 3 && (title === "Home" || title == "Away")) {
-                    toWin.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend });
+                    toWin.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -34,10 +34,10 @@ export const gameLines = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (total.length < 3 && title === "Over") {
-                    total.push({ title: `O ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend:item[1].suspend });
+                    total.push({ title: `O ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend: item[1].suspend });
                 }
                 if (total.length < 3 && title === "Under") {
-                    total.push({ title: `U ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend:item[1].suspend });
+                    total.push({ title: `U ${item[1].handicap}`, value: ` ${Number(item[1].value_eu) > 0 ? '+' : ''}${item[1].value_eu}`, suspend: item[1].suspend });
                 }
             })
         }
@@ -51,10 +51,10 @@ export const gameLines = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (line.length < 3 && title === "Home") {
-                    line.push({ title: item[1].handicap, value: item[1].value_eu, suspend:item[1].suspend });
+                    line.push({ title: item[1].handicap, value: item[1].value_eu, suspend: item[1].suspend });
                 }
                 if (line.length < 3 && title === "Away") {
-                    line.push({ title: item[1].handicap, value: item[1].value_eu, suspend:item[1].suspend });
+                    line.push({ title: item[1].handicap, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -70,6 +70,37 @@ export const gameLines = (data: any) => {
         rows.push(line);
 
     return { header, rows: rows };
+}
+//matchWinner3Ways
+export const matchWinner3Ways = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    let rows = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[1289]?.participants) {
+        const items: any = Object.entries(data?.odds?.[1289]?.participants);
+        items.map((itm: any) => {
+            let title = '';
+            const item = itm[1];
+            title = item?.name;
+            if (row.length < 3 && title === "Home") {
+                row.push({ title: data?.team_info?.home?.name, value: item.value_eu, suspend: item.suspend });
+            }
+            if (row.length < 3 && title === "Draw") {
+                row.push({ title: "Draw", value: item.value_eu, suspend: item.suspend });
+            }
+            if (row.length < 3 && title === "Away") {
+                row.push({ title: data?.team_info?.away?.name, value: item.value_eu, suspend: item.suspend });
+            }
+            if (row.length == 3) {
+                rows.push(row);
+                row = [];
+            }
+        });
+    }
+    return rows;
 }
 //map 1 winner
 export const map1Winner = (data: any) => {
@@ -116,7 +147,7 @@ export const map1Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (killHandicap.length < 3) {
-                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend });
+                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -129,7 +160,7 @@ export const map1Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (firstBlood.length < 3) {
-                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend});
+                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -191,7 +222,7 @@ export const map2Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (killHandicap.length < 3) {
-                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend });
+                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -204,7 +235,7 @@ export const map2Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (firstBlood.length < 3) {
-                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend });
+                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -266,7 +297,7 @@ export const map3Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (killHandicap.length < 3) {
-                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend });
+                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -279,7 +310,7 @@ export const map3Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (firstBlood.length < 3) {
-                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend});
+                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -341,7 +372,7 @@ export const map4Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (killHandicap.length < 3) {
-                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend});
+                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -354,7 +385,7 @@ export const map4Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (firstBlood.length < 3) {
-                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend});
+                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -416,7 +447,7 @@ export const map5Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (killHandicap.length < 3) {
-                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend});
+                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -429,7 +460,7 @@ export const map5Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (firstBlood.length < 3) {
-                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend});
+                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -491,7 +522,7 @@ export const map6Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (killHandicap.length < 3) {
-                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend});
+                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -504,7 +535,7 @@ export const map6Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (firstBlood.length < 3) {
-                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend});
+                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -537,7 +568,7 @@ export const map6Towers = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (firstTower.length < 3) {
-                    firstTower.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend});
+                    firstTower.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -621,7 +652,7 @@ export const map7Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (killHandicap.length < 3) {
-                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend});
+                    killHandicap.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -634,7 +665,7 @@ export const map7Kills = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (firstBlood.length < 3) {
-                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend});
+                    firstBlood.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -698,7 +729,7 @@ export const map7Towers = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (firstTower.length < 3) {
-                    firstTower.push({ title: ``, value: item[1].value_eu, suspend:item[1].suspend});
+                    firstTower.push({ title: ``, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -756,7 +787,7 @@ export const correctMapScore = (data: any) => {
                     row.push({ title: title, value: null, suspend: "0" })
                 }
                 if (row.length < 3 && items.length > 0) {
-                    row.push({ title: '', value: item[1].value_eu, suspend:item[1].suspend});
+                    row.push({ title: '', value: item[1].value_eu, suspend: item[1].suspend });
                 }
                 if (row.length == 3) {
                     rows.push(row);
@@ -784,7 +815,7 @@ export const matchEitherTeamsToScore = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (ultraKill.length < 3 && (title === "Home" || title == "Away")) {
-                    ultraKill.push({ title: item[1].handicap, value: item[1].value_eu, suspend:item[1].suspend});
+                    ultraKill.push({ title: item[1].handicap, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }
@@ -797,7 +828,7 @@ export const matchEitherTeamsToScore = (data: any) => {
                 let suspend = '0';
                 title = item[1]?.name
                 if (rampage.length < 3 && (title === "Home" || title == "Away")) {
-                    rampage.push({ title: item[1].handicap, value: item[1].value_eu, suspend:item[1].suspend});
+                    rampage.push({ title: item[1].handicap, value: item[1].value_eu, suspend: item[1].suspend });
                 }
             })
         }

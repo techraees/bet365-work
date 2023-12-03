@@ -7,7 +7,7 @@ import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
 import { HonorOfKingsAll } from './datastructure';
 import {
-    gameLines,
+    gameLines, matchWinner3Ways,
     map1Winner, map1Kills,
     map2Winner, map2Kills,
     map3Winner, map3Kills,
@@ -38,6 +38,9 @@ const HonorOfKingsMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) =
         let gameLinesData: any = gameLines(data);
         HonorOfKingsAll.gameLines.rows = gameLinesData?.rows;
         HonorOfKingsAll.gameLines.header = gameLinesData?.header;
+        //matchWinner3Ways
+        HonorOfKingsAll.matchWinner3Ways.rows = matchWinner3Ways(data);
+
         //map 1 winner
         HonorOfKingsAll.map1Winner.rows = map1Winner(data);
         //map 1 kills
