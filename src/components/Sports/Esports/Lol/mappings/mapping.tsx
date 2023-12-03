@@ -110,7 +110,6 @@ export const map1KillHandicap = (data: any) => {
         items.map((itm: any) => {
             let title = '';
             const item = itm[1];
-            console.log("+++++++++", item);
             title = item?.name;
             if (row.length < 2 && title === "Home") {
                 row.push({ title: item.handicap, value: item.value_eu, suspend: item.suspend });
@@ -147,6 +146,63 @@ export const map1Totals = (data: any) => {
         rows.push(kills);
     }
     return { header, rows: rows };;
+}
+//map1GodLike
+export const map1GodLike = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[959149000]?.participants) {
+        const items: any = Object.entries(data?.odds?.[959149000]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            if (row.length < 2) {
+                row.push({ title: item.name, value: null, suspend: "0" });
+                row.push({ title: '', value: item.value_eu, suspend: item.suspend });
+            }
+            if (row.length == 2) {
+                rows.push(row);
+                row = [];
+            }
+        });
+    }
+    return rows;
+}
+//map1EitherTeamToScore
+export const map1EitherTeamToScore = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+    let quadraKill = [{ title: 'Quadra Kill', value: null, suspend: 0 }] as any;
+    if (data?.odds?.[100000000]?.participants) {
+        const items: any = Object.entries(data?.odds?.[100000000]?.participants);
+        items.map((itm: any) => {
+            let title = '';
+            const item = itm[1];
+            title = item?.name;
+            if (quadraKill.length < 3) {
+                quadraKill.push({ title: '', value: item.value_eu, suspend: item.suspend });
+            }
+        });
+        rows.push(quadraKill);
+    }
+    let pentalKill = [{ title: 'Penta Kill', value: null, suspend: 0 }] as any;
+    if (data?.odds?.[100000000]?.participants) {
+        const items: any = Object.entries(data?.odds?.[100000000]?.participants);
+        items.map((itm: any) => {
+            let title = '';
+            const item = itm[1];
+            title = item?.name;
+            if (pentalKill.length < 3) {
+                pentalKill.push({ title: '', value: item.value_eu, suspend: item.suspend });
+            }
+        });
+        rows.push(pentalKill);
+    }
+    return rows;
 }
 //map 1 TotalKills odd/even
 export const map1TotalKills = (data: any) => {
@@ -250,6 +306,63 @@ export const map2Totals = (data: any) => {
     }
     return { header, rows: rows };;
 }
+//map2GodLike
+export const map2GodLike = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[9591490]?.participants) {
+        const items: any = Object.entries(data?.odds?.[9591490]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            if (row.length < 2) {
+                row.push({ title: item.name, value: null, suspend: "0" });
+                row.push({ title: '', value: item.value_eu, suspend: item.suspend });
+            }
+            if (row.length == 2) {
+                rows.push(row);
+                row = [];
+            }
+        });
+    }
+    return rows;
+}
+//map2EitherTeamToScore
+export const map2EitherTeamToScore = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+    let quadraKill = [{ title: 'Quadra Kill', value: null, suspend: 0 }] as any;
+    if (data?.odds?.[100000000]?.participants) {
+        const items: any = Object.entries(data?.odds?.[100000000]?.participants);
+        items.map((itm: any) => {
+            let title = '';
+            const item = itm[1];
+            title = item?.name;
+            if (quadraKill.length < 3) {
+                quadraKill.push({ title: '', value: item.value_eu, suspend: item.suspend });
+            }
+        });
+        rows.push(quadraKill);
+    }
+    let pentalKill = [{ title: 'Penta Kill', value: null, suspend: 0 }] as any;
+    if (data?.odds?.[100000000]?.participants) {
+        const items: any = Object.entries(data?.odds?.[100000000]?.participants);
+        items.map((itm: any) => {
+            let title = '';
+            const item = itm[1];
+            title = item?.name;
+            if (pentalKill.length < 3) {
+                pentalKill.push({ title: '', value: item.value_eu, suspend: item.suspend });
+            }
+        });
+        rows.push(pentalKill);
+    }
+    return rows;
+}
 //map 2 TotalKills odd/even
 export const map2TotalKills = (data: any) => {
     if (!data && !data.odds) {
@@ -276,6 +389,31 @@ export const map2TotalKills = (data: any) => {
     return rows;
 }
 
+// map 3 winner
+export const map3Winner = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+
+    let rows = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[1181]?.participants) {
+        const items: any = Object.entries(data?.odds?.[1181]?.participants);
+        items.map((itm: any) => {
+            let title = '';
+            const item = itm[1];
+            title = item?.name;
+            if (row.length < 3 && title === "Home") {
+                row.push({ title: data?.team_info?.home?.name, value: item.value_eu, suspend: item.suspend });
+            }
+            if (row.length < 3 && title === "Away") {
+                row.push({ title: data?.team_info?.away?.name, value: item.value_eu, suspend: item.suspend });
+            }
+        });
+        rows.push(row);
+    }
+    return rows;
+}
 //map 3 Kill Handicap
 export const map3KillHandicap = (data: any) => {
     if (!data && !data.odds) {
@@ -324,6 +462,29 @@ export const map3Totals = (data: any) => {
         rows.push(kills);
     }
     return { header, rows: rows };;
+}
+//map3GodLike
+export const map3GodLike = (data: any) => {
+    if (!data && !data.odds) {
+        return [];
+    }
+    let rows = [] as any;
+    let row = [] as any;
+    if (data?.odds?.[9591492]?.participants) {
+        const items: any = Object.entries(data?.odds?.[9591492]?.participants);
+        items.map((itm: any) => {
+            const item = itm[1];
+            if (row.length < 2) {
+                row.push({ title: item.name, value: null, suspend: "0" });
+                row.push({ title: '', value: item.value_eu, suspend: item.suspend });
+            }
+            if (row.length == 2) {
+                rows.push(row);
+                row = [];
+            }
+        });
+    }
+    return rows;
 }
 //map3EitherTeamToScore
 export const map3EitherTeamToScore = (data: any) => {

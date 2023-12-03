@@ -8,9 +8,9 @@ import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderlin
 import { lolAll } from './datastructure';
 import {
     gameLines,
-    map1Winner, map1KillHandicap, map1Totals, map1TotalKills, 
-    map2Winner, map2KillHandicap, map2Totals, map2TotalKills,
-    map3KillHandicap, map3Totals, map3TotalKills,
+    map1Winner, map1KillHandicap, map1Totals, map1GodLike, map1EitherTeamToScore, map1TotalKills,
+    map2Winner, map2KillHandicap, map2Totals, map2GodLike, map2EitherTeamToScore, map2TotalKills,
+    map3Winner, map3KillHandicap, map3Totals, map3GodLike, map3EitherTeamToScore, map3TotalKills,
     correctMapScore, toWinAtLeastOneMap,
 } from '../mappings/mapping';
 
@@ -43,8 +43,13 @@ const LolMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         let map1TotalsData: any = map1Totals(data);
         lolAll.map1Totals.rows = map1TotalsData?.rows;
         lolAll.map1Totals.header = map1TotalsData?.header;
+        //map1GodLike
+        lolAll.map1GodLike.rows = map1GodLike(data);
+        //map1EitherTeamToScore
+        lolAll.map1EitherTeamToScore.rows = map1EitherTeamToScore(data);
         //map1 Total Kills
         lolAll.map1TotalKills.rows = map1TotalKills(data);
+
         //map 2 winner
         lolAll.map2Winner.rows = map2Winner(data);
         //map 2 kill handicap
@@ -55,17 +60,27 @@ const LolMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         let map2TotalsData: any = map2Totals(data);
         lolAll.map2Totals.rows = map2TotalsData?.rows;
         lolAll.map2Totals.header = map2TotalsData?.header;
+        //map2GodLike
+        lolAll.map2GodLike.rows = map2GodLike(data);
+        //map2EitherTeamToScore
+        lolAll.map2EitherTeamToScore.rows = map2EitherTeamToScore(data);
         //map2 Total Kills
         lolAll.map2TotalKills.rows = map2TotalKills(data);
 
+        //map 3 winner
+        lolAll.map3Winner.rows = map3Winner(data);
         //map3KillHandicap
         lolAll.map3KillHandicap.rows = map3KillHandicap(data);
         //map 3 totals
         let map3TotalsData: any = map3Totals(data);
         lolAll.map3Totals.rows = map3TotalsData?.rows;
         lolAll.map3Totals.header = map3TotalsData?.header;
-                //map3 Total Kills
-                lolAll.map3TotalKills.rows = map3TotalKills(data);
+        //map3GodLike
+        lolAll.map3GodLike.rows = map3GodLike(data);
+        //map3EitherTeamToScore
+        lolAll.map3EitherTeamToScore.rows = map3EitherTeamToScore(data);
+        //map3 Total Kills
+        lolAll.map3TotalKills.rows = map3TotalKills(data);
 
         //correctMapScore
         let correctMapScoreData: any = correctMapScore(data);

@@ -24,12 +24,25 @@ export const lolAll = {
         header: [],
         rows: []
     },
+    "map1GodLike": {
+        marketname: "Map 1 - 1st Dragon to Spawn",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "map1EitherTeamToScore": {
+        marketname: "Map 1 - Either Team to Score",
+        suspend: "0",
+        header: ["Yes", "No"],
+        rows: []
+    },
     "map1TotalKills": {
         marketname: "Map 1 Total Kills Odd/Even",
         suspend: "0",
         header: [],
         rows: []
     },
+
     "map2Winner": {
         marketname: "Map 2 Winner",
         suspend: "0",
@@ -48,6 +61,18 @@ export const lolAll = {
         header: [],
         rows: []
     },
+    "map2GodLike": {
+        marketname: "Map 2 - 1st Dragon to Spawn",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "map2EitherTeamToScore": {
+        marketname: "Map 2 - Either Team to Score",
+        suspend: "0",
+        header: ["Yes", "No"],
+        rows: []
+    },
     "map2TotalKills": {
         marketname: "Map 2 Total Kills Odd/Even",
         suspend: "0",
@@ -55,6 +80,12 @@ export const lolAll = {
         rows: []
     },
 
+    "map3Winner": {
+        marketname: "Map 3 Winner",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
     "map3KillHandicap": {
         marketname: "Map 3 - Kill Handicap",
         suspend: "0",
@@ -63,6 +94,12 @@ export const lolAll = {
     },
     "map3Totals": {
         marketname: "Map 3 - Totals",
+        suspend: "0",
+        header: [],
+        rows: []
+    },
+    "map3GodLike": {
+        marketname: "Map 3 - 1st Dragon to Spawn",
         suspend: "0",
         header: [],
         rows: []
