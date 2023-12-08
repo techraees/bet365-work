@@ -533,12 +533,7 @@ export default function GamesPodContainer({ }: Props) {
                   </div>
                   <div className='text-[13px] flex items-center max-w-none bg-transparent text-left leading-[17px] font-normal text-[#b5b5b5] m-[none] pl-0 pr-[30px] pt-0 pb-[15px] border-y-[none]'>``
                     <div>
-                      <span>This website is operated by Lucky Stream Limited, with
-                        company number C53884 and its registered office at Office
-                        1/2373, Level G, Quantum House, 75 Abate Rigord Street, Ta'
-                        Xbiex XBX 1120, Malta. Lucky Stream Limited is licensed and
-                        regulated by the Hellenic Gaming Commission (HGC), Licence
-                        numbers </span>
+                      <span>This website is operated by Lucky Stream Limited, with company number C53884 and its registered office at Office 1/2373, Level G, Quantum House, 75 Abate Rigord Street, Ta&apos;Xbiex XBX 1120, Malta. Lucky Stream Limited is licensed and regulated by the Hellenic Gaming Commission (HGC), Licence numbers </span>
                         <span className='cursor-pointer text-[#ddd] font-normal'>
                         HGC-005-LH (Type 1)</span>
                         <span> and </span>

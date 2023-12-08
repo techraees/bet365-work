@@ -21,8 +21,8 @@ export default function BetViewDetails({participants}: Props) {
     <div >
         <div className='inline-block w-full'>
           {
-            participants.map(participant =>
-              <BetParticipant {...participant}/> )
+            participants.map((participant, index) =>
+              <BetParticipant {...participant} key={index}/> )
           }
         </div>
     </div>
