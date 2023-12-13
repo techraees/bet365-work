@@ -9,8 +9,8 @@ export const volleyballAll = {
             [{ title: "Total", value: null, suspend: "0" }, { title: "O 135.5", value: "1.83", suspend: "0" }, { title: "U 135.5", value: "1.83", suspend: "0" }],
         ]
     },
-    "set2Lines": {
-        marketname: "Set 2 Lines",
+    "setXLines": {
+        marketname: "Set X Lines",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: [
@@ -19,8 +19,8 @@ export const volleyballAll = {
             [{ title: "Total", value: null, suspend: "0" }, { title: "O 45.5", value: "1.83", suspend: "0" }, { title: "U 45.5", value: "1.83", suspend: "0" }],
         ]
     },
-    "set2PointBetting": {
-        marketname: "Set 2 Point Betting",
+    "setXPointBetting": {
+        marketname: "Set X Point Betting",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: [
@@ -29,16 +29,24 @@ export const volleyballAll = {
             [{ title: "32", value: null, suspend: "0" }, { title: "", value: "1.72", suspend: "0" }, { title: "", value: "2.00", suspend: "0" }],
         ]
     },
-    "set2RaceTo": {
-        marketname: "Set 2 Race to",
+    "setXRaceTo": {
+        marketname: "Set X Race to Points",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: [
             [{ title: "20", value: null, suspend: "0" }, { title: "", value: "1.4", suspend: "0" }, { title: "", value: "2.62", suspend: "0" }],
         ]
     },
-    "set2ExtraPoints": {
-        marketname: "Set 2 Extra Points",
+    "setXleadAfter": {
+        marketname: "Set X Lead After",
+        suspend: "0",
+        header: ["", "Home", "Away","Tie"],
+        rows: [
+            [{ title: "20", value: null, suspend: "0" }, { title: "", value: "1.4", suspend: "0" }, { title: "", value: "2.62", suspend: "0" },{ title: "", value: "1.80", suspend: "0" }],
+        ]
+    },
+    "setXExtraPoints": {
+        marketname: "Set X Extra Points",
         suspend: "0",
         header: [],
         rows: [
@@ -51,11 +59,12 @@ export const volleyballAll = {
         header: ["", "Odd", "Even"],
         rows: [
             [{ title: "Match", value: null, suspend: "0" }, { title: "", value: "1.83", suspend: "0" }, { title: "", value: "1.83", suspend: "0" }],
-            [{ title: "Set 2", value: null, suspend: "0" }, { title: "", value: "2.20", suspend: "0" }, { title: "", value: "1.61", suspend: "0" }],
+            [{ title: "Set X", value: null, suspend: "0" }, { title: "", value: "2.20", suspend: "0" }, { title: "", value: "1.61", suspend: "0" }],
         ]
     },
-    "set2WinningMargin": {
-        marketname: "Set 2 Winning Margin",
+  
+    "setXWinningMargin": {
+        marketname: "Set X Winning Margin",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: [
@@ -66,8 +75,8 @@ export const volleyballAll = {
             [{ title: "12+", value: null, suspend: "0" }, { title: "", value: "21.00", suspend: "0" }, { title: "", value: "301.00", suspend: "0" }],
         ]
     },
-    "set2CorrectScore": {
-        marketname: "Set 2 Correct Score",
+    "setXCorrectScore": {
+        marketname: "Set X Correct Score",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: [
@@ -83,7 +92,16 @@ export const volleyballAll = {
             [{ title: "25-15 or better", value: null, suspend: "0" }, { title: "", value: "8.00", suspend: "0" }, { title: "", value: "81.00", suspend: "0" }],
         ]
     },
-    "scoreAfter3Sets": {
+    "scoreAfterSet2nd": {
+        marketname: "Set After 2 Sets",
+        suspend: "0",
+        header: ["", "Home", "Away"],
+        rows: [
+            [{ title: "3-0", value: null, suspend: "0" }, { title: "", value: "1.44", suspend: "0" }, { title: "", value: null, suspend: "0" }],
+            [{ title: "2-1", value: null, suspend: "0" }, { title: "", value: "3.00", suspend: "0" }, { title: "", value: "15.00", suspend: "0" }],
+        ]
+    },
+    "scoreAfterSet3rd": {
         marketname: "Set After 3 Sets",
         suspend: "0",
         header: ["", "Home", "Away"],
@@ -92,6 +110,8 @@ export const volleyballAll = {
             [{ title: "2-1", value: null, suspend: "0" }, { title: "", value: "3.00", suspend: "0" }, { title: "", value: "15.00", suspend: "0" }],
         ]
     },
+ 
+  
     "correctSetScore": {
         marketname: "Correct Set Score",
         suspend: "0",

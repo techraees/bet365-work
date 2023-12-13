@@ -24,7 +24,6 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
         {
             const obj = toWin(data)
             var rows = obj.rows;
-            console.log('rra', rows);
             oddData.toWin.suspend = obj.suspend;
             if(rows.length ===0 || rows[0].length === 0){
                 delete oddData.toWin;
@@ -35,7 +34,7 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
 
         {
 
-
+     
             oddData.pointBetting.marketname = getGameTitle(data, oddData.pointBetting.marketname);
             const obj = pointBetting(data);
             var rows = obj.rows;
@@ -313,6 +312,7 @@ const TennisMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
 
 
         {
+            
             oddData.currentSetRaceTo2.marketname = getSetTitle(data, oddData.currentSetRaceTo2.marketname);
             const obj = currentSetRaceTo(data);
             const rows = obj.rows;

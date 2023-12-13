@@ -232,6 +232,7 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
             <>
               <SportsHeader />
               <div>
+
                 <SportDetailHeader sport={sport} subcategory={subcategory} />
                 <div className="flex flex-col w-full">
                   {grouped.map((group, index): any => {

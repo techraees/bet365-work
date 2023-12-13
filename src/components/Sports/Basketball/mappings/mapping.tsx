@@ -987,6 +987,7 @@ export const nextQuarterBothTeamsToScore = (data: any) => {
 }
 
 export const halfLines = (data: any) => {
+    console.log("I am first half")
     
     var current_period = data?.info?.period;
     var current_period_int = parseInt(current_period.charAt(0));
