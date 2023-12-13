@@ -210,8 +210,8 @@ export const pointBetting = (data: any) => {
   const current_period = data?.info?.period as string;
   var search_line = "Point Betting";
 
-  const _odd_id_current_set_winner = findIdByName(data, search_line);
-  var odds = data?.odds[_odd_id_current_set_winner];
+  const _odd_id_point_betting = findIdByName(data, search_line);
+  var odds = data?.odds[_odd_id_point_betting];
   if (odds === undefined) {
     return { rows: [], suspend: "0" };
   }
@@ -243,11 +243,21 @@ export const pointBetting = (data: any) => {
       title: "",
       value: home_obj.value_eu,
       suspend: home_obj.suspend,
+
+      event_name: data?.info?.name,
+      odd_name: data?.odds[_odd_id_point_betting].name,
+      participant_name: away_obj.name,
+      participant_handicap: away_obj.handicap,
     };
     var away_row_obj = {
       title: "",
       value: away_obj.value_eu,
       suspend: away_obj.suspend,
+
+      event_name: data?.info?.name,
+      odd_name: data?.odds[_odd_id_point_betting].name,
+      participant_name: away_obj.name,
+      participant_handicap: away_obj.handicap,
     };
     arr = [title_obj, home_row_obj, away_row_obj];
     base_arr.push(arr);
@@ -3588,14 +3598,15 @@ export const currectSetCorrectScoreGroup2 = (data: any) => {
 
       event_name: data?.info?.name,
       odd_name: data?.odds[_odd_id_current_set_winner].name,
+
       participant_name:
         data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[1].participant_id
-        ].name,
+          group_obj[1]?.participant_id
+        ]?.name,
       participant_handicap:
         data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[1].participant_id
-        ].handicap,
+          group_obj[1]?.participant_id
+        ]?.handicap,
     };
     var second_group = {
       title: "",
@@ -3610,12 +3621,12 @@ export const currectSetCorrectScoreGroup2 = (data: any) => {
       odd_name: data?.odds[_odd_id_current_set_winner].name,
       participant_name:
         data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[0].participant_id
-        ].name,
+          group_obj[0]?.participant_id
+        ]?.name,
       participant_handicap:
         data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[0].participant_id
-        ].handicap,
+          group_obj[0]?.participant_id
+        ]?.handicap,
     };
     arr.push(title_obj);
     arr.push(first_group);
@@ -3683,12 +3694,12 @@ export const nextSetCorrectScoreGroup = (data: any) => {
       odd_name: data?.odds[_odd_id_current_set_winner].name,
       participant_name:
         data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[1].participant_id
-        ].name,
+          group_obj[1]?.participant_id
+        ]?.name,
       participant_handicap:
         data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[1].participant_id
-        ].handicap,
+          group_obj[1]?.participant_id
+        ]?.handicap,
     };
     var second_group = {
       title: "",
@@ -3703,12 +3714,12 @@ export const nextSetCorrectScoreGroup = (data: any) => {
       odd_name: data?.odds[_odd_id_current_set_winner].name,
       participant_name:
         data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[0].participant_id
-        ].name,
+          group_obj[0]?.participant_id
+        ]?.name,
       participant_handicap:
         data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[0].participant_id
-        ].handicap,
+          group_obj[0]?.participant_id
+        ]?.handicap,
     };
     arr.push(title_obj);
     arr.push(first_group);
@@ -4861,12 +4872,12 @@ export const playersOverUnder = (data: any) => {
     odd_name: data?.odds[_odd_id_current_set_winner].name,
     participant_name:
       data?.odds[_odd_id_current_set_winner].participants[
-        player_1_over_participant.id
-      ].name,
+        player_1_over_participant?.id
+      ]?.name,
     participant_handicap:
       data?.odds[_odd_id_current_set_winner].participants[
-        player_1_over_participant.id
-      ].handicap,
+        player_1_over_participant?.id
+      ]?.handicap,
   };
   var player_1_under_obj = {
     title:
@@ -4883,12 +4894,12 @@ export const playersOverUnder = (data: any) => {
     odd_name: data?.odds[_odd_id_current_set_winner].name,
     participant_name:
       data?.odds[_odd_id_current_set_winner].participants[
-        player_1_under_participant.id
-      ].name,
+        player_1_under_participant?.id
+      ]?.name,
     participant_handicap:
       data?.odds[_odd_id_current_set_winner].participants[
-        player_1_under_participant.id
-      ].handicap,
+        player_1_under_participant?.id
+      ]?.handicap,
   };
   var player_2_over_obj = {
     title:

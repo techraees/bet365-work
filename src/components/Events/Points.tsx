@@ -7,9 +7,6 @@ interface PointsEventsInterface {
 }
 const Points: React.FC<PointsEventsInterface> = ({ data, sport, subcategory }) => {
     // console.log('Tennis', { data, sport })
-    if(data.info.name === "Luka Pavlovic vs Bogdan Pavel"){
-        console.log("LUKA",data)
-    }
     if (sport === "soccer") {
         return (
             <div className="flex ml-[auto]">
@@ -31,7 +28,7 @@ const Points: React.FC<PointsEventsInterface> = ({ data, sport, subcategory }) =
         if(data?.info?.score === null){
             return null;
         }
-        const all_scores = data?.info?.score.split(",");
+        const all_scores = data?.info?.score?.split(",");
         console.log('aaa', all_scores);
         var last_score = all_scores[all_scores.length - 1]
         const [home_game_score, away_game_score] = last_score.split(":");

@@ -1,5 +1,13 @@
-import Nats from "@/components/Nats";
-import { getPregameLeagues, getPregameNames, getPregame, getPregameSoccer, getPregamesLeaguesGroupedByCountry, } from "@/api";
+"use client";
+import {
+  getPregameLeagues,
+  getPregameNames,
+  getPregame,
+  getPregameSoccer,
+  getPregamesLeaguesGroupedByCountry,
+  getSoccerFeaturedMatches,
+  getPregamesSoccerLeaguesGroupedByCountry,
+} from "@/api";
 import NatsSoccer from "../components/soccer/NatsSoccer";
 import NavigationPanel from "../components/Navigation/navigationpanel";
 
@@ -16,187 +24,237 @@ import NatsVolleyball from "../components/volleyball/Nats";
 import NatsTennis from "../components/tennis/Nats";
 
 import requireSession from "@/lib/request-session";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import PopupShowing from "@/components/CollectingPopup/ConditionalPopup/PopupShowing";
+import PopUps from "@/components/CollectingPopup/CollectingPopup";
 
 export const dynamic = "force-dynamic";
 
-const Home = async ({ params }: any) => {
-    const session = await requireSession();
-    let { sport } = params;
-    if (sport[0] === 'soccer') {
-        let leagueSelectedGames = [] as any;
-        if (sport[1] && sport[1] == "leagues") {
-            let leaguesByCountry = getPregamesLeaguesGroupedByCountry();
-            leagueSelectedGames = await getPregameSoccer(decodeURIComponent(sport[2]));
-            console.log(sport[2])
-            return (
-                <NatsSoccer odds={[]} sport={sport} leaguesByCountry={leaguesByCountry} leagueSelectedGames={leagueSelectedGames} />
-            )
+const Home = ({ params }: any) => {
+  //   const session = await requireSession();
+  const { data: session } = useSession();
+  //   let { sport } = params;
+
+  const [sport, setSport] = useState([]);
+  const [leagueSelectedGamesState, setLeagueSelectedGamesState] = useState({});
+  const [leaguesGroupedByCountry, setLeaguesGroupedByCountry] = useState({});
+  const [pregameLeagues, setPregameLeagues] = useState({});
+  const [pregameSoccer, setPregameSoccer] = useState([]);
+  const [featuredMatches, setFeaturedMatches] = useState([]);
+  const [odds, setOdds] = useState([]);
+
+  useEffect(() => {
+    const _getPregamesGroupedByCountrySoccer = async () => {
+      try {
+        const leagues = await getPregamesSoccerLeaguesGroupedByCountry();
+        console.log({ leagues: leagues });
+        setLeaguesGroupedByCountry(leagues); // Update the state with fetched data
+      } catch (error) {
+        console.error("Error fetching featured matches:", error);
+      }
+    };
+
+    const _getPregamesGroupedByCountry = async () => {
+      try {
+        const leagues = await getPregameLeagues(sport[0]);
+        console.log({ leaguesAHAHAH: leagues });
+        setLeaguesGroupedByCountry(leagues); // Update the state with fetched data
+      } catch (error) {
+        console.error("Error fetching featured matches:", error);
+      }
+    };
+    if (sport[0] === "soccer") {
+      _getPregamesGroupedByCountrySoccer();
+    }
+    if (sport.length > 0 && sport[0] !== "soccer") {
+      _getPregamesGroupedByCountry();
+    }
+  }, [sport]);
+
+  useEffect(() => {
+    console.log({ SP: sport });
+    if (sport.length > 0) {
+      const _getPregameSoccer = async () => {
+        try {
+          console.log({ sport: sport[2] });
+          const games = await getPregameSoccer(decodeURIComponent(sport[2]));
+          setLeagueSelectedGamesState(games); // Update the state with fetched data
+          setOdds(games);
+        } catch (error) {
+          console.error("Error fetching featured matches:", error);
         }
+      };
 
-        let leaguesByCountry = getPregamesLeaguesGroupedByCountry();
-        let getLeagues = await getPregameLeagues(sport[0]);
-        console.log({ getLeagues })
-        const getLeagues10 = getLeagues?.slice(0, 10);
-        let promise = getLeagues10?.map(async (league: string) => {
-            const leagueData = await getPregameSoccer(league);
-            const modifiedData = leagueData?.map((item: any) => {
-                return {
-                    ...item,
-                    league: league
-                }
-            })
-            return modifiedData
-        })
-        const odds = await Promise.all(promise);
+      const _getPregame = async () => {
+        try {
+          console.log({ sport: sport[2] });
+          const games = await getPregame(sport[0], sport[2]);
+          setLeagueSelectedGamesState(games); // Update the state with fetched data
+          setOdds(games);
+        } catch (error) {
+          console.error("Error fetching featured matches:", error);
+        }
+      };
 
-        return (
-            <NatsSoccer odds={odds} sport={sport} leaguesByCountry={leaguesByCountry} getLeagues={getLeagues} leagueSelectedGames={leagueSelectedGames} />
-        )
+      if (sport[0] === "soccer") {
+        _getPregameSoccer();
+      }
+      if (sport.length > 0 && sport[0] !== "soccer") {
+        _getPregame();
+      }
     }
-    if (sport[0] === 'baseball') {
-        let getLeagues = await getPregameLeagues(sport[0]);
-        let promise = getLeagues?.map(async (league: string) => {
-            const leagueData = await getPregame(sport[0], league);
-            const modifiedData = leagueData?.map((item: any) => {
-                return {
-                    ...item,
-                    league: league
-                }
-            })
-            return modifiedData
-        })
-        const odds = await Promise.all(promise);
-        console.log({ odds })
+  }, [sport]);
 
-        return (
-            <NatsBaseball odds={odds} sport={sport} getLeagues={getLeagues} />
-        )
+  useEffect(() => {
+    const _getPregameLeagues = async () => {
+      try {
+        const leagues = await getPregameLeagues(sport[0]);
+
+        setPregameLeagues(leagues); // Update the state with fetched data
+        console.log({ llleagues: leagues });
+      } catch (error) {
+        console.error("Error fetching featured matches:", error);
+      }
+    };
+    if (sport.length > 0) {
+      _getPregameLeagues();
     }
-    if (sport[0] === 'cricket') {
-        let getLeagues = await getPregameLeagues(sport[0]);
-        let odds = await getPregameNames();
-        return (
-            <NatsCricket odds={odds} sport={sport} getLeagues={getLeagues} />
-        )
-    }
-    if (sport[0] === 'darts') {
-        let getLeagues = await getPregameLeagues(sport[0]);
-        let odds = await getPregameNames();
-        return (
-            <NatsDarts odds={odds} sport={sport} getLeagues={getLeagues} />
-        )
-    }
-    if (sport[0] === 'boxing') {
-        let getLeagues = await getPregameLeagues(sport[0]);
-        let odds = await getPregameNames();
-        return (
-            <NatsBoxing odds={odds} sport={sport} getLeagues={getLeagues} />
-        )
-    }
-    if (sport[0] === 'basketball') {
-        let getLeagues = await getPregameLeagues(sport[0]);
-        let promise = getLeagues?.map(async (league: string) => {
-            const leagueData = await getPregame(sport[0], league);
-            const modifiedData = leagueData?.map((item: any) => {
-                return {
-                    ...item,
-                    league: league
-                }
-            })
-            return modifiedData
-        })
-        const odds = await Promise.all(promise);
-        console.log({ odds })
-        return (
-            <NatsBasketball odds={odds} sport={sport} getLeagues={getLeagues} />
-        )
-    }
-    if (sport[0] === 'esports') {
-        let getLeagues = await getPregameLeagues(sport[0]);
-        let promise = getLeagues?.map(async (league: string) => {
-            const leagueData = await getPregame(sport[0], league);
-            const modifiedData = leagueData?.map((item: any) => {
-                return {
-                    ...item,
-                    league: league
-                }
-            })
-            return modifiedData
-        })
-        const odds = await Promise.all(promise);
-        console.log({ getLeagues, odds })
-        return (
-            <NatsEsport odds={odds} sport={sport} getLeagues={getLeagues} />
-        )
-    }
-    if (sport[0] === 'table-tennis') {
-        let getLeagues = await getPregameLeagues(sport[0]);
-        let odds = await getPregameNames();
-        return (
-            <NatsTableTennis odds={odds} sport={sport} getLeagues={getLeagues} />
-        )
-    }
-    if (sport[0] === 'ice-hockey') {
-        let getLeagues = await getPregameLeagues(sport[0]);
-        let odds = await getPregameNames();
-        return (
-            <NatsHockey odds={odds} sport={sport} getLeagues={getLeagues} />
-        )
-    }
-    if (sport[0] === 'handball') {
-        let getLeagues = await getPregameLeagues(sport[0]);
-        let odds = await getPregameNames();
-        return (
-            <NatsHandball odds={odds} sport={sport} getLeagues={getLeagues} />
-        )
-    }
-    if (sport[0] === 'tennis') {
-        let getLeagues = await getPregameLeagues(sport[0]);
-        let promise = getLeagues?.map(async (league: string) => {
-            const leagueData = await getPregame(sport[0], league);
-            const modifiedData = leagueData?.map((item: any) => {
-                return {
-                    ...item,
-                    league: league
-                }
-            })
-            return modifiedData
-        })
-        const odds = await Promise.all(promise);
-        console.log({ odds })
-        return (
-            <NatsTennis odds={odds} sport={sport} getLeagues={getLeagues} />
-        )
-    }
-    if (sport[0] === 'volleyball') {
-        let getLeagues = await getPregameLeagues(sport[0]);
-        let promise = getLeagues?.map(async (league: string) => {
-            const leagueData = await getPregame(sport[0], league);
-            const modifiedData = leagueData?.map((item: any) => {
-                return {
-                    ...item,
-                    league: league
-                }
-            })
-            return modifiedData
-        })
-        const odds = await Promise.all(promise);
-        console.log({ odds })
-        return (
-            <NatsVolleyball odds={odds} sport={sport} getLeagues={getLeagues} />
-        )
-    }
-    return (<div className="flex h-[calc(100vh_-_105px)] max-w-[1450px] mx-auto">
-        <div className="w-[255px] hidden md:flex overflow-auto h-[100%]">
-            <NavigationPanel />
+  }, [sport]);
+
+  useEffect(() => {
+    setSport(params.sport);
+  }, [params]);
+
+  useEffect(() => {
+    const fetchFeaturedMatches = async () => {
+      try {
+        const matches = await getSoccerFeaturedMatches();
+        setFeaturedMatches(matches); // Update the state with fetched data
+      } catch (error) {
+        console.error("Error fetching featured matches:", error);
+      }
+    };
+
+    fetchFeaturedMatches(); // Call the async function
+  }, []); // Empty dependency array for running only once on mount
+
+  if (sport[0] === "soccer") {
+    if (sport[1] && sport[1] == "leagues") {
+      let leaguesByCountry = leaguesGroupedByCountry;
+
+      //   leagueSelectedGames = await getPregameSoccer(
+      //     decodeURIComponent(sport[2])
+      //   );
+      return (
+        <div>
+          <NatsSoccer
+            sport={sport}
+            leaguesByCountry={leaguesByCountry}
+            leagueSelectedGames={leagueSelectedGamesState}
+          />
+          <PopupShowing />
         </div>
-        <div className="flex flex-col flex-1 bg-[#282828] overflow-auto h-[100%]">
+      );
+    } else {
+      let leaguesByCountry = leaguesGroupedByCountry;
+      let getLeagues = pregameLeagues as any;
+      console.log({ leagues: getLeagues });
 
+      if (Object.keys(leaguesByCountry).length > 0) {
+        return (
+          <div>
+            <NatsSoccer
+              sport={sport}
+              leaguesByCountry={leaguesByCountry}
+              getLeagues={getLeagues}
+              leagueSelectedGames={leagueSelectedGamesState}
+            />
+            <PopupShowing />
+          </div>
+        );
+      }
+    }
+  }
+
+  if (sport[0] === "baseball") {
+    let getLeagues = pregameLeagues as any;
+
+    if (getLeagues.length > 0) {
+      console.log("leagues is");
+      console.log(getLeagues);
+      return (
+        <div>
+          <NatsBaseball sport={sport[0]} getLeagues={getLeagues} />;
+          <PopupShowing />
         </div>
+      );
+    }
+  }
+  if (sport[0] === "basketball") {
+    let getLeagues = pregameLeagues as any;
 
-    </div>)
-
-
+    if (getLeagues.length > 0) {
+      return (
+        <div>
+          <NatsBasketball sport={sport} getLeagues={getLeagues} />;
+          <PopupShowing />
+        </div>
+      );
+    }
+  }
+  if (sport[0] === "esports") {
+    let getLeagues = pregameLeagues as any;
+    if (getLeagues.length > 0) {
+      return (
+        <div>
+          <NatsEsport sport={sport} getLeagues={getLeagues} />;
+          <PopupShowing />
+        </div>
+      );
+    }
+  }
+  if (sport[0] === "hockey") {
+    let getLeagues = pregameLeagues as any;
+    if (getLeagues.length > 0) {
+      return (
+        <div>
+          <NatsHockey sport={sport} getLeagues={getLeagues} />;
+          <PopupShowing />
+        </div>
+      );
+    }
+  }
+  if (sport[0] === "tennis") {
+    let getLeagues = pregameLeagues as any;
+    if (getLeagues.length > 0) {
+      return (
+        <div>
+          <NatsTennis sport={sport} getLeagues={getLeagues} />;
+          <PopupShowing />
+        </div>
+      );
+    }
+  }
+  if (sport[0] === "volleyball") {
+    let getLeagues = pregameLeagues as any;
+    if (getLeagues.length > 0) {
+      return (
+        <div>
+          <NatsVolleyball sport={sport} getLeagues={getLeagues} />;
+          <PopupShowing />
+        </div>
+      );
+    }
+  }
+  return (
+    <div className="flex h-[calc(100vh_-_105px)] max-w-[1450px] mx-auto">
+      <div className="w-[255px] hidden md:flex overflow-auto h-[100%]">
+        <NavigationPanel />
+      </div>
+      <div className="flex flex-col flex-1 bg-[#282828] overflow-auto h-[100%]"></div>
+    </div>
+  );
 };
 
 export default Home;

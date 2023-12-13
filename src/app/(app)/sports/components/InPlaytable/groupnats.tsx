@@ -4,8 +4,6 @@ import { connect, NatsConnection, JSONCodec, Msg, NatsError } from "nats.ws";
 
 import { useEffect, useRef, useState } from "react";
 import * as jsonpatch from "fast-json-patch";
-import { cn } from "@/lib/utils";
-import Chevron from "@/components/ui/icons/chevron";
 import SoccerTable from "./SoccerTable";
 import TennisTable from "./TennisTable";
 import { useRouter } from "next/navigation";
@@ -104,46 +102,46 @@ const Groupnats = ({
   const soccergrouped = Object.entries(soccerleagues).map(
     ([leagueName, eventIds]: any) => {
       const eventsArray = eventIds.map(
-        (eventId: any) => soccerodds[eventId]?.raw_object
+        (eventId: any) => soccerodds[eventId]?.raw_object,
       );
       return {
         name: leagueName,
         events: eventsArray,
       };
-    }
+    },
   );
   const tennisgrouped = Object.entries(tennisleagues).map(
     ([leagueName, eventIds]: any) => {
       const eventsArray = eventIds.map(
-        (eventId: any) => tennisodds[eventId]?.raw_object
+        (eventId: any) => tennisodds[eventId]?.raw_object,
       );
       return {
         name: leagueName,
         events: eventsArray,
       };
-    }
+    },
   );
   const basketballgrouped = Object.entries(basketballleagues).map(
     ([leagueName, eventIds]: any) => {
       const eventsArray = eventIds.map(
-        (eventId: any) => basketballodds[eventId]?.raw_object
+        (eventId: any) => basketballodds[eventId]?.raw_object,
       );
       return {
         name: leagueName,
         events: eventsArray,
       };
-    }
+    },
   );
   const cricketgrouped = Object.entries(cricketleagues).map(
     ([leagueName, eventIds]: any) => {
       const eventsArray = eventIds.map(
-        (eventId: any) => cricketodds[eventId]?.raw_object
+        (eventId: any) => cricketodds[eventId]?.raw_object,
       );
       return {
         name: leagueName,
         events: eventsArray,
       };
-    }
+    },
   );
 
   // Array Showing Logic
@@ -162,10 +160,7 @@ const Groupnats = ({
         setSelectedArray={setSelectedBidsArr}
       />
 
-      <CollectingPopup
-        selectedArray={selectedBidsArr}
-        setSelectedArray={setSelectedBidsArr}
-      />
+      <CollectingPopup />
     </div>
   );
 };

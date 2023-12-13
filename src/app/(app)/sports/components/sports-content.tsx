@@ -20,11 +20,12 @@ const SportsContent = ({
   const tabs = ["Featured", "Top Events"];
 
   let listOfData: any[] = [];
-  odds?.map((item: any) => {
-    if (item.length > 0) {
-      listOfData.push(item[0]);
-    }
-  });
+  listOfData = odds;
+  // odds?.map((item: any) => {
+  //   if (item.length > 0) {
+  //     listOfData.push(item[0]);
+  //   }
+  // });
 
   return (
     <div className="flex flex-col text-base text-[white] border-t border-solid border-t-[#ffffff12] bg-[#383838]">
@@ -48,7 +49,7 @@ const SportsContent = ({
       </div>
       <BetBoost />
       <FeaturedMatches listOfData={listOfData} />
-      <InPlay
+      {/* <InPlay
         soccerodds={soccerodds}
         soccerleagues={soccerleagues}
         tennisodds={tennisodds}
@@ -57,7 +58,7 @@ const SportsContent = ({
         basketballleagues={basketballleagues}
         cricketodds={cricketodds}
         cricketleagues={cricketleagues}
-      />
+      /> */}
     </div>
   );
 };

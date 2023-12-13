@@ -33,7 +33,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
 
               <div
                 className={cn(
-                  `grid grid-cols-${rowdata.length} overflow-hidden h-[45px] w-[100%] `
+                  `grid grid-cols-${rowdata.length} overflow-hidden h-[45px] w-[100%] `,
                 )}
               >
                 {rowdata.map((item: any, index: number) => {
@@ -57,6 +57,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                       suspend={odd?.suspend}
                       textLeftAlign={textLeftAlign}
                       active={active}
+                      target_odd={item}
                     />
                   );
                 })}
@@ -80,7 +81,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
             {rowdata[0]?.value || rowdata.length > 3 ? (
               <div
                 className={cn(
-                  `grid grid-cols-${rowdata.length} overflow-hidden h-[45px] w-[100%] `
+                  `grid grid-cols-${rowdata.length} overflow-hidden h-[45px] w-[100%] `,
                 )}
               >
                 {rowdata?.map((item: any, index: number) => {
@@ -123,6 +124,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                       active={active}
                       borderRight={borderRight}
                       disablehover={disablehover}
+                      target_odd={item}
                     />
                   );
                 })}
@@ -132,7 +134,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                 className={cn(
                   `grid grid-cols-${
                     rowdata.length + 2
-                  } overflow-hidden h-[45px] w-[100%] `
+                  } overflow-hidden h-[45px] w-[100%] `,
                 )}
               >
                 <MarketCell
@@ -142,12 +144,13 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                   value={rowdata[0]?.value}
                   suspend={odd?.suspend}
                   active={active}
+                  target_odd={rowdata[0]}
                 />
                 <div
                   className={cn(
                     `col-span-${rowdata.length + 1} grid grid-cols-${
                       rowdata.length - 1
-                    } overflow-hidden h-[100%] w-[100%] `
+                    } overflow-hidden h-[100%] w-[100%] `,
                   )}
                 >
                   {rowdata.map((item: any, index: number) => {
@@ -159,6 +162,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                         value={item.value}
                         suspend={item?.suspend}
                         active={active}
+                        target_odd={item}
                       />
                     );
                   })}
@@ -169,7 +173,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                 className={cn(
                   `grid grid-cols-${
                     rowdata.length + 1
-                  } overflow-hidden h-[45px] w-[100%] `
+                  } overflow-hidden h-[45px] w-[100%] `,
                 )}
               >
                 <MarketCell
@@ -179,12 +183,13 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                   value={rowdata[0]?.value}
                   suspend={odd?.suspend}
                   active={active}
+                  target_odd={rowdata[0]}
                 />
                 <div
                   className={cn(
                     `col-span-${rowdata.length} grid grid-cols-${
                       rowdata.length - 1
-                    } overflow-hidden h-[100%] w-[100%] `
+                    } overflow-hidden h-[100%] w-[100%] `,
                   )}
                 >
                   {rowdata.map((item: any, index: number) => {
@@ -196,6 +201,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
                         value={item.value}
                         suspend={item?.suspend}
                         active={active}
+                        target_odd={item}
                       />
                     );
                   })}

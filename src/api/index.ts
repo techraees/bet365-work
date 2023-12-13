@@ -1,5 +1,8 @@
 var headers = new Headers();
-headers.append("X-ACCESS-TOKEN", process.env.API_TOKEN || "");
+headers.append(
+  "X-ACCESS-TOKEN",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjIsInVzZXJuYW1lIjoiYWRtaW43Iiwicm9sZSI6IlR5cGU3QWRtaW4iLCJpYXQiOjE3MDA4NTY3MTcsImV4cCI6MTczMjM5MjcxN30.OcP8_HEsm8_LhNgS9T04smZgJHPIdDCuI4rvXhvTTbQ",
+);
 
 var requestOptions: any = {
   method: "GET",
@@ -14,12 +17,9 @@ export const getSportsOdds = (sport: string) =>
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
-  
+
 export const getOddsGroupedByLeauge = (sport: string) =>
-  fetch(
-    `https://${API_URL}/odds/${sport}/live/groupBy/league`,
-    requestOptions
-  )
+  fetch(`https://${API_URL}/odds/${sport}/live/groupBy/league`, requestOptions)
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
@@ -30,6 +30,29 @@ export const getPregameNames = () =>
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
 
+export const getSoccerFeaturedMatches = () =>
+  fetch(`https://${API_URL}/odds/soccer/featured_matches`, requestOptions)
+    .then((response) => response.text())
+    .then((result) => JSON.parse(result))
+    .catch((error) => console.log("error", error));
+
+export const getEventFromLeague = (league_name: string, event_id: string) =>
+  fetch(
+    `https://${API_URL}/odds/soccer/pregame/events/${league_name}/${event_id}`,
+    requestOptions,
+  )
+    .then((response) => response.text())
+    .then((result) => JSON.parse(result))
+    .catch((error) => console.log("error", error));
+
+export const getEventNamesForLeague = (sport: string, league_name: string) =>
+  fetch(
+    `https://${API_URL}/odds/${sport}/pregame/event_names/${league_name}`,
+    requestOptions,
+  )
+    .then((response) => response.text())
+    .then((result) => JSON.parse(result))
+    .catch((error) => console.log("error", error));
 
 export const getPregameLeagues = (sport: string) =>
   fetch(`https://${API_URL}/odds/${sport}/pregame/leagues`, requestOptions)
@@ -38,71 +61,100 @@ export const getPregameLeagues = (sport: string) =>
     .catch((error) => console.log("error", error));
 
 export const getPregameSoccerEngland = () =>
-  fetch(`https://${API_URL}/odds/soccer/pregame/events/England: Fa Community Shield`, requestOptions)
+  fetch(
+    `https://${API_URL}/odds/soccer/pregame/events/England: Fa Community Shield`,
+    requestOptions,
+  )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
 
 export const getPregameSoccer = (leagues: string) =>
-  fetch(`https://${API_URL}/odds/soccer/pregame/events/${leagues}`, requestOptions)
+  fetch(
+    `https://${API_URL}/odds/soccer/pregame/events/${leagues}`,
+    requestOptions,
+  )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
 
 export const getPregame = (sport: string, leagues: string) =>
-  fetch(`https://${API_URL}/odds/${sport}/pregame/events/${leagues}`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => JSON.parse(result))
-    .catch((error) => console.log("error", error));
-export const getPregamesLeaguesGroupedByCountry = () =>
-  fetch(`https://${API_URL}/odds/soccer/pregame/leagues/groupedBy/country`, requestOptions)
+  fetch(
+    `https://${API_URL}/odds/${sport}/pregame/events/${leagues}`,
+    requestOptions,
+  )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
 
-export const getCoupons = (token: any) =>{
+export const getPregameEvent = (
+  sport: string,
+  league: string,
+  event_id: string,
+) =>
+  fetch(
+    `https://${API_URL}/odds/${sport}/pregame/events/${league}/${event_id}`,
+    requestOptions,
+  )
+    .then((response) => response.text())
+    .then((result) => JSON.parse(result))
+    .catch((error) => console.log("error", error));
+export const getPregamesSoccerLeaguesGroupedByCountry = () =>
+  fetch(
+    `https://${API_URL}/odds/soccer/pregame/leagues/groupedBy/country`,
+    requestOptions,
+  )
+    .then((response) => response.text())
+    .then((result) => JSON.parse(result))
+    .catch((error) => console.log("error", error));
+
+export const getPregamesLeaguesGroupedByCountry = (sport: string) =>
+  fetch(
+    `https://${API_URL}/odds/${sport}/pregame/leagues/groupedBy/country`,
+    requestOptions,
+  )
+    .then((response) => response.text())
+    .then((result) => JSON.parse(result))
+    .catch((error) => console.log("error", error));
+
+export const getCoupons = (token: any) => {
   var myHeaders = new Headers();
   myHeaders.append("X-ACCESS-TOKEN", token);
 
   var requestOptions1 = {
-    method: 'GET',
+    method: "GET",
     headers: myHeaders,
   };
-  
 
-  return fetch(`https://${API_URL}/users/getCoupons`, requestOptions1)
-}
+  return fetch(`https://${API_URL}/users/getCoupons`, requestOptions1);
+};
 
-
-
-export const getSlots = (token: any) =>{
+export const getSlots = (token: any) => {
   var myHeaders = new Headers();
   myHeaders.append("X-ACCESS-TOKEN", token);
 
   var requestOptions1 = {
-    method: 'GET',
+    method: "GET",
     headers: myHeaders,
   };
-  
 
-  return fetch(`https://${API_URL}/casino/get-game-list`, requestOptions1)
-}
+  return fetch(`https://${API_URL}/casino/get-game-list`, requestOptions1);
+};
 
-export const getGameIFrame = (token:any, game_id:any) =>{
+export const getGameIFrame = (token: any, game_id: any) => {
   let _payload = {
-    "game_id": game_id
-  }
-  var payload = JSON.stringify(_payload)
+    game_id: game_id,
+  };
+  var payload = JSON.stringify(_payload);
   var headers = {
     "X-ACCESS-TOKEN": token,
-    'Content-Type': 'application/json'
-  }
-  var requestOptions1 = {
-    method: 'POST',
-    headers: headers,
-    body :payload 
+    "Content-Type": "application/json",
   };
-  
-  return fetch(`https://${API_URL}/casino/get-game-frame`, requestOptions1)
-}
+  var requestOptions1 = {
+    method: "POST",
+    headers: headers,
+    body: payload,
+  };
 
+  return fetch(`https://${API_URL}/casino/get-game-frame`, requestOptions1);
+};
