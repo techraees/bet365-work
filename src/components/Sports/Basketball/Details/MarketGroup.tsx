@@ -26,6 +26,7 @@ const BasketballMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => 
             const obj = gameLines(data)
             var rows = obj.rows;
             oddData.gameLines.suspend = obj.suspend;
+            console.log(oddData,"Checking")
             if(rows.length ===0 || rows[0].length === 0){
                 delete oddData.gameLines;
             }else{
