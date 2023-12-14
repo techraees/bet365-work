@@ -30,10 +30,9 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
 
   useEffect(() => {
     localStorage.removeItem("ball_pos");
-    localStorage.removeItem("ball_track")
-    localStorage.removeItem("code")
-  }, [currentPitchId])
-
+    localStorage.removeItem("ball_track");
+    localStorage.removeItem("code");
+  }, [currentPitchId]);
 
   const addMessage = (err: NatsError | null, message: Msg) => {
     // console.log("PATCH");
@@ -214,12 +213,12 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
   }
   return (
     <>
-      <div className="flex h-full">
-        <div
-          //@ts-ignore
-          className={`${group_colors[sport]} overflow-y-auto overflow-x-hidden overscroll-none h-full w-full flex-shrink-0`}
-        >
-          {sport && currentdataId ? (
+      {sport && currentdataId ? (
+        <div className="flex flex-col-reverse md:flex-row">
+          <div
+            //@ts-ignore
+            className={`${group_colors[sport]} overflow-y-auto overflow-x-hidden overscroll-none h-full w-full flex-shrink-0 md:max-h-[calc(100vh-7rem)]`}
+          >
             <div>
               <DetailView
                 grouped={grouped}
@@ -228,11 +227,25 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
                 currentdataId={currentdataId}
               />
             </div>
-          ) : (
+          </div>
+          <div className="w-full md:block md:w-3/4 overflow-y-auto overflow-x-hidden overscroll-none max-w-[100%] min-w-[50%]">
+            <Pitch
+              grouped={grouped}
+              sport={sport}
+              currentPitchId={currentPitchId}
+              currentdataId={currentdataId}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="flex">
+          <div
+            //@ts-ignore
+            className={`${group_colors[sport]} overflow-y-auto overflow-x-hidden overscroll-none h-full w-full flex-shrink-0 md:max-h-[calc(100vh-7rem)]`}
+          >
             <>
               <SportsHeader />
               <div>
-
                 <SportDetailHeader sport={sport} subcategory={subcategory} />
                 <div className="flex flex-col w-full">
                   {grouped.map((group, index): any => {
@@ -249,18 +262,18 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
                 </div>
               </div>
             </>
-          )}
-        </div>
+          </div>
 
-        <div className="hidden md:block w-3/4 overflow-y-auto overflow-x-hidden overscroll-none max-w-[100%] min-w-[50%]">
-          <Pitch
-            grouped={grouped}
-            sport={sport}
-            currentPitchId={currentPitchId}
-            currentdataId={currentdataId}
-          />
+          <div className="hidden md:block w-3/4 overflow-y-auto overflow-x-hidden overscroll-none max-w-[100%] min-w-[50%]">
+            <Pitch
+              grouped={grouped}
+              sport={sport}
+              currentPitchId={currentPitchId}
+              currentdataId={currentdataId}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

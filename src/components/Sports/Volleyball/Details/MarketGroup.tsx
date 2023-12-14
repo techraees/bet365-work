@@ -101,16 +101,19 @@ const VolleyballMarketGroup: React.FC<MarketGroupProps> = ({
     }
 
     {
-      const obj = currentSetLeadAfter(data)
+      const obj = currentSetLeadAfter(data);
       var rows = obj.rows;
-      oddData.setXleadAfter.marketname = getSetTitle(data, oddData.setXleadAfter.marketname)
+      oddData.setXleadAfter.marketname = getSetTitle(
+        data,
+        oddData.setXleadAfter.marketname
+      );
       oddData.setXleadAfter.suspend = obj.suspend;
-      if(rows.length ===0 || rows[0].length === 0){
-          delete oddData.setXleadAfter;
-      }else{
-          oddData.setXleadAfter.rows = rows;
+      if (rows.length === 0 || rows[0].length === 0) {
+        delete oddData.setXleadAfter;
+      } else {
+        oddData.setXleadAfter.rows = rows;
       }
-  }
+    }
 
     {
       const obj = currentSetExtraPoints(data);
@@ -171,19 +174,19 @@ const VolleyballMarketGroup: React.FC<MarketGroupProps> = ({
         oddData.setXCorrectScore.rows = rows;
       }
     }
-    
-   {
-    const obj = scoreAfter2ndSet(data);
 
-    var rows = obj.rows;
-    oddData.scoreAfterSet2nd.suspend = obj.suspend;
-    if (rows.length === 0 || rows[0].length === 0) {
-      delete oddData.scoreAfterSet2nd;
-    } else {
-      oddData.scoreAfterSet2nd.rows = rows;
+    {
+      const obj = scoreAfter2ndSet(data);
+
+      var rows = obj.rows;
+      oddData.scoreAfterSet2nd.suspend = obj.suspend;
+      if (rows.length === 0 || rows[0].length === 0) {
+        delete oddData.scoreAfterSet2nd;
+      } else {
+        oddData.scoreAfterSet2nd.rows = rows;
+      }
     }
-  }
-  
+
     {
       const obj = scoreAfter3rdSet(data);
 
@@ -200,7 +203,6 @@ const VolleyballMarketGroup: React.FC<MarketGroupProps> = ({
     {
       const obj = correctSetScore(data);
       var rows = obj.rows;
-      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",rows)
       oddData.correctSetScore.suspend = obj.suspend;
 
       if (rows.length === 0 || rows[0].length === 0) {
@@ -210,16 +212,14 @@ const VolleyballMarketGroup: React.FC<MarketGroupProps> = ({
       }
     }
 
-    
- 
     {
       const obj = teamTotals(data);
       var rows = obj.rows;
       oddData.teamTotals.suspend = obj.suspend;
-      if(rows.length ===0 || rows[0].length === 0){
-          delete oddData.teamTotals;
-      }else{
-          oddData.teamTotals.rows = rows;
+      if (rows.length === 0 || rows[0].length === 0) {
+        delete oddData.teamTotals;
+      } else {
+        oddData.teamTotals.rows = rows;
       }
     }
   }
