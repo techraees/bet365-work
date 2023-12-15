@@ -127,20 +127,24 @@ export default function BreadCrumb({
     <>
       <div className="relative flex bg-[#282828] cursor-pointer border-b-[hsla(0,0%,100%,0.1)]">
         <div
-          className="h-[50px] w-[45px] bg-[#a7a7a7] cursor-pointer"
+          className="h-[50px] w-[45px] bg-[#282828] cursor-pointer relative"
           role="link"
           aria-label="Back Button"
-          style={
-            {
-              "mask-repeat": "no-repeat",
-              "mask-position": "center",
-              "mask-size": "7px 12px",
-              "--mixin-svg-inlined": `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 12'%3E%3Cpath fill='{0}' fill-rule='evenodd' d='M6.216 12L7 11.243 1.569 6 7 .757 6.216 0 .784 5.243 0 6l.784.757z'/%3E%3C/svg%3E")`,
-              "mask-image": "var(--mixin-svg-inlined)",
-            } as React.CSSProperties
-          }
           onClick={() => router.back()}
-        ></div>
+        >
+          <div
+            className="block w-[7px] h-3"
+            style={{
+              backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 12'%3E%3Cpath fill='%23a7a7a7' fill-rule='evenodd' d='M6.216 12L7 11.243 1.569 6 7 .757 6.216 0 .784 5.243 0 6l.784.757z'/%3E%3C/svg%3E")`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center center",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          ></div>
+        </div>
         <div className="flex-1 min-w-0" role="button">
           {data?.info?.sport != "Volleyball" && (
             <div className="bg-[#282828] h-[50px]">
@@ -259,24 +263,27 @@ export default function BreadCrumb({
           )}
         </div>
         <div
-          className="relative h-[50px] w-[45px] bg-[#a7a7a7] cursor-pointer"
-          style={
-            {
-              "mask-repeat": "no-repeat",
-              "mask-position": "center",
-              "mask-size": "12px 7px",
-              "--mixin-svg-inlined": `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath fill='{0}' fill-rule='evenodd' d='M12 .784L11.243 0 6 5.431.757 0 0 .784l5.243 5.432L6 7l.757-.784z'/%3E%3C/svg%3E")`,
-              "-webkit-mask-image": "var(--mixin-svg-inlined)",
-              "mask-image": "var(--mixin-svg-inlined)",
-            } as React.CSSProperties
-          }
+          className="relative h-[50px] w-[45px] bg-[#282828] cursor-pointer"
           role="button"
           aria-haspopup="true"
           aria-label="Change Live In Game Fixture Selection"
           onClick={() => setDialog(true)}
-        ></div>
+        >
+          <div
+            className="block h-[7px] w-3"
+            style={{
+              backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath fill='%23a7a7a7' fill-rule='evenodd' d='M12 .784L11.243 0 6 5.431.757 0 0 .784l5.243 5.432L6 7l.757-.784z'/%3E%3C/svg%3E")`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center center",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          ></div>
+        </div>
       </div>
-      <div className="w-full">
+      <div className="w-full text-white">
         <Dialog
           grouped={grouped}
           currentdataId={currentdataId}
