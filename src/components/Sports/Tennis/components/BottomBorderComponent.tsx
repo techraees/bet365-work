@@ -76,7 +76,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
   //     setStats(data.stats);
   //   }, [data.stats]);
 
-  console.log("rendering");
+  // console.log("rendering");
   var set_scores = [0, 0];
   var _scores = [] as any;
   var score_string = data?.info?.score;
@@ -199,7 +199,11 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
               <div className="text-[15px] leading-[18px] text-[#ddd] font-bold">
                 {_aces ? _aces[1] : "0"}
               </div>
-              <div className="text-[rgb(154,190,255)]">
+              <div
+                style={{
+                  color: kitColors.home,
+                }}
+              >
                 <div className="block w-9 h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm"></div>
               </div>
               <div className="overflow-hidden leading-[13px] max-h-[calc(13px_*_2)] text-[11px] text-[#ddd]">
@@ -213,7 +217,11 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                     {_win_percent_1st ? _win_percent_1st[1] : "0"}%
                   </div>
                   <div className="text-[rgb(102,102,102)] block w-full h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm mx-0 my-1 rounded-[2px_0_0_2px]">
-                    <div className="text-[rgb(154,190,255)]">
+                    <div
+                      style={{
+                        color: kitColors.home,
+                      }}
+                    >
                       <div
                         className="block h-0.5 bg-current mt-1 mb-[5px] rounded-sm ml-auto"
                         style={{
@@ -230,7 +238,11 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                     {_win_percent_1st ? _win_percent_1st[2] : "0"}%
                   </div>
                   <div className="text-[rgb(102,102,102)] block w-full h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm mx-0 my-1 rounded-[2px_0_0_2px]">
-                    <div className="text-[#fff]">
+                    <div
+                      style={{
+                        color: kitColors.home,
+                      }}
+                    >
                       <div
                         className="block h-0.5 bg-current mt-1 mb-[5px] rounded-sm "
                         style={{
@@ -251,7 +263,11 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
               <div className="text-[15px] leading-[18px] text-[#ddd] font-bold">
                 {_aces ? _aces[2] ?? 0 : "0"}
               </div>
-              <div className="text-[#fff]">
+              <div
+                style={{
+                  color: kitColors.away,
+                }}
+              >
                 <div className="block w-9 h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm"></div>
               </div>
               <div className="overflow-hidden leading-[13px] max-h-[calc(13px_*_2)] text-[11px] text-[#ddd]">
@@ -267,7 +283,11 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
               <div className="text-[15px] leading-[18px] text-[#ddd] font-bold">
                 {_double_faults ? _double_faults[1] : "0"}
               </div>
-              <div className="text-[rgb(154,190,255)]">
+              <div
+                style={{
+                  color: kitColors.home,
+                }}
+              >
                 <div className="block w-9 h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm"></div>
               </div>
               <div className="overflow-hidden leading-[13px] max-h-[calc(13px_*_2)] text-[11px] text-[#ddd]">
@@ -285,7 +305,11 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                     %
                   </div>
                   <div className="text-[rgb(102,102,102)] block w-full h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm mx-0 my-1 rounded-[2px_0_0_2px]">
-                    <div className="text-[rgb(154,190,255)]">
+                    <div
+                      style={{
+                        color: kitColors.home,
+                      }}
+                    >
                       <div
                         className="block h-0.5 bg-current mt-1 mb-[5px] rounded-sm ml-auto"
                         style={{
@@ -307,7 +331,11 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                     %
                   </div>
                   <div className="text-[rgb(102,102,102)] block w-full h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm mx-0 my-1 rounded-[2px_0_0_2px]">
-                    <div className="text-[#fff]">
+                    <div
+                      style={{
+                        color: kitColors.away,
+                      }}
+                    >
                       <div
                         className="block h-0.5 bg-current mt-1 mb-[5px] rounded-sm "
                         style={{
@@ -330,7 +358,11 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
               <div className="text-[15px] leading-[18px] text-[#ddd] font-bold">
                 {_double_faults ? _double_faults[2] ?? 0 : "0"}
               </div>
-              <div className="text-[#fff]">
+              <div
+                style={{
+                  color: kitColors.away,
+                }}
+              >
                 <div className="block w-9 h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm"></div>
               </div>
               <div className="overflow-hidden leading-[13px] max-h-[calc(13px_*_2)] text-[11px] text-[#ddd]">
@@ -343,7 +375,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
         {/* statistics end */}
       </div>
       <div
-        className={`flex-auto flex items-stretch w-full mx-auto my-0 max-h-[calc(100vh_-_500px)] overflow-y-scroll ${
+        className={`flex-auto flex items-stretch w-full mx-auto my-0 max-h-[calc(100vh_-_500px)] overflow-y-auto ${
           activeTab == "Summary" ? "block" : "hidden"
         }`}
       >

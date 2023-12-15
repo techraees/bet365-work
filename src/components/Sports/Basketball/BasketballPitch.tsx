@@ -4,7 +4,9 @@ import basketballAnimation from "./animation.module.css";
 import { CheckQuarter } from "@/components/Structure/CheckQuarter";
 import BottomBorderComponent from "./components/BottomBorderComponent";
 import BasketballMobilePitch from "./BasketballMobilePitch";
-import ScrollWrapper from "@/components/HOCS/ScrollWrapper";
+import { withScroll } from "@/components/HOCS/ScrollWrapper";
+
+const ScrollMobilePitch = withScroll(BasketballMobilePitch);
 
 interface BasketballPitchInterface {
   data: any;
@@ -303,153 +305,63 @@ const BasketballPitch: React.FC<BasketballPitchInterface> = ({ data }) => {
   return (
     <>
       <div className="hidden md:block">
-        {/* Test board */}
-        <div className="border-white border-2 p-2">
-          <div className="columns-2 text-base">
-            <div className="flex justify-between">
-              <div className="text-white">{data?.team_info?.home.name}</div>
-              <div className="text-yellow-300">
-                {data?.team_info?.home.score}
+        <div className="bg-[#282828] h-[50px] border-b-[hsla(0,0%,100%,0.1)] border-b border-solid">
+          <div className="flex h-full">
+            <div className="justify-end flex items-center h-full flex-1 pl-2.5 pr-[25px]">
+              <div
+                className="overflow-hidden leading-[15px] max-h-[calc(15px_*_3)] text-[#fff] font-bold text-[13px]"
+                style={
+                  {
+                    display: "-webkit-box",
+                    "-webkit-box-orient": "vertical",
+                    "-webkit-line-clamp": "3",
+                    "word-break": "break-word",
+                    "word-wrap": "break-word",
+                  } as React.CSSProperties
+                }
+              >
+                {data?.team_info?.home?.name}
               </div>
             </div>
-            <div className="flex justify-between">
-              <div className="text-yellow-300">
-                {data?.team_info?.away.score}
+            <div className="grid grid-cols-[1fr_1fr]">
+              <div
+                className="flex items-center justify-center h-[50px] mr-px px-[5px] py-0 border-b-2 border-solid"
+                style={{ borderBottom: `2px solid ${kitColors.home}` }}
+              >
+                <span className="text-[color(display-p3_1_0.875_0.106)] font-bold text-[22px] leading-[26px] whitespace-nowrap">
+                  {data?.team_info?.home?.score}
+                </span>
               </div>
-              <div className="text-white">{data?.team_info?.away.name}</div>
+              <div
+                className="flex items-center justify-center h-[50px] px-[5px] py-0 border-b-2 border-solid"
+                style={{ borderBottom: `2px solid ${kitColors.away}` }}
+              >
+                <span className="text-[color(display-p3_1_0.875_0.106)] font-bold text-[22px] leading-[26px] whitespace-nowrap">
+                  {data?.team_info?.away?.score}
+                </span>
+              </div>
             </div>
-          </div>
-          <div className="text-center text-base text-white">
-            <p>Code: {data?.info?.state}</p>
-            <p>State: {getStateFromCode(data?.info?.state)}</p>
+            <div className="justify-start flex items-center h-full flex-1 pl-[25px] pr-2.5">
+              <div
+                className="text-left overflow-hidden leading-[15px] max-h-[calc(15px_*_3)] text-[#fff] font-bold text-[13px]"
+                style={
+                  {
+                    display: "-webkit-box",
+                    "-webkit-box-orient": "vertical",
+                    "-webkit-line-clamp": "3",
+                    "word-break": "break-word",
+                    "word-wrap": "break-word",
+                  } as React.CSSProperties
+                }
+              >
+                {data?.team_info?.away?.name}
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="max-w-[440px] mx-auto my-0 px-5 py-2.5">
           <svg id="SVGIRIS" width="100%" version="1.1" viewBox="0 0 400 220">
-            {/* Team name and score */}
-            <svg
-              id="SVGIRIS_TEAMS"
-              y="0"
-              width="400"
-              height="37"
-              version="1.1"
-              viewBox="0 0 400 37"
-            >
-              <g>
-                <g>
-                  <rect
-                    id="SVGIRIS_TEAMS_1_COL"
-                    x="1"
-                    y="11"
-                    width="3"
-                    height="15"
-                    fillRule="evenodd"
-                    opacity=""
-                    fill={kitColors.home}
-                  ></rect>
-                  <text
-                    id="SVGIRIS_TEAMS_1_NAME"
-                    x="9"
-                    y="24"
-                    fill="#e4e4e4"
-                    fontFamily="Roboto"
-                    fontSize="14px"
-                    fontWeight="300"
-                    letterSpacing="0.0px"
-                    textAnchor="start"
-                    wordSpacing="0px"
-                    xmlSpace="preserve"
-                    style={{ userSelect: "none", cursor: "default" }}
-                    textRendering="optimizeLegibility"
-                  >
-                    {data?.team_info?.home.name}
-                  </text>
-                  <rect
-                    x="162"
-                    y="6.5"
-                    width="35"
-                    height="24"
-                    fillRule="evenodd"
-                    opacity=""
-                    fill="#4d4d4d"
-                  ></rect>
-                  <text
-                    id="SVGIRIS_TEAMS_1_SCORE"
-                    x="179"
-                    y="25"
-                    fill="#ffdf1b"
-                    fontFamily="Roboto"
-                    fontSize="18"
-                    fontWeight="300"
-                    letterSpacing="0px"
-                    text-align="center"
-                    textAnchor="middle"
-                    wordSpacing="0px"
-                    style={{ userSelect: "none", cursor: "default" }}
-                    xmlSpace="preserve"
-                  >
-                    {data?.team_info?.home.score}
-                  </text>
-                </g>
-                <g>
-                  <rect
-                    id="SVGIRIS_TEAMS_2_COL"
-                    x="396"
-                    y="11"
-                    width="3"
-                    height="15"
-                    fillRule="evenodd"
-                    opacity=""
-                    fill={kitColors.away}
-                  ></rect>
-                  <text
-                    id="SVGIRIS_TEAMS_2_NAME"
-                    x="391"
-                    y="24"
-                    fill="#e4e4e4"
-                    fontFamily="Roboto"
-                    fontSize="14px"
-                    fontWeight="300"
-                    letterSpacing="0.0px"
-                    textAnchor="end"
-                    wordSpacing="0px"
-                    xmlSpace="preserve"
-                    style={{ userSelect: "none", cursor: "default" }}
-                    textRendering="optimizeLegibility"
-                  >
-                    {data?.team_info?.away.name}
-                  </text>
-                  <rect
-                    x="202"
-                    y="6.5"
-                    width="35"
-                    height="24"
-                    fillRule="evenodd"
-                    opacity=""
-                    fill="#4d4d4d"
-                  ></rect>
-                  <text
-                    id="SVGIRIS_TEAMS_2_SCORE"
-                    x="219"
-                    y="25"
-                    fill="#ffdf1b"
-                    fontFamily="Roboto"
-                    fontSize="18"
-                    fontWeight="300"
-                    letterSpacing="0px"
-                    text-align="center"
-                    textAnchor="middle"
-                    wordSpacing="0px"
-                    style={{ userSelect: "none", cursor: "default" }}
-                    xmlSpace="preserve"
-                  >
-                    {data?.team_info?.away.score}
-                  </text>
-                </g>
-              </g>
-            </svg>
-
             <svg
               id="SVGIRIS_PITCH"
               width="400"
@@ -2282,225 +2194,6 @@ const BasketballPitch: React.FC<BasketballPitchInterface> = ({ data }) => {
                 </text>
               </g>
             </svg>
-            {/* <svg id="SVGIRIS_STATS" y="120" width="400" height="110" style={{height:"100%", width:"100%"}}
-            version="1.1" viewBox="0 0 400 110" x="400">
-            <g>     
-              <g transform="translate(27, 5)">
-                <text id="SVGIRIS_STATS_FOULS_H_TXT_SC" x="15" y="12" fill="#ddd"
-                  fontFamily="Roboto" fontSize="14px" fontWeight="400" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">1</text>
-                <rect id="SVGIRIS_STATS_FOULS_H_COL" x="3" y="19" width="24" height="2"
-                  fill="#f0f0f0"></rect>
-                <text id="SVGIRIS_STATS_FOULS_H_TXT_DESC1" x="15" y="35" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">Fouls</text>
-                <text id="SVGIRIS_STATS_FOULS_H_TXT_DESC2" x="15" y="48" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility"></text>
-              </g>
-              <g transform="translate(96, 5)">
-                <text id="SVGIRIS_STATS_2PTS_H_TXT_SC" x="15" y="12" fill="#ddd"
-                  fontFamily="Roboto" fontSize="14px" fontWeight="400" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">5</text>
-                <rect id="SVGIRIS_STATS_2PTS_H_COL" x="3" y="19" width="24" height="2"
-                  fill="#f0f0f0"></rect>
-                <text id="SVGIRIS_STATS_2PTS_H_TXT_DESC1" x="15" y="35" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">2 Points</text>
-                <text id="SVGIRIS_STATS_2PTS_H_TXT_DESC2" x="15" y="48" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility"></text>
-              </g>
-              <g transform="translate(171, 5)">
-                <text id="SVGIRIS_STATS_3PTS_H_TXT_SC" x="15" y="12" fill="#ddd"
-                  fontFamily="Roboto" fontSize="14px" fontWeight="400" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">5</text>
-                <rect id="SVGIRIS_STATS_3PTS_H_COL" x="3" y="19" width="24" height="2"
-                  fill="#f0f0f0"></rect>
-                <text id="SVGIRIS_STATS_3PTS_H_TXT_DESC2" x="15" y="48" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility"></text>
-              </g>
-              <text id="SVGIRIS_STATS_3PTS_TXT_DESC1" x="200" y="40" fill="#999" fontFamily="Roboto"
-                fontSize="11px" fontWeight="300" letterSpacing="0px" textAnchor="middle"
-                word-spacing="0px" xmlSpace="preserve" textRendering="optimizeLegibility">3 Points</text>
-              <g transform="translate(205, 5)">
-                <text id="SVGIRIS_STATS_3PTS_A_TXT_SC" x="15" y="12" fill="#ddd"
-                  fontFamily="Roboto" fontSize="14px" fontWeight="400" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">3</text>
-                <rect id="SVGIRIS_STATS_3PTS_A_COL" x="3" y="19" width="24" height="2"
-                  fill="#0a0a0a"></rect>
-                <text id="SVGIRIS_STATS_3PTS_A_TXT_DESC2" x="15" y="48" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility"></text>
-              </g>
-              <g transform="translate(271, 5)">
-                <text id="SVGIRIS_STATS_2PTS_A_TXT_SC" x="15" y="12" fill="#ddd"
-                  fontFamily="Roboto" fontSize="14px" fontWeight="400" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">4</text>
-                <rect id="SVGIRIS_STATS_2PTS_A_COL" x="3" y="19" width="24" height="2"
-                  fill="#0a0a0a"></rect>
-                <text id="SVGIRIS_STATS_2PTS_A_TXT_DESC1" x="15" y="35" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">2 Points</text>
-                <text id="SVGIRIS_STATS_2PTS_A_TXT_DESC2" x="15" y="48" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility"></text>
-              </g>
-              <g transform="translate(343, 5)">
-                <text id="SVGIRIS_STATS_FOULS_A_TXT_SC" x="15" y="12" fill="#ddd"
-                  fontFamily="Roboto" fontSize="14px" fontWeight="400" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">0</text>
-                <rect id="SVGIRIS_STATS_FOULS_A_COL" x="3" y="19" width="24" height="2"
-                  fill="#0a0a0a"></rect>
-                <text id="SVGIRIS_STATS_FOULS_A_TXT_DESC1" x="15" y="35" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">Fouls</text>
-                <text id="SVGIRIS_STATS_FOULS_A_TXT_DESC2" x="15" y="48" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility"></text>
-              </g>
-            </g>
-            <g transform="translate(0 50)">
-              <g transform="translate(35, 5)">
-                <rect id="SVGIRIS_STATS_TO_H_COL_4" x="3" y="15" width="5" height="5" fill="#f0f0f0"></rect>
-                <rect id="SVGIRIS_STATS_TO_H_COL_2" x="10" y="15" width="5" height="5"
-                  fill="#f0f0f0"></rect>
-                <rect id="SVGIRIS_STATS_TO_H_COL_1" x="17" y="15" width="5" height="5"
-                  fill="#f0f0f0"></rect>
-                <rect id="SVGIRIS_STATS_TO_H_COL_3" x="24" y="15" width="5" height="5"
-                  fill="#f0f0f0"></rect>
-                <rect id="SVGIRIS_STATS_TO_H_COL_5" x="31" y="15" width="5" height="5"
-                  fill="#f0f0f0"></rect>
-                <text id="SVGIRIS_STATS_TO_H_TXT_DESC1" x="20" y="35" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">Time Outs</text>
-              </g>
-              <g transform="translate(123, 5)">
-                <text id="SVGIRIS_STATS_FTS_H_TXT_SC" x="15" y="12" fill="#ddd" fontFamily="Roboto"
-                  fontSize="14px" fontWeight="400" letterSpacing="0px" textAnchor="middle"
-                  word-spacing="0px" xmlSpace="preserve" textRendering="optimizeLegibility">3</text>
-                <text id="SVGIRIS_STATS_FTS_H_TXT_PRC" x="45" y="12" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="400" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">0%</text>
-                <rect id="SVGIRIS_STATS_FTS_H_COL" x="3" y="19" width="72" height="2" fill="#f0f0f0"></rect>
-                <text id="SVGIRIS_STATS_FTS_H_TXT_DESC2" x="15" y="48" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility"></text>
-              </g>
-              <text id="SVGIRIS_STATS_FTS_TXT_DESC1" x="200" y="40" fill="#999" fontFamily="Roboto"
-                fontSize="11px" fontWeight="300" letterSpacing="0px" textAnchor="middle"
-                word-spacing="0px" xmlSpace="preserve" textRendering="optimizeLegibility">Free Throws</text>
-              <g transform="translate(205, 5)">
-                <text id="SVGIRIS_STATS_FTS_A_TXT_SC" x="15" y="12" fill="#ddd" fontFamily="Roboto"
-                  fontSize="14px" fontWeight="400" letterSpacing="0px" textAnchor="middle"
-                  word-spacing="0px" xmlSpace="preserve" textRendering="optimizeLegibility">5</text>
-                <text id="SVGIRIS_STATS_FTS_A_TXT_PRC" x="45" y="12" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="400" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">0%</text>
-                <rect id="SVGIRIS_STATS_FTS_A_COL" x="3" y="19" width="72" height="2" fill="#0a0a0a"></rect>
-                <text id="SVGIRIS_STATS_FTS_A_TXT_DESC2" x="15" y="48" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility"></text>
-              </g>
-              <g transform="translate(329, 5)">
-                <rect id="SVGIRIS_STATS_TO_A_COL_4" x="3" y="15" width="5" height="5" fill="#0a0a0a"></rect>
-                <rect id="SVGIRIS_STATS_TO_A_COL_2" x="10" y="15" width="5" height="5"
-                  fill="#0a0a0a"></rect>
-                <rect id="SVGIRIS_STATS_TO_A_COL_1" x="17" y="15" width="5" height="5"
-                  fill="#0a0a0a"></rect>
-                <rect id="SVGIRIS_STATS_TO_A_COL_3" x="24" y="15" width="5" height="5"
-                  fill="#0a0a0a"></rect>
-                <rect id="SVGIRIS_STATS_TO_A_COL_5" x="31" y="15" width="5" height="5"
-                  fill="#0a0a0a" style={{display: "none"}}></rect>
-                <text id="SVGIRIS_STATS_TO_A_TXT_DESC1" x="20" y="35" fill="#999"
-                  fontFamily="Roboto" fontSize="11px" fontWeight="300" letterSpacing="0px"
-                  textAnchor="middle" word-spacing="0px" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">Time Outs</text>
-              </g>
-            </g>
-          </svg> */}
-            {/* <svg id="SVGIRIS_SCORES" y="40" width="400" height="60" style={{height:'100%', width:'100%'}}
-            version="1.1" viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg" x="400">
-            <g id="SVGIRIS_SCORES_MOVE_G">
-              <g id="SVGIRIS_SCORES_Q1" transform="translate(80, 19)">
-                <text x="22" y="-5" fill="#999" fontFamily="Roboto" fontSize="13px"
-                  fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">1</text>
-                <text id="SVGIRIS_SCORES_TXT_Q1_0" x="22" y="15" fill="#ddd" fontFamily="Roboto"
-                  fontSize="15px" fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">24</text>
-                <text id="SVGIRIS_SCORES_TXT_Q1_1" x="22" y="35" fill="#ddd" fontFamily="Roboto"
-                  fontSize="15px" fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">18</text>
-              </g>
-              <g id="SVGIRIS_SCORES_Q2" transform="translate(130, 19)">
-                <text x="22" y="-5" fill="#999" fontFamily="Roboto" fontSize="13px"
-                  fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">2</text>
-                <text id="SVGIRIS_SCORES_TXT_Q2_0" x="22" y="15" fill="#ddd" fontFamily="Roboto"
-                  fontSize="15px" fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">4</text>
-                <text id="SVGIRIS_SCORES_TXT_Q2_1" x="22" y="35" fill="#ddd" fontFamily="Roboto"
-                  fontSize="15px" fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">4</text>
-              </g>
-              <g id="SVGIRIS_SCORES_QHT" transform="translate(180, 19)">
-                <text x="22" y="-5" fill="#999" fontFamily="Roboto" fontSize="13px"
-                  fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">HT</text>
-                <text id="SVGIRIS_SCORES_TXT_QHT_0" x="22" y="15" fill="#ddd" fontFamily="Roboto"
-                  fontSize="15px" fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">28</text>
-                <text id="SVGIRIS_SCORES_TXT_QHT_1" x="22" y="35" fill="#ddd" fontFamily="Roboto"
-                  fontSize="15px" fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">22</text>
-              </g>
-              <g id="SVGIRIS_SCORES_Q3" transform="translate(230, 19)">
-                <text x="22" y="-5" fill="#999" fontFamily="Roboto" fontSize="13px"
-                  fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">3</text>
-                <text id="SVGIRIS_SCORES_TXT_Q3_0" x="22" y="15" fill="#ddd" fontFamily="Roboto"
-                  fontSize="15px" fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">-</text>
-                <text id="SVGIRIS_SCORES_TXT_Q3_1" x="22" y="35" fill="#ddd" fontFamily="Roboto"
-                  fontSize="15px" fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">-</text>
-              </g>
-              <g id="SVGIRIS_SCORES_Q4" transform="translate(280, 19)">
-                <text x="22" y="-5" fill="#999" fontFamily="Roboto" fontSize="13px"
-                  fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">4</text>
-                <text id="SVGIRIS_SCORES_TXT_Q4_0" x="22" y="15" fill="#ddd" fontFamily="Roboto"
-                  fontSize="15px" fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">-</text>
-                <text id="SVGIRIS_SCORES_TXT_Q4_1" x="22" y="35" fill="#ddd" fontFamily="Roboto"
-                  fontSize="15px" fontWeight="400" textAnchor="middle" xmlSpace="preserve"
-                  textRendering="optimizeLegibility">-</text>
-              </g>
-            </g>
-          </svg> */}
           </svg>
         </div>
         <div>
@@ -2508,9 +2201,7 @@ const BasketballPitch: React.FC<BasketballPitchInterface> = ({ data }) => {
         </div>
       </div>
       <div className="md:hidden">
-        <ScrollWrapper>
-          <BasketballMobilePitch data={data} />
-        </ScrollWrapper>
+        <ScrollMobilePitch data={data} />
       </div>
     </>
   );

@@ -141,7 +141,7 @@ const DetailView: React.FC<DetailViewProps> = ({
   }
   return (
     <div className="flex w-full flex-col">
-      <div className="w-full bg-[linear-gradient(rgba(12,22,20,0.1),transparent_20px),radial-gradient(122%_370px_at_center_-220px,#009969_0,transparent_100%),linear-gradient(to_right_bottom,#0c1614,#084436)]">
+      <div className="hidden md:block w-full bg-[linear-gradient(rgba(12,22,20,0.1),transparent_20px),radial-gradient(122%_370px_at_center_-220px,#009969_0,transparent_100%),linear-gradient(to_right_bottom,#0c1614,#084436)]">
         <button
           // href={`/in-play/${sport}/${subcategory ? subcategory : defaultSubcategories[sport as keyof typeof defaultSubcategories]}`}
           onClick={() => router.back()}
@@ -206,6 +206,28 @@ const DetailView: React.FC<DetailViewProps> = ({
               );
             })}
           </div>
+        </div>
+      </div>
+      <div className="md:hidden flex items-center min-h-[50px] text-[white] bg-[#282828]">
+        <div className="flex items-center mx-[20px] relative w-full whitespace-nowrap overflow-scroll hidescroll">
+          {tabs[sport as keyof typeof tabs]?.map((tab, index) => {
+            return (
+              <div
+                key={index}
+                className={cn(
+                  "cursor-pointer flex items-center justify-center px-[10px] z-20",
+                  active == tab
+                    ? "text-[black] font-bold transition duration-300 ease-in-out self-center h-[26px] rounded-[13px] bg-[#00ffb6]"
+                    : "h-[50px]"
+                )}
+                onClick={(e) => {
+                  setActive(tab);
+                }}
+              >
+                {tab}
+              </div>
+            );
+          })}
         </div>
       </div>
       <div className="w-full">

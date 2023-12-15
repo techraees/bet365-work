@@ -114,7 +114,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                 : "opacity-80 hover:opacity-100 border-b-transparent"
             }`}
             onClick={() => {
-              console.log(">>>>>>>");
+              // console.log(">>>>>>>");
               setActiveTab("Summary");
             }}
           >
@@ -122,7 +122,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="flex-auto flex items-stretch w-full mx-auto my-0 max-h-[calc(100vh_-_500px)] overflow-y-scroll">
+      <div className="flex-auto flex items-stretch w-full mx-auto my-0 max-h-[calc(100vh_-_500px)] overflow-y-auto">
         <div className="block max-w-none flex-auto w-full mx-auto my-0">
           {activeTab == "Stats" && (
             <div className="flex items-center justify-center w-full pt-0">

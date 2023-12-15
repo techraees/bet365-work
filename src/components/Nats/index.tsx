@@ -12,6 +12,7 @@ import Esports from "../Sports/Esports/EsportsWrapper";
 import { useRouter } from "next/navigation";
 import Pitch from "../Pitch";
 import usePitchIdStore from "@/store/use-pitchid";
+import BreadCrumb from "../Breadcrumb";
 
 const sc = JSONCodec();
 
@@ -232,6 +233,13 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
             <Pitch
               grouped={grouped}
               sport={sport}
+              currentPitchId={currentPitchId}
+              currentdataId={currentdataId}
+            />
+          </div>
+          <div className="md:hidden w-full">
+            <BreadCrumb
+              grouped={grouped}
               currentPitchId={currentPitchId}
               currentdataId={currentdataId}
             />

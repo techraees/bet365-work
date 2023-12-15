@@ -4,7 +4,9 @@ import animationStyles from "./animation.module.css";
 import pitchStyle from "./pitchstyle.module.css";
 import BottomBorderComponent from "./components/BottomBorderComponent";
 import TennisMobilePitch from "./TennisMobilePitch";
-import ScrollWrapper from "@/components/HOCS/ScrollWrapper";
+import { withScroll } from "@/components/HOCS/ScrollWrapper";
+
+const ScrollMobilePitch = withScroll(TennisMobilePitch);
 
 interface TennisPitchInterface {
   data: any;
@@ -384,10 +386,26 @@ function winAwayClassName(data: any) {
   } ${pitchStyle.winState}`;
 }
 
+//get kit colors of two teams
+function getKitColors(data: any): { home: string; away: string } {
+  let homeColors = data?.team_info?.home.kit_color?.split(",") ?? ["#ff0000"];
+  let awayColors = data?.team_info?.away.kit_color?.split(",") ?? ["#ffffff"];
+  for (let i = 0; i < homeColors.length; ++i)
+    if (homeColors[i] != awayColors[i])
+      return {
+        home: homeColors[i],
+        away: awayColors[i],
+      };
+  return {
+    home: "#ff0000",
+    away: "#ffffff",
+  };
+}
+
 const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
   const prevPropsRef = useRef();
 
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     prevPropsRef.current = data;
@@ -407,7 +425,7 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
   var _scores = [] as any;
   var score_string = data?.info?.score;
   const sts = data?.sts;
-  console.log({ sts: sts });
+  // console.log({ sts: sts });
   const status = sts?.split("|") ?? [];
   let _aces_regx = /Aces=(\d+):(\d+)/;
   let _double_faults_regx = /Double Faults=(\d+):(\d+)/;
@@ -429,6 +447,8 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
       _break_point_conversions = state.match(_break_point_conversions_regx);
   });
 
+  const kitColors = getKitColors(data);
+
   return (
     <>
       <div className="hidden md:block">
@@ -442,14 +462,24 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
               </div>
             </div>
             <div className="grid grid-cols-[1fr_1fr]">
-              <div className="border-b-2 border-b-[rgb(154,190,255)] border-solid mr-px">
+              <div
+                className="border-b-2 border-solid mr-px"
+                style={{
+                  borderBottomColor: kitColors.home,
+                }}
+              >
                 <div className="flex items-center justify-center h-[48px] px-[5px] py-0">
                   <div className="font-bold text-[color(display-p3_1_0.875_0.106)] text-[22px] leading-[26px] whitespace-nowrap">
                     {data?.stats[1].home}
                   </div>
                 </div>
               </div>
-              <div className="border-b-2 border-b-[rgb(255, 255, 255)] border-solid mr-px">
+              <div
+                className="border-b-2 border-solid mr-px"
+                style={{
+                  borderBottomColor: kitColors.away,
+                }}
+              >
                 <div className="flex items-center justify-center h-[48px] px-[5px] py-0">
                   <div className="font-bold text-[color(display-p3_1_0.875_0.106)] text-[22px] leading-[26px] whitespace-nowrap">
                     {data?.stats[1].away}
@@ -673,7 +703,7 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
                     id="SVGIRIS_PITCH_EVENTTEAM_1_COL"
                     width="3"
                     height="57"
-                    fill={getAcitveColor("home", data) as string}
+                    fill={kitColors.home}
                   ></rect>
                   <text
                     id="SVGIRIS_PITCH_EVENTTEAM_1_TXT_TEAM"
@@ -735,7 +765,7 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
                     id="SVGIRIS_PITCH_EVENTTEAM_1_COL"
                     width="3"
                     height="57"
-                    fill={getAcitveColor("away", data) as string}
+                    fill={kitColors.away}
                   ></rect>
                   <text
                     id="SVGIRIS_PITCH_EVENTTEAM_1_TXT_TEAM"
@@ -1374,7 +1404,7 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
                 id="SVGIRIS_PITCH_TEAM_1_COL"
                 width="3"
                 height="35"
-                fill={getAcitveColor("home", data) as string}
+                fill={kitColors.home}
               ></rect>
               <text
                 id="SVGIRIS_PITCH_TEAM_1_TXT_NAME1"
@@ -1417,7 +1447,7 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
                 width="3"
                 height="35"
                 x="-3"
-                fill={getAcitveColor("away", data) as string}
+                fill={kitColors.away}
               ></rect>
               <text
                 id="SVGIRIS_PITCH_TEAM_2_TXT_NAME1"
@@ -1846,9 +1876,7 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
       </div>
 
       <div className="md:hidden">
-        <ScrollWrapper>
-          <TennisMobilePitch data={data} />
-        </ScrollWrapper>
+        <ScrollMobilePitch data={data} />
       </div>
     </>
   );

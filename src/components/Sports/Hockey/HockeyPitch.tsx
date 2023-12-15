@@ -4,7 +4,9 @@ import BallTrack from "./PitchComponents/BallTrack";
 import hockeyAnimation from "./hockeyAnimation.module.css";
 import BottomBorderComponent from "./components/BottomBorderComponent";
 import HockeyMobilePitch from "./HockeyMobilePitch";
-import ScrollWrapper from "@/components/HOCS/ScrollWrapper";
+import { withScroll } from "@/components/HOCS/ScrollWrapper";
+
+const ScrollMobilePitch = withScroll(HockeyMobilePitch);
 
 interface HockeyPitchInterface {
   data: any;
@@ -449,7 +451,7 @@ function isAttack(
 }
 
 const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
-  console.log(">>>>hockey>>>", data);
+  // console.log(">>>>hockey>>>", data);
   //Match Time
   const initialSeconds = data?.info?.seconds || "00:00";
 
@@ -535,14 +537,24 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
               </div>
             </div>
             <div className="grid grid-cols-[1fr_1fr]">
-              <div className="border-b-2 border-b-[rgb(154,190,255)] border-solid mr-px">
+              <div
+                className="border-b-2 border-solid mr-px"
+                style={{
+                  borderBottomColor: kitColors.home,
+                }}
+              >
                 <div className="flex items-center justify-center h-[48px] px-[5px] py-0">
                   <div className="font-bold text-[color(display-p3_1_0.875_0.106)] text-[22px] leading-[26px] whitespace-nowrap">
                     {data?.stats[1].home}
                   </div>
                 </div>
               </div>
-              <div className="border-b-2 border-b-[rgb(255, 255, 255)] border-solid mr-px">
+              <div
+                className="border-b-2 border-solid mr-px"
+                style={{
+                  borderBottomColor: kitColors.away,
+                }}
+              >
                 <div className="flex items-center justify-center h-[48px] px-[5px] py-0">
                   <div className="font-bold text-[color(display-p3_1_0.875_0.106)] text-[22px] leading-[26px] whitespace-nowrap">
                     {data?.stats[1].away}
@@ -560,27 +572,6 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
           </div>
         </div>
         <div className="relative text-center text-[0] h-[50px] flex justify-center items-center bg-transparent border-t-[#474747]"></div>
-        {/* Test board */}
-        <div className="border-white border-2 p-2">
-          <div className="columns-2 text-base">
-            <div className="flex justify-between">
-              <div className="text-white">{data?.team_info?.home.name}</div>
-              <div className="text-yellow-300">
-                {data?.team_info?.home.score}
-              </div>
-            </div>
-            <div className="flex justify-between">
-              <div className="text-yellow-300">
-                {data?.team_info?.away.score}
-              </div>
-              <div className="text-white">{data?.team_info?.away.name}</div>
-            </div>
-          </div>
-          <div className="text-center text-base text-white">
-            <p>Code: {data?.info?.state}</p>
-            <p>State: {getStatusFromCode(data?.info?.state)}</p>
-          </div>
-        </div>
         {/* Live-Pitch */}
         <div className="max-w-[440px] mx-auto my-0 px-5 py-2.5">
           <svg
@@ -3107,9 +3098,7 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
         </div>
       </div>
       <div className="md:hidden">
-        <ScrollWrapper>
-          <HockeyMobilePitch data={data} />
-        </ScrollWrapper>
+        <ScrollMobilePitch data={data} />
       </div>
     </>
   );

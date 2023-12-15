@@ -9,10 +9,10 @@ const Home = async ({ params }: any) => {
   const session = await requireSession();
   let { sport } = params;
 
-  console.log(">>>sport>>>", sport);
+  // console.log(">>>sport>>>", sport);
 
   let odds = await getSportsOdds(sport[0]);
-  console.log("in-play", sport[0], { odds });
+  // console.log("in-play", sport[0], { odds });
 
   if (sport[0] === "esports") {
     console.log("calling other odds");

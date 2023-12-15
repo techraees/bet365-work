@@ -59,7 +59,7 @@ const Dialog: React.FC<DialogProps> = ({
 
   return (
     <div
-      className="z-[1000] absolute overflow-hidden top-[55px] left-[40px] md:w-[500px] flex flex-col bg-[linear-gradient(155deg,#1e2a27,#133d30)]"
+      className="z-[1000] md:absolute fixed h-[100vh] w-[100vw] md:h-auto top-0 left-0 overflow-hidden md:top-[55px] md:left-[40px] md:w-[500px] flex flex-col bg-[linear-gradient(155deg,#1e2a27,#133d30)]"
       ref={dialogRef}
     >
       <div className="absolute  z-10 top-[-200px] left-[calc(50%_-_150px)] md:w-[300px] h-[300px] blur-[50px] rounded-[100%] bg-[#28ffbb40]"></div>
@@ -111,7 +111,7 @@ const Dialog: React.FC<DialogProps> = ({
                     )}
                   >
                     <div className="flex h-[65px] w-full items-center justify-center">
-                      <div className="flex-1 text-end mt-[14px] h-[30px] overflow-hidden">
+                      <div className="pl-4 flex-1 text-end mt-[14px] h-[30px] text-ellipsis overflow-hidden whitespace-nowrap leading-[14px]">
                         {event?.team_info?.home.name}
                       </div>
                       <div className="flex flex-col justify-center items-center w-[70px]">
@@ -129,7 +129,7 @@ const Dialog: React.FC<DialogProps> = ({
                           </div>
                         </div>
                       </div>
-                      <div className="flex-1 mt-[14px] h-[30px] overflow-hidden">
+                      <div className="flex-1 mt-[14px] h-[30px] text-ellipsis overflow-hidden whitespace-nowrap leading-[14px]">
                         {event?.team_info?.away.name}
                       </div>
                     </div>

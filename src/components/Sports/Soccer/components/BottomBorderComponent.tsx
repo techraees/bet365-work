@@ -63,7 +63,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
   var set_scores = [0, 0];
   var _scores = [] as any;
   var score_string = data?.info?.score;
-  console.log("----basketball string----", data);
+  // console.log("----basketball string----", data);
 
   var countSets = countSetWins(score_string);
   if (countSets === undefined) {
@@ -72,7 +72,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
 
   set_scores = [countSets.player1, countSets.player2];
   const sts = data?.sts;
-  console.log({ sts: sts });
+  // console.log({ sts: sts });
   const status = sts?.split("|") ?? [];
   let _on_target_regx = /On Target=(\d+):(\d+)/;
   let _off_target_regx = /Off Target=(\d+):(\d+)/;
@@ -96,7 +96,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
   });
 
   var sets_details = extractSets(data?.stats);
-  console.log("-----sets_details-----", sets_details);
+  // console.log("-----sets_details-----", sets_details);
   let kitColors = getKitColors(data);
 
   return (
@@ -129,7 +129,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
         </div>
       </div>
 
-      <div className="flex-auto flex items-stretch w-full mx-auto my-0 max-h-[calc(100vh_-_500px)] overflow-y-scroll">
+      <div className="flex-auto flex items-stretch w-full mx-auto my-0 max-h-[calc(100vh_-_500px)] overflow-y-auto">
         <div className="block max-w-none flex-auto w-full mx-auto my-0">
           {activeTab == "Stats" && (
             <div className="w-full overflow-hidden">

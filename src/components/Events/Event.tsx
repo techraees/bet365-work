@@ -27,63 +27,69 @@ const Event: React.FC<EventProps> = ({ data, sport, subcategory }) => {
     return null;
   }
   if (sport === "tennis") {
-    return <TennisEvent data={data} sport={sport} subcategory={subcategory} />
+    return <TennisEvent data={data} sport={sport} subcategory={subcategory} />;
   } else if (sport === "basketball") {
-    return <BaskeballEvent data={data} sport={sport} subcategory={subcategory} />
+    return (
+      <BaskeballEvent data={data} sport={sport} subcategory={subcategory} />
+    );
   } else if (sport === "baseball") {
-    return <BaseballEvent data={data} sport={sport} subcategory={subcategory} />
+    return (
+      <BaseballEvent data={data} sport={sport} subcategory={subcategory} />
+    );
   } else if (sport === "soccer") {
-    return <SoccerEvent data={data} sport={sport} subcategory={subcategory} />
+    return <SoccerEvent data={data} sport={sport} subcategory={subcategory} />;
   } else if (sport == "hockey") {
-    return <HockeyEvent data={data} sport={sport} subcategory={subcategory} />
+    return <HockeyEvent data={data} sport={sport} subcategory={subcategory} />;
   }
   return (
     <div className="flex flex-col border-t-[#ffffff1a] border-t border-solid">
-      <div className={cn(`grid grid-cols-8 w-full px-8  justify-center h-[70px]`,
-      )}>
+      <div
+        className={cn(`grid grid-cols-8 w-full px-8  justify-center h-[70px]`)}
+      >
         <div className=" col-span-4 flex items-center text-xs font-bold text-white gap-4 py-[10px]">
           <StarOutlineIcon className=" hover:fill-[#333] filSoccerEventl-transparent cursor-pointer" />
           {/* {name} */}
           <Link
-            href={`/in-play/${sport}/${subcategory ? subcategory : defaultSubcategories[sport as keyof typeof defaultSubcategories]}/${data?.info?.id}`}
+            href={`/in-play/${sport}/${
+              subcategory
+                ? subcategory
+                : defaultSubcategories[
+                    sport as keyof typeof defaultSubcategories
+                  ]
+            }/${data?.info?.id}`}
             className="w-[100%]"
           >
             <div className="flex items-center">
-
               <div className="flex text-[#ccc] text-[11px] font-[400]">
                 <div className="flex w-[50px]">{data?.info?.seconds}</div>
               </div>
 
-              <div className="flex flex-col text-[13px] font-semibold hover:text-brand-green-light cursor-pointer w-[calc(100%_-_180px)]">
+              <div className="flex flex-col text-[13px] font-semibold hover:text-brand-green-light cursor-pointer w-[calc(100%_-_100px)] md:w-[calc(100%_-_180px)]">
                 <div className="flex h-[25px] items-center">
                   <div className="min-w-[15px] min-h-[15px] h-[15px] w-[15px] mr-[10px]">
-                    {sport === "basketball" &&
-                      <BasketballJersey />
-                    }
-                    {sport === "soccer" &&
-                      <SoccerJersey data={data} team={'home'} />
-                    }
-                    {sport == "hockey" &&
-                      <HockeyJersey data={data} team={'home'} />
-                    }
+                    {sport === "basketball" && <BasketballJersey />}
+                    {sport === "soccer" && (
+                      <SoccerJersey data={data} team={"home"} />
+                    )}
+                    {sport == "hockey" && (
+                      <HockeyJersey data={data} team={"home"} />
+                    )}
                   </div>
-                  <div className="whitespace-nowrap overflow-hidden text-ellipsis">
+                  <div className="whitespace-nowrap overflow-auto text-ellipsis">
                     {data?.team_info?.home.name}
                   </div>
                 </div>
                 <div className="flex h-[25px] items-center">
                   <div className="min-w-[15px] min-h-[15px] h-[15px] w-[15px] mr-[10px]">
-                    {sport === "basketball" &&
-                      <BasketballJersey />
-                    }
-                    {sport === "soccer" &&
-                      <SoccerJersey data={data} team={'away'} />
-                    }
-                    {sport == "hockey" &&
-                      <HockeyJersey data={data} team={'away'} />
-                    }
+                    {sport === "basketball" && <BasketballJersey />}
+                    {sport === "soccer" && (
+                      <SoccerJersey data={data} team={"away"} />
+                    )}
+                    {sport == "hockey" && (
+                      <HockeyJersey data={data} team={"away"} />
+                    )}
                   </div>
-                  <div className="whitespace-nowrap overflow-hidden text-ellipsis">
+                  <div className="whitespace-nowrap overflow-auto text-ellipsis">
                     {data?.team_info?.away.name}
                   </div>
                 </div>
@@ -92,16 +98,13 @@ const Event: React.FC<EventProps> = ({ data, sport, subcategory }) => {
                 <Points data={data} sport={sport} />
 
                 {/* <Stats /> */}
-
               </div>
             </div>
           </Link>
-
         </div>
         {/* {sport === "soccer" &&
           <SoccerOdds data={data} sport={sport} subcategory={subcategory} />
         } */}
-
       </div>
     </div>
   );

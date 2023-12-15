@@ -3,7 +3,9 @@ import animationStyle from "./animation.module.css";
 import pitchStyle from "./pitchstyle.module.css";
 import BottomBorderComponent from "./components/BottomBorderComponent";
 import VolleyballMobilePitch from "./VolleyballMobilePitch";
-import ScrollWrapper from "@/components/HOCS/ScrollWrapper";
+import { withScroll } from "@/components/HOCS/ScrollWrapper";
+
+const ScrollMobilePitch = withScroll(VolleyballMobilePitch);
 
 interface VolleyballPitchInterface {
   data: any;
@@ -323,6 +325,18 @@ function getLastSixActiveColor(number: number, data: any) {
   return color;
 }
 
+function extractSets(data: any) {
+  let result = {} as any;
+  for (let key in data) {
+    const setNumber = data[key].name; // Extracting the number after "S"
+    result[setNumber] = {
+      home: data[key].home,
+      away: data[key].away,
+    };
+  }
+  return result;
+}
+
 const VolleyballPitch: React.FC<VolleyballPitchInterface> = ({ data }) => {
   const prevScore = JSON.parse(localStorage.getItem("score") ?? "{}");
   const scoreTrack = JSON.parse(localStorage.getItem("score_track") ?? "[]");
@@ -344,45 +358,92 @@ const VolleyballPitch: React.FC<VolleyballPitchInterface> = ({ data }) => {
   const curCode = data?.info.state as number;
   const curEvent = getEventFromCode(curCode);
   const status = getState(curCode);
-  // console.log(data);
+  console.log("---volley_data---", data);
+  var sets_details = extractSets(data?.stats);
+
+  const renderPrevScores = (set_details: any, current_set: number) => {
+    console.log("------set_details-----");
+    let set_string = "S" + current_set;
+    let prevRender = [];
+    for (let key in set_details) {
+      if (key[0] == "S" && key != set_string)
+        prevRender.push(
+          <div className="min-w-[22px] leading-[18px] flex-col flex mr-2.5">
+            <div className="min-w-[22px] text-center text-[#e4e4e4] mr-2.5">
+              {set_details[key].home}
+            </div>
+            <div className="min-w-[22px] text-center text-[#e4e4e4] mr-2.5">
+              {set_details[key].away}
+            </div>
+          </div>
+        );
+    }
+    return prevRender;
+  };
+
+  const currentSet = getSetNumber(data);
 
   return (
     <>
       <div className="hidden md:block">
-        <div className="border-b-[hsla(0,0%,100%,.1)] border-b border-solid h-[50px]">
-          <div className="flex h-full">
-            <div className="flex items-center h-full flex-1 justify-end ">
-              <div className="pr-[25px] pl-[10px]">
-                <div className="overflow-hidden leading-[15px] max-h-[calc(15px_*_3)] text-[#fff] font-bold text-[13px]">
-                  {data?.team_info?.home?.name}
+        <div className="bg-[#282828] h-[50px] border-b-[hsla(0,0%,100%,0.1)] border-b border-solid">
+          <div className="flex leading-[18px] h-[50px] items-center px-2.5 py-0">
+            <div className="flex flex-1 overflow-hidden">
+              <div className="inline-flex flex-1 flex-col overflow-hidden whitespace-nowrap text-[13px] text-white font-bold pr-2.5">
+                <div className="flex">
+                  <div
+                    className="h-[5px] w-[5px] inline-flex relative self-center flex-[0_0_5px] mr-1.5 rounded-[50%] -top-px"
+                    style={{
+                      backgroundColor:
+                        sets_details["TURN"].home == 1
+                          ? "color(display-p3 1 0.875 0.106)"
+                          : "#4f4f4f",
+                    }}
+                  ></div>
+                  <div className="text-ellipsis overflow-hidden whitespace-nowrap">
+                    {data?.team_info?.home?.name}
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-[1fr_1fr]">
-              <div className="border-b-2 border-b-[rgb(154,190,255)] border-solid mr-px">
-                <div className="flex items-center justify-center h-[48px] px-[5px] py-0">
-                  <div className="font-bold text-[color(display-p3_1_0.875_0.106)] text-[22px] leading-[26px] whitespace-nowrap">
-                    {data?.stats[1].home}
+                <div className="flex">
+                  <div
+                    className="h-[5px] w-[5px] inline-flex relative self-center flex-[0_0_5px] mr-1.5 rounded-[50%] -top-px"
+                    style={{
+                      backgroundColor:
+                        sets_details["TURN"].away == 1
+                          ? "color(display-p3 1 0.875 0.106)"
+                          : "#4f4f4f",
+                    }}
+                  ></div>
+                  <div className="text-ellipsis overflow-hidden whitespace-nowrap">
+                    {data?.team_info?.away?.name}
                   </div>
                 </div>
               </div>
-              <div className="border-b-2 border-b-[rgb(255, 255, 255)] border-solid mr-px">
-                <div className="flex items-center justify-center h-[48px] px-[5px] py-0">
-                  <div className="font-bold text-[color(display-p3_1_0.875_0.106)] text-[22px] leading-[26px] whitespace-nowrap">
-                    {data?.stats[1].away}
+              <div className="inline-flex text-[13px] leading-[18px]">
+                <div className="min-w-[22px] text-[color(display-p3_1_0.875_0.106)] font-bold text-center mr-2.5">
+                  <div className="lsb-StandardSetScoreType_TotalsPoint">
+                    <div>{sets_details["T"]?.home}</div>
+                  </div>
+                  <div className="lsb-StandardSetScoreType_TotalsPoint">
+                    <div>{sets_details["T"]?.away}</div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="flex items-center h-full flex-1 justify-start ">
-              <div className="pl-[25px] pr-[10px]">
-                <div className="overflow-hidden leading-[15px] max-h-[calc(15px_*_3)] text-[#fff] font-bold text-[13px]">
-                  {data?.team_info?.away?.name}
+                <div className="flex">
+                  {renderPrevScores(sets_details, currentSet)}
+                </div>
+                <div className="min-w-[22px] text-[#e4e4e4] font-normal">
+                  <div className="min-w-[22px] text-center text-[#e4e4e4] mr-2.5">
+                    {sets_details["S" + currentSet]?.home}
+                  </div>
+                  <div className="min-w-[22px] text-center text-[#e4e4e4] mr-2.5">
+                    {sets_details["S" + currentSet]?.away}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
         <div className="relative text-center text-[0] h-[50px] flex justify-center items-center bg-transparent border-t-[#474747]"></div>
 
         <div className="max-w-[440px] mx-auto my-0 px-5 py-2.5">
@@ -1185,9 +1246,7 @@ const VolleyballPitch: React.FC<VolleyballPitchInterface> = ({ data }) => {
         </div>
       </div>
       <div className="md:hidden">
-        <ScrollWrapper>
-          <VolleyballMobilePitch data={data} />
-        </ScrollWrapper>
+        <ScrollMobilePitch data={data} />
       </div>
     </>
   );

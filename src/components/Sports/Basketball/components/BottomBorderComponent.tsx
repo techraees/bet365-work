@@ -80,7 +80,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
   let _timeouts_regx = /Time Outs#T.O=(\d+):(\d+)/;
   let _fouls_regx = /Fouls=(\d+):(\d+)/;
   let _4pts_regx = /4 Pts=(\d+):(\d+)/;
-  let _free_throws_regx = /Free Throws=(\d+):(\d+)/;
+  let _free_throws_regx = /Free Throws=(\d+(?:\.\d+)?):(\d+(?:\.\d+)?)/;
 
   let _3pts: any = null,
     _ft: any = null,
@@ -133,7 +133,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="flex-auto flex items-stretch w-full mx-auto my-0 max-h-[calc(100vh_-_500px)] overflow-y-scroll">
+      <div className="flex-auto flex items-stretch w-full mx-auto my-0 max-h-[calc(100vh_-_500px)] overflow-y-auto">
         <div className="block max-w-none flex-auto w-full mx-auto my-0">
           {activeTab == "Stats" && (
             <>
@@ -366,10 +366,10 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                         }}
                       >
                         <div className="flex-[0_0_auto] text-[#ddd]">
-                          {_free_throws ? _free_throws[1] : 0}
+                          {_ft ? _ft[1] : 0}
                         </div>
                         <div className="text-[13px] leading-[14px] flex-[0_0_auto] text-center font-normal text-[#a7a7a7] pl-[5px]">
-                          100%
+                          {_free_throws ? _free_throws[1] : 0}%
                         </div>
                       </div>
                       <div
@@ -380,10 +380,10 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                         }}
                       >
                         <div className="flex-[0_0_auto] text-[#ddd]">
-                          {_free_throws ? _free_throws[2] : 0}
+                          {_ft ? _ft[2] : 0}
                         </div>
                         <div className="text-[13px] leading-[14px] flex-[0_0_auto] text-center font-normal text-[#a7a7a7] pl-[5px]">
-                          100%
+                          {_free_throws ? _free_throws[2] : 0}%
                         </div>
                       </div>
                       <div className="overflow-hidden leading-[13px] max-h-[calc(13px_*_2)] flex-[0_0_auto] w-full text-center text-[11px] text-[#ddd] mx-auto my-0">
