@@ -298,17 +298,6 @@ const BasketballMobilePitch: React.FC<BasketballMobilePitchInterface> = ({
     };
   }, [isTimerPaused]);
 
-  var set_scores = [0, 0];
-  var _scores = [] as any;
-  var score_string = data?.info?.score;
-  console.log("----basketball string----", data);
-
-  var countSets = countSetWins(score_string);
-  if (countSets === undefined) {
-    return <div></div>;
-  }
-
-  set_scores = [countSets.player1, countSets.player2];
   const sts = data?.sts;
   console.log({ sts: sts });
   const states = sts?.split("|") ?? [];
@@ -363,13 +352,9 @@ const BasketballMobilePitch: React.FC<BasketballMobilePitchInterface> = ({
   const renderPitch = () => (
     <svg
       id="SVGIRIS_PITCH"
-      width="400"
-      height="180"
-      y="40"
       version="1.1"
       viewBox="0 0 400 180"
       xmlns="http://www.w3.org/2000/svg"
-      x="0"
     >
       {/* pitch */}
       <g
