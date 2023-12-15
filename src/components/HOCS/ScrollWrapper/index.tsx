@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC, ComponentType } from "react";
 
 export const withScroll = (PitchComponent: any) => {
-  return (props: any) => {
+  const WrappedComponent = (props: any) => {
     const [scrollPosition, setScrollPosition] = useState(0);
 
     // Function to handle the scroll event
@@ -31,6 +31,7 @@ export const withScroll = (PitchComponent: any) => {
       </div>
     );
   };
+  return WrappedComponent;
 };
 
 export default withScroll;
