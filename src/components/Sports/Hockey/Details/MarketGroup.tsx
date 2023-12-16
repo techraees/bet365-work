@@ -87,6 +87,7 @@ const HockeyMarketGroup: React.FC<MarketGroupProps> = ({ data, active }) => {
   ["All", "Same Game Parlay", "Score"];
   let oddData = {} as any;
   oddData = hockeyAll as any;
+  console.log("market----", data);
   if (active === "All") {
     let gameLinesData: any = gameLines(data);
     hockeyAll.gameLines.rows = gameLinesData?.rows;
