@@ -90,11 +90,12 @@ const Home = ({ params }: any) => {
                 key={slot._id}
                 className="relative group transition-all duration-200"
               >
-                <Image
+                <img
                   src={slot.api_image}
                   alt={slot.name}
                   className="w-full h-auto"
                 />
+
                 <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-200 hover:bg-black">
                   <p className="text-center text-white md:text-sm bg-black bg-opacity-0 rounded mb-2">
                     {slot.name}
