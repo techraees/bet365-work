@@ -18,6 +18,7 @@ interface PostsProps {
   listOfData: any[];
 }
 const Matchcard: FC<PostsProps> = ({ listOfData }) => {
+  console.log({ ll: listOfData });
   const router = useRouter();
   // console.log("Matchcard", listOfData, listOfData?.length);
   const data: {
@@ -35,10 +36,9 @@ const Matchcard: FC<PostsProps> = ({ listOfData }) => {
       const hometeam = item?.localteam?.name;
       const awayteam = item?.visitorteam?.name;
       const time = item?.time;
-      const home = item?.odds[0].bookmakers[0].odds[0].value;
-      const draw = item?.odds[0].bookmakers[0].odds[1].value;
-      const away = item?.odds[0].bookmakers[0].odds[2].value;
-      // console.log({ hometeam, awayteam, time, home, draw, away })
+      const home = item?.odds.main.sp.full_time_result.odds[0].odds;
+      const draw = item?.odds.main.sp.full_time_result.odds[1].odds;
+      const away = item?.odds.main.sp.full_time_result.odds[2].odds;
       data.push({
         hometeam,
         awayteam,

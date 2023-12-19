@@ -57,7 +57,7 @@ const Competitions = ({ name, odd }: any) => {
     <div className=" group/item fill-[#a7a7a7] hover:fill-[white] flex flex-col w-full relative bg-[#383838] border-t-[#ffffff1a] border-t border-solid">
       <div
         className={cn(
-          " flex cursor-pointer pl-[20px] pr-[15px] text-brand-green-light hover:text-[white] ",
+          " flex cursor-pointer pl-[20px] pr-[15px] text-brand-green-light hover:text-[white] "
         )}
         onClick={() => {
           toggleHeight();
@@ -73,7 +73,7 @@ const Competitions = ({ name, odd }: any) => {
             <div
               className={cn(
                 "items-center justify-center w-[20px] h-[20px]",
-                isExpanded ? "hidden group-hover/item:flex" : "flex",
+                isExpanded ? "hidden group-hover/item:flex" : "flex"
               )}
             >
               <Chevron className={cn("ml-[7px] h-[12px] w-[12px]")} />
@@ -85,7 +85,7 @@ const Competitions = ({ name, odd }: any) => {
       <div
         className={cn(
           "h-[100%] overflow-hidden transition-[max-height] duration-300 ease",
-          isExpanded ? "max-h-[5000px]" : "max-h-[0px]",
+          isExpanded ? "max-h-[5000px]" : "max-h-[0px]"
         )}
       >
         <div className={cn("flex w-[100%] h-[100%] text-[white]")}>
@@ -119,12 +119,12 @@ const SubCompetitions = ({ item, data, position, name }: any) => {
     <div
       className={cn(
         " group/item fill-[white] hover:fill-brand-green-light flex flex-col w-full relative bg-[#383838]",
-        position === 0 ? "" : "border-t border-solid  border-t-[#ffffff1a] ",
+        position === 0 ? "" : "border-t border-solid  border-t-[#ffffff1a] "
       )}
     >
       <div
         className={cn(
-          " flex cursor-pointer pl-[20px] pr-[15px] hover:text-brand-green-light text-[white] ",
+          " flex cursor-pointer pl-[20px] pr-[15px] hover:text-brand-green-light text-[white] "
         )}
         onClick={() => {
           toggleHeight();
@@ -144,7 +144,7 @@ const SubCompetitions = ({ item, data, position, name }: any) => {
             <div
               className={cn(
                 "items-center justify-center w-[20px] h-[20px]",
-                isExpanded ? "hidden group-hover/item:flex" : "flex",
+                isExpanded ? "hidden group-hover/item:flex" : "flex"
               )}
             >
               <Chevron className={cn("ml-[7px] h-[12px] w-[12px]")} />
@@ -156,7 +156,7 @@ const SubCompetitions = ({ item, data, position, name }: any) => {
       <div
         className={cn(
           "h-[100%] overflow-hidden transition-[max-height] duration-300 ease",
-          isExpanded ? "max-h-[5000px]" : "max-h-[0px]",
+          isExpanded ? "max-h-[5000px]" : "max-h-[0px]"
         )}
       >
         <div className={cn("flex w-[100%] h-[100%] text-[white]")}>
@@ -183,4 +183,3 @@ const SubCompetitions = ({ item, data, position, name }: any) => {
     </div>
   );
 };
-

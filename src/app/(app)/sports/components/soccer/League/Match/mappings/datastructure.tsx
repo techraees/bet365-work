@@ -470,4 +470,3 @@ export const soccerMinutes = {
 //     "volleyball",
 //     "baseball",
 //     "cricket"
-

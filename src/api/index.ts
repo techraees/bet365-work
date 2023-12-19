@@ -25,20 +25,20 @@ export const getOddsGroupedByLeauge = (sport: string) =>
     .catch((error) => console.log("error", error));
 
 export const getPregameNames = () =>
-  fetch(`https://${API_URL}/odds/sports/pregame/names`, requestOptions)
+  fetch(`https://${API_URL}/odds/sports/pregame/betsapi/names`, requestOptions)
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
 
 export const getSoccerFeaturedMatches = () =>
-  fetch(`https://${API_URL}/odds/soccer/featured_matches`, requestOptions)
+  fetch(`https://${API_URL}/odds/soccer/betsapi/featured_matches`, requestOptions)
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
 
 export const getEventFromLeague = (league_name: string, event_id: string) =>
   fetch(
-    `https://${API_URL}/odds/soccer/pregame/events/${league_name}/${event_id}`,
+    `https://${API_URL}/odds/soccer/pregame/betsapi/events/${league_name}/${event_id}`,
     requestOptions,
   )
     .then((response) => response.text())
@@ -47,7 +47,7 @@ export const getEventFromLeague = (league_name: string, event_id: string) =>
 
 export const getEventNamesForLeague = (sport: string, league_name: string) =>
   fetch(
-    `https://${API_URL}/odds/${sport}/pregame/event_names/${league_name}`,
+    `https://${API_URL}/odds/${sport}/pregame/betsapi/event_names/${league_name}`,
     requestOptions,
   )
     .then((response) => response.text())
@@ -55,14 +55,14 @@ export const getEventNamesForLeague = (sport: string, league_name: string) =>
     .catch((error) => console.log("error", error));
 
 export const getPregameLeagues = (sport: string) =>
-  fetch(`https://${API_URL}/odds/${sport}/pregame/leagues`, requestOptions)
+  fetch(`https://${API_URL}/odds/${sport}/pregame/betsapi/leagues`, requestOptions)
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
 
 export const getPregameSoccerEngland = () =>
   fetch(
-    `https://${API_URL}/odds/soccer/pregame/events/England: Fa Community Shield`,
+    `https://${API_URL}/odds/soccer/pregame/betsapi/events/England: Fa Community Shield`,
     requestOptions,
   )
     .then((response) => response.text())
@@ -71,7 +71,7 @@ export const getPregameSoccerEngland = () =>
 
 export const getPregameSoccer = (leagues: string) =>
   fetch(
-    `https://${API_URL}/odds/soccer/pregame/events/${leagues}`,
+    `https://${API_URL}/odds/soccer/pregame/betsapi/events/${leagues}`,
     requestOptions,
   )
     .then((response) => response.text())
@@ -80,7 +80,7 @@ export const getPregameSoccer = (leagues: string) =>
 
 export const getPregame = (sport: string, leagues: string) =>
   fetch(
-    `https://${API_URL}/odds/${sport}/pregame/events/${leagues}`,
+    `https://${API_URL}/odds/${sport}/pregame/betsapi/events/${leagues}`,
     requestOptions,
   )
     .then((response) => response.text())
@@ -93,7 +93,7 @@ export const getPregameEvent = (
   event_id: string,
 ) =>
   fetch(
-    `https://${API_URL}/odds/${sport}/pregame/events/${league}/${event_id}`,
+    `https://${API_URL}/odds/${sport}/pregame/betsapi/events/${league}/${event_id}`,
     requestOptions,
   )
     .then((response) => response.text())
@@ -101,7 +101,7 @@ export const getPregameEvent = (
     .catch((error) => console.log("error", error));
 export const getPregamesSoccerLeaguesGroupedByCountry = () =>
   fetch(
-    `https://${API_URL}/odds/soccer/pregame/leagues/groupedBy/country`,
+    `https://${API_URL}/odds/soccer/pregame/betsapi/leagues/groupedBy/country`,
     requestOptions,
   )
     .then((response) => response.text())
@@ -110,7 +110,7 @@ export const getPregamesSoccerLeaguesGroupedByCountry = () =>
 
 export const getPregamesLeaguesGroupedByCountry = (sport: string) =>
   fetch(
-    `https://${API_URL}/odds/${sport}/pregame/leagues/groupedBy/country`,
+    `https://${API_URL}/odds/${sport}/pregame/betsapi/leagues/groupedBy/country`,
     requestOptions,
   )
     .then((response) => response.text())
