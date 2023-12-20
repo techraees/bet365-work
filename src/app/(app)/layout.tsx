@@ -1,7 +1,3 @@
-import "../globals.css";
-import PrimaryHeader from "./components/PrimaryHeader";
-import SecondaryHeader from "./components/SecondarHeader";
-
 export const metadata = {
   title: "Bet with bet365 - Live Online Betting",
   viewport:
