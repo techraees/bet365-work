@@ -16,15 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <body>
-        <div className=" text-xs bg-[#282828] leading-[0px] antialiased min-h-[100vh]">
-          <header>
-            <SecondaryHeader />
-            <PrimaryHeader />
-          </header>
-          <main>{children}</main>
-        </div>
-      </body>
+      <body>{children}</body>
     </>
   );
 }
