@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.18.1",
+    "@ant-design/icons": "^5.2.6",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
@@ -27,6 +29,8 @@
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "fast-json-patch": "^3.1.1",
+    "flowbite": "^2.2.1",
+    "flowbite-react": "^0.7.2",
     "lodash": "^4.17.21",
     "lucide-react": "^0.216.0",
     "nats": "^2.13.1",

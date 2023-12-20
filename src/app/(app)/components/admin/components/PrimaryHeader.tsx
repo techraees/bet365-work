@@ -13,7 +13,6 @@ import { navItems } from "./list";
 
 const PrimaryHeader = () => {
   const { status } = useSession();
-  console.log(status)
   const [openNav, setOpenNav] = useState(false);
   return (
     <div className="mx-auto bg-brand-green">
