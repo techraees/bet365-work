@@ -22,7 +22,7 @@ const PopupShowing = () => {
 
   var selectedArray = selections;
 
-  console.log({ handleArr: selectedArray });
+  // console.log({ handleArr: selectedArray });
   // Handling Deletion
   const [isChangeAccepted, setIsChangeAccepted] = useState<boolean>(false);
 

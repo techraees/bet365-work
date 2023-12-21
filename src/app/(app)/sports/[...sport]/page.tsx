@@ -48,7 +48,7 @@ const Home = ({ params }: any) => {
     const _getPregamesGroupedByCountrySoccer = async () => {
       try {
         const leagues = await getPregamesSoccerLeaguesGroupedByCountry();
-        console.log({ leagues: leagues });
+        // console.log({ leagues: leagues });
         setLeaguesGroupedByCountry(leagues); // Update the state with fetched data
       } catch (error) {
         console.error("Error fetching featured matches:", error);
@@ -58,7 +58,7 @@ const Home = ({ params }: any) => {
     const _getPregamesGroupedByCountry = async () => {
       try {
         const leagues = await getPregameLeagues(sport[0]);
-        console.log({ leaguesAHAHAH: leagues });
+        // console.log({ leaguesAHAHAH: leagues });
         setLeaguesGroupedByCountry(leagues); // Update the state with fetched data
       } catch (error) {
         console.error("Error fetching featured matches:", error);
@@ -73,11 +73,11 @@ const Home = ({ params }: any) => {
   }, [sport]);
 
   useEffect(() => {
-    console.log({ SP: sport });
+    // console.log({ SP: sport });
     if (sport.length > 0) {
       const _getPregameSoccer = async () => {
         try {
-          console.log({ sport: sport[2] });
+          // console.log({ sport: sport[2] });
           const games = await getPregameSoccer(decodeURIComponent(sport[2]));
           setLeagueSelectedGamesState(games); // Update the state with fetched data
           setOdds(games);
@@ -88,7 +88,7 @@ const Home = ({ params }: any) => {
 
       const _getPregame = async () => {
         try {
-          console.log({ sport: sport[2] });
+          // console.log({ sport: sport[2] });
           const games = await getPregame(sport[0], sport[2]);
           setLeagueSelectedGamesState(games); // Update the state with fetched data
           setOdds(games);
@@ -112,7 +112,7 @@ const Home = ({ params }: any) => {
         const leagues = await getPregameLeagues(sport[0]);
 
         setPregameLeagues(leagues); // Update the state with fetched data
-        console.log({ llleagues: leagues });
+        // console.log({ llleagues: leagues });
       } catch (error) {
         console.error("Error fetching featured matches:", error);
       }
@@ -159,7 +159,7 @@ const Home = ({ params }: any) => {
     } else {
       let leaguesByCountry = leaguesGroupedByCountry;
       let getLeagues = pregameLeagues as any;
-      console.log({ leagues: getLeagues });
+      // console.log({ leagues: getLeagues });
 
       if (Object.keys(leaguesByCountry).length > 0) {
         return (

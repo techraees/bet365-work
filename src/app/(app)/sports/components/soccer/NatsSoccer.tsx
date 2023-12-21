@@ -19,14 +19,14 @@ const Odds = ({
 }: any) => {
   const [oddsState, setOddsState] = useState<any>(odds);
   const leaguebycountry = leaguesByCountry;
-  console.log({
-    odds,
-    sport,
-    leaguebycountry,
-    leagueSelectedGames,
-  });
+  // console.log({
+  //   odds,
+  //   sport,
+  //   leaguebycountry,
+  //   leagueSelectedGames,
+  // });
   if (sport[2]) {
-    console.log(decodeURIComponent(sport[2]));
+    // console.log(decodeURIComponent(sport[2]));
   }
   let show = <></>;
   if (sport[1] && sport[1] === "leagues" && sport[2] && sport[3]) {

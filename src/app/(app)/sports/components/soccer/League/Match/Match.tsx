@@ -20,8 +20,8 @@ const Match = ({ gameid, league, getLeagues, leagueSelectedGames }: any) => {
   const [active, setActive] = useState("Popular");
   const [match, setMatch] = useState<Match | null>(null); // if you want to start with null
 
-  console.log({ league: league });
-  console.log({ gameid: gameid });
+  // console.log({ league: league });
+  // console.log({ gameid: gameid });
 
   useEffect(() => {
     const fetchMatch = async () => {
@@ -48,7 +48,7 @@ const Match = ({ gameid, league, getLeagues, leagueSelectedGames }: any) => {
       "Minutes",
     ],
   };
-  console.log({ match: match });
+  // console.log({ match: match });
   if (match === null) {
     return (
       <div className="flex flex-col">
@@ -60,7 +60,7 @@ const Match = ({ gameid, league, getLeagues, leagueSelectedGames }: any) => {
       </div>
     );
   }
-  console.log(match);
+  // console.log(match);
   return (
     <div className="text-base">
       <div className="min-h-[80px] w-full bg-[linear-gradient(rgba(12,22,20,.1),transparent_20px),radial-gradient(122%_370px_at_center_-220px,#009969_0,transparent_100%),linear-gradient(to_right_bottom,#0c1614,#084436)]">
@@ -80,7 +80,7 @@ const Match = ({ gameid, league, getLeagues, leagueSelectedGames }: any) => {
             className="flex items-center  hover:underline"
             onClick={() => {}}
           >
-            {`${match.localteam.name} v ${match.visitorteam.name}`}
+            {`${match.localteam?.name} v ${match.visitorteam?.name}`}
             <Chevron className="ml-[7px] fill-white h-[6px] w-[12px]" />
           </div>
         </div>
