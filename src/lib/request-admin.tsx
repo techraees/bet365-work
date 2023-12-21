@@ -5,10 +5,11 @@ import { authOption } from "../../pages/api/auth/[...nextauth]";
 
 export default async function requireAdminSession () {
     const sessiondata = await getServerSession(authOption);
+    // console.log(sessiondata?.user?.role)
     if (!sessiondata) {
         redirect('/auth/signin')
     }
-    else if (sessiondata?.user?.role !== "SuperAgent" || sessiondata.user.role !== "Type7Admin" || sessiondata.user.role !== "Type5Admin" || sessiondata.user.role !== "Type3Admin")
+    if ((sessiondata as any).user.role !== "SuperAgent" && (sessiondata as any).user.role !== "Type7Admin" && (sessiondata as any).user.role !== "Type5Admin" && (sessiondata as any).user.role !== "Type3Admin")
         redirect('/sports')
     return sessiondata
 }

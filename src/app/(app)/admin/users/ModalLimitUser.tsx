@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'antd';
-import { useModalContext } from '@/contexts/ModalContext';
+import { useModalContext } from '../../components/admin/contexts/ModalContext';
 
 function ModalLimitUser() {
   const { isLimitUserModalOpen, closeLimitUserModal } = useModalContext();

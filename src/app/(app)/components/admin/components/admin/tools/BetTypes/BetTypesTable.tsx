@@ -64,8 +64,8 @@ const BetTypesTable = ({ tableList, currentPage }: BetTypesTableProps) => {
                     <BetTypesItems
                       key={index}
                       item={item}
-                      onHandleGroupClick={(item: any) => openMatchResultModal()}
-                      onHandleTranslateClick={(name: string) => {
+                      onHandleGroupClick={() => openMatchResultModal()}
+                      onHandleTranslateClick={(name: any) => {
                         setSelectedName(name);
                         openTranslateModal();
                       }}
@@ -77,7 +77,7 @@ const BetTypesTable = ({ tableList, currentPage }: BetTypesTableProps) => {
         )}
       </section>
       <ModalMatchResult />
-      <ModalTransalte name={selectedName} />
+      <ModalTransalte item={selectedName} />
     </>
   );
 };

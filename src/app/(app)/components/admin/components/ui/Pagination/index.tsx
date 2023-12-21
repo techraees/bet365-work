@@ -67,6 +67,7 @@ function PaginationNav1({
           content={pageIndexToMap + 1}
           onClick={() => gotoPage(pageIndexToMap)}
           active={pageIndex === pageIndexToMap}
+          disabled={false}
         />
       </li>
     ));
@@ -82,6 +83,7 @@ function PaginationNav1({
             </div>
           }
           onClick={() => gotoPage(0)}
+          active={false}
           disabled={!canPreviousPage}
         />
       </li>
@@ -95,6 +97,7 @@ function PaginationNav1({
             </div>
           }
           onClick={() => gotoPage(pageCount - 1)}
+          active={false}
           disabled={!canNextPage}
         />
       </li>

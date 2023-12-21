@@ -19,7 +19,7 @@ const UserTableItem = ({
   onHandleLimitClick
 }: UserTableItemProps) => {
   const { openTransferModal } = useModalContext();
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   const [item, setItem] = useState(item_);
   const [open, setOpen] = useState(false);

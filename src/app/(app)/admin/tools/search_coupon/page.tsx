@@ -113,7 +113,7 @@ const SearchCoupon = () => {
         </section>
         {couponList !== null && (
           <section className="pt-4 w-full overflow-scroll md:overflow-hidden">
-            {couponList?.length === 0 ? (
+            {(couponList as Array<any>).length === 0 ? (
               <p className="text-lg font-bold text-center text-brand-button-text">
                 No results
               </p>
@@ -125,7 +125,7 @@ const SearchCoupon = () => {
                       scope="col"
                       className="px-10 py-1.5 border border-gray-600"
                     >
-                      {"Games (" + couponList.length + ")"}
+                      {"Games (" + (couponList as Array<any>).length + ")"}
                     </th>
                     <th
                       scope="col"
@@ -166,7 +166,7 @@ const SearchCoupon = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {couponList?.map((item: any, index: number) => {
+                  {(couponList as Array<any>)?.map((item: any, index: number) => {
                     return (
                       <tr key={index} className="text-white bg-[#666]">
                         <td className="px-2 py-1 border border-gray-600 truncate">

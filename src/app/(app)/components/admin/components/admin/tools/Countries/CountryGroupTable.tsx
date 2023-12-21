@@ -53,7 +53,7 @@ const CountryGroupTable = ({ tableList, currentPage }: CountryGroupTableProps) =
                       key={index}
                       item={item}
                       onHandleRemoveClick={(item: any) => {}}
-                      onHandleTranslateClick={(name: string) => {
+                      onHandleTranslateClick={(name: any) => {
                         setSelectedName(name);
                         openTranslateModal();
                       }}

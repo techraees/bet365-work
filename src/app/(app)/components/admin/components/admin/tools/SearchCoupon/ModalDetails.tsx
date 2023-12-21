@@ -168,6 +168,7 @@ const yellow_card_data = [
 ];
 
 const red_card_data = [
+  {}
 ];
 
 const penalty_data = [

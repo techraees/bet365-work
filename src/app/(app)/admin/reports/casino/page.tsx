@@ -30,7 +30,7 @@ const Casino = () => {
   const [descendantListView, setDescendantListView] = useState(false);
 
   const [vendorsSelected, setVendorsSelected] = useState(false);
-  const [userList, setUserList] = useState(null);
+  const [userList, setUserList] = useState([]);
 
   useEffect(() => {
     if (session !== undefined) getUserInfo();
@@ -44,7 +44,7 @@ const Casino = () => {
     );
     const _userList = [];
     _userList.push(_userinfo);
-    setUserList([..._userList]);
+    setUserList(([..._userList] as any));
   };
 
   const getChildren = async (username: string, id: number) => {
@@ -55,13 +55,13 @@ const Casino = () => {
     );
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
-      setUserList([..._newUserList]);
+      setUserList(([..._newUserList] as any));
     }
   };
 
   const removeChildren = (username: string, id: number) => {
     const _newUserList = removeUserList(userList, username, id);
-    setUserList([..._newUserList]);
+    setUserList(([..._newUserList] as any));
   };
 
   const removeUserList = (userInfo_: any[], username: string, id: number) => {
@@ -99,14 +99,13 @@ const Casino = () => {
 
   const addGeneralTable = (username: string) => {
     const _newUserList = _addGeneralTable(userList, username);
-    console.log(_newUserList);
-    setUserList([..._newUserList]);
+    setUserList(([..._newUserList] as any));
   };
 
   const _addGeneralTable = (userInfo_: any[], username: string) => {
     for (let i = 0; i < userInfo_.length; i++) {
       if (Array.isArray(userInfo_[i]) === true) {
-        _addGeneralTable(userInfo_[i], username, { vendorsSelected: false });
+        _addGeneralTable(userInfo_[i], username);
         if (i === userInfo_.length - 1) break;
       }
       if (userInfo_[i].username === username) {
@@ -119,7 +118,7 @@ const Casino = () => {
 
   const removeGeneralTable = (username: string, id: number) => {
     const _newUserList = _removeGeneralTable(userList, username, id);
-    setUserList([..._newUserList]);
+    setUserList(([..._newUserList] as any));
   };
 
   const _removeGeneralTable = (
@@ -151,6 +150,8 @@ const Casino = () => {
           <UserTable
             parentId_={parentId}
             child={child}
+            startingOn={startingOn}
+            endingOn={endingOn}
             createTable={createTable}
             getChildren={getChildren}
             removeChildren={removeChildren}
@@ -325,7 +326,7 @@ const Casino = () => {
                 {vendorsSelected === true && (
                   <tr className="bg-brand-dark-grey border border-gray-600">
                     <td colSpan={7} className="p-4">
-                      <VendorTable />
+                      {/* <VendorTable /> */}
                     </td>
                   </tr>
                 )}
@@ -338,6 +339,8 @@ const Casino = () => {
           <UserTable
             parentId_={0}
             child={userList}
+            startingOn={startingOn}
+            endingOn={endingOn}
             createTable={createTable}
             getChildren={getChildren}
             removeChildren={removeChildren}

@@ -29,7 +29,7 @@ const SportsTableItem = ({
       <td className="w-48 border border-gray-600">
         <button
           className="button px-2 py-2 bg-green-700 hover:bg-green-600 w-full"
-          onClick={() => onHandleTranslateClick(item.sport)}
+          onClick={() => onHandleTranslateClick(item)}
         >
           Translate
         </button>

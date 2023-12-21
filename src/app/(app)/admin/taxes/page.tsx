@@ -2,7 +2,7 @@ import requireSession from "@/lib/request-session";
 import TaxesContent from "./TaxesContent";
 import requireAdminSession from "@/lib/request-admin";
 
-const TaxesPage = async ({ children }: { children: React.ReactNode }) => {
+const TaxesPage = async () => {
   await requireSession();
   await requireAdminSession();
   

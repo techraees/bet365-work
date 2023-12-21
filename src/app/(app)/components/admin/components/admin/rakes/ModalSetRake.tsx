@@ -10,7 +10,7 @@ import { useModalContext } from "../../../contexts/ModalContext";
 function ModalSetRake() {
   const { isSetRakeModalOpen, closeSetRakeModal } =
     useModalContext();
-    const { data: session } = useSession();
+    const { data: session }: any = useSession();
   
     const [userList, setUserList] = useState([]);
     const [parentId, setParentId] = useState(0);
@@ -30,7 +30,7 @@ function ModalSetRake() {
       );
       const _userList = [];
       _userList.push(_userinfo);
-      setUserList([..._userList]);
+      setUserList(([..._userList] as any));
     };
   
     const getChildren = async (username: string, id: number) => {
@@ -41,13 +41,13 @@ function ModalSetRake() {
       );
       if (_childrenInfo.length !== 0) {
         const _newUserList = addUserList(userList, username, _childrenInfo);
-        setUserList([..._newUserList]);
+        setUserList(([..._newUserList] as any));
       }
     };
   
     const removeChildren = (username: string, id: number) => {
       const _newUserList = removeUserList(userList, username, id);
-      setUserList([..._newUserList]);
+      setUserList(([..._newUserList] as any));
     };
   
     const removeUserList = (userInfo_: any[], username: string, id: number) => {

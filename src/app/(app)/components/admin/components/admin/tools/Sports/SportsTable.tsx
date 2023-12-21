@@ -49,7 +49,7 @@ const SportsTable = ({ tableList, currentPage }: SportsTableProps) => {
                     <SportsTableItem
                       key={index}
                       item={item}
-                      onHandleTranslateClick={(name: string) => {
+                      onHandleTranslateClick={(name: any) => {
                         setSelectedName(name);
                         openTranslateModal();
                       }}
@@ -60,7 +60,7 @@ const SportsTable = ({ tableList, currentPage }: SportsTableProps) => {
           </table>
         )}
       </section>
-      <ModalTransalte name={selectedName} />
+      <ModalTransalte item={selectedName} />
     </>
   );
 };

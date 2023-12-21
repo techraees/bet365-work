@@ -12,7 +12,7 @@ import {
 import ModalCoupon from "../../../components/admin/components/admin/reports/BetsList/ModalCoupon";
 
 const Deposits = () => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const { openCouponModal } = useModalContext();
 
   const [startingOn, setStartingOn] = useState("");
@@ -428,7 +428,7 @@ const Deposits = () => {
             </table>
           )}
         </section>
-        <ModalCoupon item={selectedItem} />
+        <ModalCoupon item={selectedItem} user={user} />
       </section>
     </>
   );

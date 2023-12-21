@@ -2,8 +2,8 @@ import { useState } from "react";
 
 interface BetTypesItemProps {
   item: any;
-  onHandleGroupClick: any;
-  onHandleTranslateClick: any;
+  onHandleGroupClick: () => void;
+  onHandleTranslateClick: (item: any) => void;
 }
 
 const BetTypesItems = ({ item, onHandleGroupClick, onHandleTranslateClick }: BetTypesItemProps) => {
@@ -63,12 +63,12 @@ const BetTypesItems = ({ item, onHandleGroupClick, onHandleTranslateClick }: Bet
         <div className="flex gap-0.5">
           <button
             className="button px-2 py-2 bg-[#333] hover:bg-[#444] w-full"
-            onClick={() => onHandleGroupClick(item)}
+            onClick={() => onHandleGroupClick()}
           >
             Group
           </button>
           <button className="button px-2 py-2 bg-[#333] hover:bg-[#444] w-full"
-            onClick={() => onHandleTranslateClick(item.name)}
+            onClick={() => onHandleTranslateClick(item)}
           >
             Translate
           </button>

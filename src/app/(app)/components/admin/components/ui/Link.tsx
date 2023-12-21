@@ -21,7 +21,7 @@ const CustomLink: React.FC<CustomLinkProps> = ({
   ...props
 }) => {
   const pathname = usePathname();
-  const isActive = active || pathname.startsWith(props.href as string);
+  const isActive = active || (pathname as any).startsWith(props.href as string);
 
   return (
     <Link

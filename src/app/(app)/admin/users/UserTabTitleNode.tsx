@@ -1,10 +1,9 @@
 import React from 'react';
 import { EditFilled, EuroOutlined, UserDeleteOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
 import ModalEditUser from './ModalEditUser';
 import ModalTransfer from './ModalTransfer';
 import ModalLimitUser from './ModalLimitUser';
-import { ModalProvider, useModalContext } from '@/contexts/ModalContext';
+import { ModalProvider, useModalContext } from '../../components/admin/contexts/ModalContext';
 
 interface UserTabProps {
   id: number;
@@ -30,7 +29,7 @@ function UserTabTitleNode(props: UserTabProps) {
       </div>
 
       <ModalEditUser />
-      <ModalTransfer />
+      {/* <ModalTransfer /> */}
       <ModalLimitUser />
     </div>
   );

@@ -11,7 +11,7 @@ import CommissionsTable from "../../components/admin/components/admin/commission
 import Pagination from "../../components/admin/components/ui/Pagination";
 
 const CommissionsContent = () => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   const [userList, setUserList] = useState([]);
   const [user, setUser] = useState("");
@@ -33,7 +33,7 @@ const CommissionsContent = () => {
     );
     const _userList = [];
     _userList.push(_userinfo);
-    setUserList([..._userList]);
+    setUserList(([..._userList] as any));
   };
 
   return (
