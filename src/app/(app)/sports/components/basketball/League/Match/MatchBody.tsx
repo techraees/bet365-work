@@ -14,7 +14,15 @@ import {
   basketballQuarterProps,
   basketballHalfProps,
 } from "./mappings/datastructure";
-import { gameLines, firsthalf, firstQ, secondQ } from "./mappings/pregamemaps";
+import {
+  gameLines,
+  firsthalf,
+  firstQ,
+  secondQ,
+  thirdQ,
+  fourthQ,
+  gameLines3Way,
+} from "./mappings/pregamemaps";
 import MarketGroupBody from "@/components/Structure/MarketGroupBody";
 
 interface MarketGroupProps {
@@ -29,15 +37,25 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
   let oddData = {} as any;
   oddData = basketballMainMarkets as any;
   if (active === "Main Markets" || active === "All") {
-    console.log({ oddiez: data });
+    // console.log({ oddiez: data });
     basketballMainMarkets.gameLines.rows = gameLines(data);
     basketballMainMarkets["1stHalf"].rows = firsthalf(data);
     basketballMainMarkets["1stQuarter"].rows = firstQ(data);
     basketballMainMarkets["2ndQuarter"].rows = secondQ(data);
-    basketballMainMarkets["3rdQuarter"].rows = firstQ(data);
+    basketballMainMarkets["3rdQuarter"].rows = thirdQ(data);
+    basketballMainMarkets["4thQuarter"].rows = fourthQ(data);
+    basketballMainMarkets["gameLines3-Way"].rows = gameLines3Way(data);
     oddData = basketballMainMarkets as any;
   } else if (active === "Bet Builder") {
     oddData = basketballBetBuilder as any;
+  } else if (active === "Main Props") {
+    oddData = basketballMainProps as any;
+  } else if (active === "Team Props") {
+    oddData = basketballTeamProps as any;
+  } else if (active === "Quarter Props") {
+    oddData = basketballQuarterProps as any;
+  } else if (active === "Half Props") {
+    oddData = basketballHalfProps as any;
   }
 
   console.log("detail market tennis", oddData);
@@ -104,7 +122,7 @@ const GroupwithHead: React.FC<GroupwithHeadProps> = ({
           " flex cursor-pointer pl-[30px] pr-[15px] border-t border-solid border-t-[rgba(24,153,112,.75)]",
           odd?.suspend !== "0"
             ? "text-[hsla(0,0%,100%,.3)] hover:text-[hsla(0,0%,100%,.6)] fill-[hsla(0,0%,100%,.3)] hover:fill-[hsla(0,0%,100%,.6)]"
-            : "text-[white] hover:text-brand-green-light ",
+            : "text-[white] hover:text-brand-green-light "
         )}
         onClick={() => {
           toggleHeight();
@@ -125,7 +143,7 @@ const GroupwithHead: React.FC<GroupwithHeadProps> = ({
         <div className="ml-auto flex items-center justify-end w-[100px] h-[50px]">
           <div
             className={cn(
-              "group hidden items-center justify-center w-[50px] h-[50px] group-hover/item:flex",
+              "group hidden items-center justify-center w-[50px] h-[50px] group-hover/item:flex"
             )}
           >
             <div className="hidden items-center justify-center w-[20px] h-[20px] group-hover:flex">
@@ -142,7 +160,7 @@ const GroupwithHead: React.FC<GroupwithHeadProps> = ({
             <div
               className={cn(
                 "items-center justify-center w-[20px] h-[20px]",
-                isExpanded ? "hidden group-hover/item:flex" : "flex",
+                isExpanded ? "hidden group-hover/item:flex" : "flex"
               )}
             >
               <Chevron className={cn("ml-[7px] h-[12px] w-[12px]")} />
@@ -161,7 +179,7 @@ const GroupwithHead: React.FC<GroupwithHeadProps> = ({
       <div
         className={cn(
           "h-[100%] overflow-hidden transition-[max-height] duration-300 ease",
-          isExpanded ? "max-h-[1500px]" : "max-h-[0px]",
+          isExpanded ? "max-h-[1500px]" : "max-h-[0px]"
         )}
       >
         <div className={cn("flex w-[100%] h-[100%] text-[white]")}>

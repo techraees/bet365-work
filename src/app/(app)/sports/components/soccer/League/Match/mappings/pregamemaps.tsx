@@ -201,7 +201,8 @@ export const doubleChance = (data: any) => {
           odd_name: odd_name,
           participant_id: odd.id,
           participant_name: odd.name,
-          participant_handicap: "",
+          participant_handicap: odd.participant,
+          participant_header: odd.header,
         };
         arr.push(obj);
       });

@@ -29,6 +29,12 @@ export const basketballMainMarkets = {
     header: ["", "Home", "Away"],
     rows: [],
   },
+  "4thQuarter": {
+    marketname: "4th Quarter",
+    suspend: "0",
+    header: ["", "Home", "Away"],
+    rows: [],
+  },
   "gameLines3-Way": {
     marketname: "Game Lines 3-Way",
     suspend: "0",

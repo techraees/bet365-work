@@ -9,9 +9,9 @@ import DialogForCategory from "./DialogForCategory";
 import OutsideClickHandler from "react-outside-click-handler";
 import { useRouter, usePathname } from "next/navigation";
 import { MarketCellSplit } from "@/components/Structure/MarketCell";
-import formatDateToCustomString from "@/components/Structure/FormatDateToCustomString";
 import { getPregame } from "@/api";
 
+import { get_objects_grouped_by_name } from "./Match/mappings/pregamemaps";
 const LeagueBody = ({ sport, leagueName, active }: any) => {
   const [category, setCategory] = useState({
     isOpen: false,
@@ -21,7 +21,7 @@ const LeagueBody = ({ sport, leagueName, active }: any) => {
   });
 
   const dates = {} as any;
-  const [odds, setOdds] = useState(null);
+  const [odds, setOdds] = useState<any>(null);
   useEffect(() => {
     const fetchPregames = async () => {
       try {
@@ -37,11 +37,13 @@ const LeagueBody = ({ sport, leagueName, active }: any) => {
   }, []); // Empty dependency array for running only once on mount
 
   if (odds && odds.length > 0) {
-    odds?.map((data: any) => {
-      if (dates && dates[data?.date] && dates[data?.date].length > 0) {
-        dates[data?.date].push(data);
-      } else {
-        dates[data?.date] = [data];
+    odds?.forEach((data: any) => {
+      const formattedDate: string | undefined = data?.formatted_date;
+      if (formattedDate) {
+        if (!dates[formattedDate]) {
+          dates[formattedDate] = [];
+        }
+        dates[formattedDate].push(data);
       }
     });
   } else {
@@ -93,6 +95,7 @@ const CategoryBased = ({ dates, active }: any) => {
       {dates &&
         Object.keys(dates).map((date: any) => {
           const formattedDate = date;
+          console.log({ ddf: dates[date] });
           return (
             <div key={date}>
               <div className="h-[30px] bg-[#ffffff12] text-[white] text-[12px] font-[700] pl-[30px] flex items-center">
@@ -111,55 +114,59 @@ const CategoryBased = ({ dates, active }: any) => {
                 <div className="w-[65px] h-full hidden md:flex"></div>
               </div>
               {dates[date].map((data: any, index: number) => {
-                const moneyLine = [] as any;
-                const total = [] as any;
-                const runline = [] as any;
-                let match = data?.odds?.filter((item: any) => item.id === "4");
-                if (match && match.length > 0) {
-                  match[0]?.bookmakers[0].odds.map((odd: any) => {
-                    if (moneyLine.length == 2) {
-                      return;
-                    }
-                    if (odd.ismain) {
-                      odd.odds.map((i: any) => {
-                        if (i.stop === "False") {
-                          moneyLine.push({
-                            title: odd.name,
-                            value: i.value,
-                            suspend: i.stop === "False" ? "0" : "1",
-                          });
-                        }
-                      });
-                    }
-                  });
-                }
-                match = data?.odds?.filter((item: any) => item.id === "5");
-                if (match && match.length > 0) {
-                  match[0]?.bookmakers[0].odds.map((odd: any) => {
-                    if (total.length == 2) {
-                      return;
-                    }
-                    odd.odds.map((nd: any) => {
-                      if (nd.stop === "False") {
-                        total.push({
-                          title: `${nd.name[0]} ${odd.name}`,
-                          value: nd.value,
-                          suspend: nd.stop === "False" ? "0" : "1",
-                        });
-                      }
-                    });
-                  });
-                }
-                match = data?.odds?.filter((item: any) => item.id === "2");
-                if (match && match.length > 0) {
-                  match[0]?.bookmakers[0].odds.map((odd: any) => {
-                    runline.push({
-                      title: "",
-                      value: odd.value,
-                      suspend: odd.stop === "False" ? "0" : "1",
-                    });
-                  });
-                }
+                var moneyLine = [] as any;
+                var total = [] as any;
+                var runline = [] as any;
+                const grouped_by_name = get_objects_grouped_by_name(
+                  data?.odds.main.sp.game_lines.odds
+                );
+                console.log({ data: data, gh: grouped_by_name });
+                grouped_by_name["Spread"]?.forEach((obj: any) => {
+                  var _obj = {
+                    title: obj.handicap,
+                    value: obj.odds,
+                    suspend: "0",
+                  };
+                  if (obj.handicap === "+999" || obj.handicap === "-999") {
+                    _obj = {
+                      title: "OTB",
+                      value: "",
+                      suspend: "1",
+                    };
+                  }
+                  moneyLine.push(_obj);
+                });
+                grouped_by_name["Total"]?.forEach((obj: any) => {
+                  var _obj = {
+                    title: obj.handicap,
+                    value: obj.odds,
+                    suspend: "0",
+                  };
+                  if (obj.handicap === "O +999" || obj.handicap === "U +999") {
+                    _obj = {
+                      title: "OTB",
+                      value: "",
+                      suspend: "1",
+                    };
+                  }
+                  total.push(_obj);
+                });
+                grouped_by_name["Money Line"]?.forEach((obj: any) => {
+                  var _obj = {
+                    title: "",
+                    value: obj.odds,
+                    suspend: "0",
+                  };
+                  if (obj.odds === "1.01") {
+                    _obj = {
+                      title: "OTB",
+                      value: "",
+                      suspend: "1",
+                    };
+                  }
+                  runline.push(_obj);
+                });
+
                 // console.log({ moneyLine, total, runline })
                 return (
                   <div
@@ -168,7 +175,7 @@ const CategoryBased = ({ dates, active }: any) => {
                       "text-xs  h-[100px] flex text-[white] items-center min-h-[70px] pl-[30px]",
                       index == 0
                         ? ""
-                        : "border-t border-solid border-t-[#ffffff1a]",
+                        : "border-t border-solid border-t-[#ffffff1a]"
                     )}
                   >
                     <div
@@ -184,7 +191,9 @@ const CategoryBased = ({ dates, active }: any) => {
                           <div className="truncate">
                             {data?.localteam?.name}
                           </div>
-                          <div className="truncate">{data?.awayteam?.name}</div>
+                          <div className="truncate">
+                            {data?.visitorteam?.name}
+                          </div>
                           <div className="text-[10px] leading-3 font-[500] flex md:hidden">
                             {data?.time}
                           </div>
@@ -268,4 +277,3 @@ const CategoryBased = ({ dates, active }: any) => {
     </>
   );
 };
-

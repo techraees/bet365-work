@@ -10,7 +10,7 @@ const Match = ({ sport, league, gameid }: any) => {
   const [active, setActive] = useState("Main Markets");
   // console.log('league clicked', decodeURIComponent(league))
 
-  const [odds, setOdds] = useState(null);
+  const [odds, setOdds] = useState<any>(null);
   useEffect(() => {
     const fetchPregames = async () => {
       try {
@@ -34,7 +34,7 @@ const Match = ({ sport, league, gameid }: any) => {
 
   const router = useRouter();
   const tabs = {
-    soccer: [
+    basketball: [
       "Main Markets",
       "Bet Builder",
       "Main Props",
@@ -53,7 +53,7 @@ const Match = ({ sport, league, gameid }: any) => {
           <div className="flex items-center min-h-[45px] text-[12px]  px-[30px] py-0 mt-[5px]">
             <Chevron className="h-[5px] w-[8px] rotate-90" />
             <div className="pl-[5px]">{`Basketball - ${decodeURIComponent(
-              league,
+              league
             ).replace(":", "")}`}</div>
           </div>
         </button>
@@ -62,13 +62,13 @@ const Match = ({ sport, league, gameid }: any) => {
             className="flex items-center  hover:underline"
             onClick={() => {}}
           >
-            {`${match?.localteam?.name} v ${match?.awayteam?.name}`}
+            {`${match?.localteam?.name} v ${match?.visitorteam?.name}`}
             <Chevron className="ml-[7px] fill-white h-[6px] w-[12px]" />
           </div>
         </div>
         <div className="flex items-center min-h-[50px] text-[white] text-[13px]">
           <div className="flex items-center mx-[20px] relative w-full whitespace-nowrap overflow-scroll hidescroll">
-            {tabs["soccer"]?.map((tab, index) => {
+            {tabs["basketball"]?.map((tab, index) => {
               return (
                 <div
                   key={index}
@@ -76,7 +76,7 @@ const Match = ({ sport, league, gameid }: any) => {
                     "cursor-pointer flex items-center justify-center px-[10px] z-20",
                     active == tab
                       ? "text-[black] font-bold transition duration-300 ease-in-out self-center h-[26px] rounded-[13px] bg-[#00ffb6]"
-                      : "h-[50px]",
+                      : "h-[50px]"
                   )}
                   onClick={(e) => {
                     setActive(tab);
@@ -97,4 +97,3 @@ const Match = ({ sport, league, gameid }: any) => {
 };
 
 export default Match;
-
