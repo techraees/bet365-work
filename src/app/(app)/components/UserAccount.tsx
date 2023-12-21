@@ -61,11 +61,19 @@ const Dialog: React.FC<DialogProps> = ({}) => {
   return (
     <div className="hidescroll w-[330px] bg-[#f8f9fa] text-[14px] font-[400] leading-[44px] text-[#333] overflow-auto absolute top-[46px] right-[-20px] z-50">
       <div className="flex flex-col text-sm">
-        <div className="flex items-center justify-end px-4 pt-4">
-          <button className="border-solid border-[#c3c3c3] border-[1px] px-4 py-2 hover:bg-white" onClick={() => router.push("/admin/users")}>
+        {(userSession?.user.role === "SuperAgent" ||
+          userSession?.user.role === "Type7Admin" ||
+          userSession?.user.role === "Type5Admin" ||
+          userSession?.user.role === "Type3Admin") && (
+          <div className="flex items-center justify-end px-4 pt-4">
+            <button
+              className="border-solid border-[#c3c3c3] border-[1px] px-4 py-2 hover:bg-white"
+              onClick={() => router.push("/admin/users")}
+            >
               <span className="font-semibold">Go to admin panel</span>
-          </button>
-        </div>
+            </button>
+          </div>
+        )}
         <div className="flex items-center justify-between p-4">
           <div className="flex flex-col">
             <div>{userdata?.user?.username}</div>
