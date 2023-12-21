@@ -27,10 +27,9 @@ import {
   first10Minutes,
   toScoreaPenalty,
   toMissaPenalty,
-  bethalftimeFulltime,
-  betScore,
-  bethalfWithMostGoals,
+  first10Minutes_minuetes,
   betteamSpecials,
+  ownGoal,
   alternativetotalGoals,
   resultTotalGoals,
   totalGoalsBothTeamsToScore,
@@ -48,16 +47,10 @@ import {
   homeToScoreInHalf,
   awayToScoreInHalf,
   secondHalfResult,
-  nthGoalMarketName,
   lastTeamToScore,
-  alternativematchGoals,
-  matchGoals,
   asianHandicap,
-  threeWayHandicap,
-  toWin2ndHalf,
   drawNoBet,
   goalLine,
-  finalScore,
   halfTimeCorrectScore,
   bothTeamsToScorein1stHalf2ndHalf,
   halfTimeFullTime,
@@ -73,7 +66,6 @@ import {
   earlyGoal,
   lateGoal,
   timeOfFirstGoalBrackets,
-  firstHalfHandicap,
   resultBothTeamsToScore,
   bothTeamsToScore,
   teamsToScore,
@@ -86,21 +78,6 @@ import {
   exactSecondHalfGoals,
   halfWithMostGoals,
   teamHighestScoringHalf,
-  cornerRace,
-  corners,
-  twoWayCorners,
-  toQualify,
-  twoCellTitleValue,
-  betResult,
-  betBothTeamsToScore,
-  betDoubleChance,
-  betMatchGoals,
-  betNextGoal,
-  betTeamGoals,
-  betGoalOddEven,
-  BetTeamToScoreinBothHalf,
-  BetTeamToScorein2ndHalf,
-  betMatchCorners,
   firsthalfgoalOddEven,
   secondhalfgoalOddEven,
   halfTimeDoubleChance,
@@ -124,8 +101,6 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
   if (!data) {
     return null;
   }
-  console.log("+++++++++++", data);
-  console.log("---------", active);
   let oddData = {} as any;
   oddData = soccerAll as any;
   if (active === "Popular" || active === "All") {
@@ -144,18 +119,8 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
     soccerAll.alternativeHandicapResult.rows = alternativeHandicapResult(data);
     soccerAll.totalCorners3way.rows = totalCorners3Way(data);
     soccerAll.goalscorers.rows = goalscorers(data);
-
-    console.log("__________-", soccerAll);
     oddData = soccerAll as any;
   } else if (active === "Bet Builder") {
-    // soccerBetBuilder.result.rows = betResult(data);
-    // soccerBetBuilder.bothTeamsToScore.rows = betBothTeamsToScore(data);
-    // soccerBetBuilder.doubleChance.rows = betDoubleChance(data);
-    // soccerBetBuilder.halftimeFulltime.rows = bethalftimeFulltime(data);
-    // soccerBetBuilder.score = betScore(data, soccerBetBuilder.score);
-    // soccerBetBuilder.halfWithMostGoals.rows = bethalfWithMostGoals(data);
-    // soccerBetBuilder.teamSpecials.rows = betteamSpecials(data);
-    // soccerBetBuilder.goalOddEven.rows = betGoalOddEven(data);
     oddData = soccerBetBuilder as any;
   } else if (active === "Asian Lines") {
     soccerAsianLines.asianHandicap.rows = asianHandicap(data);
@@ -259,17 +224,19 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
     soccerHalf.secondHalfGoalsOddEven.rows = secondhalfgoalOddEven(data);
     oddData = soccerHalf as any;
   } else if (active === "Specials") {
-    // soccerSpecials.specials.rows = betteamSpecials(data);
-    // soccerSpecials.toScoreaPenalty.rows = toScoreaPenalty(data);
-    // soccerSpecials.toMissaPenalty.rows = toMissaPenalty(data);
-    // oddData = soccerSpecials as any;
+    soccerSpecials.specials.rows = betteamSpecials(data);
+    soccerSpecials.homeToScoreInHalf.rows = homeToScoreInHalf(data);
+    soccerSpecials.awayToScoreInHalf.rows = awayToScoreInHalf(data);
+    soccerSpecials.toScoreaPenalty.rows = toScoreaPenalty(data);
+    soccerSpecials.toMissaPenalty.rows = toMissaPenalty(data);
+    soccerSpecials.ownGoal.rows = ownGoal(data);
+    oddData = soccerSpecials as any;
   } else if (active === "Minutes") {
-    // soccerMinutes["10MinuteResult"].rows = minuteResult(data);
-    // soccerMinutes.first10Minutes.rows = first10Minutes(data);
-    // oddData = soccerMinutes as any;
+    soccerMinutes["10MinuteResult"].rows = minuteResult(data);
+    soccerMinutes.first10Minutes.rows = first10Minutes_minuetes(data);
+    oddData = soccerMinutes as any;
   }
 
-  // console.log("detail market soccer", data);
 
   return (
     <div className="w-[100%] bg-[#383838]">
@@ -281,7 +248,6 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
           if (oddData[key]?.subtabs?.length > 0) {
             let skip = true;
             oddData[key]?.subtabs.map((subtab: any) => {
-              // console.log("subtab", subtab, oddData[key][subtab]);
               if (oddData[key][subtab] && oddData[key][subtab].length > 0) {
                 skip = false;
               }

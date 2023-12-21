@@ -625,7 +625,7 @@ export const soccerHalf = {
     rows: [],
   },
   secondHalfResult: {
-    marketname: "Away Team Highest Scoring Half",
+    marketname: "Second Half Result",
     suspend: "0",
     header: [],
     rows: [],
@@ -657,10 +657,16 @@ export const soccerSpecials = {
     header: ["", "Home", "Away"],
     rows: [],
   },
-  toScoreInHalf: {
-    marketname: "To Score in Half",
+  homeToScoreInHalf: {
+    marketname: "Home Team To Score in Half",
     suspend: "0",
-    header: [],
+    header: ["Home", "Yes", "No"],
+    rows: [],
+  },
+  awayToScoreInHalf: {
+    marketname: "Away Team To Score in Half",
+    suspend: "0",
+    header: ["Away", "Yes", "No"],
     rows: [],
   },
   toScoreaPenalty: {
@@ -671,6 +677,12 @@ export const soccerSpecials = {
   },
   toMissaPenalty: {
     marketname: "To Miss a Penalty",
+    suspend: "0",
+    header: [],
+    rows: [],
+  },
+  ownGoal: {
+    marketname: "Own Goal",
     suspend: "0",
     header: [],
     rows: [],
