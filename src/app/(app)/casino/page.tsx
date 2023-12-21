@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import CasinoSearchBar from "./components/CasinoSearchBar";
 import CasinoProviderDropDown from "./components/CasinoProviderDropDown";
-import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -39,7 +38,7 @@ const Home = ({ params }: any) => {
       }
     };
     fetchSlots();
-  }, [userdata?.user?.token]);
+  }, []);
 
   const handleSearch = (searchValue: string) => {
     const filtered = slots.filter((slot: any) =>
@@ -95,7 +94,6 @@ const Home = ({ params }: any) => {
                   alt={slot.name}
                   className="w-full h-auto"
                 />
-
                 <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-200 hover:bg-black">
                   <p className="text-center text-white md:text-sm bg-black bg-opacity-0 rounded mb-2">
                     {slot.name}
