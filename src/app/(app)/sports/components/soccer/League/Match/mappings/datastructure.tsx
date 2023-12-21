@@ -342,7 +342,7 @@ export const soccerGoals = {
   exactFirstHalfGoals: {
     marketname: "Exact First Half Goals",
     suspend: "0",
-    header: ["", "Over", "Under"],
+    header: [],
     rows: [],
   },
   totalGoalMinutes: {
@@ -528,6 +528,12 @@ export const soccerHalf = {
     header: [],
     rows: [],
   },
+  bothTeamsToScorein1stHalf2ndHalf: {
+    marketname: "Both Teams to Score 1st Half - 2nd Half",
+    suspend: "0",
+    header: [],
+    rows: [],
+  },
   firstHalfAsianHandicap: {
     marketname: "1st Half Asian Handicap",
     suspend: "0",
@@ -550,6 +556,96 @@ export const soccerHalf = {
     marketname: "Alternative 1st Half Goal Line",
     suspend: "0",
     header: ["", "Over", "Under"],
+    rows: [],
+  },
+  firstHalfAsian3Way: {
+    marketname: "1st Half Handicap 3-Way",
+    suspend: "0",
+    header: ["Home", "Tie", "Away"],
+    rows: [],
+  },
+  alternativeFirstHalfHandicapResult: {
+    marketname: "Alternative 1st Half Handicap Result",
+    suspend: "0",
+    header: ["Home", "Tie", "Away"],
+    rows: [],
+  },
+  firstHalfGoals: {
+    marketname: "First Half Goals",
+    suspend: "0",
+    header: ["", "Over", "Under"],
+    rows: [],
+  },
+  exactFirstHalfGoals: {
+    marketname: "Exact First Half Goals",
+    suspend: "0",
+    header: [],
+    rows: [],
+  },
+  firstHalfCorners: {
+    marketname: "First Half Corners",
+    suspend: "0",
+    header: ["", "Over", "Exactly", "Under"],
+    rows: [],
+  },
+  firstHalfGoalsOddEven: {
+    marketname: "1st Half Goals Odd/Even",
+    suspend: "0",
+    header: [],
+    rows: [],
+  },
+  homeToScoreInHalf: {
+    marketname: "Home Team To Score in Half",
+    suspend: "0",
+    header: ["Home", "Yes", "No"],
+    rows: [],
+  },
+  awayToScoreInHalf: {
+    marketname: "Away Team To Score in Half",
+    suspend: "0",
+    header: ["Away", "Yes", "No"],
+    rows: [],
+  },
+  halfWithMostGoals: {
+    marketname: "Half With Most Goals",
+    suspend: "0",
+    header: [],
+    rows: [],
+  },
+  homeTeamHighestScoringHalf: {
+    marketname: "Home Team Highest Scoring Half",
+    suspend: "0",
+    header: [],
+    rows: [],
+  },
+  awayTeamHighestScoringHalf: {
+    marketname: "Away Team Highest Scoring Half",
+    suspend: "0",
+    header: [],
+    rows: [],
+  },
+  secondHalfResult: {
+    marketname: "Away Team Highest Scoring Half",
+    suspend: "0",
+    header: [],
+    rows: [],
+  },
+  secondHalfGoals: {
+    marketname: "Second Half Goals",
+    suspend: "0",
+    header: ["", "Over", "Under"],
+    rows: [],
+  },
+  exactSecondHalfGoals: {
+    marketname: "Exact Second Half Goals",
+    suspend: "0",
+    header: [],
+    rows: [],
+  },
+  secondHalfGoalsOddEven: {
+    marketname: "2nd Half Goals Odd/Even",
+    suspend: "0",
+    header: [],
     rows: [],
   },
 };

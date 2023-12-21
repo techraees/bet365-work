@@ -45,6 +45,9 @@ import {
   timeOfFirstTeamGoal,
   teamOddEvenGoals,
   halfTimeResult,
+  homeToScoreInHalf,
+  awayToScoreInHalf,
+  secondHalfResult,
   nthGoalMarketName,
   lastTeamToScore,
   alternativematchGoals,
@@ -56,11 +59,15 @@ import {
   goalLine,
   finalScore,
   halfTimeCorrectScore,
+  bothTeamsToScorein1stHalf2ndHalf,
   halfTimeFullTime,
   halftimeFulltimeCorrectScore,
   firstHalfAsianHandicap,
+  firstHalfAsian3Way,
+  alternativeFirstHalfHandicapResult,
   firstHalfGoalLine,
   exactFirstHalfGoals,
+  firstHalfCorners,
   firstTeamToScore,
   firstGoalMethod,
   earlyGoal,
@@ -95,8 +102,10 @@ import {
   BetTeamToScorein2ndHalf,
   betMatchCorners,
   firsthalfgoalOddEven,
+  secondhalfgoalOddEven,
   halfTimeDoubleChance,
   halfTimeResultBothTeamsToScore,
+  halfTimeResultTotalGoals,
   totalCorners3Way,
   goalscorers,
   alternativeAsianHandicap,
@@ -116,6 +125,7 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
     return null;
   }
   console.log("+++++++++++", data);
+  console.log("---------", active);
   let oddData = {} as any;
   oddData = soccerAll as any;
   if (active === "Popular" || active === "All") {
@@ -216,19 +226,38 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
     soccerGoals.first10Minutes.rows = first10Minutes(data);
     oddData = soccerGoals as any;
   } else if (active === "Half") {
-    // soccerHalf.halfTimeResult.rows = halfTimeResult(data);
-    // soccerHalf.halfTimeDoubleChance.rows = halfTimeDoubleChance(data);
-    // soccerHalf.halfTimeResultBothTeamsToScore.rows =
-    //   halfTimeResultBothTeamsToScore(data);
-    // soccerHalf.halfTimeCorrectScore.rows = halfTimeCorrectScore(data);
-    // soccerHalf.bothTeamsToScorein1stHalf.rows = bothTeamsToScoreHalf(data, "1");
-    // soccerHalf.bothTeamsToScorein2ndHalf.rows = bothTeamsToScoreHalf(data, "2");
-    // soccerHalf.firstHalfAsianHandicap.rows = firstHalfAsianHandicap(data, true);
-    // soccerHalf.firstHalfGoalLine.rows = firstHalfGoalLine(data, true);
-    // soccerHalf.alternativeFirstHalfAsianHandicap.rows =
-    //   firstHalfAsianHandicap(data);
-    // soccerHalf.alternativeFirstHalfGoalLine.rows = firstHalfGoalLine(data);
-    // oddData = soccerHalf as any;
+    soccerHalf.halfTimeResult.rows = halfTimeResult(data);
+    soccerHalf.halfTimeDoubleChance.rows = halfTimeDoubleChance(data);
+    soccerHalf.halfTimeResultBothTeamsToScore.rows =
+      halfTimeResultBothTeamsToScore(data);
+    soccerHalf.halfTimeResultTotalGoals.rows =
+      halfTimeResultTotalGoals(data);
+    soccerHalf.halfTimeCorrectScore.rows = halfTimeCorrectScore(data);
+    soccerHalf.bothTeamsToScorein1stHalf.rows = bothTeamsToScoreHalf(data, "1");
+    soccerHalf.bothTeamsToScorein2ndHalf.rows = bothTeamsToScoreHalf(data, "2");
+    soccerHalf.bothTeamsToScorein2ndHalf.rows = bothTeamsToScoreHalf(data, "2");
+    soccerHalf.bothTeamsToScorein1stHalf2ndHalf.rows = bothTeamsToScorein1stHalf2ndHalf(data);
+    soccerHalf.firstHalfAsianHandicap.rows = firstHalfAsianHandicap(data);
+    soccerHalf.firstHalfGoalLine.rows = firstHalfGoalLine(data);
+    soccerHalf.alternativeFirstHalfAsianHandicap.rows =
+      alternativeFirstHalfAsianHandicap(data);
+    soccerHalf.alternativeFirstHalfGoalLine.rows = alternativeFirstHalfGoalLine(data);
+    soccerHalf.firstHalfAsian3Way.rows = firstHalfAsian3Way(data);
+    soccerHalf.alternativeFirstHalfHandicapResult.rows = alternativeFirstHalfHandicapResult(data);
+    soccerHalf.firstHalfGoals.rows = firstHalfGoals(data);
+    soccerHalf.exactFirstHalfGoals.rows = exactFirstHalfGoals(data);
+    soccerHalf.firstHalfCorners.rows = firstHalfCorners(data);
+    soccerHalf.firstHalfGoalsOddEven.rows = firsthalfgoalOddEven(data);
+    soccerHalf.homeToScoreInHalf.rows = homeToScoreInHalf(data);
+    soccerHalf.awayToScoreInHalf.rows = awayToScoreInHalf(data);
+    soccerHalf.halfWithMostGoals.rows = halfWithMostGoals(data);
+    soccerHalf.homeTeamHighestScoringHalf.rows = teamHighestScoringHalf(data, "1");
+    soccerHalf.awayTeamHighestScoringHalf.rows = teamHighestScoringHalf(data, "2");
+    soccerHalf.secondHalfResult.rows = secondHalfResult(data);
+    soccerHalf.secondHalfGoals.rows = secondHalfGoals(data);
+    soccerHalf.exactSecondHalfGoals.rows = exactSecondHalfGoals(data);
+    soccerHalf.secondHalfGoalsOddEven.rows = secondhalfgoalOddEven(data);
+    oddData = soccerHalf as any;
   } else if (active === "Specials") {
     // soccerSpecials.specials.rows = betteamSpecials(data);
     // soccerSpecials.toScoreaPenalty.rows = toScoreaPenalty(data);
