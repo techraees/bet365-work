@@ -1,25 +1,26 @@
 import { useState } from "react";
 import clsx from "clsx";
 
-import BonusPrimeTableItem from "./BonusPrimeTableItem";
+import { useModalContext } from "../../../../contexts/ModalContext";
+import UsersTableItem from "./UsersTableItem";
 
-interface BonusPrimeTableProps {
+interface UsersTableProps {
   parentId_: number;
   child: any;
   createTable: any;
   getChildren: any;
   removeChildren: any;
-  onHandleSetBonusClick: any;
+  onHandleDelayClick: any;
 };
 
-const BonusPrimeTable = ({
+const UsersTable = ({
   parentId_,
   child,
   createTable,
   getChildren,
   removeChildren,
-  onHandleSetBonusClick
-}: BonusPrimeTableProps) => {
+  onHandleDelayClick
+}: UsersTableProps) => {
   const [open, setOpen] = useState(false);
   const [parentId, setParentId] = useState(parentId_);
   const [selectedItem, setSelectedItem] = useState(false);
@@ -63,13 +64,13 @@ const BonusPrimeTable = ({
                   {Array.isArray(item) === true &&
                     createTable(item, open, parentId + 1)}
                   {Array.isArray(item) === false && (
-                    <BonusPrimeTableItem
+                    <UsersTableItem
                       item_={item}
                       getChildren={(username: string, id: number) => {
                         getChildren(username, id);
                       }}
                       removeChildren={removeChildren}
-                      onHandleSetBonusClick={(name: string) => onHandleSetBonusClick(name)}
+                      onHandleDelayClick={(name: string) => onHandleDelayClick(name)}
                     />
                   )}
                 </tr>
@@ -77,13 +78,13 @@ const BonusPrimeTable = ({
             })}
           {Array.isArray(child) === false && (
             <tr className="bg-[#666] text-white">
-              <BonusPrimeTableItem
+              <UsersTableItem
                 item_={child}
                 getChildren={(username: string, id: number) => {
                   getChildren(username, id);
                 }}
                 removeChildren={removeChildren}
-                onHandleSetBonusClick={(name: string) => onHandleSetBonusClick(name)}
+                onHandleDelayClick={(name: string) => onHandleDelayClick(name)}
                 />
             </tr>
           )}
@@ -93,4 +94,4 @@ const BonusPrimeTable = ({
   );
 };
 
-export default BonusPrimeTable;
+export default UsersTable;

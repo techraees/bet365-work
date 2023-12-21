@@ -1,6 +1,6 @@
 import { Modal } from "antd";
 
-import { useModalContext } from "../../../../contexts/ModalContext";
+import { useModalContext } from "@/app/(app)/components/admin/contexts/ModalContext";
 
 const ModalBonusPrime = ({
   tableList,

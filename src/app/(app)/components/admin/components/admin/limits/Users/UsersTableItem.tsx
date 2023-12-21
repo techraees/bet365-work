@@ -3,21 +3,21 @@ import { useSession } from "next-auth/react";
 
 import clsx from "clsx";
 
-import { useModalContext } from "@/app/(app)/components/admin/contexts/ModalContext";
+import { useModalContext } from "../../../../contexts/ModalContext";
 
-interface BonusPrimeTableItemProps {
+interface UserTableItemProps {
   item_: any;
   getChildren: any;
   removeChildren: any;
-  onHandleSetBonusClick: any;
+  onHandleLimitClick: any;
 };
 
-const BonusPrimeTableItem = ({
+const UserTableItem = ({
   item_,
   getChildren,
   removeChildren,
-  onHandleSetBonusClick
-}: BonusPrimeTableItemProps) => {
+  onHandleLimitClick
+}: UserTableItemProps) => {
   const { openTransferModal } = useModalContext();
   const { data: session } = useSession();
 
@@ -36,6 +36,12 @@ const BonusPrimeTableItem = ({
         <div className="flex gap-1 w-full justify-end">
           <button
             type="button"
+            className={clsx("bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black", session.user.role === item.role ? "block" : "hidden")}
+          >
+            Authority
+          </button>
+          <button
+            type="button"
             className={clsx(
               "text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black",
               open ? "bg-brand-clicked-button" : "bg-brand-button", item.role === 'User' ? "hidden" : "block"
@@ -51,9 +57,9 @@ const BonusPrimeTableItem = ({
           <button
             type="button"
             className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
-            onClick={() => onHandleSetBonusClick(item.username)}
+            onClick={() => onHandleLimitClick(item.username)}
           >
-            Set Bonus
+            Limits
           </button>
         </div>
       </td>
@@ -61,4 +67,4 @@ const BonusPrimeTableItem = ({
   );
 };
 
-export default BonusPrimeTableItem;
+export default UserTableItem;

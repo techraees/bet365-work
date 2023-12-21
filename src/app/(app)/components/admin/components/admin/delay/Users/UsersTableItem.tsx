@@ -3,21 +3,21 @@ import { useSession } from "next-auth/react";
 
 import clsx from "clsx";
 
-import { useModalContext } from "@/app/(app)/components/admin/contexts/ModalContext";
+import { useModalContext } from "../../../../contexts/ModalContext";
 
-interface BonusPrimeTableItemProps {
+interface UserTableItemProps {
   item_: any;
   getChildren: any;
   removeChildren: any;
-  onHandleSetBonusClick: any;
+  onHandleDelayClick: any;
 };
 
-const BonusPrimeTableItem = ({
+const UserTableItem = ({
   item_,
   getChildren,
   removeChildren,
-  onHandleSetBonusClick
-}: BonusPrimeTableItemProps) => {
+  onHandleDelayClick
+}: UserTableItemProps) => {
   const { openTransferModal } = useModalContext();
   const { data: session } = useSession();
 
@@ -51,9 +51,9 @@ const BonusPrimeTableItem = ({
           <button
             type="button"
             className="bg-brand-button text-brand-button-text hover:text-white px-2 md:px-4 h-8 border border-black"
-            onClick={() => onHandleSetBonusClick(item.username)}
+            onClick={() => onHandleDelayClick(item.username)}
           >
-            Set Bonus
+            Delay
           </button>
         </div>
       </td>
@@ -61,4 +61,4 @@ const BonusPrimeTableItem = ({
   );
 };
 
-export default BonusPrimeTableItem;
+export default UserTableItem;
