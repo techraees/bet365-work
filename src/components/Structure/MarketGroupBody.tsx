@@ -22,7 +22,7 @@ const RowData: React.FC<RowDataProps> = ({ odd, data, active }) => {
     return <Subtabs odd={odd} data={data} active={active} />;
   }
 
-  console.log("zzzzzz", odd);
+  // console.log("zzzzzz", odd);
   if (active === "Bet Builder") {
     return (
       <>

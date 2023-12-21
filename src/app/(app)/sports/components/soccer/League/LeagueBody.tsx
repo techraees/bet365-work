@@ -77,7 +77,7 @@ const CategoryBased = ({ dates, active }: any) => {
     <>
       {dates &&
         Object.keys(dates).map((date: any) => {
-          console.log({ dd: dates });
+          // console.log({ dd: dates });
           return (
             <div key={date}>
               <div className="h-[30px] bg-[#ffffff12] text-[white] text-[12px] font-[700] pl-[30px] flex items-center">
