@@ -2,6 +2,7 @@
 module.exports = {
   darkMode: ['class'],
   content: [
+    "./node_modules/flowbite-react/**/*.js",
     './src/pages/**/*.{ts,tsx}',
     './src/components/**/*.{ts,tsx}',
     './src/app/**/*.{ts,tsx}',
@@ -55,11 +56,25 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
         brand: {
-          green: '#126e51',
-          'green-light': '#26ffbe',
-          yellow: '#ffdf1b',
+          green: "#126e51",
+          "title": '#222',
+          "table": "#777",
+          "hover-table": "#959595",
+          "minus-cell": "#b71c1c",
+          "plus-cell": "#14805e",
+          "red": "#b71c1c",
+          "navbar": '#333',
+          "green-light": "#26ffbe",
+          "button": "#474747",
+          "clicked-button": "#14805e",
+          "button-text": "#bbb",
+          "no-result": "#bbb",
+          yellow: "#ffdf1b",
           'light-grey': '#e4e4e4',
-          'dark-grey': '#333',
+          "dark-grey":'#333',
+          "dialog": "#575757",
+          "dialog-button": "#c9cad4",
+          "disabled-dialog-button": "#aaa"
         },
       },
       borderRadius: {
@@ -86,5 +101,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require("flowbite/plugin")
+  ],
 }
