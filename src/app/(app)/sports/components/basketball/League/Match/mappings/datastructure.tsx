@@ -109,6 +109,30 @@ export const basketballBetBuilder = {
 };
 
 export const basketballMainProps = {
+  alternativePointSpread: {
+    marketname: "Alternative Point Spread",
+    suspend: "0",
+    header: ["Home", "Away"],
+    rows: [],
+  },
+  alternativeGameTotal: {
+    marketname: "Alternative Game Total",
+    suspend: "0",
+    header: ["Home", "Away"],
+    rows: [],
+  },
+  alternativePointSpread2: {
+    marketname: "Alternative Point Spread 2",
+    suspend: "0",
+    header: ["Home", "Away"],
+    rows: [],
+  },
+  alternativeGameTotal2: {
+    marketname: "Alternative Game Total 2",
+    suspend: "0",
+    header: ["Home", "Away"],
+    rows: [],
+  },
   resultAndBothTeamsToScoreXPoints: {
     marketname: "Result and Both Teams to Score 'X' Points",
     suspend: "0",
@@ -133,13 +157,37 @@ export const basketballMainProps = {
     header: [],
     rows: [],
   },
+  winningMargin: {
+    marketname: "Winning Margin",
+    suspend: "0",
+    header: ["", "Home", "Away"],
+    rows: [],
+  },
+  winningMargin3Way: {
+    marketname: "Winning Margin 3-Way",
+    suspend: "0",
+    header: ["", "Home", "Away"],
+    rows: [],
+  },
+  winningMargin7Way: {
+    marketname: "Winning Margin 7-Way",
+    suspend: "0",
+    header: ["", ""],
+    rows: [],
+  },
+  winningMargin12Way: {
+    marketname: "Winning Margin 12-Way",
+    suspend: "0",
+    header: ["", "Home", "Away"],
+    rows: [],
+  },
   raceTo20Points: {
     marketname: "Race to 20 Points",
     suspend: "0",
     header: [],
     rows: [],
   },
-  "tiedAtEndOfRegulations?": {
+  tiedAtEndOfRegulations: {
     marketname: "Tied at End of Regulation?",
     suspend: "0",
     header: [],
@@ -163,7 +211,19 @@ export const basketballMainProps = {
     header: [],
     rows: [],
   },
-  "gameTotal-Odd/Even": {
+  gameTotalBands8Way: {
+    marketname: "Game Total (Bands) 8-Way",
+    suspend: "0",
+    header: [],
+    rows: [],
+  },
+  gameTotalBands3Way: {
+    marketname: "Game Total (Bands) 3-Way",
+    suspend: "0",
+    header: [],
+    rows: [],
+  },
+  gameTotalOddEven: {
     marketname: "Game Total - Odd/Even",
     suspend: "0",
     header: [],
@@ -184,10 +244,46 @@ export const basketballTeamProps = {
     header: ["Home", "Away"],
     rows: [],
   },
+  homeAlternativeTeamTotals: {
+    marketname: "Alternative Home Team Totals",
+    suspend: "0",
+    header: ["Home", "Over", "Under"],
+    rows: [],
+  },
+  awayAlternativeTeamTotals: {
+    marketname: "Alternative Away Team Totals",
+    suspend: "0",
+    header: ["Away", "Over", "Under"],
+    rows: [],
+  },
+  homeAlternativeTeamTotals2: {
+    marketname: "Alternative Home Team Totals 2",
+    suspend: "0",
+    header: ["Home", "Over", "Under"],
+    rows: [],
+  },
+  awayAlternativeTeamTotals2: {
+    marketname: "Alternative Away Team Totals 2",
+    suspend: "0",
+    header: ["Away", "Over", "Under"],
+    rows: [],
+  },
   "1stQuarterTeamTotals": {
     marketname: "1st Quarter Team Totals",
     suspend: "0",
     header: ["Home", "Away"],
+    rows: [],
+  },
+  homeAlternativeFirstQuarterTeamTotals: {
+    marketname: "Alternative 1st Quarter Home Team Totals",
+    suspend: "0",
+    header: ["Home", "Over", "Under"],
+    rows: [],
+  },
+  awayAlternativeFirstQuarterTeamTotals: {
+    marketname: "Alternative 1st Quarter Away Team Totals",
+    suspend: "0",
+    header: ["Away", "Over", "Under"],
     rows: [],
   },
   "1stHalfTeamTotals": {
@@ -196,15 +292,75 @@ export const basketballTeamProps = {
     header: ["Home", "Away"],
     rows: [],
   },
+  homeAlternativeFirstHalfTeamTotals: {
+    marketname: "Alternative 1st Half Home Team Totals",
+    suspend: "0",
+    header: ["Home", "Over", "Under"],
+    rows: [],
+  },
+  awayAlternativeFirstHalfTeamTotals: {
+    marketname: "Alternative 1st Half Away Team Totals",
+    suspend: "0",
+    header: ["Away", "Over", "Under"],
+    rows: [],
+  },
+  homeFirstQuarterTeamToScoreXPoint: {
+    marketname: "1st Quarter Home Team To Score X Points",
+    suspend: "0",
+    header: ["Home", "Yes", "No"],
+    rows: [],
+  },
+  awayFirstQuarterTeamToScoreXPoint: {
+    marketname: "1st Quarter Away Team To Score X Points",
+    suspend: "0",
+    header: ["Away", "Yes", "No"],
+    rows: [],
+  },
   "teamTotal-Odd/Even": {
     marketname: "Team Total - Odd/Even",
     suspend: "0",
     header: ["Home", "Away"],
     rows: [],
   },
+  homeFirstHalfTeamToScoreXPoint: {
+    marketname: "1st Half Home Team To Score X Points",
+    suspend: "0",
+    header: ["Home", "Yes", "No"],
+    rows: [],
+  },
+  awayFirstHalfTeamToScoreXPoint: {
+    marketname: "1st Half Away Team To Score X Points",
+    suspend: "0",
+    header: ["Away", "Yes", "No"],
+    rows: [],
+  },
 };
 
 export const basketballQuarterProps = {
+  alternativeFirstQuarterPointSpread: {
+    marketname: "Alternative 1st Quarter Point Spread",
+    suspend: "0",
+    header: ["Home", "Away"],
+    rows: [],
+  },
+  alternativeFirstQuarterTotals: {
+    marketname: "Alternative 1st Quarter Totals",
+    suspend: "0",
+    header: ["", "Over", "Under"],
+    rows: [],
+  },
+  homeAlternativeFirstQuarterTeamTotals: {
+    marketname: "Alternative 1st Quarter Home Team Totals",
+    suspend: "0",
+    header: ["Home", "Over", "Under"],
+    rows: [],
+  },
+  awayAlternativeFirstQuarterTeamTotals: {
+    marketname: "Alternative 1st Quarter Away Team Totals",
+    suspend: "0",
+    header: ["Away", "Over", "Under"],
+    rows: [],
+  },
   "1stQuarterBothTeamsToScoreXPoints": {
     marketname: "1st Quarter Both Teams to Score X Points",
     suspend: "0",
@@ -253,6 +409,18 @@ export const basketballQuarterProps = {
     header: ["Home", "Away"],
     rows: [],
   },
+  homeFirstQuarterTeamToScoreXPoint: {
+    marketname: "1st Quarter Home Team To Score X Points",
+    suspend: "0",
+    header: ["Home", "Yes", "No"],
+    rows: [],
+  },
+  awayFirstQuarterTeamToScoreXPoint: {
+    marketname: "1st Quarter Away Team To Score X Points",
+    suspend: "0",
+    header: ["Away", "Yes", "No"],
+    rows: [],
+  },
   "1stQuarterTotal-Odd/Even": {
     marketname: "1st Quarter Total - Odd/Even",
     suspend: "0",
@@ -272,6 +440,30 @@ export const basketballHalfProps = {
     marketname: "1st Half Team Totals",
     suspend: "0",
     header: ["Home", "Away"],
+    rows: [],
+  },
+  homeAlternativeFirstHalfTeamTotals: {
+    marketname: "Alternative 1st Half Home Team Totals",
+    suspend: "0",
+    header: ["Home", "Over", "Under"],
+    rows: [],
+  },
+  awayAlternativeFirstHalfTeamTotals: {
+    marketname: "Alternative 1st Half Away Team Totals",
+    suspend: "0",
+    header: ["Away", "Over", "Under"],
+    rows: [],
+  },
+  alternativeFirstHalfPointSpread: {
+    marketname: "Alternative 1st Half Point Spread",
+    suspend: "0",
+    header: ["Home", "Away"],
+    rows: [],
+  },
+  alternativeFirstHalfTotals: {
+    marketname: "Alternative 1st Half Totals",
+    suspend: "0",
+    header: ["", "Over", "Under"],
     rows: [],
   },
   "1stHalfWinningMargin": {
@@ -304,6 +496,18 @@ export const basketballHalfProps = {
     header: ["", "Yes", "No"],
     rows: [],
   },
+  homeFirstHalfTeamToScoreXPoint: {
+    marketname: "1st Half Home Team To Score X Points",
+    suspend: "0",
+    header: ["Home", "Yes", "No"],
+    rows: [],
+  },
+  awayFirstHalfTeamToScoreXPoint: {
+    marketname: "1st Half Away Team To Score X Points",
+    suspend: "0",
+    header: ["Away", "Yes", "No"],
+    rows: [],
+  },
   "1stHalfSpread3-Way": {
     marketname: "1st Half Spread 3-Way",
     suspend: "0",
@@ -313,7 +517,7 @@ export const basketballHalfProps = {
   "1stHalfTotals3-Way": {
     marketname: "1st Half Totals 3-Way",
     suspend: "0",
-    header: ["Over", "Exactly", "Under"],
+    header: ["","Over", "Exactly", "Under"],
     rows: [],
   },
   "1stHalfMoneyLine3-Way": {
