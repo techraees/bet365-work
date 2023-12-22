@@ -3889,9 +3889,9 @@ export const alternativeFirstHalfHandicapResult = (data: any) => {
 };
 
 export const asianTotalCorners = (data: any) => {
-  const match = data?.odds?.corners?.sp?.asian_total_corners.odds;
-  const odd_id = data?.odds?.corners?.sp?.asian_total_corners.id;
-  const odd_name = data?.odds?.corners?.sp?.asian_total_corners.name;
+  const match = data?.odds?.corners?.sp?.asian_total_corners?.odds;
+  const odd_id = data?.odds?.corners?.sp?.asian_total_corners?.id;
+  const odd_name = data?.odds?.corners?.sp?.asian_total_corners?.name;
   if (!match) {
     return [];
   }
@@ -3999,9 +3999,9 @@ export const asianHandicapCorners = (data: any) => {
 };
 
 export const firstHalfAsianCorners = (data: any) => {
-  const match = data?.odds?.corners?.sp['1st_half_asian_corners'].odds;
-  const odd_id = data?.odds?.corners?.sp['1st_half_asian_corners'].id;
-  const odd_name = data?.odds?.corners?.sp['1st_half_asian_corners'].name;
+  const match = data?.odds?.corners?.sp['1st_half_asian_corners']?.odds;
+  const odd_id = data?.odds?.corners?.sp['1st_half_asian_corners']?.id;
+  const odd_name = data?.odds?.corners?.sp['1st_half_asian_corners']?.name;
   if (!match) {
     return [];
   }

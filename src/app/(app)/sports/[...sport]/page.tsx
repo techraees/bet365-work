@@ -194,7 +194,7 @@ const Home = ({ params }: any) => {
   if (sport[0] === "basketball") {
     let getLeagues = pregameLeagues as any;
 
-    if (getLeagues.length > 0) {
+    if (getLeagues?.length > 0) {
       return (
         <div>
           <NatsBasketball sport={sport} getLeagues={getLeagues} />;
