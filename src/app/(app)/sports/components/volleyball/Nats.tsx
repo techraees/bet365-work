@@ -7,9 +7,7 @@ import Match from "./League/Match/Match";
 
 const Odds = ({ sport, getLeagues }: any) => {
   if (sport[2]) {
-    console.log(decodeURIComponent(sport[2]));
   }
-  console.log({ sport: sport, hi: getLeagues });
   let show = <></>;
   if (sport[1] && sport[1] === "leagues" && sport[2] && sport[3]) {
     show = (

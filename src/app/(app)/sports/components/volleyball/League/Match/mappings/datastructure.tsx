@@ -5,12 +5,6 @@ export const volleyball = {
         header: ["", "Home", "Away"],
         rows: []
     },
-    "matchHandicap-Points": {
-        marketname: "Match Handicap - Points",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: []
-    },
     "correctSetScore": {
         marketname: "Correct Set Score",
         suspend: "0",
@@ -23,44 +17,8 @@ export const volleyball = {
         header: [],
         rows: []
     },
-    "doubleResult": {
-        marketname: "Double Result",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "teamTotalPoints": {
-        marketname: "Team Total Points",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: []
-    },
-    "scoreAfter2Sets": {
-        marketname: "Score After 2 Sets",
-        suspend: "0",
-        header: ["", "Home", "Away"],
-        rows: []
-    },
-    "scoreAfter3Sets": {
-        marketname: "Score After 3 Sets",
-        suspend: "0",
-        header: ["", "Home", "Away"],
-        rows: []
-    },
     "1stSetLines": {
         marketname: "1st Set Lines",
-        suspend: "0",
-        header: ["", "Home", "Away"],
-        rows: []
-    },
-    "1stSetWinningMargin": {
-        marketname: "1st Set Winning Margin",
-        suspend: "0",
-        header: ["", "Home", "Away"],
-        rows: []
-    },
-    "1stSetCorrectScore": {
-        marketname: "1st Set Correct Score",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: []

@@ -26,6 +26,7 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
   if (!data) {
     return null;
   }
+  console.log(data);
   let oddData = {} as any;
   oddData = volleyball as any;
   if (active === "Main Markets" || active === "All") {
@@ -51,7 +52,6 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
           if (oddData[key]?.subtabs?.length > 0) {
             let skip = true;
             oddData[key]?.subtabs.map((subtab: any) => {
-              console.log("subtab", subtab, oddData[key][subtab]);
               if (oddData[key][subtab] && oddData[key][subtab].length > 0) {
                 skip = false;
               }
