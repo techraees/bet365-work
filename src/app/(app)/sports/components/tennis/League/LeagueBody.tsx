@@ -79,9 +79,7 @@ const CategoryBased = ({ dates, active }: any) => {
     <>
       {dates &&
         Object.keys(dates).map((date: any) => {
-          const formattedDate = formatDateToCustomString(
-            date.replaceAll(".", "-")
-          );
+          const formattedDate = date;
           return (
             <div key={date}>
               <div className="h-[30px] bg-[#ffffff12] text-[white] text-[12px] font-[700] pl-[30px] flex items-center">
@@ -100,7 +98,16 @@ const CategoryBased = ({ dates, active }: any) => {
                 const moneyLine = [] as any;
                 const total = [] as any;
                 const runline = [] as any;
-                console.log({ odl: data?.odds });
+                var odds = data?.odds.main?.sp?.to_win_match?.odds;
+
+                console.log({ odl: data?.odds.main.sp?.to_win_match });
+                odds.forEach((odd: any) => {
+                  moneyLine.push({
+                    title: "",
+                    value: odd.odds,
+                    suspend: "0",
+                  });
+                });
                 // console.log({ moneyLine, total, runline })
                 return (
                   <div
