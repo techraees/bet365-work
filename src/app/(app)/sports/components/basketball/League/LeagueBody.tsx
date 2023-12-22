@@ -95,7 +95,6 @@ const CategoryBased = ({ dates, active }: any) => {
       {dates &&
         Object.keys(dates).map((date: any) => {
           const formattedDate = date;
-          console.log({ ddf: dates[date] });
           return (
             <div key={date}>
               <div className="h-[30px] bg-[#ffffff12] text-[white] text-[12px] font-[700] pl-[30px] flex items-center">
@@ -120,7 +119,6 @@ const CategoryBased = ({ dates, active }: any) => {
                 const grouped_by_name = get_objects_grouped_by_name(
                   data?.odds.main.sp.game_lines.odds
                 );
-                console.log({ data: data, gh: grouped_by_name });
                 grouped_by_name["Spread"]?.forEach((obj: any) => {
                   var _obj = {
                     title: obj.handicap,

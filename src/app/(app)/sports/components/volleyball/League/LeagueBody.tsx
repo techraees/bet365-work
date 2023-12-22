@@ -8,7 +8,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { useRouter, usePathname } from "next/navigation";
 import { MarketCellSplit } from "@/components/Structure/MarketCell";
 import formatDateToCustomString from "@/components/Structure/FormatDateToCustomString";
-
+import { get_objects_grouped_by_name } from "./Match/mappings/pregamemaps";
 const LeagueBody = ({ leagueSelectedGames, active }: any) => {
   const [category, setCategory] = useState({
     isOpen: false,
@@ -20,10 +20,14 @@ const LeagueBody = ({ leagueSelectedGames, active }: any) => {
   const dates = {} as any;
   if (leagueSelectedGames && leagueSelectedGames.length > 0) {
     leagueSelectedGames?.map((data: any) => {
-      if (dates && dates[data?.date] && dates[data?.date].length > 0) {
-        dates[data?.date].push(data);
+      if (
+        dates &&
+        dates[data?.formatted_date] &&
+        dates[data?.formatted_date].length > 0
+      ) {
+        dates[data?.formatted_date].push(data);
       } else {
-        dates[data?.date] = [data];
+        dates[data?.formatted_date] = [data];
       }
     });
   } else {
@@ -97,54 +101,37 @@ const CategoryBased = ({ dates, active }: any) => {
                 const moneyLine = [] as any;
                 const total = [] as any;
                 const runline = [] as any;
-                let match = data?.odds?.filter((item: any) => item.id === "2");
-                if (match && match.length > 0) {
-                  match[0]?.bookmakers[0].odds.map((odd: any) => {
-                    moneyLine.push({
-                      title: "",
-                      value: odd.value,
-                      suspend: odd.stop === "False" ? "0" : "1",
-                    });
-                  });
-                }
+                console.log({ main_odds: data?.odds?.main });
+                const grouped_by_name = get_objects_grouped_by_name(
+                  data?.odds.main.sp.game_lines.odds
+                );
 
-                match = data?.odds?.filter((item: any) => item.id === "22624");
-                if (match && match.length > 0) {
-                  match[0]?.bookmakers[0].odds.map((odd: any) => {
-                    if (total.length == 2) {
-                      return;
-                    }
-                    odd.odds.map((nd: any) => {
-                      if (nd.stop === "False") {
-                        total.push({
-                          title: `${nd.name[0]} ${odd.name}`,
-                          value: nd.value,
-                          suspend: nd.stop === "False" ? "0" : "1",
-                        });
-                      }
-                    });
-                  });
-                }
+                grouped_by_name["To Win"]?.forEach((obj: any) => {
+                  var _obj = {
+                    title: "",
+                    value: obj.odds,
+                    suspend: "0",
+                  };
+                  moneyLine.push(_obj);
+                });
 
-                match = data?.odds?.filter((item: any) => item.id === "22630");
-                if (match && match.length > 0) {
-                  match[0]?.bookmakers[0].odds.map((odd: any) => {
-                    if (runline.length == 2) {
-                      return;
-                    }
-                    if (odd.ismain) {
-                      odd.odds.map((i: any) => {
-                        if (i.stop === "False") {
-                          runline.push({
-                            title: odd.name,
-                            value: i.value,
-                            suspend: i.stop === "False" ? "0" : "1",
-                          });
-                        }
-                      });
-                    }
-                  });
-                }
+                grouped_by_name["Total Points"]?.forEach((obj: any) => {
+                  var _obj = {
+                    title: obj.handicap,
+                    value: obj.odds,
+                    suspend: "0",
+                  };
+                  total.push(_obj);
+                });
+
+                grouped_by_name["Handicap - Sets"]?.forEach((obj: any) => {
+                  var _obj = {
+                    title: obj.handicap,
+                    value: obj.odds,
+                    suspend: "0",
+                  };
+                  runline.push(_obj);
+                });
                 // console.log({ moneyLine, total, runline })
                 return (
                   <div
@@ -153,7 +140,7 @@ const CategoryBased = ({ dates, active }: any) => {
                       "text-xs  h-[100px] flex text-[white] items-center min-h-[70px] pl-[30px]",
                       index == 0
                         ? ""
-                        : "border-t border-solid border-t-[#ffffff1a]",
+                        : "border-t border-solid border-t-[#ffffff1a]"
                     )}
                   >
                     <div
@@ -169,7 +156,9 @@ const CategoryBased = ({ dates, active }: any) => {
                           <div className="truncate">
                             {data?.localteam?.name}
                           </div>
-                          <div className="truncate">{data?.awayteam?.name}</div>
+                          <div className="truncate">
+                            {data?.visitorteam?.name}
+                          </div>
                           <div className="text-[10px] leading-3 font-[500] flex md:hidden">
                             {data?.time}
                           </div>
@@ -253,4 +242,3 @@ const CategoryBased = ({ dates, active }: any) => {
     </>
   );
 };
-

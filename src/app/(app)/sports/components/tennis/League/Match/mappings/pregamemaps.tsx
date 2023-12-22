@@ -1,6 +1,21 @@
 "use client";
 import React from "react";
 
+export const get_objects_grouped_by_name = (odds_array: any) => {
+  const groupedData = odds_array.reduce((acc: any, item: any) => {
+    const key = item.name;
+
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+
+    acc[key].push(item);
+
+    return acc;
+  }, {});
+  return groupedData;
+};
+
 export const toWinMatch = (data: any) => {
   if (!data && !data.odds) {
     return [];
