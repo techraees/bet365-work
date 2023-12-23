@@ -10,7 +10,6 @@ import { getPregameEvent } from "@/api";
 const Match = ({ sport, league, gameid }: any) => {
   const [active, setActive] = useState("Main");
   const [match, setMatch] = useState<any>({});
-  console.log({ sport, league, gameid });
 
   useEffect(() => {
     async function fetchData() {
@@ -25,7 +24,6 @@ const Match = ({ sport, league, gameid }: any) => {
     fetchData();
   }, []); // Empty dependency array to run the effect once on mount
 
-  console.log({ match: match });
   const router = useRouter();
   const tabs = {
     soccer: ["Main", "Bet Builder", "Set", "Goals", "Player"],

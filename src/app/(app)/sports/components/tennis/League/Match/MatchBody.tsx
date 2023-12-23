@@ -5,8 +5,9 @@ import { categoriesMapping } from '@/lib/sportsMapping';
 import Chevron from '@/components/ui/icons/chevron';
 import StarBorderline, { StarFilled } from '@/components/ui/icons/star-borderline';
 import { tennisMain, tennisBetBuilder, tennisGames, tennisPlayer, tennisSet } from './mappings/datastructure';
-import {toWinMatch, matchHandicapGames, totalGames2Way, setBetting, firstSetWinner, firstSetTotalGames, firstSetScore,
-    matchResultAndTotalGames, homeAwayTo, totalBreaksOfServe, doubleResult, totalGamesInSet
+import {
+    toWinMatch, matchHandicapGames, totalGames2Way, setBetting, firstSetWinner, firstSetTotalGames, firstSetScore,
+    matchResultAndTotalGames, homeAwayTo, totalGamesInSet, firstHomeAwayServiceGameWinners, firstHomeAwayServiceGameScore, firstHomeAwayServiceGameToWinTo, goTheDistance, firstSethandicap, firstSetCorrectScoreGroup, firstSetScoreAnyPlayer, firstSetPlayerToBreakServe, firstBreakOfServe, firstHomeAwayServiceGameYesNo, firstHomeAwayServiceGameTotalPoints
 } from './mappings/pregamemaps';
 import MarketGroupBody from '@/components/Structure/MarketGroupBody';
 
@@ -17,7 +18,7 @@ interface MarketGroupProps {
 
 
 const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
-
+    console.log("++++++++", data);
     if (!data) {
         return null
     }
@@ -34,8 +35,13 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
         tennisMain.matchResultAndTotalGames.rows = matchResultAndTotalGames(data);
         tennisMain.homeTo = homeAwayTo(data, tennisMain.homeTo, 'home');
         tennisMain.awayTo = homeAwayTo(data, tennisMain.awayTo, 'away');
-        tennisMain.totalBreaksOfServe.rows = totalBreaksOfServe(data);
-        tennisMain.doubleResult.rows =doubleResult(data);
+        tennisMain['firstHomeServiceGame-Winners'] = firstHomeAwayServiceGameWinners(data, tennisMain['firstHomeServiceGame-Winners'], 'home');
+        tennisMain['firstAwayServiceGame-Winners'] = firstHomeAwayServiceGameWinners(data, tennisMain['firstAwayServiceGame-Winners'], 'away');
+        tennisMain['firstHomeServiceGame-Score'] = firstHomeAwayServiceGameScore(data, tennisMain['firstHomeServiceGame-Score'], 'home');
+        tennisMain['firstAwayServiceGame-Score'] = firstHomeAwayServiceGameScore(data, tennisMain['firstAwayServiceGame-Score'], 'away');
+        tennisMain['firstHomeServiceGame-ToWinTo'] = firstHomeAwayServiceGameToWinTo(data, tennisMain['firstHomeServiceGame-ToWinTo'], 'home');
+        tennisMain['firstAwayServiceGame-ToWinTo'] = firstHomeAwayServiceGameToWinTo(data, tennisMain['firstAwayServiceGame-ToWinTo'], 'away');
+        tennisMain.goTheDistance.rows = goTheDistance(data);
         oddData = tennisMain as any;
     } else if (active === "Bet Builder") {
         // tennisBetBuilder.result.rows = betResult(data);
@@ -46,9 +52,42 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
         // tennisBetBuilder.halfWithMostGoals.rows = bethalfWithMostGoals(data);
         // tennisBetBuilder.teamSpecials.rows = betteamSpecials(data);
         // tennisBetBuilder.goalOddEven.rows = betGoalOddEven(data);
-        tennisBetBuilder.setBetting.rows = setBetting(data);
-        tennisBetBuilder.totalGamesInSet = totalGamesInSet(data, tennisBetBuilder.totalGamesInSet);
+        // tennisBetBuilder.setBetting.rows = setBetting(data);
+        // tennisBetBuilder.totalGamesInSet = totalGamesInSet(data, tennisBetBuilder.totalGamesInSet);
         oddData = tennisBetBuilder as any;
+    } else if (active === "Set") {
+        tennisSet.firstSetWinner.rows = firstSetWinner(data);
+        tennisSet.setBetting.rows = setBetting(data);
+        tennisSet['1stSetTotalGames'].rows = firstSetTotalGames(data);
+        tennisSet.firstSetScore.rows = firstSetScore(data);
+        tennisSet.firstSethandicap.rows = firstSethandicap(data);
+        tennisSet.firstSetCorrectScoreGroup.rows = firstSetCorrectScoreGroup(data);
+        tennisSet.firstSetScoreAnyPlayer.rows = firstSetScoreAnyPlayer(data);
+        tennisSet.firstSetPlayerToBreakServe.rows = firstSetPlayerToBreakServe(data);
+        oddData = tennisSet as any;
+    } else if (active === "Goals") {
+        tennisGames.matchHandicapGames.rows = matchHandicapGames(data);
+        tennisGames['totalGames2-Way'].rows = totalGames2Way(data);
+        tennisGames['1stSetTotalGames'].rows = firstSetTotalGames(data);
+        tennisGames.firstBreakOfServe.rows = firstBreakOfServe(data);
+        tennisGames.matchResultAndTotalGames.rows = matchResultAndTotalGames(data);
+        oddData = tennisGames as any;
+    } else if (active === "Player") {
+        tennisPlayer.firstSetPlayerToBreakServe.rows = firstSetPlayerToBreakServe(data);
+        tennisPlayer.homeTo = homeAwayTo(data, tennisPlayer.homeTo, 'home');
+        tennisPlayer.awayTo = homeAwayTo(data, tennisPlayer.awayTo, 'away');
+        tennisPlayer['firstHomeServiceGame-Winners'] = firstHomeAwayServiceGameWinners(data, tennisPlayer['firstHomeServiceGame-Winners'], 'home');
+        tennisPlayer['firstAwayServiceGame-Winners'] = firstHomeAwayServiceGameWinners(data, tennisPlayer['firstAwayServiceGame-Winners'], 'away');
+        tennisPlayer['firstHomeServiceGame-Score'] = firstHomeAwayServiceGameScore(data, tennisPlayer['firstHomeServiceGame-Score'], 'home');
+        tennisPlayer['firstAwayServiceGame-Score'] = firstHomeAwayServiceGameScore(data, tennisPlayer['firstAwayServiceGame-Score'], 'away');
+        tennisPlayer['firstHomeServiceGame-ToWinTo'] = firstHomeAwayServiceGameToWinTo(data, tennisPlayer['firstHomeServiceGame-ToWinTo'], 'home');
+        tennisPlayer['firstAwayServiceGame-ToWinTo'] = firstHomeAwayServiceGameToWinTo(data, tennisPlayer['firstAwayServiceGame-ToWinTo'], 'away');
+        tennisPlayer['firstHomeServiceGame-Yes/No'] = firstHomeAwayServiceGameYesNo(data, tennisPlayer['firstHomeServiceGame-Yes/No'], 'home');
+        tennisPlayer['firstAwayServiceGame-Yes/No'] = firstHomeAwayServiceGameYesNo(data, tennisPlayer['firstAwayServiceGame-Yes/No'], 'away');
+        tennisPlayer['firstHomeServiceGame-TotalPoints'] = firstHomeAwayServiceGameTotalPoints(data, tennisPlayer['firstHomeServiceGame-TotalPoints'], 'home');
+        tennisPlayer['firstAwayServiceGame-TotalPoints'] = firstHomeAwayServiceGameTotalPoints(data, tennisPlayer['firstAwayServiceGame-TotalPoints'], 'away');
+
+        oddData = tennisPlayer as any;
     }
 
     console.log('detail market tennis', oddData)
@@ -60,7 +99,6 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
                     if (oddData[key]?.subtabs?.length > 0) {
                         let skip = true
                         oddData[key]?.subtabs.map((subtab: any) => {
-                            console.log('subtab', subtab, oddData[key][subtab])
                             if (oddData[key][subtab] && oddData[key][subtab].length > 0) {
                                 skip = false
                             }

@@ -13,13 +13,10 @@ const sc = JSONCodec();
 
 const SERVER_URL = process.env.NEXT_PUBLIC_NATS_URL!;
 
-console.log({ SERVER_URL });
 
 const Odds = ({ sport, getLeagues }: any) => {
   if (sport[2]) {
-    console.log(decodeURIComponent(sport[2]));
   }
-  console.log({ sport, getLeagues });
   let show = <></>;
   if (sport[1] && sport[1] === "leagues" && sport[2] && sport[3]) {
     show = (
