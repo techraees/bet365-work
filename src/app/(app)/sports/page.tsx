@@ -12,16 +12,6 @@ export const dynamic = "force-dynamic";
 
 const Home = ({ params }: any) => {
   const [pregameodds, setPregameodds] = useState([]);
-  const [soccerodds, setSoccerodds] = useState([]);
-  const [soccerleagues, setSoccerleagues] = useState([]);
-  const [tennisodds, setTennisodds] = useState([]);
-  const [tennisleagues, setTennisleagues] = useState([]);
-  const [cricketodds, setCricketodds] = useState([]);
-  const [cricketleagues, setCricketleagues] = useState([]);
-
-  const [basketballodds, setBasketballodds] = useState([]);
-  const [basketballleagues, setBasketballleagues] = useState([]);
-
   useEffect(() => {
     const fetchFeaturedMatches = async () => {
       try {
@@ -87,17 +77,7 @@ const Home = ({ params }: any) => {
       <div className="flex flex-col flex-1 bg-[#282828] overflow-auto h-[100%] text-base">
         <TopBarNav />
         <BannerSlider banners={banners} />
-        <SportsContent
-          odds={pregameodds}
-          soccerodds={soccerodds}
-          soccerleagues={soccerleagues}
-          tennisodds={tennisodds}
-          tennisleagues={tennisleagues}
-          basketballodds={basketballodds}
-          basketballleagues={basketballleagues}
-          cricketodds={cricketodds}
-          cricketleagues={cricketleagues}
-        />
+        <SportsContent odds={pregameodds} />
         {/* <UserBet /> */}
         <PopUps />
       </div>

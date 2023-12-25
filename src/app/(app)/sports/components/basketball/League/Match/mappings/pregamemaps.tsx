@@ -1,6 +1,10 @@
 "use client";
 
 const find_in_array_by_sp_name = (arr: any, target_string: any) => {
+  console.log({ arr: arr });
+  if (!arr) {
+    return undefined;
+  }
   for (var obj of arr) {
     if (obj.sp[target_string] !== undefined) {
       return obj.sp[target_string];
@@ -787,15 +791,17 @@ export const gameLines3Way = (data: any) => {
   return tosend;
 };
 export const teamWithHighestScoringQuarter = (data: any) => {
-  const match = data?.odds?.team_props?.sp?.team_with_highest_scoring_quarter?.odds;
-  const odd_id = data?.odds?.team_props?.sp?.team_with_highest_scoring_quarter?.id;
-  const odd_name = data?.odds?.team_props?.sp?.team_with_highest_scoring_quarter?.name;
+  const match =
+    data?.odds?.team_props?.sp?.team_with_highest_scoring_quarter?.odds;
+  const odd_id =
+    data?.odds?.team_props?.sp?.team_with_highest_scoring_quarter?.id;
+  const odd_name =
+    data?.odds?.team_props?.sp?.team_with_highest_scoring_quarter?.name;
   if (!match) {
     return [];
   }
   const tosend = [] as any;
   if (match && match.length > 0) {
-
     const arr = [] as any;
     if (match[0].name === "1") {
       let title = data?.localteam?.name;
@@ -890,8 +896,7 @@ export const teamTotals = (data: any) => {
     tosend.push(arr);
   }
   return tosend;
-}
-
+};
 
 export const alternativeTeamTotals = (data: any, teamname: any) => {
   const match = data?.odds?.team_props?.sp?.alternative_team_totals?.odds;
@@ -905,8 +910,12 @@ export const alternativeTeamTotals = (data: any, teamname: any) => {
     const grouped_by_name = get_objects_grouped_by_name(match);
     for (let line in grouped_by_name) {
       var obj = grouped_by_name[line];
-      var over_obj = obj.find((item: any) => item.header === "Over" && item.team === teamname);
-      var under_obj = obj.find((item: any) => item.header === "Under" && item.team === teamname);
+      var over_obj = obj.find(
+        (item: any) => item.header === "Over" && item.team === teamname
+      );
+      var under_obj = obj.find(
+        (item: any) => item.header === "Under" && item.team === teamname
+      );
       if (over_obj == undefined || under_obj == undefined) {
         continue;
       }
@@ -930,7 +939,7 @@ export const alternativeTeamTotals = (data: any, teamname: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
 
       var _under = {
@@ -946,18 +955,21 @@ export const alternativeTeamTotals = (data: any, teamname: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
 
       tosend.push([_title, _over, _under]);
     }
   }
   return tosend;
-}
+};
 export const alternativeTeamTotals2 = (data: any, teamname: any) => {
-  const match = data?.odds?.team_props?.sp?.alternative_1st_quarter_team_totals?.odds;
-  const odd_id = data?.odds?.team_props?.sp?.alternative_1st_quarter_team_totals?.id;
-  const odd_name = data?.odds?.team_props?.sp?.alternative_1st_quarter_team_totals?.name;
+  const match =
+    data?.odds?.team_props?.sp?.alternative_1st_quarter_team_totals?.odds;
+  const odd_id =
+    data?.odds?.team_props?.sp?.alternative_1st_quarter_team_totals?.id;
+  const odd_name =
+    data?.odds?.team_props?.sp?.alternative_1st_quarter_team_totals?.name;
   if (!match) {
     return [];
   }
@@ -966,8 +978,12 @@ export const alternativeTeamTotals2 = (data: any, teamname: any) => {
     const grouped_by_name = get_objects_grouped_by_name(match);
     for (let line in grouped_by_name) {
       var obj = grouped_by_name[line];
-      var over_obj = obj.find((item: any) => item.header === "Over" && item.team === teamname);
-      var under_obj = obj.find((item: any) => item.header === "Under" && item.team === teamname);
+      var over_obj = obj.find(
+        (item: any) => item.header === "Over" && item.team === teamname
+      );
+      var under_obj = obj.find(
+        (item: any) => item.header === "Under" && item.team === teamname
+      );
       if (over_obj == undefined || under_obj == undefined) {
         continue;
       }
@@ -991,7 +1007,7 @@ export const alternativeTeamTotals2 = (data: any, teamname: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
 
       var _under = {
@@ -1007,14 +1023,14 @@ export const alternativeTeamTotals2 = (data: any, teamname: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
 
       tosend.push([_title, _over, _under]);
     }
   }
   return tosend;
-}
+};
 export const firstQuarterTeamTotals = (data: any) => {
   const match = data?.odds?.team_props?.sp["1st_quarter_team_totals"]?.odds;
   const odd_id = data?.odds?.team_props?.sp["1st_quarter_team_totals"]?.id;
@@ -1044,9 +1060,12 @@ export const firstQuarterTeamTotals = (data: any) => {
     tosend.push(arr);
   }
   return tosend;
-}
+};
 export const alternativeFirstQuarterTeamTotals = (data: any, teamname: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "alternative_team_totals_2");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "alternative_team_totals_2"
+  );
   if (!match) {
     return [];
   }
@@ -1058,8 +1077,12 @@ export const alternativeFirstQuarterTeamTotals = (data: any, teamname: any) => {
     const grouped_by_name = get_objects_grouped_by_name(match);
     for (let line in grouped_by_name) {
       var obj = grouped_by_name[line];
-      var over_obj = obj.find((item: any) => item.header === "Over" && item.team === teamname);
-      var under_obj = obj.find((item: any) => item.header === "Under" && item.team === teamname);
+      var over_obj = obj.find(
+        (item: any) => item.header === "Over" && item.team === teamname
+      );
+      var under_obj = obj.find(
+        (item: any) => item.header === "Under" && item.team === teamname
+      );
       if (over_obj == undefined || under_obj == undefined) {
         continue;
       }
@@ -1083,7 +1106,7 @@ export const alternativeFirstQuarterTeamTotals = (data: any, teamname: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
 
       var _under = {
@@ -1099,14 +1122,14 @@ export const alternativeFirstQuarterTeamTotals = (data: any, teamname: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
 
       tosend.push([_title, _over, _under]);
     }
   }
   return tosend;
-}
+};
 export const firstHalfTeamTotals = (data: any) => {
   const match = data?.odds?.team_props?.sp["1st_half_team_totals"]?.odds;
   const odd_id = data?.odds?.team_props?.sp["1st_half_team_totals"]?.id;
@@ -1136,9 +1159,12 @@ export const firstHalfTeamTotals = (data: any) => {
     tosend.push(arr);
   }
   return tosend;
-}
+};
 export const alternativeFirstHalfTeamTotals = (data: any, teamname: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "alternative_1st_half_team_totals");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "alternative_1st_half_team_totals"
+  );
   if (!match) {
     return [];
   }
@@ -1150,8 +1176,12 @@ export const alternativeFirstHalfTeamTotals = (data: any, teamname: any) => {
     const grouped_by_name = get_objects_grouped_by_name(match);
     for (let line in grouped_by_name) {
       var obj = grouped_by_name[line];
-      var over_obj = obj.find((item: any) => item.header === "Over" && item.team === teamname);
-      var under_obj = obj.find((item: any) => item.header === "Under" && item.team === teamname);
+      var over_obj = obj.find(
+        (item: any) => item.header === "Over" && item.team === teamname
+      );
+      var under_obj = obj.find(
+        (item: any) => item.header === "Under" && item.team === teamname
+      );
       if (over_obj == undefined || under_obj == undefined) {
         continue;
       }
@@ -1175,7 +1205,7 @@ export const alternativeFirstHalfTeamTotals = (data: any, teamname: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
 
       var _under = {
@@ -1191,16 +1221,19 @@ export const alternativeFirstHalfTeamTotals = (data: any, teamname: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
 
       tosend.push([_title, _over, _under]);
     }
   }
   return tosend;
-}
+};
 export const firstQuarterTeamToScoreXPoint = (data: any, teamname: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "1st_quarter_team_to_score_x_points");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "1st_quarter_team_to_score_x_points"
+  );
   if (!match) {
     return [];
   }
@@ -1212,8 +1245,12 @@ export const firstQuarterTeamToScoreXPoint = (data: any, teamname: any) => {
     const grouped_by_name = get_objects_grouped_by_name(match);
     for (let line in grouped_by_name) {
       var obj = grouped_by_name[line];
-      var over_obj = obj.find((item: any) => item.header === "Yes" && item.team === teamname);
-      var under_obj = obj.find((item: any) => item.header === "No" && item.team === teamname);
+      var over_obj = obj.find(
+        (item: any) => item.header === "Yes" && item.team === teamname
+      );
+      var under_obj = obj.find(
+        (item: any) => item.header === "No" && item.team === teamname
+      );
       if (over_obj == undefined || under_obj == undefined) {
         continue;
       }
@@ -1237,7 +1274,7 @@ export const firstQuarterTeamToScoreXPoint = (data: any, teamname: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
 
       var _under = {
@@ -1253,14 +1290,14 @@ export const firstQuarterTeamToScoreXPoint = (data: any, teamname: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
 
       tosend.push([_title, _over, _under]);
     }
   }
   return tosend;
-}
+};
 export const teamTotalOddEven = (data: any) => {
   const match = data?.odds?.team_props?.sp?.team_total_odd_even?.odds;
   const odd_id = data?.odds?.team_props?.sp?.team_total_odd_even?.id;
@@ -1290,11 +1327,14 @@ export const teamTotalOddEven = (data: any) => {
     tosend.push(arr);
   }
   return tosend;
-}
+};
 export const firstHalfTeamToScoreXPoint = (data: any, teamname: any) => {
-  const match = data?.odds?.team_props?.sp["1st_half_team_to_score_x_points"]?.odds;
-  const odd_id = data?.odds?.team_props?.sp["1st_half_team_to_score_x_points"]?.id;
-  const odd_name = data?.odds?.team_props?.sp["1st_half_team_to_score_x_points"]?.name;
+  const match =
+    data?.odds?.team_props?.sp["1st_half_team_to_score_x_points"]?.odds;
+  const odd_id =
+    data?.odds?.team_props?.sp["1st_half_team_to_score_x_points"]?.id;
+  const odd_name =
+    data?.odds?.team_props?.sp["1st_half_team_to_score_x_points"]?.name;
   if (!match) {
     return [];
   }
@@ -1303,8 +1343,12 @@ export const firstHalfTeamToScoreXPoint = (data: any, teamname: any) => {
     const grouped_by_name = get_objects_grouped_by_name(match);
     for (let line in grouped_by_name) {
       var obj = grouped_by_name[line];
-      var over_obj = obj.find((item: any) => item.header === "Yes" && item.team === teamname);
-      var under_obj = obj.find((item: any) => item.header === "No" && item.team === teamname);
+      var over_obj = obj.find(
+        (item: any) => item.header === "Yes" && item.team === teamname
+      );
+      var under_obj = obj.find(
+        (item: any) => item.header === "No" && item.team === teamname
+      );
       if (over_obj == undefined || under_obj == undefined) {
         continue;
       }
@@ -1328,7 +1372,7 @@ export const firstHalfTeamToScoreXPoint = (data: any, teamname: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
 
       var _under = {
@@ -1344,17 +1388,20 @@ export const firstHalfTeamToScoreXPoint = (data: any, teamname: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
 
       tosend.push([_title, _over, _under]);
     }
   }
   return tosend;
-}
+};
 
 export const alternativeFirstQuarterTotals = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "alternative_1st_quarter_totals");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "alternative_1st_quarter_totals"
+  );
   if (!match) {
     return [];
   }
@@ -1388,7 +1435,7 @@ export const alternativeFirstQuarterTotals = (data: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
       var _under = {
         id: under_obj.id,
@@ -1403,19 +1450,24 @@ export const alternativeFirstQuarterTotals = (data: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
       row.push(_title, _over, _under);
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 export const firstQuarterBothTeamsToScoreXPoints = (data: any) => {
-  const match = data?.odds?.quarter_props?.sp["1st_quarter_both_teams_to_score_x_points"]?.odds;
-  const odd_id = data?.odds?.quarter_props?.sp["1st_quarter_both_teams_to_score_x_points"]?.id;
-  const odd_name = data?.odds?.quarter_props?.sp["1st_quarter_both_teams_to_score_x_points"]?.name;
+  const match =
+    data?.odds?.quarter_props?.sp["1st_quarter_both_teams_to_score_x_points"]
+      ?.odds;
+  const odd_id =
+    data?.odds?.quarter_props?.sp["1st_quarter_both_teams_to_score_x_points"]
+      ?.id;
+  const odd_name =
+    data?.odds?.quarter_props?.sp["1st_quarter_both_teams_to_score_x_points"]
+      ?.name;
   if (!match) {
     return [];
   }
@@ -1446,7 +1498,7 @@ export const firstQuarterBothTeamsToScoreXPoints = (data: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
       var _under = {
         id: under_obj.id,
@@ -1461,18 +1513,20 @@ export const firstQuarterBothTeamsToScoreXPoints = (data: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
       row.push(_title, _over, _under);
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const firstQuarterDoubleChance = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "1st_quarter_double_chance");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "1st_quarter_double_chance"
+  );
   if (!match) {
     return [];
   }
@@ -1511,9 +1565,12 @@ export const firstQuarterDoubleChance = (data: any) => {
   return tosend;
 };
 export const firstQuarterHandicapAndTotal = (data: any) => {
-  const match = data?.odds?.quarter_props?.sp["1st_quarter_handicap_and_total"]?.odds;
-  const odd_id = data?.odds?.quarter_props?.sp["1st_quarter_handicap_and_total"]?.id;
-  const odd_name = data?.odds?.quarter_props?.sp["1st_quarter_handicap_and_total"]?.name;
+  const match =
+    data?.odds?.quarter_props?.sp["1st_quarter_handicap_and_total"]?.odds;
+  const odd_id =
+    data?.odds?.quarter_props?.sp["1st_quarter_handicap_and_total"]?.id;
+  const odd_name =
+    data?.odds?.quarter_props?.sp["1st_quarter_handicap_and_total"]?.name;
   if (!match) {
     return [];
   }
@@ -1549,9 +1606,12 @@ export const firstQuarterHandicapAndTotal = (data: any) => {
 };
 
 export const firstQuarterMarginofVictory = (data: any) => {
-  const match = data?.odds?.quarter_props?.sp["1st_quarter_margin_of_victory"]?.odds;
-  const odd_id = data?.odds?.quarter_props?.sp["1st_quarter_margin_of_victory"]?.id;
-  const odd_name = data?.odds?.quarter_props?.sp["1st_quarter_margin_of_victory"]?.name;
+  const match =
+    data?.odds?.quarter_props?.sp["1st_quarter_margin_of_victory"]?.odds;
+  const odd_id =
+    data?.odds?.quarter_props?.sp["1st_quarter_margin_of_victory"]?.id;
+  const odd_name =
+    data?.odds?.quarter_props?.sp["1st_quarter_margin_of_victory"]?.name;
   if (!match) {
     return [];
   }
@@ -1582,18 +1642,20 @@ export const firstQuarterMarginofVictory = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const firstQuarter3WayLines = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "1st_quarter_3_way_lines");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "1st_quarter_3_way_lines"
+  );
   if (!match) {
     return [];
   }
@@ -1628,7 +1690,7 @@ export const firstQuarter3WayLines = (data: any) => {
         participant_id: home_obj.id,
         participant_name: home_obj.name,
         participant_handicap: home_obj.handicap ?? "",
-        participant_header: home_obj.header ?? ""
+        participant_header: home_obj.header ?? "",
       };
       var _tie = {
         id: tie_obj.id,
@@ -1643,7 +1705,7 @@ export const firstQuarter3WayLines = (data: any) => {
         participant_id: tie_obj.id,
         participant_name: tie_obj.name,
         participant_handicap: tie_obj.handicap ?? "",
-        participant_header: tie_obj.header ?? ""
+        participant_header: tie_obj.header ?? "",
       };
       var _away = {
         id: away_obj.id,
@@ -1658,19 +1720,21 @@ export const firstQuarter3WayLines = (data: any) => {
         participant_id: away_obj.id,
         participant_name: away_obj.name,
         participant_handicap: away_obj.handicap ?? "",
-        participant_header: away_obj.header ?? ""
+        participant_header: away_obj.header ?? "",
       };
       row.push(_title, _home, _tie, _away);
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 export const firstQuarterRaceToPoints = (data: any) => {
-  const match = data?.odds?.quarter_props?.sp["1st_quarter_race_to_(points)"]?.odds;
-  const odd_id = data?.odds?.quarter_props?.sp["1st_quarter_race_to_(points)"]?.id;
-  const odd_name = data?.odds?.quarter_props?.sp["1st_quarter_race_to_(points)"]?.name;
+  const match =
+    data?.odds?.quarter_props?.sp["1st_quarter_race_to_(points)"]?.odds;
+  const odd_id =
+    data?.odds?.quarter_props?.sp["1st_quarter_race_to_(points)"]?.id;
+  const odd_name =
+    data?.odds?.quarter_props?.sp["1st_quarter_race_to_(points)"]?.name;
   if (!match) {
     return [];
   }
@@ -1702,7 +1766,7 @@ export const firstQuarterRaceToPoints = (data: any) => {
         participant_id: home_obj.id,
         participant_name: home_obj.name,
         participant_handicap: home_obj.handicap ?? "",
-        participant_header: home_obj.header ?? ""
+        participant_header: home_obj.header ?? "",
       };
       var _neither = {
         id: neither_obj.id,
@@ -1717,7 +1781,7 @@ export const firstQuarterRaceToPoints = (data: any) => {
         participant_id: neither_obj.id,
         participant_name: neither_obj.name,
         participant_handicap: neither_obj.handicap ?? "",
-        participant_header: neither_obj.header ?? ""
+        participant_header: neither_obj.header ?? "",
       };
       var _away = {
         id: away_obj.id,
@@ -1732,19 +1796,21 @@ export const firstQuarterRaceToPoints = (data: any) => {
         participant_id: away_obj.id,
         participant_name: away_obj.name,
         participant_handicap: away_obj.handicap ?? "",
-        participant_header: away_obj.header ?? ""
+        participant_header: away_obj.header ?? "",
       };
       row.push(_title, _home, _away, _neither);
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 export const firstQuarterResultAndTotal = (data: any) => {
-  const match = data?.odds?.quarter_props?.sp["1st_quarter_result_and_total"]?.odds;
-  const odd_id = data?.odds?.quarter_props?.sp["1st_quarter_result_and_total"]?.id;
-  const odd_name = data?.odds?.quarter_props?.sp["1st_quarter_result_and_total"]?.name;
+  const match =
+    data?.odds?.quarter_props?.sp["1st_quarter_result_and_total"]?.odds;
+  const odd_id =
+    data?.odds?.quarter_props?.sp["1st_quarter_result_and_total"]?.id;
+  const odd_name =
+    data?.odds?.quarter_props?.sp["1st_quarter_result_and_total"]?.name;
   if (!match) {
     return [];
   }
@@ -1758,7 +1824,12 @@ export const firstQuarterResultAndTotal = (data: any) => {
       var under_obj = findObjectByHeader(obj, "Under");
       var _title = {
         id: 0,
-        title: line == "1" ? data?.localteam.name : line == "2" ? data?.visitorteam.name : line,
+        title:
+          line == "1"
+            ? data?.localteam.name
+            : line == "2"
+            ? data?.visitorteam.name
+            : line,
         suspend: "0",
         value: "",
       };
@@ -1775,7 +1846,7 @@ export const firstQuarterResultAndTotal = (data: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
       var _under = {
         id: under_obj.id,
@@ -1790,19 +1861,21 @@ export const firstQuarterResultAndTotal = (data: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
       row.push(_title, _over, _under);
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 export const firstQuarterTotalOddEven = (data: any) => {
-  const match = data?.odds?.quarter_props?.sp["1st_quarter_total_odd_even"]?.odds;
-  const odd_id = data?.odds?.quarter_props?.sp["1st_quarter_total_odd_even"]?.id;
-  const odd_name = data?.odds?.quarter_props?.sp["1st_quarter_total_odd_even"]?.name;
+  const match =
+    data?.odds?.quarter_props?.sp["1st_quarter_total_odd_even"]?.odds;
+  const odd_id =
+    data?.odds?.quarter_props?.sp["1st_quarter_total_odd_even"]?.id;
+  const odd_name =
+    data?.odds?.quarter_props?.sp["1st_quarter_total_odd_even"]?.name;
   if (!match) {
     return [];
   }
@@ -1829,12 +1902,15 @@ export const firstQuarterTotalOddEven = (data: any) => {
     tosend.push(row);
   }
   return tosend;
-}
+};
 
 export const firstQuarterWinningMargin = (data: any) => {
-  const match = data?.odds?.quarter_props?.sp["1st_quarter_winning_margin"]?.odds;
-  const odd_id = data?.odds?.quarter_props?.sp["1st_quarter_winning_margin"]?.id;
-  const odd_name = data?.odds?.quarter_props?.sp["1st_quarter_winning_margin"]?.name;
+  const match =
+    data?.odds?.quarter_props?.sp["1st_quarter_winning_margin"]?.odds;
+  const odd_id =
+    data?.odds?.quarter_props?.sp["1st_quarter_winning_margin"]?.id;
+  const odd_name =
+    data?.odds?.quarter_props?.sp["1st_quarter_winning_margin"]?.name;
   if (!match) {
     return [];
   }
@@ -1865,18 +1941,20 @@ export const firstQuarterWinningMargin = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const alternativeFirstQuarterPointSpread = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "alternative_1st_quarter_point_spread");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "alternative_1st_quarter_point_spread"
+  );
   if (!match) {
     return [];
   }
@@ -1928,7 +2006,6 @@ export const alternativeFirstQuarterPointSpread = (data: any) => {
       };
       right.push(obj);
     }
-
 
     let maxlength = left.length;
 
@@ -1947,7 +2024,10 @@ export const alternativeFirstQuarterPointSpread = (data: any) => {
 };
 
 export const alternativeFirstHalfPointSpread = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "alternative_1st_half_point_spread");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "alternative_1st_half_point_spread"
+  );
   if (!match) {
     return [];
   }
@@ -2000,7 +2080,6 @@ export const alternativeFirstHalfPointSpread = (data: any) => {
       right.push(obj);
     }
 
-
     let maxlength = left.length;
 
     if (right.length > maxlength) {
@@ -2018,7 +2097,10 @@ export const alternativeFirstHalfPointSpread = (data: any) => {
 };
 
 export const alternativeFirstHalfTotals = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "alternative_1st_half_totals");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "alternative_1st_half_totals"
+  );
   if (!match) {
     return [];
   }
@@ -2052,7 +2134,7 @@ export const alternativeFirstHalfTotals = (data: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
       var _under = {
         id: under_obj.id,
@@ -2067,15 +2149,14 @@ export const alternativeFirstHalfTotals = (data: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
       row.push(_title, _over, _under);
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const firstHalfWinningMargin = (data: any) => {
   const match = data?.odds?.half_props?.sp["1st_half_winning_margin"]?.odds;
@@ -2111,20 +2192,20 @@ export const firstHalfWinningMargin = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const firstHalfResultAndTotal = (data: any) => {
   const match = data?.odds?.half_props?.sp["1st_half_result_and_total"]?.odds;
   const odd_id = data?.odds?.half_props?.sp["1st_half_result_and_total"]?.id;
-  const odd_name = data?.odds?.half_props?.sp["1st_half_result_and_total"]?.name;
+  const odd_name =
+    data?.odds?.half_props?.sp["1st_half_result_and_total"]?.name;
   if (!match) {
     return [];
   }
@@ -2138,7 +2219,12 @@ export const firstHalfResultAndTotal = (data: any) => {
       var under_obj = findObjectByHeader(obj, "Under");
       var _title = {
         id: 0,
-        title: line == "1" ? data?.localteam.name : line == "2" ? data?.visitorteam.name : line,
+        title:
+          line == "1"
+            ? data?.localteam.name
+            : line == "2"
+            ? data?.visitorteam.name
+            : line,
         suspend: "0",
         value: "",
       };
@@ -2155,7 +2241,7 @@ export const firstHalfResultAndTotal = (data: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
       var _under = {
         id: under_obj.id,
@@ -2170,20 +2256,20 @@ export const firstHalfResultAndTotal = (data: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
       row.push(_title, _over, _under);
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const firstHalfHandicapAndTotal = (data: any) => {
   const match = data?.odds?.half_props?.sp["1st_half_handicap_and_total"]?.odds;
   const odd_id = data?.odds?.half_props?.sp["1st_half_handicap_and_total"]?.id;
-  const odd_name = data?.odds?.half_props?.sp["1st_half_handicap_and_total"]?.name;
+  const odd_name =
+    data?.odds?.half_props?.sp["1st_half_handicap_and_total"]?.name;
   if (!match) {
     return [];
   }
@@ -2221,7 +2307,8 @@ export const firstHalfHandicapAndTotal = (data: any) => {
 export const firstHalfRaceToPoints = (data: any) => {
   const match = data?.odds?.half_props?.sp["1st_half_race_to_(points)"]?.odds;
   const odd_id = data?.odds?.half_props?.sp["1st_half_race_to_(points)"]?.id;
-  const odd_name = data?.odds?.half_props?.sp["1st_half_race_to_(points)"]?.name;
+  const odd_name =
+    data?.odds?.half_props?.sp["1st_half_race_to_(points)"]?.name;
   if (!match) {
     return [];
   }
@@ -2253,7 +2340,7 @@ export const firstHalfRaceToPoints = (data: any) => {
         participant_id: home_obj.id,
         participant_name: home_obj.name,
         participant_handicap: home_obj.handicap ?? "",
-        participant_header: home_obj.header ?? ""
+        participant_header: home_obj.header ?? "",
       };
       var _neither = {
         id: neither_obj.id,
@@ -2268,7 +2355,7 @@ export const firstHalfRaceToPoints = (data: any) => {
         participant_id: neither_obj.id,
         participant_name: neither_obj.name,
         participant_handicap: neither_obj.handicap ?? "",
-        participant_header: neither_obj.header ?? ""
+        participant_header: neither_obj.header ?? "",
       };
       var _away = {
         id: away_obj.id,
@@ -2283,20 +2370,22 @@ export const firstHalfRaceToPoints = (data: any) => {
         participant_id: away_obj.id,
         participant_name: away_obj.name,
         participant_handicap: away_obj.handicap ?? "",
-        participant_header: away_obj.header ?? ""
+        participant_header: away_obj.header ?? "",
       };
       row.push(_title, _home, _away, _neither);
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const firstHalfBothTeamsToScoreXPoints = (data: any) => {
-  const match = data?.odds?.half_props?.sp["1st_half_both_teams_to_score_x_points"]?.odds;
-  const odd_id = data?.odds?.half_props?.sp["1st_half_both_teams_to_score_x_points"]?.id;
-  const odd_name = data?.odds?.half_props?.sp["1st_half_both_teams_to_score_x_points"]?.name;
+  const match =
+    data?.odds?.half_props?.sp["1st_half_both_teams_to_score_x_points"]?.odds;
+  const odd_id =
+    data?.odds?.half_props?.sp["1st_half_both_teams_to_score_x_points"]?.id;
+  const odd_name =
+    data?.odds?.half_props?.sp["1st_half_both_teams_to_score_x_points"]?.name;
   if (!match) {
     return [];
   }
@@ -2327,7 +2416,7 @@ export const firstHalfBothTeamsToScoreXPoints = (data: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
       var _under = {
         id: under_obj.id,
@@ -2342,15 +2431,14 @@ export const firstHalfBothTeamsToScoreXPoints = (data: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
       row.push(_title, _over, _under);
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const firstHalfSpread3Way = (data: any) => {
   const match = data?.odds?.half_props?.sp["1st_half_spread_3_way"]?.odds;
@@ -2382,7 +2470,7 @@ export const firstHalfSpread3Way = (data: any) => {
     tosend.push(row);
   }
   return tosend;
-}
+};
 export const firstHalfTotals3Way = (data: any) => {
   const match = data?.odds?.half_props?.sp["1st_half_totals_3_way"]?.odds;
   const odd_id = data?.odds?.half_props?.sp["1st_half_totals_3_way"]?.id;
@@ -2423,12 +2511,13 @@ export const firstHalfTotals3Way = (data: any) => {
     }
   }
   return tosend;
-}
+};
 
 export const firstHalfMoneyLine3Way = (data: any) => {
   const match = data?.odds?.half_props?.sp["1st_half_money_line_3_way"]?.odds;
   const odd_id = data?.odds?.half_props?.sp["1st_half_money_line_3_way"]?.id;
-  const odd_name = data?.odds?.half_props?.sp["1st_half_money_line_3_way"]?.name;
+  const odd_name =
+    data?.odds?.half_props?.sp["1st_half_money_line_3_way"]?.name;
   if (!match) {
     return [];
   }
@@ -2438,7 +2527,12 @@ export const firstHalfMoneyLine3Way = (data: any) => {
     for (var mm of match) {
       row.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+            ? data?.visitorteam.name
+            : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -2455,10 +2549,13 @@ export const firstHalfMoneyLine3Way = (data: any) => {
     tosend.push(row);
   }
   return tosend;
-}
+};
 
 export const firstHalfDoubleChance = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "1st_half_double_chance");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "1st_half_double_chance"
+  );
   if (!match) {
     return [];
   }
@@ -2498,7 +2595,10 @@ export const firstHalfDoubleChance = (data: any) => {
 };
 
 export const firstHalfTotalOddEven = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "1st_half_total_odd_even");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "1st_half_total_odd_even"
+  );
   if (!match) {
     return [];
   }
@@ -2528,10 +2628,13 @@ export const firstHalfTotalOddEven = (data: any) => {
     tosend.push(row);
   }
   return tosend;
-}
+};
 
 export const alternativePointSpread = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "alternative_point_spread");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "alternative_point_spread"
+  );
   if (!match) {
     return [];
   }
@@ -2583,7 +2686,6 @@ export const alternativePointSpread = (data: any) => {
       };
       right.push(obj);
     }
-
 
     let maxlength = left.length;
 
@@ -2602,7 +2704,10 @@ export const alternativePointSpread = (data: any) => {
 };
 
 export const alternativeGameTotal = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "alternative_game_total");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "alternative_game_total"
+  );
   if (!match) {
     return [];
   }
@@ -2636,7 +2741,7 @@ export const alternativeGameTotal = (data: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
       var _under = {
         id: under_obj.id,
@@ -2651,17 +2756,19 @@ export const alternativeGameTotal = (data: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
       row.push(_title, _over, _under);
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 export const alternativePointSpread2 = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "alternative_point_spread_2");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "alternative_point_spread_2"
+  );
   if (!match) {
     return [];
   }
@@ -2714,7 +2821,6 @@ export const alternativePointSpread2 = (data: any) => {
       right.push(obj);
     }
 
-
     let maxlength = left.length;
 
     if (right.length > maxlength) {
@@ -2732,7 +2838,10 @@ export const alternativePointSpread2 = (data: any) => {
 };
 
 export const alternativeGameTotal2 = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "alternative_game_total_2");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "alternative_game_total_2"
+  );
   if (!match) {
     return [];
   }
@@ -2766,7 +2875,7 @@ export const alternativeGameTotal2 = (data: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
       };
       var _under = {
         id: under_obj.id,
@@ -2781,20 +2890,24 @@ export const alternativeGameTotal2 = (data: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
       };
       row.push(_title, _over, _under);
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const resultAndBothTeamsToScoreXPoints = (data: any) => {
-  var match = data?.odds?.main_props?.sp["result_and_both_teams_to_score_'x'_points"]?.odds;
-  const odd_id = data?.odds?.main_props?.sp["result_and_both_teams_to_score_'x'_points"]?.id;
-  const odd_name = data?.odds?.main_props?.sp["result_and_both_teams_to_score_'x'_points"]?.name;
+  var match =
+    data?.odds?.main_props?.sp["result_and_both_teams_to_score_'x'_points"]
+      ?.odds;
+  const odd_id =
+    data?.odds?.main_props?.sp["result_and_both_teams_to_score_'x'_points"]?.id;
+  const odd_name =
+    data?.odds?.main_props?.sp["result_and_both_teams_to_score_'x'_points"]
+      ?.name;
   if (!match) {
     return [];
   }
@@ -2826,11 +2939,10 @@ export const resultAndBothTeamsToScoreXPoints = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
         });
       }
       tosend.push(row);
-
     }
 
     // tosend.push(arr);
@@ -2985,17 +3097,19 @@ export const winningMargin = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 export const winningMargin3Way = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "winning_margin_3_way");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "winning_margin_3_way"
+  );
   if (!match) {
     return [];
   }
@@ -3029,18 +3143,20 @@ export const winningMargin3Way = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const winningMargin7Way = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "winning_margin_7_way");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "winning_margin_7_way"
+  );
   if (!match) {
     return [];
   }
@@ -3080,7 +3196,10 @@ export const winningMargin7Way = (data: any) => {
 };
 
 export const winningMargin12Way = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "winning_margin_12_way");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "winning_margin_12_way"
+  );
   if (!match) {
     return [];
   }
@@ -3114,15 +3233,14 @@ export const winningMargin12Way = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 export const raceTo20Points = (data: any) => {
   const match = data?.odds?.main_props?.sp["race_to_20_points"]?.odds;
   const odd_id = data?.odds?.main_props?.sp["race_to_20_points"]?.id;
@@ -3137,7 +3255,12 @@ export const raceTo20Points = (data: any) => {
     for (var mm of match) {
       constructed_data.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+            ? data?.visitorteam.name
+            : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -3162,7 +3285,10 @@ export const raceTo20Points = (data: any) => {
 };
 
 export const tiedAtEndOfRegulations = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "tied_at_end_of_regulation?");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "tied_at_end_of_regulation?"
+  );
   if (!match) {
     return [];
   }
@@ -3201,7 +3327,10 @@ export const tiedAtEndOfRegulations = (data: any) => {
 };
 
 export const quarterCorrectScore = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "quarter_correct_score");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "quarter_correct_score"
+  );
   if (!match) {
     return [];
   }
@@ -3235,18 +3364,20 @@ export const quarterCorrectScore = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const highestScoringHalf = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "highest_scoring_half");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "highest_scoring_half"
+  );
   if (!match) {
     return [];
   }
@@ -3260,7 +3391,12 @@ export const highestScoringHalf = (data: any) => {
     for (var mm of match) {
       constructed_data.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+            ? data?.visitorteam.name
+            : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -3284,7 +3420,10 @@ export const highestScoringHalf = (data: any) => {
   return tosend;
 };
 export const highestScoringQuarter = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "highest_scoring_quarter");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "highest_scoring_quarter"
+  );
   if (!match) {
     return [];
   }
@@ -3298,7 +3437,12 @@ export const highestScoringQuarter = (data: any) => {
     for (var mm of match) {
       constructed_data.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+            ? data?.visitorteam.name
+            : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -3323,7 +3467,10 @@ export const highestScoringQuarter = (data: any) => {
   return tosend;
 };
 export const gameTotalBands8Way = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "game_total_(bands)_8_way");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "game_total_(bands)_8_way"
+  );
   if (!match) {
     return [];
   }
@@ -3337,7 +3484,12 @@ export const gameTotalBands8Way = (data: any) => {
     for (var mm of match) {
       constructed_data.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+            ? data?.visitorteam.name
+            : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -3362,7 +3514,10 @@ export const gameTotalBands8Way = (data: any) => {
   return tosend;
 };
 export const gameTotalBands3Way = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "game_total_(bands)_3_way");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "game_total_(bands)_3_way"
+  );
   if (!match) {
     return [];
   }
@@ -3376,7 +3531,12 @@ export const gameTotalBands3Way = (data: any) => {
     for (var mm of match) {
       constructed_data.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+            ? data?.visitorteam.name
+            : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -3401,7 +3561,10 @@ export const gameTotalBands3Way = (data: any) => {
 };
 
 export const gameTotalOddEven = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "game_total_odd_even");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "game_total_odd_even"
+  );
   if (!match) {
     return [];
   }
@@ -3430,4 +3593,4 @@ export const gameTotalOddEven = (data: any) => {
     tosend.push(arr);
   }
   return tosend;
-}
+};

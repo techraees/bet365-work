@@ -18,10 +18,11 @@ import NatsTableTennis from "../components/tableTennis/NatsTableTennis";
 import NatsBaseball from "../components/baseball/Nats";
 import NatsCricket from "../components/cricket/Nats";
 import NatsDarts from "../components/darts/Nats";
-import NatsHockey from "../components/hockey/Nats";
+// import NatsHockey from "../components/hockey/Nats";
 import NatsHandball from "../components/handball/Nats";
 import NatsVolleyball from "../components/volleyball/Nats";
 import NatsTennis from "../components/tennis/Nats";
+import NatsHockey from "../components/ice_hockey/Nats";
 
 import requireSession from "@/lib/request-session";
 import { useSession } from "next-auth/react";

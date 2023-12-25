@@ -5,17 +5,7 @@ import BetBoost from "./soccer/BetBoost";
 import FeaturedMatches from "./soccer/FeaturedMatches";
 import InPlay from "./InPlay";
 
-const SportsContent = ({
-  odds,
-  soccerodds,
-  soccerleagues,
-  tennisodds,
-  tennisleagues,
-  basketballodds,
-  basketballleagues,
-  cricketodds,
-  cricketleagues,
-}: any) => {
+const SportsContent = ({ odds }: any) => {
   const [active, setActive] = useState("Featured");
   const tabs = ["Featured", "Top Events"];
 
