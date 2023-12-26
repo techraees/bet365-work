@@ -2,6 +2,9 @@
 import React from "react";
 
 const find_in_array_by_sp_name = (arr: any, target_string: any) => {
+  if (!arr) {
+    return null;
+  }
   for (var obj of arr) {
     if (obj.sp[target_string] !== undefined) {
       return obj.sp[target_string];

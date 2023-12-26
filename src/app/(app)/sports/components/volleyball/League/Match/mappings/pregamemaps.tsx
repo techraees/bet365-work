@@ -1,6 +1,9 @@
 "use client";
 
 const find_in_array_by_sp_name = (arr: any, target_string: any) => {
+  if (!arr) {
+    return null;
+  }
   for (var obj of arr) {
     if (obj.sp[target_string] !== undefined) {
       return obj.sp[target_string];
@@ -25,21 +28,6 @@ export const get_objects_grouped_by_header = (odds_array: any) => {
 export const get_objects_grouped_by_name = (odds_array: any) => {
   const groupedData = odds_array.reduce((acc: any, item: any) => {
     const key = item.name;
-
-    if (!acc[key]) {
-      acc[key] = [];
-    }
-
-    acc[key].push(item);
-
-    return acc;
-  }, {});
-  return groupedData;
-};
-
-const get_objects_grouped_by_team = (odds_array: any) => {
-  const groupedData = odds_array.reduce((acc: any, item: any) => {
-    const key = item.team;
 
     if (!acc[key]) {
       acc[key] = [];

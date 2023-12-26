@@ -118,7 +118,7 @@ export const basketballMainProps = {
   alternativeGameTotal: {
     marketname: "Alternative Game Total",
     suspend: "0",
-    header: ["Home", "Away"],
+    header: ["", "Home", "Away"],
     rows: [],
   },
   alternativePointSpread2: {
@@ -130,7 +130,7 @@ export const basketballMainProps = {
   alternativeGameTotal2: {
     marketname: "Alternative Game Total 2",
     suspend: "0",
-    header: ["Home", "Away"],
+    header: ["", "Home", "Away"],
     rows: [],
   },
   resultAndBothTeamsToScoreXPoints: {

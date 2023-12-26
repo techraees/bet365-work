@@ -13,29 +13,7 @@ import {
   hockeyPlayer,
   hockeySet,
 } from "./mappings/datastructure";
-import {
-  toWinMatch,
-  matchHandicapGames,
-  totalGames2Way,
-  setBetting,
-  firstSetWinner,
-  firstSetTotalGames,
-  firstSetScore,
-  matchResultAndTotalGames,
-  homeAwayTo,
-  totalGamesInSet,
-  firstHomeAwayServiceGameWinners,
-  firstHomeAwayServiceGameScore,
-  firstHomeAwayServiceGameToWinTo,
-  goTheDistance,
-  firstSethandicap,
-  firstSetCorrectScoreGroup,
-  firstSetScoreAnyPlayer,
-  firstSetPlayerToBreakServe,
-  firstBreakOfServe,
-  firstHomeAwayServiceGameYesNo,
-  firstHomeAwayServiceGameTotalPoints,
-} from "./mappings/pregamemaps";
+import { alternativePuckLine2Way, alternativePuckLine3Way, alternativeTotal2Way, alternativeTotal3Way, gameLines, threeWay } from "./mappings/pregamemaps";
 import MarketGroupBody from "@/components/Structure/MarketGroupBody";
 
 interface MarketGroupProps {
@@ -50,160 +28,26 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
   let oddData = {} as any;
   oddData = hockeyMain as any;
   if (active === "Main" || active === "All") {
-    hockeyMain.toWinMatch.rows = toWinMatch(data);
-    hockeyMain.matchHandicapGames.rows = matchHandicapGames(data);
-    hockeyMain["totalGames2-Way"].rows = totalGames2Way(data);
-    hockeyMain.setBetting.rows = setBetting(data);
-    hockeyMain.firstSetWinner.rows = firstSetWinner(data);
-    hockeyMain["1stSetTotalGames"].rows = firstSetTotalGames(data);
-    hockeyMain.firstSetScore.rows = firstSetScore(data);
-    hockeyMain.matchResultAndTotalGames.rows = matchResultAndTotalGames(data);
-    hockeyMain.homeTo = homeAwayTo(data, hockeyMain.homeTo, "home");
-    hockeyMain.awayTo = homeAwayTo(data, hockeyMain.awayTo, "away");
-    hockeyMain[
-      "firstHomeServiceGame-Winners"
-    ] = firstHomeAwayServiceGameWinners(
-      data,
-      hockeyMain["firstHomeServiceGame-Winners"],
-      "home"
-    );
-    hockeyMain[
-      "firstAwayServiceGame-Winners"
-    ] = firstHomeAwayServiceGameWinners(
-      data,
-      hockeyMain["firstAwayServiceGame-Winners"],
-      "away"
-    );
-    hockeyMain["firstHomeServiceGame-Score"] = firstHomeAwayServiceGameScore(
-      data,
-      hockeyMain["firstHomeServiceGame-Score"],
-      "home"
-    );
-    hockeyMain["firstAwayServiceGame-Score"] = firstHomeAwayServiceGameScore(
-      data,
-      hockeyMain["firstAwayServiceGame-Score"],
-      "away"
-    );
-    hockeyMain[
-      "firstHomeServiceGame-ToWinTo"
-    ] = firstHomeAwayServiceGameToWinTo(
-      data,
-      hockeyMain["firstHomeServiceGame-ToWinTo"],
-      "home"
-    );
-    hockeyMain[
-      "firstAwayServiceGame-ToWinTo"
-    ] = firstHomeAwayServiceGameToWinTo(
-      data,
-      hockeyMain["firstAwayServiceGame-ToWinTo"],
-      "away"
-    );
-    hockeyMain.goTheDistance.rows = goTheDistance(data);
+    hockeyMain.gameLines.rows = gameLines(data);
+    hockeyMain["3-Way"].rows = threeWay(data);
+
     oddData = hockeyMain as any;
   } else if (active === "Bet Builder") {
-    // hockeyBetBuilder.result.rows = betResult(data);
-    // hockeyBetBuilder.bothTeamsToScore.rows = betBothTeamsToScore(data);
-    // hockeyBetBuilder.doubleChance.rows = betDoubleChance(data);
-    // hockeyBetBuilder.halftimeFulltime.rows = bethalftimeFulltime(data);
-    // hockeyBetBuilder.score = betScore(data, hockeyBetBuilder.score);
-    // hockeyBetBuilder.halfWithMostGoals.rows = bethalfWithMostGoals(data);
-    // hockeyBetBuilder.teamSpecials.rows = betteamSpecials(data);
-    // hockeyBetBuilder.goalOddEven.rows = betGoalOddEven(data);
-    // hockeyBetBuilder.setBetting.rows = setBetting(data);
-    // hockeyBetBuilder.totalGamesInSet = totalGamesInSet(data, hockeyBetBuilder.totalGamesInSet);
     oddData = hockeyBetBuilder as any;
   } else if (active === "Set") {
-    hockeySet.firstSetWinner.rows = firstSetWinner(data);
-    hockeySet.setBetting.rows = setBetting(data);
-    hockeySet["1stSetTotalGames"].rows = firstSetTotalGames(data);
-    hockeySet.firstSetScore.rows = firstSetScore(data);
-    hockeySet.firstSethandicap.rows = firstSethandicap(data);
-    hockeySet.firstSetCorrectScoreGroup.rows = firstSetCorrectScoreGroup(data);
-    hockeySet.firstSetScoreAnyPlayer.rows = firstSetScoreAnyPlayer(data);
-    hockeySet.firstSetPlayerToBreakServe.rows = firstSetPlayerToBreakServe(
-      data
-    );
+    hockeySet.alternativePuckLine2Way.rows = alternativePuckLine2Way(data);
+    hockeySet.alternativeTotal2Way.rows = alternativeTotal2Way(data);
+    hockeySet.alternativePuckLine3Way.rows = alternativePuckLine3Way(data);
+    hockeySet.alternativeTotal3Way.rows = alternativeTotal3Way(data);
     oddData = hockeySet as any;
   } else if (active === "Goals") {
-    hockeyGames.matchHandicapGames.rows = matchHandicapGames(data);
-    hockeyGames["totalGames2-Way"].rows = totalGames2Way(data);
-    hockeyGames["1stSetTotalGames"].rows = firstSetTotalGames(data);
-    hockeyGames.firstBreakOfServe.rows = firstBreakOfServe(data);
-    hockeyGames.matchResultAndTotalGames.rows = matchResultAndTotalGames(data);
+
     oddData = hockeyGames as any;
   } else if (active === "Player") {
-    hockeyPlayer.firstSetPlayerToBreakServe.rows = firstSetPlayerToBreakServe(
-      data
-    );
-    hockeyPlayer.homeTo = homeAwayTo(data, hockeyPlayer.homeTo, "home");
-    hockeyPlayer.awayTo = homeAwayTo(data, hockeyPlayer.awayTo, "away");
-    hockeyPlayer[
-      "firstHomeServiceGame-Winners"
-    ] = firstHomeAwayServiceGameWinners(
-      data,
-      hockeyPlayer["firstHomeServiceGame-Winners"],
-      "home"
-    );
-    hockeyPlayer[
-      "firstAwayServiceGame-Winners"
-    ] = firstHomeAwayServiceGameWinners(
-      data,
-      hockeyPlayer["firstAwayServiceGame-Winners"],
-      "away"
-    );
-    hockeyPlayer["firstHomeServiceGame-Score"] = firstHomeAwayServiceGameScore(
-      data,
-      hockeyPlayer["firstHomeServiceGame-Score"],
-      "home"
-    );
-    hockeyPlayer["firstAwayServiceGame-Score"] = firstHomeAwayServiceGameScore(
-      data,
-      hockeyPlayer["firstAwayServiceGame-Score"],
-      "away"
-    );
-    hockeyPlayer[
-      "firstHomeServiceGame-ToWinTo"
-    ] = firstHomeAwayServiceGameToWinTo(
-      data,
-      hockeyPlayer["firstHomeServiceGame-ToWinTo"],
-      "home"
-    );
-    hockeyPlayer[
-      "firstAwayServiceGame-ToWinTo"
-    ] = firstHomeAwayServiceGameToWinTo(
-      data,
-      hockeyPlayer["firstAwayServiceGame-ToWinTo"],
-      "away"
-    );
-    hockeyPlayer["firstHomeServiceGame-Yes/No"] = firstHomeAwayServiceGameYesNo(
-      data,
-      hockeyPlayer["firstHomeServiceGame-Yes/No"],
-      "home"
-    );
-    hockeyPlayer["firstAwayServiceGame-Yes/No"] = firstHomeAwayServiceGameYesNo(
-      data,
-      hockeyPlayer["firstAwayServiceGame-Yes/No"],
-      "away"
-    );
-    hockeyPlayer[
-      "firstHomeServiceGame-TotalPoints"
-    ] = firstHomeAwayServiceGameTotalPoints(
-      data,
-      hockeyPlayer["firstHomeServiceGame-TotalPoints"],
-      "home"
-    );
-    hockeyPlayer[
-      "firstAwayServiceGame-TotalPoints"
-    ] = firstHomeAwayServiceGameTotalPoints(
-      data,
-      hockeyPlayer["firstAwayServiceGame-TotalPoints"],
-      "away"
-    );
 
     oddData = hockeyPlayer as any;
   }
 
-  console.log("detail market hockey", oddData);
 
   return (
     <div className="w-[100%] bg-[#383838]">

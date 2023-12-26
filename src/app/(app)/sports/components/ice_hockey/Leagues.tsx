@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { details } from "./maps/correction";
 
 const LeagueWraps = ({ getLeagues, odds }: any) => {
-  console.log({ getLeagues });
   // let obj ={} as any;
   // getLeagues.forEach((item: any) => obj[item] = '')
   // console.log({obj})
@@ -39,7 +38,6 @@ const Competitions = ({ name, odd }: any) => {
   const toggleHeight = () => {
     setIsExpanded(!isExpanded);
   };
-  console.log({ odd });
 
   let formattedName = name;
   if (formattedName.includes(",")) {
@@ -172,7 +170,6 @@ const SubCompetitions = ({ item, data, position, name }: any) => {
                   key={index}
                   className="flex flex-1 min-w-[285px] w-[285px] max-w-[285px] h-[45px] items-center hover:text-[#00ffb6] cursor-pointer"
                   onClick={() => {
-                    console.log("clicked", dataitem);
                     router.push(`sports/hockey/leagues/${name}`);
                   }}
                 >

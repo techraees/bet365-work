@@ -40,7 +40,6 @@ const MatchBody: React.FC<MarketGroupProps> = ({ data, active }) => {
     oddData = volleyball as any;
   }
 
-  console.log("detail market tennis", oddData);
 
   return (
     <div className="w-[100%] bg-[#383838]">

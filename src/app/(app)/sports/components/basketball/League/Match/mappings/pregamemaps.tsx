@@ -1,9 +1,8 @@
 "use client";
 
 const find_in_array_by_sp_name = (arr: any, target_string: any) => {
-  console.log({ arr: arr });
   if (!arr) {
-    return undefined;
+    return null;
   }
   for (var obj of arr) {
     if (obj.sp[target_string] !== undefined) {
