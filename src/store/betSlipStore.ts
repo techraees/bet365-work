@@ -7,7 +7,7 @@ export interface BetSlipStore {
   selections: SelectionType[];
   addSelection: (selection: SelectionType) => void;
   removeSelection: (event_id: string, odd_id:string) => void; 
-
+  updateStakeValue: (event_id:string, odd_id:string, participant_id:number, newStakeValue:number) => void;
 }
 
 const useBetSlipStore = create<BetSlipStore>((set) => ({
@@ -22,7 +22,8 @@ const useBetSlipStore = create<BetSlipStore>((set) => ({
     //   "participant_name":"Home",
     //   "suspend":"0",
     //   "title":"Arsenal",
-    //   "value": 1.29
+    //   "value": 1.29,
+    //   "stake_value": 0
     // },
   ],
   addSelection: (selection: SelectionType) =>
@@ -33,6 +34,14 @@ const useBetSlipStore = create<BetSlipStore>((set) => ({
     set((state) => ({
       selections: state.selections.filter(
         selection => !(selection.event_id === eventId && selection.odd_id === oddId)
+      ),
+    })),
+    updateStakeValue: (event_id: string, odd_id: string, participant_id: number, newStakeValue: number) =>
+    set((state) => ({
+      selections: state.selections.map(selection => 
+        (selection.event_id === event_id && selection.odd_id === odd_id && selection.participant_id === participant_id) 
+          ? { ...selection, stake_value: newStakeValue } 
+          : selection
       ),
     })),
 }));
