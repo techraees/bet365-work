@@ -7,9 +7,6 @@ interface PointsEventsInterface {
 }
 const Points: React.FC<PointsEventsInterface> = ({ data, sport, subcategory }) => {
     // console.log('Tennis', { data, sport })
-    if(data.info.name === "Luka Pavlovic vs Bogdan Pavel"){
-        // console.log("LUKA",data)
-    }
     if (sport === "soccer") {
         return (
             <div className="flex ml-[auto]">

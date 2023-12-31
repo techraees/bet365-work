@@ -35,3 +35,4 @@ const MatchDetails: React.FC<TiedAtEndOfRegulationProps> = ({
 };
 
 export default MatchDetails;
+

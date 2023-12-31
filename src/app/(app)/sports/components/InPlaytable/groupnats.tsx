@@ -4,39 +4,39 @@ import { connect, NatsConnection, JSONCodec, Msg, NatsError } from "nats.ws";
 
 import { useEffect, useRef, useState } from "react";
 import * as jsonpatch from "fast-json-patch";
-import { cn } from "@/lib/utils";
-import Chevron from "@/components/ui/icons/chevron";
 import SoccerTable from "./SoccerTable";
 import TennisTable from "./TennisTable";
 import { useRouter } from "next/navigation";
-
+import CollectingPopup from "../CollectingPopup/CollectingPopup";
 
 const sc = JSONCodec();
 
 const SERVER_URL = process.env.NEXT_PUBLIC_NATS_URL!;
 
-console.log({ SERVER_URL });
+// console.log({ SERVER_URL });
 
-const Groupnats = ({ soccerodds,
+const Groupnats = ({
+  soccerodds,
   soccerleagues,
   tennisodds,
   tennisleagues,
   basketballodds,
   basketballleagues,
   cricketodds,
-  cricketleagues }: any) => {
+  cricketleagues,
+}: any) => {
   const [oddsState, setOddsState] = useState<any>({
     ...soccerodds,
     ...tennisodds,
     ...basketballodds,
-    ...cricketodds
+    ...cricketodds,
   });
 
   const [natsConnections, setNatsConnections] = useState<NatsConnection[]>([]);
 
   const natsConnectionsRef = useRef(natsConnections); // Create a mutable ref
 
-  const router = useRouter()
+  const router = useRouter();
 
   const addMessage = (err: NatsError | null, message: Msg) => {
     // console.log("PATCH");
@@ -50,28 +50,26 @@ const Groupnats = ({ soccerodds,
       const loadTime = end - start;
       // console.log(`Page load time: ${loadTime}ms`);
 
-
       // console.log({ document });
       setOddsState({ ...document });
     } catch (e) {
-      console.log({ e });
-      router.refresh()
+      // console.log({ e });
+      router.refresh();
     }
   };
-
 
   useEffect(() => {
     const newNatsConnections: NatsConnection[] = [];
 
-    let connections = ['soccer', 'tennis', 'basketball', 'cricket']
+    let connections = ["soccer", "tennis", "basketball", "cricket"];
 
-    console.log({ connections })
+    // console.log({ connections });
     connections.forEach((blocks) => {
       const natsChannel = `client.odds.live.${blocks.toLowerCase()}`;
 
       (async () => {
         try {
-          console.log("Created NATS connection ", natsChannel);
+          // console.log("Created NATS connection ", natsChannel);
           const nc = await connect({
             servers: [SERVER_URL],
             tls: null,
@@ -83,7 +81,7 @@ const Groupnats = ({ soccerodds,
             callback: addMessage,
           });
         } catch (e) {
-          console.log({ e });
+          // console.log({ e });
         }
       })();
     });
@@ -91,54 +89,80 @@ const Groupnats = ({ soccerodds,
     setNatsConnections(newNatsConnections);
     natsConnectionsRef.current = newNatsConnections;
     return () => {
-      console.log({ nats: natsConnectionsRef.current });
+      // console.log({ nats: natsConnectionsRef.current });
       natsConnectionsRef.current.forEach((nc: any) => {
         nc.drain();
         nc.close();
       });
-      console.log("Closed NATS connections");
+      // console.log("Closed NATS connections");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const soccergrouped = Object.entries(soccerleagues).map(([leagueName, eventIds]: any) => {
-    const eventsArray = eventIds.map((eventId: any) => soccerodds[eventId]?.raw_object);
-    return {
-      name: leagueName,
-      events: eventsArray,
-    };
-  });
-  const tennisgrouped = Object.entries(tennisleagues).map(([leagueName, eventIds]: any) => {
-    const eventsArray = eventIds.map((eventId: any) => tennisodds[eventId]?.raw_object);
-    return {
-      name: leagueName,
-      events: eventsArray,
-    };
-  });
-  const basketballgrouped = Object.entries(basketballleagues).map(([leagueName, eventIds]: any) => {
-    const eventsArray = eventIds.map((eventId: any) => basketballodds[eventId]?.raw_object);
-    return {
-      name: leagueName,
-      events: eventsArray,
-    };
-  });
-  const cricketgrouped = Object.entries(cricketleagues).map(([leagueName, eventIds]: any) => {
-    const eventsArray = eventIds.map((eventId: any) => cricketodds[eventId]?.raw_object);
-    return {
-      name: leagueName,
-      events: eventsArray,
-    };
-  });
+  const soccergrouped = Object.entries(soccerleagues).map(
+    ([leagueName, eventIds]: any) => {
+      const eventsArray = eventIds.map(
+        (eventId: any) => soccerodds[eventId]?.raw_object,
+      );
+      return {
+        name: leagueName,
+        events: eventsArray,
+      };
+    },
+  );
+  const tennisgrouped = Object.entries(tennisleagues).map(
+    ([leagueName, eventIds]: any) => {
+      const eventsArray = eventIds.map(
+        (eventId: any) => tennisodds[eventId]?.raw_object,
+      );
+      return {
+        name: leagueName,
+        events: eventsArray,
+      };
+    },
+  );
+  const basketballgrouped = Object.entries(basketballleagues).map(
+    ([leagueName, eventIds]: any) => {
+      const eventsArray = eventIds.map(
+        (eventId: any) => basketballodds[eventId]?.raw_object,
+      );
+      return {
+        name: leagueName,
+        events: eventsArray,
+      };
+    },
+  );
+  const cricketgrouped = Object.entries(cricketleagues).map(
+    ([leagueName, eventIds]: any) => {
+      const eventsArray = eventIds.map(
+        (eventId: any) => cricketodds[eventId]?.raw_object,
+      );
+      return {
+        name: leagueName,
+        events: eventsArray,
+      };
+    },
+  );
 
-
+  // Array Showing Logic
+  const [selectedBidsArr, setSelectedBidsArr] = useState<any>([]);
 
   return (
     <div className="flex flex-col">
-      <SoccerTable soccergrouped={soccergrouped} />
-      <TennisTable tennisgrouped={tennisgrouped} />
+      <SoccerTable
+        soccergrouped={soccergrouped}
+        selectedArray={selectedBidsArr}
+        setSelectedArray={setSelectedBidsArr}
+      />
+      <TennisTable
+        tennisgrouped={tennisgrouped}
+        selectedArray={selectedBidsArr}
+        setSelectedArray={setSelectedBidsArr}
+      />
+
+      <CollectingPopup />
     </div>
   );
 };
 
 export default Groupnats;
-

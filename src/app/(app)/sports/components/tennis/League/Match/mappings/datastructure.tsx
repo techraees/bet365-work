@@ -4,18 +4,6 @@ export const tennisMain = {
         suspend: "0",
         rows: []
     },
-    "breaksOfServe": {
-        marketname: "Breaks of Serve",
-        suspend: "0",
-        subtabs: ["Total", "Set 1", "Set 1 to Break Serve"],
-        header: [],
-        "Total header": ["", "Over", "Under"],
-        "Total": [],
-        "Set 1 header": ["", "Over", "Under"],
-        "Set 1": [],
-        "Set 1 to Break Serve header": ["", "Home", "Away"],
-        "Set 1 to Break Serve": []
-    },
     "matchHandicapGames": {
         marketname: "Match Handicap (Games)",
         suspend: "0",
@@ -32,12 +20,6 @@ export const tennisMain = {
         marketname: "Set Betting",
         suspend: "0",
         header: ["", "Home", "Away"],
-        rows: []
-    },
-    "totalSets": {
-        marketname: "Total Sets",
-        suspend: "0",
-        header: [],
         rows: []
     },
     "firstSetWinner": {
@@ -97,13 +79,13 @@ export const tennisMain = {
     "firstAwayServiceGame-Winners": {
         marketname: "First Away Service Game - Winners",
         suspend: "0",
-        header: ["", "Away", "Home"],
+        header: ["", "Home", "Away"],
         rows: []
     },
     "firstAwayServiceGame-Score": {
         marketname: "First Away Service Game - Score",
         suspend: "0",
-        header: ["", "Away", "Home"],
+        header: ["", "Home", "Away"],
         rows: []
     },
     "firstAwayServiceGame-ToWinTo": {
@@ -112,37 +94,7 @@ export const tennisMain = {
         header: ["", "Yes", "No"],
         rows: []
     },
-    "doubleResult": {
-        marketname: "Double Result",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
-    "totalBreaksOfServe": {
-        marketname: "Total Breaks of Serve",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "aceTotals": {
-        marketname: "Ace Totals",
-        suspend: "0",
-        header: ["", "Home", "Away", "Match"],
-        rows: []
-    },
-    "doubleFaultTotals": {
-        marketname: "Double Fault Totals",
-        suspend: "0",
-        header: ["", "Home", "Away", "Match"],
-        rows: []
-    },
-    "totalTieBreaksInMatch": {
-        marketname: "Total Tie Breaks in Match",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
-    "goTheDistance?": {
+    "goTheDistance": {
         marketname: "Go The Distance?",
         suspend: "0",
         header: [],
@@ -320,19 +272,13 @@ export const tennisSet = {
     "firstSetWinner": {
         marketname: "First Set Winner",
         suspend: "0",
-        header: ["Home", "Away"],
+        header: [],
         rows: []
     },
     "setBetting": {
         marketname: "Set Betting",
         suspend: "0",
         header: ["", "Home", "Away"],
-        rows: []
-    },
-    "totalSets": {
-        marketname: "Total Sets",
-        suspend: "0",
-        header: [],
         rows: []
     },
     "1stSetTotalGames": {
@@ -343,30 +289,6 @@ export const tennisSet = {
     },
     "firstSetScore": {
         marketname: "First Set Score",
-        suspend: "0",
-        header: ["", "Home", "Away"],
-        rows: []
-    },
-    "firstSetRaceToGames": {
-        marketname: "First Set Race To (Games)",
-        suspend: "0",
-        header: ["", "Home", "Away"],
-        rows: []
-    },
-    "firstSetLeadAfterGames": {
-        marketname: "First Set Lead After (Games)",
-        suspend: "0",
-        header: ["", "Home", "Away", "Tie"],
-        rows: []
-    },
-    "firstSetScoreAfter4Games": {
-        marketname: "First Set Score After 4 Games",
-        suspend: "0",
-        header: ["", "Home", "Away"],
-        rows: []
-    },
-    "firstSetScoreAfter6Games": {
-        marketname: "First Set Score After 6 Games",
         suspend: "0",
         header: ["", "Home", "Away"],
         rows: []
@@ -395,12 +317,6 @@ export const tennisSet = {
         header: ["", "Yes", "No"],
         rows: []
     },
-    "firstSet-TotalBreaksOfServe": {
-        marketname: "First Set - Total Breaks of Serve",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
 }
 
 
@@ -423,12 +339,6 @@ export const tennisGames = {
         header: ["", "Over", "Under"],
         rows: []
     },
-    "playerGamesWon": {
-        marketname: "Player Games Won",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: []
-    },
     "firstBreakOfServe": {
         marketname: "First Break Of Serve",
         suspend: "0",
@@ -441,38 +351,14 @@ export const tennisGames = {
         header: ["", "Over", "Under"],
         rows: []
     },
-    "matchTotalGamesOdd/Even": {
-        marketname: "Match Total Games Odd/Even",
-        suspend: "0",
-        header: [],
-        rows: []
-    },
 }
 
 
 export const tennisPlayer = {
-    "playerGamesWon": {
-        marketname: "Player Games Won",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: []
-    },
-    "totalBreaksOfServe": {
-        marketname: "Total Breaks of Serve",
-        suspend: "0",
-        header: ["", "Over", "Under"],
-        rows: []
-    },
     "firstSetPlayerToBreakServe": {
         marketname: "First Set Player To Break Serve",
         suspend: "0",
         header: ["", "Yes", "No"],
-        rows: []
-    },
-    "firstSet-TotalBreaksofServe": {
-        marketname: "First Set - Total Breaks of Serve",
-        suspend: "0",
-        header: ["", "Over", "Under"],
         rows: []
     },
     "homeTo": {
@@ -497,24 +383,6 @@ export const tennisPlayer = {
         marketname: "First Home Service Game - To Win To",
         suspend: "0",
         header: ["", "Yes", "No"],
-        rows: []
-    },
-    "firstHomeServiceGame-First2Points": {
-        marketname: "First Home Service Game - First 2 Points",
-        suspend: "0",
-        header: ["Home","Tie", "Away"],
-        rows: []
-    },
-    "firstHomeServiceGame-First3Points": {
-        marketname: "First Home Service Game - First 3 Points",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: []
-    },
-    "firstHomeServiceGame-First4Points": {
-        marketname: "First Home Service Game - First 4 Points",
-        suspend: "0",
-        header: ["Home","Tie", "Away"],
         rows: []
     },
     "firstHomeServiceGame-Yes/No": {
@@ -551,24 +419,6 @@ export const tennisPlayer = {
         marketname: "First Away Service Game - To Win To",
         suspend: "0",
         header: ["", "Yes", "No"],
-        rows: []
-    },
-    "firstAwayServiceGame-First2Points": {
-        marketname: "First Away Service Game - First 2 Points",
-        suspend: "0",
-        header: ["Home","Tie", "Away"],
-        rows: []
-    },
-    "firstAwayServiceGame-First3Points": {
-        marketname: "First Away Service Game - First 3 Points",
-        suspend: "0",
-        header: ["Home", "Away"],
-        rows: []
-    },
-    "firstAwayServiceGame-First4Points": {
-        marketname: "First Away Service Game - First 4 Points",
-        suspend: "0",
-        header: ["Home","Tie", "Away"],
         rows: []
     },
     "firstAwayServiceGame-Yes/No": {

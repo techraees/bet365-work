@@ -1,218 +1,332 @@
-'use client';
-import React from "react";
+"use client";
+
+const find_in_array_by_sp_name = (arr: any, target_string: any) => {
+  if (!arr) {
+    return null;
+  }
+  for (var obj of arr) {
+    if (obj.sp[target_string] !== undefined) {
+      return obj.sp[target_string];
+    }
+  }
+};
+export const get_objects_grouped_by_header = (odds_array: any) => {
+  const groupedData = odds_array.reduce((acc: any, item: any) => {
+    const key = item.header;
+
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+
+    acc[key].push(item);
+
+    return acc;
+  }, {});
+  return groupedData;
+};
+
+export const get_objects_grouped_by_name = (odds_array: any) => {
+  const groupedData = odds_array.reduce((acc: any, item: any) => {
+    const key = item.name;
+
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+
+    acc[key].push(item);
+
+    return acc;
+  }, {});
+  return groupedData;
+};
+
+export const find_participants_by_name_in_odds = (
+  odds: any,
+  participant_name: string
+) => {
+  var participant_match = odds.filter(
+    (participant: any) => participant.name === participant_name
+  );
+  if (participant_match && participant_match.length > 0) {
+    return participant_match[0];
+  } else {
+    return null;
+  }
+};
+
+function findObjectByHeader(data: any, headerToFind: any) {
+  return data.find((item: any) => item.header === headerToFind);
+}
+
+function findObjectByName(data: any, nameToFind: any) {
+  return data.find((item: any) => item.name === nameToFind);
+}
+
+function getOddsByName(event: any, name: any) {
+  for (var odd_id in event.odds) {
+    var odd_obj = event.odds[odd_id];
+    if (odd_obj.value === name) {
+      return odd_obj;
+    }
+  }
+  return null;
+}
+
+function splitArrayIntoChunks(array: any, chunkSize: any) {
+  const chunks = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    chunks.push(array.slice(i, i + chunkSize));
+  }
+  return chunks;
+}
+
 export const gameLines = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
+  const match = data?.odds?.main?.sp["game_lines"]?.odds;
+  const odd_id = data?.odds?.main?.sp["game_lines"]?.id;
+  const odd_name = data?.odds?.main?.sp["game_lines"]?.name;
+  if (!match) {
+    return [];
+  }
+  const tosend = [] as any;
+  if (match && match.length > 0) {
+    const grouped_by_name = get_objects_grouped_by_name(match);
+    for (let line in grouped_by_name) {
+      let row = [] as any;
+      var objs = grouped_by_name[line];
+      var _title = {
+        id: 0,
+        title: line,
+        suspend: "0",
+        value: "",
+      };
+      row.push(_title);
+      for (let obj of objs) {
+        row.push({
+          id: obj.id,
+          title: obj.handicap,
+          value: obj.odds,
+          suspend: "0",
+
+          event_id: data?.id,
+          event_name: data?.localteam?.name + " vs " + data?.visitorteam.name,
+          odd_id: odd_id,
+          odd_name: odd_name,
+          participant_id: obj.id,
+          participant_name: obj.name,
+          participant_handicap: obj.handicap ?? "",
+          participant_header: obj.header ?? ""
+        });
+      }
+      tosend.push(row);
+
     }
-    const tosend = [] as any;
-
-    let match = data?.odds?.filter((item: any) => item.id === '2');
-
-    if (match && match.length > 0) {
-        const fmatchWrap = match[0]?.bookmakers[0].odds;
-        if (fmatchWrap && fmatchWrap.length > 0) {
-            const arr = [] as any
-            arr.push({ title: 'To Win', value: '', suspend: '0' })
-            fmatchWrap.map((fod: any) => {
-                arr.push({ title: '', value: fod.value, suspend: fod.stop === 'False' ? '0' : '1' })
-            })
-            tosend.push(arr)
-        }
-    }
-
-    match = data?.odds?.filter((item: any) => item.id === '22630');
-
-    if (match && match.length > 0) {
-        const fmatchWrap = match[0]?.bookmakers[0].odds;
-        if (fmatchWrap && fmatchWrap.length > 0) {
-            const arr = [] as any
-            fmatchWrap.map((fmatchItem: any) => {
-                let title = fmatchItem.name
-                if (fmatchItem.ismain === "True") {
-                    arr.push({ title: 'Handicap - Sets', value: '', suspend: '0' })
-                    fmatchItem?.odds.map((fod: any) => {
-                        if (arr.length >= 3) {
-                            return;
-                        }
-                        const modtitle = `${title}`
-                        arr.push({ title: modtitle, value: fod.value, suspend: fod.stop === 'False' ? '0' : '1' })
-                    })
-                }
-            })
-            tosend.push(arr)
-        }
-    }
-
-    match = data?.odds?.filter((item: any) => item.id === '22624');
-
-    if (match && match.length > 0) {
-        const fmatchWrap = match[0]?.bookmakers[0].odds;
-        if (fmatchWrap && fmatchWrap.length > 0) {
-            const arr = [] as any
-            fmatchWrap.map((fmatchItem: any) => {
-                let title = fmatchItem.name
-                if (fmatchItem.ismain === "True") {
-                    arr.push({ title: 'Run Line', value: '', suspend: '0' })
-                    fmatchItem?.odds.map((fod: any) => {
-                        if (arr.length >= 3) {
-                            return;
-                        }
-                        const modtitle = `${fod.name[0]} ${title}`
-                        arr.push({ title: modtitle, value: fod.value, suspend: fod.stop === 'False' ? '0' : '1' })
-                    })
-                }
-            })
-            tosend.push(arr)
-        }
-    }
-
-
-    return tosend;
+  }
+  return tosend;
 }
-
 export const correctSetScore = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
-    }
-    const tosend = [] as any;
-    const match = data?.odds?.filter((item: any) => item.id === '81');
-    if (match && match.length > 0) {
-        const fmatchWrap = match[0]?.bookmakers[0].odds;
-        if (fmatchWrap && fmatchWrap.length > 0) {
+  const match = data?.odds?.main?.sp["correct_set_score"]?.odds;
+  const odd_id = data?.odds?.main?.sp["correct_set_score"]?.id;
+  const odd_name = data?.odds?.main?.sp["correct_set_score"]?.name;
+  if (!match) {
+    return [];
+  }
+  const tosend = [] as any;
+  if (match && match.length > 0) {
+    const grouped_by_name = get_objects_grouped_by_name(match);
+    for (let line in grouped_by_name) {
+      let row = [] as any;
+      var objs = grouped_by_name[line];
+      var _title = {
+        id: 0,
+        title: line,
+        suspend: "0",
+        value: "",
+      };
+      row.push(_title);
+      for (let obj of objs) {
+        row.push({
+          id: obj.id,
+          title: obj.handicap,
+          value: obj.odds,
+          suspend: "0",
 
-            fmatchWrap.map((fod: any, index: number) => {
-                if (index >= (fmatchWrap.length / 2)) {
-                    return;
-                }
-                const arr = [] as any
-                arr.push({ title: fod.name.replace(':', '-'), value: '', suspend: fod.stop === 'False' ? '0' : '1' })
-                arr.push({ title: '', value: fod.value, suspend: fod.stop === 'False' ? '0' : '1' })
-                const arw = fod.name.split(':')
-                const tofind = arw[1] + ':' + arw[0];
-                const nextItem = fmatchWrap.find((fi: any) => fi.name === tofind);
-                arr.push({ title: '', value: nextItem?.value, suspend: nextItem?.stop === 'False' ? '0' : '1' })
-                tosend.push(arr)
-            })
+          event_id: data?.id,
+          event_name: data?.localteam?.name + " vs " + data?.visitorteam.name,
+          odd_id: odd_id,
+          odd_name: odd_name,
+          participant_id: obj.id,
+          participant_name: obj.name,
+          participant_handicap: obj.handicap ?? "",
+          participant_header: obj.header ?? ""
+        });
+      }
+      tosend.push(row);
 
-        }
     }
-    return tosend;
+  }
+  return tosend;
 }
+
+
 export const matchTotalOddEven = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
+  var match = find_in_array_by_sp_name(data?.odds?.others, "match_total_odd_even");
+  if (!match) {
+    return [];
+  }
+  const odd_id = match.id;
+  const odd_name = match.name;
+  match = match.odds;
+  let tosend = [] as any;
+
+  let constructed_data = [] as any;
+  if (match && match.length > 0) {
+    for (var mm of match) {
+      constructed_data.push({
+        id: mm.id,
+        title: mm.name,
+        value: mm.odds,
+        suspend: "0",
+
+        event_id: data?.id,
+        event_name: data?.localteam?.name + " vs " + data?.visitorteam.name,
+        odd_id: odd_id,
+        odd_name: odd_name,
+        participant_id: mm.id,
+        participant_name: mm.name ?? "",
+        participant_handicap: mm.handicap ?? "",
+        participant_header: mm.header ?? "",
+      });
     }
-    const tosend = [] as any;
+    const splitted_array = splitArrayIntoChunks(constructed_data, 2);
 
-    let match = data?.odds?.filter((item: any) => item.id === '22608');
-
-    if (match && match.length > 0) {
-        const fmatchWrap = match[0]?.bookmakers[0].odds;
-        if (fmatchWrap && fmatchWrap.length > 0) {
-            const arr = [] as any
-            fmatchWrap?.map((fod: any) => {
-                if (arr.length >= 2) {
-                    return;
-                }
-                arr.push({ title: fod.name, value: fod.value, suspend: fod.stop === 'False' ? '0' : '1' })
-            })
-            tosend.push(arr)
-        }
+    for (let i = 0; i < splitted_array.length; i++) {
+      tosend.push(splitted_array[i]);
     }
+  }
 
-    return tosend;
-}
+  return tosend;
+};
+
 export const firstSetLine = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
+  var match = find_in_array_by_sp_name(data?.odds?.others, "1st_set_lines");
+  if (!match) {
+    return [];
+  }
+  const odd_id = match.id;
+  const odd_name = match.name;
+  match = match.odds;
+  const tosend = [] as any;
+  if (match && match.length > 0) {
+    const grouped_by_name = get_objects_grouped_by_name(match);
+    for (let line in grouped_by_name) {
+      let row = [] as any;
+      var objs = grouped_by_name[line];
+      var _title = {
+        id: 0,
+        title: line,
+        suspend: "0",
+        value: "",
+      };
+      row.push(_title);
+      for (let obj of objs) {
+        row.push({
+          id: obj.id,
+          title: obj.handicap,
+          value: obj.odds,
+          suspend: "0",
+
+          event_id: data?.id,
+          event_name: data?.localteam?.name + " vs " + data?.visitorteam.name,
+          odd_id: odd_id,
+          odd_name: odd_name,
+          participant_id: obj.id,
+          participant_name: obj.name,
+          participant_handicap: obj.handicap ?? "",
+          participant_header: obj.header ?? ""
+        });
+      }
+      tosend.push(row);
+
     }
-    const tosend = [] as any;
-
-    let match = data?.odds?.filter((item: any) => item.id === '22628');
-
-    if (match && match.length > 0) {
-        const fmatchWrap = match[0]?.bookmakers[0].odds;
-        if (fmatchWrap && fmatchWrap.length > 0) {
-            const arr = [] as any
-            arr.push({ title: 'To Win', value: '', suspend: '0' })
-            fmatchWrap.map((fod: any) => {
-                arr.push({ title: '', value: fod.value, suspend: fod.stop === 'False' ? '0' : '1' })
-            })
-            tosend.push(arr)
-        }
-    }
-
-    match = data?.odds?.filter((item: any) => item.id === '22627');
-
-    if (match && match.length > 0) {
-        const fmatchWrap = match[0]?.bookmakers[0].odds;
-        if (fmatchWrap && fmatchWrap.length > 0) {
-            const arr = [] as any
-            fmatchWrap.map((fmatchItem: any) => {
-                let title = fmatchItem.name
-                if (fmatchItem.ismain === "True") {
-                    arr.push({ title: 'Total Points', value: '', suspend: '0' })
-                    fmatchItem?.odds.map((fod: any) => {
-                        if (arr.length >= 3) {
-                            return;
-                        }
-                        const modtitle = `${fod.name[0]} ${title}`
-                        arr.push({ title: modtitle, value: fod.value, suspend: fod.stop === 'False' ? '0' : '1' })
-                    })
-                }
-            })
-            tosend.push(arr)
-        }
-    }
-    return tosend;
+  }
+  return tosend;
 }
 
 export const firstSetToGoToExtraPoints = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
+  var match = find_in_array_by_sp_name(data?.odds?.others, "1st_set_to_go_to_extra_points");
+  if (!match) {
+    return [];
+  }
+  const odd_id = match.id;
+  const odd_name = match.name;
+  match = match.odds;
+  let tosend = [] as any;
+
+  let constructed_data = [] as any;
+  if (match && match.length > 0) {
+    for (var mm of match) {
+      constructed_data.push({
+        id: mm.id,
+        title: mm.name,
+        value: mm.odds,
+        suspend: "0",
+
+        event_id: data?.id,
+        event_name: data?.localteam?.name + " vs " + data?.visitorteam.name,
+        odd_id: odd_id,
+        odd_name: odd_name,
+        participant_id: mm.id,
+        participant_name: mm.name ?? "",
+        participant_handicap: mm.handicap ?? "",
+        participant_header: mm.header ?? "",
+      });
     }
-    const tosend = [] as any;
+    const splitted_array = splitArrayIntoChunks(constructed_data, 2);
 
-    let match = data?.odds?.filter((item: any) => item.id === '23110');
-
-    if (match && match.length > 0) {
-        const fmatchWrap = match[0]?.bookmakers[0].odds;
-        if (fmatchWrap && fmatchWrap.length > 0) {
-            const arr = [] as any
-            fmatchWrap?.map((fod: any) => {
-                if (arr.length >= 2) {
-                    return;
-                }
-                arr.push({ title: fod.name, value: fod.value, suspend: fod.stop === 'False' ? '0' : '1' })
-            })
-            tosend.push(arr)
-        }
+    for (let i = 0; i < splitted_array.length; i++) {
+      tosend.push(splitted_array[i]);
     }
+  }
 
-    return tosend;
-}
+  return tosend;
+};
+
 
 export const firstSetTotalOddEven = (data: any) => {
-    if (!data && !data.odds) {
-        return [];
+  var match = find_in_array_by_sp_name(data?.odds?.others, "1st_set_total_odd_even");
+  if (!match) {
+    return [];
+  }
+  const odd_id = match.id;
+  const odd_name = match.name;
+  match = match.odds;
+  let tosend = [] as any;
+
+  let constructed_data = [] as any;
+  if (match && match.length > 0) {
+    for (var mm of match) {
+      constructed_data.push({
+        id: mm.id,
+        title: mm.name,
+        value: mm.odds,
+        suspend: "0",
+
+        event_id: data?.id,
+        event_name: data?.localteam?.name + " vs " + data?.visitorteam.name,
+        odd_id: odd_id,
+        odd_name: odd_name,
+        participant_id: mm.id,
+        participant_name: mm.name ?? "",
+        participant_handicap: mm.handicap ?? "",
+        participant_header: mm.header ?? "",
+      });
     }
-    const tosend = [] as any;
+    const splitted_array = splitArrayIntoChunks(constructed_data, 2);
 
-    let match = data?.odds?.filter((item: any) => item.id === '22625');
-
-    if (match && match.length > 0) {
-        const fmatchWrap = match[0]?.bookmakers[0].odds;
-        if (fmatchWrap && fmatchWrap.length > 0) {
-            const arr = [] as any
-            fmatchWrap?.map((fod: any) => {
-                if (arr.length >= 2) {
-                    return;
-                }
-                arr.push({ title: fod.name, value: fod.value, suspend: fod.stop === 'False' ? '0' : '1' })
-            })
-            tosend.push(arr)
-        }
+    for (let i = 0; i < splitted_array.length; i++) {
+      tosend.push(splitted_array[i]);
     }
+  }
 
-    return tosend;
-}
+  return tosend;
+};
