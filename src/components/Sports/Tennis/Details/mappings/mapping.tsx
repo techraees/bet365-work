@@ -244,20 +244,30 @@ export const pointBetting = (data: any) => {
       value: home_obj.value_eu,
       suspend: home_obj.suspend,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_point_betting].name,
-      participant_name: away_obj.name,
-      participant_handicap: away_obj.handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_point_betting,
+      odd_name: data?.odds?.[_odd_id_point_betting]?.name,
+      participant_id: home_obj.id,
+      participant_name: home_obj.name,
+      participant_handicap: home_obj.handicap,
+      participant_header: home_obj.header,
     };
     var away_row_obj = {
       title: "",
       value: away_obj.value_eu,
       suspend: away_obj.suspend,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_point_betting].name,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_point_betting,
+      odd_name: data?.odds?.[_odd_id_point_betting]?.name,
+      participant_id: away_obj.id,
       participant_name: away_obj.name,
       participant_handicap: away_obj.handicap,
+      participant_header: away_obj.header,
     };
     arr = [title_obj, home_row_obj, away_row_obj];
     base_arr.push(arr);
@@ -627,7 +637,21 @@ export const nextGameWinner = (data: any) => {
       title = data?.team_info?.home?.name;
       suspend = participant_obj?.suspend;
       value = participant_obj.value_eu;
-      var obj = { title: title, value: value, suspend: suspend };
+      var obj = {
+        title: title,
+        value: value,
+        suspend: suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
+      };
       arr.push(obj);
     }
     if (
@@ -637,7 +661,21 @@ export const nextGameWinner = (data: any) => {
       title = data?.team_info?.away?.name;
       suspend = participant_obj?.suspend;
       value = participant_obj.value_eu;
-      var obj = { title: title, value: value, suspend: suspend };
+      var obj = {
+        title: title,
+        value: value,
+        suspend: suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
+      };
       arr.push(obj);
     }
   }
@@ -714,7 +752,21 @@ export const nextGameToDeuce = (data: any) => {
       title = participant_obj.name;
       suspend = participant_obj?.suspend;
       value = participant_obj.value_eu;
-      var obj = { title: title, value: value, suspend: suspend };
+      var obj = {
+        title: title,
+        value: value,
+        suspend: suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id_current_set_winner,
+        odd_name: data?.odds?.[odd_id_current_set_winner]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
+      };
       arr.push(obj);
     }
     if (
@@ -724,7 +776,21 @@ export const nextGameToDeuce = (data: any) => {
       title = participant_obj.name;
       suspend = participant_obj?.suspend;
       value = participant_obj.value_eu;
-      var obj = { title: title, value: value, suspend: suspend };
+      var obj = {
+        title: title,
+        value: value,
+        suspend: suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id_current_set_winner,
+        odd_name: data?.odds?.[odd_id_current_set_winner]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
+      };
       arr.push(obj);
     }
     // not sure if this is the best solution
@@ -907,7 +973,21 @@ export const pointWinner = (data: any) => {
       title = data?.team_info?.home?.name;
       suspend = participant_obj?.suspend;
       value = participant_obj.value_eu;
-      var obj = { title: title, value: value, suspend: suspend };
+      var obj = {
+        title: title,
+        value: value,
+        suspend: suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
+      };
       arr.push(obj);
     }
     if (
@@ -917,7 +997,21 @@ export const pointWinner = (data: any) => {
       title = data?.team_info?.away?.name;
       suspend = participant_obj?.suspend;
       value = participant_obj.value_eu;
-      var obj = { title: title, value: value, suspend: suspend };
+      var obj = {
+        title: title,
+        value: value,
+        suspend: suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
+      };
       arr.push(obj);
     }
   }
@@ -993,7 +1087,21 @@ export const nextPointWinner = (data: any) => {
       title = data?.team_info?.home?.name;
       suspend = participant_obj?.suspend;
       value = participant_obj.value_eu;
-      var obj = { title: title, value: value, suspend: suspend };
+      var obj = {
+        title: title,
+        value: value,
+        suspend: suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
+      };
       arr.push(obj);
     }
     if (
@@ -1003,7 +1111,21 @@ export const nextPointWinner = (data: any) => {
       title = data?.team_info?.away?.name;
       suspend = participant_obj?.suspend;
       value = participant_obj.value_eu;
-      var obj = { title: title, value: value, suspend: suspend };
+      var obj = {
+        title: title,
+        value: value,
+        suspend: suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
+      };
       arr.push(obj);
     }
   }
@@ -1074,7 +1196,21 @@ export const gameScoreAfter2Points = (data: any) => {
       title = participant_obj.name;
       suspend = participant_obj?.suspend;
       value = participant_obj.value_eu;
-      var obj = { title: title, value: value, suspend: suspend };
+      var obj = {
+        title: title,
+        value: value,
+        suspend: suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
+      };
       arr.push(obj);
     }
   }
@@ -1147,7 +1283,21 @@ export const nextGameScoreAfter2Points = (data: any) => {
       title = participant_obj.name;
       suspend = participant_obj?.suspend;
       value = participant_obj.value_eu;
-      var obj = { title: title, value: value, suspend: suspend };
+      var obj = {
+        title: title,
+        value: value,
+        suspend: suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
+      };
       arr.push(obj);
     }
   }
@@ -1181,16 +1331,16 @@ const _getParticipantsField = (
         title: title,
         value: value,
         suspend: suspend,
-        event_id: event?.info?.id,
-        odd_id: odd_id,
-        participant_id: participant_obj.id,
 
-        event_name: event?.info?.name,
-        odd_name: event?.odds[odd_id].name,
-        participant_name:
-          event?.odds[odd_id].participants[participant_obj.id].name,
-        participant_handicap:
-          event?.odds[odd_id].participants[participant_obj.id].handicap,
+        event_id: event?.info?.id,
+        event_name:
+          event?.team_info?.home?.name + " vs " + event?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: event?.odds?.[odd_id]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
       };
       return obj;
     }
@@ -1223,14 +1373,14 @@ const _getParticipantsFieldWithoutHandicap = (
         suspend: suspend,
 
         event_id: event?.info?.id,
+        event_name:
+          event?.team_info?.home?.name + " vs " + event?.team_info?.away?.name,
         odd_id: odd_id,
-        participant_id: participant_id,
-
-        event_name: event?.info?.name,
-        odd_name: event?.odds[odd_id].name,
-        participant_name: event?.odds[odd_id].participants[participant_id].name,
-        participant_handicap:
-          event?.odds[odd_id].participants[participant_id].handicap,
+        odd_name: event?.odds?.[odd_id]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
       };
       return obj;
     }
@@ -2049,19 +2199,14 @@ export const totalGamesInCurrentSet = (data: any) => {
       suspend: grouped_obj["Over"][0].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
       participant_id: grouped_obj["Over"][0].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["Over"][0].id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["Over"][0].id
-        ].handicap,
+      participant_name: grouped_obj["Over"][0].name,
+      participant_handicap: grouped_obj["Over"][0].handicap,
+      participant_header: grouped_obj["Over"][0].header,
     };
     var under_obj = {
       title: "",
@@ -2069,19 +2214,14 @@ export const totalGamesInCurrentSet = (data: any) => {
       suspend: grouped_obj["Under"][0].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: grouped_obj["Under"][0].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["Under"][0].id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["Under"][0].id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: grouped_obj["Under"][0]?.id,
+      participant_name: grouped_obj["Under"][0]?.name,
+      participant_handicap: grouped_obj["Under"][0]?.handicap,
+      participant_header: grouped_obj["Under"][0]?.header,
     };
 
     arr.push(over_obj);
@@ -2145,19 +2285,14 @@ export const overUnderCurrentSet = (data: any) => {
       suspend: grouped_obj["Over"][0].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: grouped_obj["Over"][0].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["Over"][0].id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["Over"][0].id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: grouped_obj["Over"][0]?.id,
+      participant_name: grouped_obj["Over"][0]?.name,
+      participant_handicap: grouped_obj["Over"][0]?.handicap,
+      participant_header: grouped_obj["Over"][0]?.header,
     };
     var under_obj = {
       title: "",
@@ -2165,19 +2300,14 @@ export const overUnderCurrentSet = (data: any) => {
       suspend: grouped_obj["Under"][0].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: grouped_obj["Under"][0].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["Under"][0].id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["Under"][0].id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: grouped_obj["Under"][0]?.id,
+      participant_name: grouped_obj["Under"][0]?.name,
+      participant_handicap: grouped_obj["Under"][0]?.handicap,
+      participant_header: grouped_obj["Under"][0]?.header,
     };
 
     arr.push(over_obj);
@@ -2278,19 +2408,14 @@ export const raceToCurrentSet = (data: any) => {
         suspend: grouped_obj["Home"][0].suspend,
 
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: grouped_obj["Home"][0].id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[
-            grouped_obj["Home"][0].id
-          ].name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[
-            grouped_obj["Home"][0].id
-          ].handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: grouped_obj["Home"][0]?.id,
+        participant_name: grouped_obj["Home"][0]?.name,
+        participant_handicap: grouped_obj["Home"][0]?.handicap,
+        participant_header: grouped_obj["Home"][0]?.header,
       };
       var away_obj = {
         title: "",
@@ -2298,19 +2423,14 @@ export const raceToCurrentSet = (data: any) => {
         suspend: grouped_obj["Away"][0].suspend,
 
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: grouped_obj["Away"][0].id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[
-            grouped_obj["Away"][0].id
-          ].name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[
-            grouped_obj["Away"][0].id
-          ].handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: grouped_obj["Away"][0]?.id,
+        participant_name: grouped_obj["Away"][0]?.name,
+        participant_handicap: grouped_obj["Away"][0]?.handicap,
+        participant_header: grouped_obj["Away"][0]?.header,
       };
 
       arr.push(home_obj);
@@ -2378,19 +2498,14 @@ export const leadAfterCurrentSet = (data: any) => {
       suspend: grouped_obj["1"][0].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: grouped_obj["1"][0].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["1"][0].id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["1"][0].id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: grouped_obj["1"][0]?.id,
+      participant_name: grouped_obj["1"][0]?.name,
+      participant_handicap: grouped_obj["1"][0]?.handicap,
+      participant_header: grouped_obj["1"][0]?.header,
     };
     var away_obj = {
       title: "",
@@ -2398,19 +2513,14 @@ export const leadAfterCurrentSet = (data: any) => {
       suspend: grouped_obj["2"][0].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: grouped_obj["2"][0].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["2"][0].id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["2"][0].id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: grouped_obj["2"][0]?.id,
+      participant_name: grouped_obj["2"][0]?.name,
+      participant_handicap: grouped_obj["2"][0]?.handicap,
+      participant_header: grouped_obj["2"][0]?.header,
     };
     var tie_obj = {
       title: "",
@@ -2418,19 +2528,14 @@ export const leadAfterCurrentSet = (data: any) => {
       suspend: grouped_obj["X"][0].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: grouped_obj["X"][0].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["X"][0].id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          grouped_obj["X"][0].id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: grouped_obj["X"][0]?.id,
+      participant_name: grouped_obj["X"][0]?.name,
+      participant_handicap: grouped_obj["X"][0]?.handicap,
+      participant_header: grouped_obj["X"][0]?.header,
     };
 
     arr.push(home_obj);
@@ -2540,17 +2645,14 @@ export const correctScoreCurrentSet = (data: any) => {
       suspend: group_obj[0].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: group_obj[0].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[group_obj[0].id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[group_obj[0].id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[0]?.id,
+      participant_name: group_obj[0]?.name,
+      participant_handicap: group_obj[0]?.handicap,
+      participant_header: group_obj[0]?.header,
     };
     var away_obj = {
       title: "",
@@ -2558,17 +2660,14 @@ export const correctScoreCurrentSet = (data: any) => {
       suspend: group_obj[1].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: group_obj[1].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[group_obj[1].id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[group_obj[1].id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[1]?.id,
+      participant_name: group_obj[1]?.name,
+      participant_handicap: group_obj[1]?.handicap,
+      participant_header: group_obj[1]?.header,
     };
     arr.push(title_obj, home_obj, away_obj);
     base_arr.push(arr);
@@ -2704,17 +2803,14 @@ export const correctScoreCurrentSetAnyPlayer = (data: any) => {
         suspend: group_obj[0].suspend,
 
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: group_obj[0].id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[group_obj[0].id]
-            .name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[group_obj[0].id]
-            .handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: group_obj[0]?.id,
+        participant_name: group_obj[0]?.name,
+        participant_handicap: group_obj[0]?.handicap,
+        participant_header: group_obj[0]?.header,
       };
       var away_obj = {
         title: "",
@@ -2722,17 +2818,14 @@ export const correctScoreCurrentSetAnyPlayer = (data: any) => {
         suspend: group_obj[1].suspend,
 
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: group_obj[1].id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[group_obj[1].id]
-            .name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[group_obj[1].id]
-            .handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: group_obj[1]?.id,
+        participant_name: group_obj[1]?.name,
+        participant_handicap: group_obj[1]?.handicap,
+        participant_header: group_obj[1]?.header,
       };
       console.log("hh", home_obj);
       console.log("ii", away_obj);
@@ -2810,19 +2903,14 @@ export const correctScoreCurrentSetAnyPlayerDrawBack = (data: any) => {
           suspend: participant_obj.suspend,
 
           event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
           odd_id: _odd_id_current_set_winner,
-          participant_id: participant_obj.id,
-
-          event_name: data?.info?.name,
-          odd_name: data?.odds[_odd_id_current_set_winner].name,
-          participant_name:
-            data?.odds[_odd_id_current_set_winner].participants[
-              participant_obj.id
-            ].name,
-          participant_handicap:
-            data?.odds[_odd_id_current_set_winner].participants[
-              participant_obj.id
-            ].handicap,
+          odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+          participant_id: participant_obj?.id,
+          participant_name: participant_obj?.name,
+          participant_handicap: participant_obj?.handicap,
+          participant_header: participant_obj?.header,
         };
         group.push(element);
         // group.push(participants[keys[i]]);
@@ -2837,19 +2925,14 @@ export const correctScoreCurrentSetAnyPlayerDrawBack = (data: any) => {
           suspend: participant_obj.suspend,
 
           event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
           odd_id: _odd_id_current_set_winner,
-          participant_id: participant_obj.id,
-
-          event_name: data?.info?.name,
-          odd_name: data?.odds[_odd_id_current_set_winner].name,
-          participant_name:
-            data?.odds[_odd_id_current_set_winner].participants[
-              participant_obj.id
-            ].name,
-          participant_handicap:
-            data?.odds[_odd_id_current_set_winner].participants[
-              participant_obj.id
-            ].handicap,
+          odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+          participant_id: participant_obj?.id,
+          participant_name: participant_obj?.name,
+          participant_handicap: participant_obj?.handicap,
+          participant_header: participant_obj?.header,
         };
         group.push(element);
       }
@@ -2923,17 +3006,14 @@ export const correctScoreNextSetAnyPlayer = (data: any) => {
         suspend: group_obj[0].suspend,
 
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: group_obj[0].id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[group_obj[0].id]
-            .name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[group_obj[0].id]
-            .handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: group_obj[0]?.id,
+        participant_name: group_obj[0]?.name,
+        participant_handicap: group_obj[0]?.handicap,
+        participant_header: group_obj[0]?.header,
       };
       var away_obj = {
         title: "",
@@ -2941,17 +3021,14 @@ export const correctScoreNextSetAnyPlayer = (data: any) => {
         suspend: group_obj[1].suspend,
 
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: group_obj[1].id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[group_obj[1].id]
-            .name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[group_obj[1].id]
-            .handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: group_obj[1]?.id,
+        participant_name: group_obj[1]?.name,
+        participant_handicap: group_obj[1]?.handicap,
+        participant_header: group_obj[1]?.header,
       };
       console.log("hh", home_obj);
       console.log("ii", away_obj);
@@ -3029,19 +3106,14 @@ export const correctScoreNextSetAnyPlayerDrawBack = (data: any) => {
           suspend: participant_obj.suspend,
 
           event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
           odd_id: _odd_id_current_set_winner,
-          participant_id: participant_obj.id,
-
-          event_name: data?.info?.name,
-          odd_name: data?.odds[_odd_id_current_set_winner].name,
-          participant_name:
-            data?.odds[_odd_id_current_set_winner].participants[
-              participant_obj.id
-            ].name,
-          participant_handicap:
-            data?.odds[_odd_id_current_set_winner].participants[
-              participant_obj.id
-            ].handicap,
+          odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+          participant_id: participant_obj?.id,
+          participant_name: participant_obj?.name,
+          participant_handicap: participant_obj?.handicap,
+          participant_header: participant_obj?.header,
         };
         group.push(element);
         // group.push(participants[keys[i]]);
@@ -3056,19 +3128,14 @@ export const correctScoreNextSetAnyPlayerDrawBack = (data: any) => {
           suspend: participant_obj.suspend,
 
           event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
           odd_id: _odd_id_current_set_winner,
-          participant_id: participant_obj.id,
-
-          event_name: data?.info?.name,
-          odd_name: data?.odds[_odd_id_current_set_winner].name,
-          participant_name:
-            data?.odds[_odd_id_current_set_winner].participants[
-              participant_obj.id
-            ].name,
-          participant_handicap:
-            data?.odds[_odd_id_current_set_winner].participants[
-              participant_obj.id
-            ].handicap,
+          odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+          participant_id: participant_obj?.id,
+          participant_name: participant_obj?.name,
+          participant_handicap: participant_obj?.handicap,
+          participant_header: participant_obj?.header,
         };
         group.push(element);
       }
@@ -3156,41 +3223,11 @@ export const currentSetToBreakServe = (data: any) => {
       title: data?.team_info?.home.name,
       value: "",
       suspend: home_yes.suspend,
-
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: home_yes.participant_id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          home_yes.participant_id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          home_yes.participant_id
-        ].handicap,
     };
     var away_title = {
       title: data?.team_info?.away.name,
       value: "",
       suspend: away_yes.suspend,
-
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: away_yes.participant_id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          away_yes.participant_id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          away_yes.participant_id
-        ].handicap,
     };
     var row_1 = [home_title, home_yes, home_no];
     var row_2 = [away_title, away_yes, away_no];
@@ -3280,41 +3317,11 @@ export const nextSetToBreakServe = (data: any) => {
       title: data?.team_info?.home.name,
       value: "",
       suspend: home_yes.suspend,
-
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: home_yes.participant_id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          home_yes.participant_id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          home_yes.participant_id
-        ].handicap,
     };
     var away_title = {
       title: data?.team_info?.away.name,
       value: "",
       suspend: away_yes.suspend,
-
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: away_yes.participant_id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          away_yes.participant_id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          away_yes.participant_id
-        ].handicap,
     };
     var row_1 = [home_title, home_yes, home_no];
     var row_2 = [away_title, away_yes, away_no];
@@ -3504,17 +3511,14 @@ export const currectSetCorrectScoreGroup = (data: any) => {
       suspend: group_obj[1].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: group_obj[1].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[group_obj[1].id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[group_obj[1].id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[1]?.id,
+      participant_name: group_obj[1]?.name,
+      participant_handicap: group_obj[1]?.handicap,
+      participant_header: group_obj[1]?.header,
     };
     var second_group = {
       title: "",
@@ -3522,17 +3526,14 @@ export const currectSetCorrectScoreGroup = (data: any) => {
       suspend: group_obj[0].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: group_obj[0].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[group_obj[0].id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[group_obj[0].id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[0]?.id,
+      participant_name: group_obj[0]?.name,
+      participant_handicap: group_obj[0]?.handicap,
+      participant_header: group_obj[0]?.header,
     };
     arr.push(title_obj);
     arr.push(first_group);
@@ -3593,20 +3594,14 @@ export const currectSetCorrectScoreGroup2 = (data: any) => {
       suspend: group_obj[1].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: group_obj[1].participant_id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[1]?.participant_id
-        ]?.name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[1]?.participant_id
-        ]?.handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[1]?.id,
+      participant_name: group_obj[1]?.name,
+      participant_handicap: group_obj[1]?.handicap,
+      participant_header: group_obj[1]?.header,
     };
     var second_group = {
       title: "",
@@ -3614,19 +3609,14 @@ export const currectSetCorrectScoreGroup2 = (data: any) => {
       suspend: group_obj[0].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: group_obj[0].participant_id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[0]?.participant_id
-        ]?.name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[0]?.participant_id
-        ]?.handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[0]?.id,
+      participant_name: group_obj[0]?.name,
+      participant_handicap: group_obj[0]?.handicap,
+      participant_header: group_obj[0]?.header,
     };
     arr.push(title_obj);
     arr.push(first_group);
@@ -3687,19 +3677,14 @@ export const nextSetCorrectScoreGroup = (data: any) => {
       suspend: group_obj[1].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: group_obj[1].participant_id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[1]?.participant_id
-        ]?.name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[1]?.participant_id
-        ]?.handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[1]?.id,
+      participant_name: group_obj[1]?.name,
+      participant_handicap: group_obj[1]?.handicap,
+      participant_header: group_obj[1]?.header,
     };
     var second_group = {
       title: "",
@@ -3707,19 +3692,14 @@ export const nextSetCorrectScoreGroup = (data: any) => {
       suspend: group_obj[0].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: group_obj[0].participant_id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[0]?.participant_id
-        ]?.name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[0]?.participant_id
-        ]?.handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[0]?.id,
+      participant_name: group_obj[0]?.name,
+      participant_handicap: group_obj[0]?.handicap,
+      participant_header: group_obj[0]?.header,
     };
     arr.push(title_obj);
     arr.push(first_group);
@@ -3781,19 +3761,14 @@ export const nextSetCorrectScoreGroup2 = (data: any) => {
       suspend: group_obj[1].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: group_obj[1].participant_id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[1].participant_id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[1].participant_id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[1]?.id,
+      participant_name: group_obj[1]?.name,
+      participant_handicap: group_obj[1]?.handicap,
+      participant_header: group_obj[1]?.header,
     };
     var second_group = {
       title: "",
@@ -3801,19 +3776,14 @@ export const nextSetCorrectScoreGroup2 = (data: any) => {
       suspend: group_obj[0].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: group_obj[0].participant_id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[0].participant_id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          group_obj[0].participant_id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[0]?.id,
+      participant_name: group_obj[0]?.name,
+      participant_handicap: group_obj[0]?.handicap,
+      participant_header: group_obj[0]?.header,
     };
     arr.push(title_obj);
     arr.push(first_group);
@@ -3884,15 +3854,14 @@ export const currentSetScoreAfter4Games = (data: any) => {
         suspend: obj.suspend,
 
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: obj.id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[obj.id].name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[obj.id].handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: obj?.id,
+        participant_name: obj?.name,
+        participant_handicap: obj?.handicap,
+        participant_header: obj?.header,
       };
       arr.push(value_obj);
     }
@@ -3961,15 +3930,14 @@ export const currentSetScoreAfter6Games = (data: any) => {
         suspend: obj.suspend,
 
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: obj.id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[obj.id].name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[obj.id].handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: obj?.id,
+        participant_name: obj?.name,
+        participant_handicap: obj?.handicap,
+        participant_header: obj?.header,
       };
       arr.push(value_obj);
     }
@@ -4037,16 +4005,14 @@ export const nextSetScoreAfter4Games = (data: any) => {
           suspend: obj.suspend,
 
           event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
           odd_id: _odd_id_current_set_winner,
-          participant_id: obj.id,
-
-          event_name: data?.info?.name,
-          odd_name: data?.odds[_odd_id_current_set_winner].name,
-          participant_name:
-            data?.odds[_odd_id_current_set_winner].participants[obj.id].name,
-          participant_handicap:
-            data?.odds[_odd_id_current_set_winner].participants[obj.id]
-              .handicap,
+          odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+          participant_id: obj?.id,
+          participant_name: obj?.name,
+          participant_handicap: obj?.handicap,
+          participant_header: obj?.header,
         };
         arr.push(value_obj);
       }
@@ -4117,16 +4083,14 @@ export const nextSetScoreAfter6Games = (data: any) => {
           suspend: obj.suspend,
 
           event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
           odd_id: _odd_id_current_set_winner,
-          participant_id: obj.id,
-
-          event_name: data?.info?.name,
-          odd_name: data?.odds[_odd_id_current_set_winner].name,
-          participant_name:
-            data?.odds[_odd_id_current_set_winner].participants[obj.id].name,
-          participant_handicap:
-            data?.odds[_odd_id_current_set_winner].participants[obj.id]
-              .handicap,
+          odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+          participant_id: obj?.id,
+          participant_name: obj?.name,
+          participant_handicap: obj?.handicap,
+          participant_header: obj?.header,
         };
         arr.push(value_obj);
       }
@@ -4189,17 +4153,14 @@ export const currentSetHandicap = (data: any) => {
       suspend: suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: home_participant.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[home_participant.id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[home_participant.id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: home_participant?.id,
+      participant_name: home_participant?.name,
+      participant_handicap: home_participant?.handicap,
+      participant_header: home_participant?.header,
     };
     arr.push(home_obj);
   }
@@ -4213,17 +4174,14 @@ export const currentSetHandicap = (data: any) => {
       suspend: suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: away_participant.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[away_participant.id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[away_participant.id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: away_participant?.id,
+      participant_name: away_participant?.name,
+      participant_handicap: away_participant?.handicap,
+      participant_header: away_participant?.header,
     };
     arr.push(away_obj);
   }
@@ -4283,17 +4241,14 @@ export const currentSetTieBreak = (data: any) => {
       suspend: suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: home_participant.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[home_participant.id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[home_participant.id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: home_participant?.id,
+      participant_name: home_participant?.name,
+      participant_handicap: home_participant?.handicap,
+      participant_header: home_participant?.header,
     };
     arr.push(home_obj);
   }
@@ -4307,17 +4262,14 @@ export const currentSetTieBreak = (data: any) => {
       suspend: suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: away_participant.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[away_participant.id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[away_participant.id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: away_participant?.id,
+      participant_name: away_participant?.name,
+      participant_handicap: away_participant?.handicap,
+      participant_header: away_participant?.header,
     };
     arr.push(away_obj);
   }
@@ -4387,17 +4339,14 @@ export const currentSetTieBreakTotalPoints = (data: any) => {
       suspend: over_participant.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: over_participant.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[over_participant.id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[over_participant.id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: over_participant?.id,
+      participant_name: over_participant?.name,
+      participant_handicap: over_participant?.handicap,
+      participant_header: over_participant?.header,
     });
     arr.push({
       title: "",
@@ -4405,19 +4354,14 @@ export const currentSetTieBreakTotalPoints = (data: any) => {
       suspend: under_participant.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: under_participant.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          under_participant.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          under_participant.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: under_participant?.id,
+      participant_name: under_participant?.name,
+      participant_handicap: under_participant?.handicap,
+      participant_header: under_participant?.header,
     });
     base_arr.push(arr);
   }
@@ -4531,17 +4475,14 @@ export const currentSetTieBreakWinner = (data: any) => {
       suspend: home_participant.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: home_participant.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[home_participant.id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[home_participant.id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: home_participant?.id,
+      participant_name: home_participant?.name,
+      participant_handicap: home_participant?.handicap,
+      participant_header: home_participant?.header,
     };
     var away_obj = {
       title: data?.team_info?.away?.name,
@@ -4549,17 +4490,14 @@ export const currentSetTieBreakWinner = (data: any) => {
       suspend: away_participant.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: away_participant.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[away_participant.id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[away_participant.id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: away_participant?.id,
+      participant_name: away_participant?.name,
+      participant_handicap: away_participant?.handicap,
+      participant_header: away_participant?.header,
     };
     row1 = [home_obj];
     row2 = [away_obj];
@@ -4624,17 +4562,14 @@ export const nextSetHandicap = (data: any) => {
       suspend: suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: home_participant.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[home_participant.id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[home_participant.id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: home_participant?.id,
+      participant_name: home_participant?.name,
+      participant_handicap: home_participant?.handicap,
+      participant_header: home_participant?.header,
     };
     arr.push(home_obj);
   }
@@ -4648,17 +4583,14 @@ export const nextSetHandicap = (data: any) => {
       suspend: suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: away_participant.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[away_participant.id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[away_participant.id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: away_participant?.id,
+      participant_name: away_participant?.name,
+      participant_handicap: away_participant?.handicap,
+      participant_header: away_participant?.header,
     };
     arr.push(away_obj);
   }
@@ -4720,19 +4652,14 @@ export const totalSets = (data: any) => {
         suspend: first_participant.suspend,
 
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: first_participant.id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[
-            first_participant.id
-          ].name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[
-            first_participant.id
-          ].handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: first_participant?.id,
+        participant_name: first_participant?.name,
+        participant_handicap: first_participant?.handicap,
+        participant_header: first_participant?.header,
       });
 
       // Getting the next participant
@@ -4743,19 +4670,14 @@ export const totalSets = (data: any) => {
         value: second_participant.value_eu,
         suspend: second_participant.suspend,
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: second_participant.id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[
-            second_participant.id
-          ].name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[
-            second_participant.id
-          ].handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: second_participant?.id,
+        participant_name: second_participant?.name,
+        participant_handicap: second_participant?.handicap,
+        participant_header: second_participant?.header,
       });
 
       base_arr.push(arr);
@@ -4773,19 +4695,14 @@ export const totalSets = (data: any) => {
         value: last_participant.value_eu,
         suspend: last_participant.suspend,
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: last_participant.id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[
-            last_participant.id
-          ].name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[
-            last_participant.id
-          ].handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: last_participant?.id,
+        participant_name: last_participant?.name,
+        participant_handicap: last_participant?.handicap,
+        participant_header: last_participant?.header,
       },
     ]);
   }
@@ -4865,19 +4782,14 @@ export const playersOverUnder = (data: any) => {
     suspend: player_1_over_participant.suspend,
 
     event_id: data?.info?.id,
+    event_name:
+      data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
     odd_id: _odd_id_current_set_winner,
-    participant_id: player_1_over_participant.id,
-
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_1_over_participant?.id
-      ]?.name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_1_over_participant?.id
-      ]?.handicap,
+    odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+    participant_id: player_1_over_participant?.id,
+    participant_name: player_1_over_participant?.name,
+    participant_handicap: player_1_over_participant?.handicap,
+    participant_header: player_1_over_participant?.header,
   };
   var player_1_under_obj = {
     title:
@@ -4887,19 +4799,14 @@ export const playersOverUnder = (data: any) => {
     value: player_1_under_participant.value_eu,
     suspend: player_1_under_participant.suspend,
     event_id: data?.info?.id,
+    event_name:
+      data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
     odd_id: _odd_id_current_set_winner,
-    participant_id: player_1_under_participant.id,
-
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_1_under_participant?.id
-      ]?.name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_1_under_participant?.id
-      ]?.handicap,
+    odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+    participant_id: player_1_under_participant?.id,
+    participant_name: player_1_under_participant?.name,
+    participant_handicap: player_1_under_participant?.handicap,
+    participant_header: player_1_under_participant?.header,
   };
   var player_2_over_obj = {
     title:
@@ -4908,19 +4815,14 @@ export const playersOverUnder = (data: any) => {
     suspend: player_2_over_participant.suspend,
 
     event_id: data?.info?.id,
+    event_name:
+      data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
     odd_id: _odd_id_current_set_winner,
-    participant_id: player_2_over_participant.id,
-
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_2_over_participant.id
-      ].name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_2_over_participant.id
-      ].handicap,
+    odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+    participant_id: player_2_over_participant?.id,
+    participant_name: player_2_over_participant?.name,
+    participant_handicap: player_2_over_participant?.handicap,
+    participant_header: player_2_over_participant?.header,
   };
   var player_2_under_obj = {
     title:
@@ -4931,19 +4833,14 @@ export const playersOverUnder = (data: any) => {
     suspend: player_2_under_participant.suspend,
 
     event_id: data?.info?.id,
+    event_name:
+      data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
     odd_id: _odd_id_current_set_winner,
-    participant_id: player_2_under_participant.id,
-
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_2_under_participant.id
-      ].name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_2_under_participant.id
-      ].handicap,
+    odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+    participant_id: player_2_under_participant?.id,
+    participant_name: player_2_under_participant?.name,
+    participant_handicap: player_2_under_participant?.handicap,
+    participant_header: player_2_under_participant?.header,
   };
 
   arr.push(
@@ -5129,16 +5026,14 @@ export const totalGamesInMatch = (data: any) => {
         suspend: over_obj.suspend,
 
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: over_obj.id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[over_obj.id].name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[over_obj.id]
-            .handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: over_obj?.id,
+        participant_name: over_obj?.name,
+        participant_handicap: over_obj?.handicap,
+        participant_header: over_obj?.header,
       };
       var _under_obj = {
         title: "",
@@ -5146,17 +5041,14 @@ export const totalGamesInMatch = (data: any) => {
         suspend: under_obj.suspend,
 
         event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
         odd_id: _odd_id_current_set_winner,
-        participant_id: under_obj.id,
-
-        event_name: data?.info?.name,
-        odd_name: data?.odds[_odd_id_current_set_winner].name,
-        participant_name:
-          data?.odds[_odd_id_current_set_winner].participants[under_obj.id]
-            .name,
-        participant_handicap:
-          data?.odds[_odd_id_current_set_winner].participants[under_obj.id]
-            .handicap,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: under_obj?.id,
+        participant_name: under_obj?.name,
+        participant_handicap: under_obj?.handicap,
+        participant_header: under_obj?.header,
       };
       arr = [_title_obj, _over_obj, _under_obj];
       base_arr.push(arr);
@@ -5221,19 +5113,14 @@ export const player1To = (data: any) => {
       suspend: player_1_to_win_in_straight_sets_yes.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_to_win_in_straight_sets_yes.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_in_straight_sets_yes.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_in_straight_sets_yes.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_to_win_in_straight_sets_yes?.id,
+      participant_name: player_1_to_win_in_straight_sets_yes?.name,
+      participant_handicap: player_1_to_win_in_straight_sets_yes?.handicap,
+      participant_header: player_1_to_win_in_straight_sets_yes?.header,
     };
     var player_1_to_win_in_straight_sets_no_obj = {
       title: "",
@@ -5241,19 +5128,14 @@ export const player1To = (data: any) => {
       suspend: player_1_to_win_in_straight_sets_no.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_to_win_in_straight_sets_no.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_in_straight_sets_no.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_in_straight_sets_no.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_to_win_in_straight_sets_no?.id,
+      participant_name: player_1_to_win_in_straight_sets_no?.name,
+      participant_handicap: player_1_to_win_in_straight_sets_no?.handicap,
+      participant_header: player_1_to_win_in_straight_sets_no?.header,
     };
     var player_1_to_win_in_straight_sets_arr = [
       player_1_to_win_in_straight_sets_title,
@@ -5287,19 +5169,14 @@ export const player1To = (data: any) => {
       suspend: player_1_to_win_a_set_yes.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_to_win_a_set_yes.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_a_set_yes.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_a_set_yes.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_to_win_a_set_yes?.id,
+      participant_name: player_1_to_win_a_set_yes?.name,
+      participant_handicap: player_1_to_win_a_set_yes?.handicap,
+      participant_header: player_1_to_win_a_set_yes?.header,
     };
     var player_1_to_win_a_set_no_obj = {
       title: "",
@@ -5307,19 +5184,14 @@ export const player1To = (data: any) => {
       suspend: player_1_to_win_a_set_no.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_to_win_a_set_no.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_a_set_no.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_a_set_no.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_to_win_a_set_yes?.id,
+      participant_name: player_1_to_win_a_set_yes?.name,
+      participant_handicap: player_1_to_win_a_set_yes?.handicap,
+      participant_header: player_1_to_win_a_set_yes?.header,
     };
     var player_1_to_win_a_set_arr = [
       player_1_to_win_a_set_title,
@@ -5352,19 +5224,14 @@ export const player1To = (data: any) => {
       suspend: player_1_to_win_from_behind_yes.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_to_win_from_behind_yes.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_from_behind_yes.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_from_behind_yes.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_to_win_from_behind_yes?.id,
+      participant_name: player_1_to_win_from_behind_yes?.name,
+      participant_handicap: player_1_to_win_from_behind_yes?.handicap,
+      participant_header: player_1_to_win_from_behind_yes?.header,
     };
     var player_1_to_win_from_behind_no_obj = {
       title: "",
@@ -5372,19 +5239,14 @@ export const player1To = (data: any) => {
       suspend: player_1_to_win_from_behind_no.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_to_win_from_behind_no.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_from_behind_no.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_from_behind_no.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_to_win_from_behind_yes?.id,
+      participant_name: player_1_to_win_from_behind_yes?.name,
+      participant_handicap: player_1_to_win_from_behind_yes?.handicap,
+      participant_header: player_1_to_win_from_behind_yes?.header,
     };
     var player_1_to_win_from_behind_arr = [
       player_1_to_win_from_behind_title,
@@ -5458,19 +5320,14 @@ export const player2To = (data: any) => {
       suspend: player_1_to_win_in_straight_sets_yes.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_to_win_in_straight_sets_yes.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_in_straight_sets_yes.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_in_straight_sets_yes.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_to_win_in_straight_sets_yes?.id,
+      participant_name: player_1_to_win_in_straight_sets_yes?.name,
+      participant_handicap: player_1_to_win_in_straight_sets_yes?.handicap,
+      participant_header: player_1_to_win_in_straight_sets_yes?.header,
     };
     var player_1_to_win_in_straight_sets_no_obj = {
       title: "",
@@ -5478,19 +5335,14 @@ export const player2To = (data: any) => {
       suspend: player_1_to_win_in_straight_sets_no.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_to_win_in_straight_sets_no.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_in_straight_sets_no.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_in_straight_sets_no.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_to_win_in_straight_sets_no?.id,
+      participant_name: player_1_to_win_in_straight_sets_no?.name,
+      participant_handicap: player_1_to_win_in_straight_sets_no?.handicap,
+      participant_header: player_1_to_win_in_straight_sets_no?.header,
     };
     var player_1_to_win_in_straight_sets_arr = [
       player_1_to_win_in_straight_sets_title,
@@ -5524,19 +5376,14 @@ export const player2To = (data: any) => {
       suspend: player_1_to_win_a_set_yes.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_to_win_a_set_yes.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_a_set_yes.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_a_set_yes.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_to_win_a_set_yes?.id,
+      participant_name: player_1_to_win_a_set_yes?.name,
+      participant_handicap: player_1_to_win_a_set_yes?.handicap,
+      participant_header: player_1_to_win_a_set_yes?.header,
     };
     var player_1_to_win_a_set_no_obj = {
       title: "",
@@ -5544,19 +5391,14 @@ export const player2To = (data: any) => {
       suspend: player_1_to_win_a_set_no.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_to_win_a_set_no.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_a_set_no.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_a_set_no.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_to_win_a_set_yes?.id,
+      participant_name: player_1_to_win_a_set_yes?.name,
+      participant_handicap: player_1_to_win_a_set_yes?.handicap,
+      participant_header: player_1_to_win_a_set_yes?.header,
     };
     var player_1_to_win_a_set_arr = [
       player_1_to_win_a_set_title,
@@ -5589,19 +5431,14 @@ export const player2To = (data: any) => {
       suspend: player_1_to_win_from_behind_yes.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_to_win_from_behind_yes.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_from_behind_yes.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_from_behind_yes.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_to_win_from_behind_yes?.id,
+      participant_name: player_1_to_win_from_behind_yes?.name,
+      participant_handicap: player_1_to_win_from_behind_yes?.handicap,
+      participant_header: player_1_to_win_from_behind_yes?.header,
     };
     var player_1_to_win_from_behind_no_obj = {
       title: "",
@@ -5609,19 +5446,14 @@ export const player2To = (data: any) => {
       suspend: player_1_to_win_from_behind_no.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_to_win_from_behind_no.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_from_behind_no.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_to_win_from_behind_no.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_to_win_from_behind_no?.id,
+      participant_name: player_1_to_win_from_behind_no?.name,
+      participant_handicap: player_1_to_win_from_behind_no?.handicap,
+      participant_header: player_1_to_win_from_behind_no?.header,
     };
     var player_1_to_win_from_behind_arr = [
       player_1_to_win_from_behind_title,
@@ -5689,46 +5521,46 @@ export const nextSetLeadAfter = (data: any) => {
       title: "",
       value: obj_1.value_eu,
       suspend: obj_1.suspend,
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: obj_1.id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[obj_1.id].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[obj_1.id].handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: obj_1?.id,
+      participant_name: obj_1?.name,
+      participant_handicap: obj_1?.handicap,
+      participant_header: obj_1?.header,
     };
     var _2_obj = {
       title: "",
       value: obj_2.value_eu,
       suspend: obj_2.suspend,
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: obj_2.id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[obj_2.id].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[obj_2.id].handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: obj_2?.id,
+      participant_name: obj_2?.name,
+      participant_handicap: obj_2?.handicap,
+      participant_header: obj_2?.header,
     };
     var _x_obj = {
       title: "",
       value: obj_x.value_eu,
       suspend: obj_x.suspend,
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: obj_x.id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[obj_x.id].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[obj_x.id].handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: obj_x?.id,
+      participant_name: obj_x?.name,
+      participant_handicap: obj_x?.handicap,
+      participant_header: obj_x?.header,
     };
     arr = [_title_obj, _1_obj, _2_obj, _x_obj];
     base_arr.push(arr);
@@ -5786,16 +5618,16 @@ export const nextSetRaceTo = (data: any) => {
       title: "",
       value: obj_1.value_eu,
       suspend: obj_1.suspend,
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: obj_1.id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[obj_1.id].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[obj_1.id].handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: obj_1?.id,
+      participant_name: obj_1?.name,
+      participant_handicap: obj_1?.handicap,
+      participant_header: obj_1?.header,
     };
     var _2_obj = {
       title: "",
@@ -5803,15 +5635,14 @@ export const nextSetRaceTo = (data: any) => {
       suspend: obj_2.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: obj_2.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[obj_2.id].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[obj_2.id].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: obj_2?.id,
+      participant_name: obj_2?.name,
+      participant_handicap: obj_2?.handicap,
+      participant_header: obj_2?.header,
     };
     arr = [_title_obj, _1_obj, _2_obj];
     base_arr.push(arr);
@@ -5867,46 +5698,46 @@ export const currentSetLeadAfter = (data: any) => {
       title: "",
       value: obj_1.value_eu,
       suspend: obj_1.suspend,
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: obj_1.id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[obj_1.id].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[obj_1.id].handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: obj_1?.id,
+      participant_name: obj_1?.name,
+      participant_handicap: obj_1?.handicap,
+      participant_header: obj_1?.header,
     };
     var _2_obj = {
       title: "",
       value: obj_2.value_eu,
       suspend: obj_2.suspend,
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: obj_2.id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[obj_2.id].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[obj_2.id].handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: obj_2?.id,
+      participant_name: obj_2?.name,
+      participant_handicap: obj_2?.handicap,
+      participant_header: obj_2?.header,
     };
     var _x_obj = {
       title: "",
       value: obj_x.value_eu,
       suspend: obj_x.suspend,
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: obj_x.id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[obj_x.id].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[obj_x.id].handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: obj_x?.id,
+      participant_name: obj_x?.name,
+      participant_handicap: obj_x?.handicap,
+      participant_header: obj_x?.header,
     };
     arr = [_title_obj, _1_obj, _2_obj, _x_obj];
     base_arr.push(arr);
@@ -5978,17 +5809,14 @@ export const currentSetLeadAfter2 = (data: any) => {
       suspend: group["Home"].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: group["Home"].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[group["Home"].id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[group["Home"].id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group["Home"]?.id,
+      participant_name: group["Home"]?.name,
+      participant_handicap: group["Home"]?.handicap,
+      participant_header: group["Home"]?.header,
     };
     var away_obj = {
       title: "",
@@ -5996,34 +5824,29 @@ export const currentSetLeadAfter2 = (data: any) => {
       suspend: group["Away"].suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: group["Away"].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[group["Away"].id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[group["Away"].id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group["Away"]?.id,
+      participant_name: group["Away"]?.name,
+      participant_handicap: group["Away"]?.handicap,
+      participant_header: group["Away"]?.header,
     };
     var tie_obj = {
       title: "",
       value: group["Tie"].value_eu,
       suspend: group["Tie"].suspend,
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: group["Tie"].id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[group["Tie"].id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[group["Tie"].id]
-          .handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group["Tie"]?.id,
+      participant_name: group["Tie"]?.name,
+      participant_handicap: group["Tie"]?.handicap,
+      participant_header: group["Tie"]?.header,
     };
     arr = [title_obj, home_obj, away_obj, tie_obj];
     base_arr.push(arr);
@@ -6083,31 +5906,31 @@ export const currentSetRaceTo = (data: any) => {
       title: "",
       value: obj_1.value_eu,
       suspend: obj_1.suspend,
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: obj_1.id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[obj_1.id].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[obj_1.id].handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: obj_1?.id,
+      participant_name: obj_1?.name,
+      participant_handicap: obj_1?.handicap,
+      participant_header: obj_1?.header,
     };
     var _2_obj = {
       title: "",
       value: obj_2.value_eu,
       suspend: obj_2.suspend,
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: obj_2.id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[obj_2.id].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[obj_2.id].handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: obj_2?.id,
+      participant_name: obj_2?.name,
+      participant_handicap: obj_2?.handicap,
+      participant_header: obj_2?.header,
     };
     arr = [_title_obj, _1_obj, _2_obj];
     base_arr.push(arr);
@@ -6161,17 +5984,14 @@ export const matchHandicap = (data: any) => {
     suspend: home_participant.suspend,
 
     event_id: data?.info?.id,
+    event_name:
+      data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
     odd_id: _odd_id_current_set_winner,
-    participant_id: home_participant.id,
-
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[home_participant.id]
-        .name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[home_participant.id]
-        .handicap,
+    odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+    participant_id: home_participant?.id,
+    participant_name: home_participant?.name,
+    participant_handicap: home_participant?.handicap,
+    participant_header: home_participant?.header,
   };
   var away_obj = {
     title: data?.team_info?.away?.name + " " + away_participant.handicap,
@@ -6179,17 +5999,14 @@ export const matchHandicap = (data: any) => {
     suspend: away_participant.suspend,
 
     event_id: data?.info?.id,
+    event_name:
+      data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
     odd_id: _odd_id_current_set_winner,
-    participant_id: away_participant.id,
-
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[away_participant.id]
-        .name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[away_participant.id]
-        .handicap,
+    odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+    participant_id: away_participant?.id,
+    participant_name: away_participant?.name,
+    participant_handicap: away_participant?.handicap,
+    participant_header: away_participant?.header,
   };
   var arr = [] as any;
   arr = [home_obj, away_obj];
@@ -6244,17 +6061,14 @@ export const nextSetWinner = (data: any) => {
     suspend: home_participant.suspend,
 
     event_id: data?.info?.id,
+    event_name:
+      data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
     odd_id: _odd_id_current_set_winner,
-    participant_id: home_participant.id,
-
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[home_participant.id]
-        .name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[home_participant.id]
-        .handicap,
+    odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+    participant_id: home_participant?.id,
+    participant_name: home_participant?.name,
+    participant_handicap: home_participant?.handicap,
+    participant_header: home_participant?.header,
   };
   var away_obj = {
     title: data?.team_info?.away?.name,
@@ -6262,17 +6076,14 @@ export const nextSetWinner = (data: any) => {
     suspend: away_participant.suspend,
 
     event_id: data?.info?.id,
+    event_name:
+      data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
     odd_id: _odd_id_current_set_winner,
-    participant_id: away_participant.id,
-
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[away_participant.id]
-        .name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[away_participant.id]
-        .handicap,
+    odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+    participant_id: away_participant?.id,
+    participant_name: away_participant?.name,
+    participant_handicap: away_participant?.handicap,
+    participant_header: away_participant?.header,
   };
 
   arr = [home_obj, away_obj];
@@ -6339,18 +6150,16 @@ export const doubleResult = (data: any) => {
         " and WIN match",
       value: player_1_win_win.value_eu,
       suspend: player_1_win_win.suspend,
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_win_win.id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[player_1_win_win.id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[player_1_win_win.id]
-          .handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_win_win?.id,
+      participant_name: player_1_win_win?.name,
+      participant_handicap: player_1_win_win?.handicap,
+      participant_header: player_1_win_win?.header,
     };
     var player_1_win_lose_obj = {
       title:
@@ -6362,19 +6171,14 @@ export const doubleResult = (data: any) => {
       suspend: player_1_win_lose.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_1_win_lose.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_win_lose.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_1_win_lose.id
-        ].handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_1_win_lose?.id,
+      participant_name: player_1_win_lose?.name,
+      participant_handicap: player_1_win_lose?.handicap,
+      participant_header: player_1_win_lose?.header,
     };
 
     var player_2_win_win_obj = {
@@ -6387,17 +6191,14 @@ export const doubleResult = (data: any) => {
       suspend: player_2_win_win.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: _odd_id_current_set_winner,
-      participant_id: player_2_win_win.id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[player_2_win_win.id]
-          .name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[player_2_win_win.id]
-          .handicap,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_2_win_win?.id,
+      participant_name: player_2_win_win?.name,
+      participant_handicap: player_2_win_win?.handicap,
+      participant_header: player_2_win_win?.header,
     };
     var player_2_win_lose_obj = {
       title:
@@ -6407,20 +6208,16 @@ export const doubleResult = (data: any) => {
         " and LOSE match",
       value: player_2_win_lose.value_eu,
       suspend: player_2_win_lose.suspend,
-      event_id: data?.info?.id,
-      odd_id: _odd_id_current_set_winner,
-      participant_id: player_2_win_lose.id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[_odd_id_current_set_winner].name,
-      participant_name:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_2_win_lose.id
-        ].name,
-      participant_handicap:
-        data?.odds[_odd_id_current_set_winner].participants[
-          player_2_win_lose.id
-        ].handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: player_2_win_lose?.id,
+      participant_name: player_2_win_lose?.name,
+      participant_handicap: player_2_win_lose?.handicap,
+      participant_header: player_2_win_lose?.header,
     };
 
     arr1 = [player_1_win_win_obj, player_1_win_lose_obj];
@@ -6497,40 +6294,31 @@ export const matchResultAndTotalGames = (data: any) => {
     title: player_1_over_participant.handicap,
     value: player_1_over_participant.value_eu,
     suspend: player_1_over_participant.suspend,
-    event_id: data?.info?.id,
-    odd_id: _odd_id_current_set_winner,
-    participant_id: player_1_over_participant.id,
 
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_1_over_participant.id
-      ].name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_1_over_participant.id
-      ].handicap,
+    event_id: data?.info?.id,
+    event_name:
+      data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+    odd_id: _odd_id_current_set_winner,
+    odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+    participant_id: player_1_over_participant?.id,
+    participant_name: player_1_over_participant?.name,
+    participant_handicap: player_1_over_participant?.handicap,
+    participant_header: player_1_over_participant?.header,
   };
   var player_1_under_participant_obj = {
     title: player_1_under_participant.handicap,
-    value: player_1_over_participant.value_eu,
+    value: player_1_under_participant.value_eu,
     suspend: player_1_under_participant.suspend,
 
     event_id: data?.info?.id,
+    event_name:
+      data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
     odd_id: _odd_id_current_set_winner,
-    participant_id: player_1_under_participant.id,
-
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_1_under_participant.id
-      ].name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_1_under_participant.id
-      ].handicap,
+    odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+    participant_id: player_1_under_participant?.id,
+    participant_name: player_1_under_participant?.name,
+    participant_handicap: player_1_under_participant?.handicap,
+    participant_header: player_1_under_participant?.header,
   };
 
   var player_2_over_participant = _getParticipantsFieldRawWithoutSuspend(
@@ -6549,21 +6337,6 @@ export const matchResultAndTotalGames = (data: any) => {
     title: data?.team_info?.away.name,
     value: "",
     suspend: player_2_over_participant.suspend,
-
-    event_id: data?.info?.id,
-    odd_id: _odd_id_current_set_winner,
-    participant_id: player_2_over_participant.id,
-
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_2_over_participant.id
-      ].name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_2_over_participant.id
-      ].handicap,
   };
   var player_2_over_participant_obj = {
     title: player_2_over_participant.handicap,
@@ -6571,39 +6344,29 @@ export const matchResultAndTotalGames = (data: any) => {
     suspend: player_2_over_participant.suspend,
 
     event_id: data?.info?.id,
+    event_name:
+      data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
     odd_id: _odd_id_current_set_winner,
-    participant_id: player_2_over_participant.id,
-
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_2_over_participant.id
-      ].name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_2_over_participant.id
-      ].handicap,
+    odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+    participant_id: player_2_over_participant?.id,
+    participant_name: player_2_over_participant?.name,
+    participant_handicap: player_2_over_participant?.handicap,
+    participant_header: player_2_over_participant?.header,
   };
   var player_2_under_participant_obj = {
     title: player_2_under_participant.handicap,
-    value: player_2_over_participant.value_eu,
+    value: player_2_under_participant.value_eu,
     suspend: player_2_under_participant.suspend,
 
     event_id: data?.info?.id,
+    event_name:
+      data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
     odd_id: _odd_id_current_set_winner,
-    participant_id: player_2_under_participant.id,
-
-    event_name: data?.info?.name,
-    odd_name: data?.odds[_odd_id_current_set_winner].name,
-    participant_name:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_2_under_participant.id
-      ].name,
-    participant_handicap:
-      data?.odds[_odd_id_current_set_winner].participants[
-        player_2_under_participant.id
-      ].handicap,
+    odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+    participant_id: player_2_under_participant?.id,
+    participant_name: player_2_under_participant?.name,
+    participant_handicap: player_2_under_participant?.handicap,
+    participant_header: player_2_under_participant?.header,
   };
 
   arr1 = [
@@ -6654,16 +6417,16 @@ export const setBetting2 = (data: any) => {
       title: "",
       value: home_group.value_eu,
       suspend: home_group.suspend,
-      event_id: data?.info?.id,
-      odd_id: setBettingIDX,
-      participant_id: group_obj[0].id,
 
-      event_name: data?.info?.name,
-      odd_name: data?.odds[setBettingIDX].name,
-      participant_name:
-        data?.odds[setBettingIDX].participants[group_obj[0].id].name,
-      participant_handicap:
-        data?.odds[setBettingIDX].participants[group_obj[0].id].handicap,
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: setBettingIDX,
+      odd_name: data?.odds?.[setBettingIDX]?.name,
+      participant_id: home_group?.id,
+      participant_name: home_group?.name,
+      participant_handicap: home_group?.handicap,
+      participant_header: home_group?.header,
     };
     var away_obj = {
       title: "",
@@ -6671,15 +6434,14 @@ export const setBetting2 = (data: any) => {
       suspend: away_group.suspend,
 
       event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
       odd_id: setBettingIDX,
-      participant_id: group_obj[0].id,
-
-      event_name: data?.info?.name,
-      odd_name: data?.odds[setBettingIDX].name,
-      participant_name:
-        data?.odds[setBettingIDX].participants[group_obj[0].id].name,
-      participant_handicap:
-        data?.odds[setBettingIDX].participants[group_obj[0].id].handicap,
+      odd_name: data?.odds?.[setBettingIDX]?.name,
+      participant_id: away_group?.id,
+      participant_name: away_group?.name,
+      participant_handicap: away_group?.handicap,
+      participant_header: away_group?.header,
     };
     arr = [title_obj, home_obj, away_obj];
     base_arr.push(arr);

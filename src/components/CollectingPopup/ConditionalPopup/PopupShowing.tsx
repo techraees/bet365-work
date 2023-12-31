@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronRight,
@@ -10,19 +10,12 @@ import Image from "next/image";
 import useBetSlipStore from "@/store/betSlipStore";
 import BetSlipElement from "./BetSlipElement";
 import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
+
 import SystemElement from "./SystemElement";
 import MultipleElement from "./MultipleElement";
-const SYSTEM_NAMES = {
-  1: "Singles",
-  2: "Doubles",
-  3: "Triples",
-  4: "Tetrades",
-  5: "Pentades",
-  6: "Eksades",
-  7: "Eftades",
-  8: "Oktades",
-};
 const PopupShowing = () => {
+  const { type, selections, system, addSelection, setType, clearSystem, clearSelections } = useBetSlipStore();
   const [soloStatus, setSoloStatus] = useState<any>(true);
   const [systemStatus, setSystemStatus] = useState<any>(false);
   const [multipleStatus, setMultipleStatus] = useState<any>(false);
@@ -32,7 +25,18 @@ const PopupShowing = () => {
     false
   );
 
+  const router = useRouter();
+
+  useEffect(() => {
+    // If there is no session, redirect to the login page
+    if (!session) {
+      router.push('/auth/signin'); // Replace '/login' with your login route
+    }
+  }, [session, router]);
+
   const enableMultipleStatus = () => {
+    setType("Multiple");
+    clearSystem();
     setMultipleStatus(true);
     setSoloStatus(false);
     setSystemStatus(false);
@@ -40,6 +44,8 @@ const PopupShowing = () => {
   };
 
   const enableSoloStatus = () => {
+    setType("Solo");
+    clearSystem();
     setSoloStatus(true);
     setMultipleStatus(false);
     setSystemStatus(false);
@@ -47,22 +53,33 @@ const PopupShowing = () => {
   };
 
   const enableSystemStatus = () => {
+    setType("System");
+    clearSystem();
     setSoloStatus(false);
     setMultipleStatus(false);
     setSystemStatus(true);
     false;
   };
 
-  const [showDropdown, setShowDropdown] = useState<any>(false);
+  const handleRemoveAllSelections = () =>{
 
-  const { selections, addSelection } = useBetSlipStore();
+    clearSelections();
+  }
 
   var selectedArray = selections;
+  useEffect(()=>{
+    if(selections.length > 1){
+      enableMultipleStatus();
+    }else{
+      enableSoloStatus();
+    }
+  }, [selections])
 
-  console.log({ selections: selections });
+
+
+
   // console.log({ handleArr: selectedArray });
   // Handling Deletion
-  const [isChangeAccepted, setIsChangeAccepted] = useState<boolean>(false);
 
   const countCombinations = (selections_arr: any) => {
     var combs = [] as any;
@@ -82,34 +99,52 @@ const PopupShowing = () => {
     return result;
   }
 
-  function findCombinations<T>(arr: T[], x: number): T[][] {
-    if (x === 0) {
-      return [[]]; // Return an array with an empty array for 0 elements
-    } else if (x > arr.length) {
-      return []; // Return an empty array if x is greater than the array length
-    } else {
-      const combinationsList: T[][] = [];
-      for (let i = 0; i < arr.length - 1; i++) {
-        for (let j = i + 1; j < arr.length; j++) {
-          combinationsList.push([arr[i], arr[j]]);
+
+  function sumTotalStakesSystem(data:any) {
+    let totalSum = 0;
+  
+    // Iterate over each key in the object
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const system = data[key];
+        
+        // Check if 'total_stake' exists and is a number
+        if (system && typeof system.total_stake === 'number') {
+          totalSum += system.total_stake;
         }
       }
-      return combinationsList;
     }
+  
+    return totalSum;
   }
 
-  const handleAcceptChange = () => {
-    // Perform the necessary data change logic here
-    // For example, update the state or make an API call
 
-    // For demonstration, let's toggle the change status
-    setIsChangeAccepted((prevStatus) => !prevStatus);
-  };
+  function findPossibleWinnings(data:any){
+    var total_winnings = 0;
+    
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const _data = data[key];
+        const combinations = _data.combinations;
+
+        
+        if (combinations) {
+            var total_value = 1
+            combinations.forEach( (combination:any) =>{
+              combination.forEach( (event:any) =>{
+                  var stake_value = parseFloat(event.value);
+                  total_winnings += (stake_value  * parseFloat(_data.total_stake))
+              });
+            })
+        }
+      }
+    }
+    return total_winnings.toFixed(2);
+  }
+
 
   if (selectedArray.length > 0) {
     var combinations = countCombinations(selectedArray);
-    var all_combinations = findCombinations(selectedArray, 2);
-    console.log({ all_combos: all_combinations, combinations });
     var total_bet = selectedArray.reduce((sum, item) => {
       // console.log(parseFloat(item.stake_value));
       if (!isNaN(parseFloat(item.stake_value))) {
@@ -119,6 +154,11 @@ const PopupShowing = () => {
         return sum;
       }
     }, 0);
+
+
+    var total_bet_system = sumTotalStakesSystem(system);
+
+    var total_possible_winnings = findPossibleWinnings(system);
 
     var total_to_return = selectedArray.reduce((sum, item) => {
       // console.log(parseFloat(item.stake_value));
@@ -221,19 +261,32 @@ const PopupShowing = () => {
                   <div
                     className="bss-ControlBar_RemoveAll text-[11px] border-solid border-[#137a5a] hover:border-b-[1px] cursor-pointer"
                     style={{ lineHeight: "14px" }}
+                    onClick={() => {
+                      handleRemoveAllSelections();
+                    }}
                   >
                     Remove all
                   </div>
                 </div>
 
                 <div className="bss-ControlBar_TypesWrapper flex justify-center items-center relative">
-                  <div
-                    onClick={() => enableSoloStatus()}
-                    className="bss-ControlBar_BetslipTypesButton  cursor-pointer  text-[11px] mr-2 border-solid border-[#137a5a] hover:border-b-[1px]"
-                    style={{ lineHeight: "14px" }}
-                  >
-                    Singles
-                  </div>
+                  {selections.length === 1 && (
+
+                      <div>
+                        <div
+                          onClick={() => enableSoloStatus()}
+                          className="bss-ControlBar_BetslipTypesButton  cursor-pointer  text-[11px] mr-2 border-solid border-[#137a5a] hover:border-b-[1px]"
+                          style={{ lineHeight: "14px" }}
+                        >
+                          Singles
+                        </div>
+                      </div>
+                  )
+
+                  }
+
+                  {selections.length > 1 && (
+                    <>
                   <div
                     onClick={() => enableMultipleStatus()}
                     className="bss-ControlBar_BetslipTypesButton  cursor-pointer  text-[11px] mr-2 border-solid border-[#137a5a] hover:border-b-[1px]"
@@ -248,6 +301,8 @@ const PopupShowing = () => {
                   >
                     System
                   </div>
+                    </>
+                  )}
                   <div className="bss-ControlBar_BarsIcon"></div>
                 </div>
               </div>
@@ -279,7 +334,7 @@ const PopupShowing = () => {
                   return (
                     <SystemElement
                       id={item._id}
-                      system_number={SYSTEM_NAMES[index + 1]}
+                      system_number={index + 1}
                       number_of_elements={item}
                       event_id={item.event_id}
                       event_name={item.event_name}
@@ -298,7 +353,7 @@ const PopupShowing = () => {
             <div className={multipleStatus ? "block" : "hidden"}>
               <div className="flex overflow-hidden overscroll-contain opacity-100 bg-transparent relative flex flex-col overflow-y-auto w-full transition-[height] duration-[0.25s] ease-[ease-in-out] pt-0">
                 <MultipleElement
-                  system_number={SYSTEM_NAMES[combinations.length]}
+                  system_number={combinations.length}
                   number_of_elements={combinations[combinations.length - 1]}
                 />
               </div>
@@ -314,7 +369,27 @@ const PopupShowing = () => {
                             Place Bet
                           </div>
                           <div className="text-base text-[#9effe0] leading-[19px] font-bold ml-2.5">
-                            € {total_bet}
+                            {type === "Solo" && 
+                              ( 
+                                <div>
+                                    € {total_bet}
+                                </div>
+                              )
+                            }
+                            {type === "System" && 
+                              ( 
+                                <div>
+                                    € {total_bet_system}
+                                </div>
+                              )
+                            }
+                            {type === "Multiple" && 
+                              ( 
+                                <div>
+                                    € {total_bet_system}
+                                </div>
+                              )
+                            }
                           </div>
                         </div>
                       </div>
@@ -322,7 +397,28 @@ const PopupShowing = () => {
                         <div>Total To Return</div>
                         <div className="inline-block ml-[3px]">
                           {" "}
-                          € {total_to_return}
+
+                            {type === "Solo" && 
+                              ( 
+                                <div>
+                                    € {total_to_return}
+                                </div>
+                              )
+                            }
+                            {type === "System" && 
+                              ( 
+                                <div>
+                                    € {total_possible_winnings}
+                                </div>
+                              )
+                            }
+                            {type === "Multiple" && 
+                              ( 
+                                <div>
+                                    € {total_possible_winnings}
+                                </div>
+                              )
+                            }
                         </div>
                       </div>
                     </div>

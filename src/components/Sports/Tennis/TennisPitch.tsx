@@ -185,7 +185,7 @@ function getStatusFromCode(code: number): string | undefined {
 }
 
 function getServePlayer(data: any): number {
-  return data?.stats[3].home == "1" ? 1 : 0;
+  return data?.stats[3]?.home == "1" ? 1 : 0;
 }
 
 function getAcitveColor(player: string, data: any) {
@@ -371,7 +371,7 @@ const TennisPitch: React.FC<TennisPitchInterface> = ({ data }) => {
         <div className="flex justify-center p-2 text-base text-white">
           <span>Turn</span>
           <span className="px-4"> : </span>
-          <span>{data?.stats[3].home == "1" ? "Player1" : "Player2"}</span>
+          <span>{data?.stats[3]?.home == "1" ? "Player1" : "Player2"}</span>
         </div>
         <div className="flex justify-around p-2 text-base text-white">
           <span>{data?.info.score.split(",").slice(-1)}</span>

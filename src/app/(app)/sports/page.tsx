@@ -8,10 +8,27 @@ import BannerSlider from "./components/banner-slider";
 import SportsContent from "./components/sports-content";
 import { getSoccerFeaturedMatches } from "@/api";
 
+import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
+
 export const dynamic = "force-dynamic";
 
 const Home = ({ params }: any) => {
   const [pregameodds, setPregameodds] = useState([]);
+
+  const { data: session } = useSession();
+
+  console.log({dl:session})
+  const router = useRouter();
+
+  useEffect(() => {
+    // If there is no session, redirect to the login page
+    if (!session) {
+      router.push('/auth/signin'); // Replace '/login' with your login route
+    }
+  }, [session, router]);
+
+
   useEffect(() => {
     const fetchFeaturedMatches = async () => {
       try {

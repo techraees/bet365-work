@@ -1,51 +1,74 @@
 "use client";
 import useBetSlipStore from "@/store/betSlipStore";
-import { useState } from "react";
 import React from "react";
+
+type SystemNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 function SystemElement({
   id,
-  event_id,
-  event_name,
-  odd_id,
-  odd_name,
-  participant_id,
-  participant_handicap,
-  participant_name,
-  odd_value,
-  stake_value,
   system_number,
   number_of_elements,
 }: any) {
-  const [isCloseButtonHovered, setIsCloseButtonHovered] = useState<any>(false);
-  // const [stakeValue, setStakeValue] = useState("stake");
+
+
+
+const SYSTEM_NAMES: { [key in SystemNumber]: string } = {
+
+  1: "Singles",
+  2: "Doubles",
+  3: "Triples",
+  4: "Tetrades",
+  5: "Pentades",
+  6: "Eksades",
+  7: "Eftades",
+  8: "Oktades",
+};
+
+  var system_name = SYSTEM_NAMES[system_number as SystemNumber];
+
   const {
     selections,
-    addSelection,
-    removeSelection,
-    updateStakeValue,
+    system,
+    addSystem,
+    removeSystem
   } = useBetSlipStore();
 
-  const handleMouseEnter = () => {
-    setIsCloseButtonHovered(true);
-  };
 
-  const handleMouseLeave = () => {
-    setIsCloseButtonHovered(false);
-  };
+  var stake_value = ""
+  if(system[system_name] !== undefined){
+    stake_value = system[system_name].single_stake
+  }
 
-  console.log({ selections_before: selections });
-  const handleClick = (event_id: string, odd_id: string) => {
-    removeSelection(event_id, odd_id);
-  };
-  const closeButtonFillHovered = isCloseButtonHovered ? "#26ffbe" : "#545454";
+  function getCombinations<T>(arr: T[], comboLength: number): T[][] {
+    const allCombos: T[][] = [];
 
+    const innerCombos = (start: number, choiceSoFar: T[]) => {
+        if (choiceSoFar.length === comboLength) {
+            allCombos.push(choiceSoFar);
+            return;
+        }
+
+        for (let i = start; i < arr.length; i++) {
+            innerCombos(i + 1, [...choiceSoFar, arr[i]]);
+        }
+    };
+
+    innerCombos(0, []);
+    return allCombos;
+  }
+
+
+
+
+  var combinations= getCombinations(selections, parseInt(system_number));
   const handleStakeChange = (event: any) => {
-    // setStakeValue(event.target.value);
-    updateStakeValue(event_id, odd_id, participant_id, event.target.value);
+    if(!isNaN(parseFloat(event.target.value))){
+      addSystem(system_name, {number_of_elements:number_of_elements, single_stake: event.target.value, total_stake: number_of_elements* parseFloat(event.target.value), combinations:combinations});
+    }else{
+      removeSystem(system_name);
+    }
   };
-  var returnValue = parseInt(stake_value) * parseFloat(odd_value);
-  returnValue = parseFloat(returnValue.toFixed(2));
+
 
   return (
     <div
@@ -60,7 +83,7 @@ function SystemElement({
                 <div className="flex-auto flex flex-wrap">
                   <div className="flex flex-[1_1_100%] pt-2.5 pb-[3px] px-0">
                     <div className="text-[15px] text-[#545454] leading-[18px] inline whitespace-normal font-bold pr-[5px]">
-                      {system_number}
+                      {system_name}
                     </div>
                     <div className="inline text-right font-bold flex-auto">
                       <div className="text-neutral-700 font-bold cursor-default text-[15px] text-neutral-700 leading-[18px] pl-1 pr-1.5">
@@ -69,24 +92,22 @@ function SystemElement({
                     </div>
                   </div>
                   <div className="flex min-h-[18px] items-center justify-start pb-0.5">
+                    {!isNaN(parseFloat(stake_value)) && (
                     <div className="text-[11px] text-[#666] leading-4 flex justify-start whitespace-normal pr-[5px]">
-                      {odd_name}
+                      {/* Cost: {stake_value * number_of_elements} */}
                     </div>
+                    )}
                   </div>
                 </div>
               </div>
               <div className="transition-[padding] duration-[0.2s] whitespace-normal flex px-2.5 py-0">
                 <div className="flex flex-[1_1_100%]">
                   <div className="text-[11px] text-[#666] leading-4 flex justify-start whitespace-normal pr-[5px] pb-px">
-                    {event_name}
+                    {/* To Return:  */}
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* <div className="flex flex-[1_0_100%] pt-2.5 pb-[3px] px-0"> */}
-            {/* <div className="text-[11px] text-[#666]">8x</div> */}
-            {/* </div> */}
 
             <div className="min-w-[118px] flex-[0_0_118px] opacity-1">
               <div className="relative flex-[0_0_100%] text-right h-[37px]">
@@ -95,15 +116,14 @@ function SystemElement({
                     type="text"
                     value={stake_value}
                     onChange={handleStakeChange}
-                    // onClick={handleClick}
                     placeholder="stake"
                     className="outline-0 outline-[invert] h-[37px] relative inline-flex items-center justify-end w-[118px] caret-[#137a5a] text-right leading-[18px] text-[15px] text-[#545454] opacity-100 px-2.5 py-0 rounded-none border-[none]"
                   />
                 </div>
               </div>
-              {parseInt(stake_value) && (
+              {!isNaN(parseFloat(stake_value)) && (
                 <div className="w-[118px] justify-end text-[11px] text-[#666] leading-[15px] transition-opacity duration-[0.35s] text-right whitespace-nowrap flex-wrap ml-auto pl-[5px] pr-2.5 pt-3 pb-0">
-                  To Return €{returnValue}
+                  Stake €{parseFloat(stake_value) * number_of_elements}
                 </div>
               )}
             </div>
