@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import CasinoSearchBar from "./components/CasinoSearchBar";
 import CasinoProviderDropDown from "./components/CasinoProviderDropDown";
-import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -39,7 +38,7 @@ const Home = ({ params }: any) => {
       }
     };
     fetchSlots();
-  }, [userdata?.user?.token]);
+  }, []);
 
   const handleSearch = (searchValue: string) => {
     const filtered = slots.filter((slot: any) =>
@@ -90,7 +89,7 @@ const Home = ({ params }: any) => {
                 key={slot._id}
                 className="relative group transition-all duration-200"
               >
-                 <img
+                <img
                   src={slot.api_image}
                   alt={slot.name}
                   className="w-full h-auto"

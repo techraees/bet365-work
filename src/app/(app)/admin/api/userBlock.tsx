@@ -1,5 +1,7 @@
 import * as env from "@/app/env";
 
+let API_URL = process.env.NEXT_PUBLIC_API_URL!;
+
 export const getBlockStatus = async (
   id: number,
   token: string,
@@ -11,7 +13,7 @@ export const getBlockStatus = async (
   else if (role === "Type5Admin") role_url = 5;
   else if (role === "Type3Admin") role_url = 3;
 
-  const API_ENDPOINT = env.SERVER_URL + `/admin/${role_url}/users/${id}/limits`;
+  const API_ENDPOINT = `https://${API_URL}/admin/${role_url}/users/${id}/limits`;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("X-ACCESS-TOKEN", token);
@@ -42,8 +44,7 @@ export const setLimit = async (
   else if (role === "Type5Admin") role_url = 5;
   else if (role === "Type3Admin") role_url = 3;
 
-  const API_ENDPOINT =
-    env.SERVER_URL + `/admin/${role_url}/users/${id}/limit/${block}`;
+  const API_ENDPOINT = `https://${API_URL}/admin/${role_url}/users/${id}/limit/${block}`;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("X-ACCESS-TOKEN", token);
@@ -77,8 +78,7 @@ export const setUnLimit = async (
   else if (role === "Type5Admin") role_url = 5;
   else if (role === "Type3Admin") role_url = 3;
 
-  const API_ENDPOINT =
-    env.SERVER_URL + `/admin/${role_url}/users/${id}/unlimit/${block}`;
+  const API_ENDPOINT = `https://${API_URL}/admin/${role_url}/users/${id}/unlimit/${block}`;
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("X-ACCESS-TOKEN", token);

@@ -22,7 +22,7 @@ export const withScroll = (PitchComponent: any) => {
     // Determine the classes based on scroll position
     const dynamicClasses =
       scrollPosition > 80
-        ? "scale-100 top-0 fixed right-0 bg-[rgb(40,40,40)] z-[1000] min-w-[360px]"
+        ? "scale-100 top-0 fixed right-0 bg-[rgb(40,40,40)] z-[1000] min-w-[300px]"
         : "scale-100 relative";
 
     return (
