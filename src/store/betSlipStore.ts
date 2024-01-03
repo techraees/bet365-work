@@ -1,83 +1,91 @@
-import { create } from "zustand";
+import create from 'zustand';
+import { persist } from 'zustand/middleware';
 
-// Define the type for each selection, for example, if it's just an ID, it could be a number or string:
-type SelectionType = any; // Replace `any` with the actual type of a selection, e.g., `number` or a custom type/interface.
+// Define the type for each selection
+type SelectionType = any; // Replace `any` with the actual type of a selection
 
 interface SystemDetails {
-  // ... Your system details properties ...
-  single_stake: string 
+  single_stake: string;
+  // Add other system details properties here
 }
 
 interface SystemType {
   [key: string]: SystemDetails;
 }
 
-export interface BetSlipStore {
-  type: String,
+interface BetSlipStore {
+  type: string;
   selections: SelectionType[];
   system: SystemType;
   addSelection: (selection: SelectionType) => void;
-  removeSelection: (event_id: string, odd_id:string) => void; 
-  updateStakeValue: (event_id:string, odd_id:string, participant_id:number, newStakeValue:number) => void;
-  setType: (newType:string) => void;
-  addSystem: (systemId: string, systemDetails: any) => void; // Replace `any` with the actual system details type
+  removeSelection: (eventId: string, oddId: string) => void;
+  updateStakeValue: (eventId: string, oddId: string, participantId: number, newStakeValue: number) => void;
+  setType: (newType: string) => void;
+  addSystem: (systemId: string, systemDetails: SystemDetails) => void;
   removeSystem: (systemId: string) => void;
   clearSystem: () => void;
   clearSelections: () => void;
 }
 
-const useBetSlipStore = create<BetSlipStore>((set) => ({
-  type: "",
-  selections: [ ],
-  system: {},
-  addSelection: (selection: SelectionType) =>
-    set((state) => ({
-      selections: [...state.selections, selection],
-    })),
-  removeSelection: (eventId: string, oddId: string) =>
-    set((state) => ({
-      selections: state.selections.filter(
-        selection => !(selection.event_id === eventId && selection.odd_id === oddId)
-      ),
-    })),
-    updateStakeValue: (event_id: string, odd_id: string, participant_id: number, newStakeValue: number) =>
-    set((state) => ({
-      selections: state.selections.map(selection => 
-        (selection.event_id === event_id && selection.odd_id === odd_id && selection.participant_id === participant_id) 
-          ? { ...selection, stake_value: newStakeValue } 
-          : selection
-      ),
-    })),
-    setType: (newType: string) =>
+// @ts-ignore
+const useBetSlipStore = create<BetSlipStore>(persist(
+  (set) => ({
+    type: "",
+    selections: [],
+    system: {},
+    addSelection: (selection) =>
+      set((state) => {
+        // Check if 'suspend' attribute of the selection is not "1"
+        if (selection.suspend !== "1" && selection.event_name  && selection.odd_name && selection.value && selection.value !== null) {
+          return {
+            selections: [...state.selections, selection],
+          };
+        }
+
+        // If 'suspend' is "1", return the current state without adding the selection
+        return state;
+      }),
+    removeSelection: (eventId, oddId) =>
+      set((state) => ({
+        selections: state.selections.filter(
+          (sel) => !(sel.event_id === eventId && sel.odd_id === oddId)
+        ),
+      })),
+    updateStakeValue: (eventId, oddId, participantId, newStakeValue) =>
+      set((state) => ({
+        selections: state.selections.map((sel) =>
+          (sel.event_id === eventId && sel.odd_id === oddId && sel.participant_id === participantId) 
+            ? { ...sel, stake_value: newStakeValue } 
+            : sel
+        ),
+      })),
+    setType: (newType) =>
       set(() => ({
-        type: newType
-    })),
+        type: newType,
+      })),
     addSystem: (systemId, systemDetails) =>
       set((state) => ({
         system: { ...state.system, [systemId]: systemDetails },
-    })),
+      })),
     removeSystem: (systemId) => 
-    set((state) => {
-      // console.log('Current system state before deletion:', state.system);
-      if (state.system.hasOwnProperty(systemId)) {
+      set((state) => {
         const newSystem = { ...state.system };
         delete newSystem[systemId];
-        // console.log(`System with ID ${systemId} removed. New system state:`, newSystem);
         return { system: newSystem };
-      } else {
-        // console.log(`No system found with ID ${systemId}`);
-        return state; // Return the original state if the systemId is not found
-      }
-  }),
+      }),
     clearSystem: () =>
       set(() => ({
-        system: {} // Reset the system object to an empty object
-    })),
+        system: {}
+      })),
     clearSelections: () =>
       set(() => ({
-        selections: [] // Reset the system object to an empty object
-    })),
-}));
+        selections: []
+      })),
+  }),
+  {
+    name: "bet-slip-store", // unique name for the store in local storage
+    getStorage: () => localStorage, // specifies localStorage as the storage medium
+  }
+));
 
 export default useBetSlipStore;
-

@@ -442,6 +442,8 @@ export const gameToDeuce = (data: any) => {
 };
 
 const _gameScoreCreateRow = (
+  data: any,
+  odd_id: any,
   participants: any,
   scorePoint: string,
   handicap: any
@@ -459,6 +461,16 @@ const _gameScoreCreateRow = (
         title: "",
         value: participant_obj.value_eu,
         suspend: participant_obj.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
       };
       arr.push(obj);
     }
@@ -470,6 +482,16 @@ const _gameScoreCreateRow = (
         title: "",
         value: participant_obj.value_eu,
         suspend: participant_obj.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
       };
       arr.push(obj);
     }
@@ -526,16 +548,40 @@ export const gameScore = (data: any) => {
   var participants = odds.participants;
   console.log("here12", participants);
   var rows_of_0 = [{ title: "to love", value: null, suspend: "0" }].concat(
-    _gameScoreCreateRow(participants, "0", current_game)
+    _gameScoreCreateRow(
+      data,
+      odd_id_game_score,
+      participants,
+      "0",
+      current_game
+    )
   );
   var rows_of_15 = [{ title: "to 15", value: null, suspend: "0" }].concat(
-    _gameScoreCreateRow(participants, "15", current_game)
+    _gameScoreCreateRow(
+      data,
+      odd_id_game_score,
+      participants,
+      "15",
+      current_game
+    )
   );
   var rows_of_30 = [{ title: "to 30", value: null, suspend: "0" }].concat(
-    _gameScoreCreateRow(participants, "30", current_game)
+    _gameScoreCreateRow(
+      data,
+      odd_id_game_score,
+      participants,
+      "30",
+      current_game
+    )
   );
   var rows_of_40 = [{ title: "to 40", value: null, suspend: "0" }].concat(
-    _gameScoreCreateRow(participants, "40", current_game)
+    _gameScoreCreateRow(
+      data,
+      odd_id_game_score,
+      participants,
+      "40",
+      current_game
+    )
   );
   if (
     rows_of_0.length > 1 &&
@@ -881,16 +927,16 @@ export const nextGameScore = (data: any) => {
 
   var participants = odds.participants;
   var rows_of_0 = [{ title: "to love", value: null, suspend: "0" }].concat(
-    _gameScoreCreateRow(participants, "0", current_game).reverse()
+    _gameScoreCreateRow(data, odd_id_game_score,participants, "0", current_game).reverse()
   );
   var rows_of_15 = [{ title: "to 15", value: null, suspend: "0" }].concat(
-    _gameScoreCreateRow(participants, "15", current_game).reverse()
+    _gameScoreCreateRow(data, odd_id_game_score,participants, "15", current_game).reverse()
   );
   var rows_of_30 = [{ title: "to 30", value: null, suspend: "0" }].concat(
-    _gameScoreCreateRow(participants, "30", current_game).reverse()
+    _gameScoreCreateRow(data, odd_id_game_score, participants, "30", current_game).reverse()
   );
   var rows_of_40 = [{ title: "to 40", value: null, suspend: "0" }].concat(
-    _gameScoreCreateRow(participants, "40", current_game).reverse()
+    _gameScoreCreateRow(data, odd_id_game_score, participants, "40", current_game).reverse()
   );
   if (
     rows_of_0.length > 1 &&

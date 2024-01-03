@@ -9,7 +9,6 @@ export const nextQuarter = {
   "3rd Quarter": "4th Quarter",
 };
 
-
 const base_arr_is_suspended = (base_arr: any) => {
   var total_suspended_values = 0;
   var total_values = 0;
@@ -45,8 +44,6 @@ const findIdByName = (data: any, name: string) => {
   for (var odd_id in odds) {
     var odd_obj = odds[odd_id];
     if (odd_obj.name == name) {
-
-
       return odd_obj.id;
     }
   }
@@ -61,7 +58,6 @@ export const getSetTitle = (data: any, prevString: string) => {
 
   return new_string;
 };
-
 
 export const getSetTitleAfter = (data: any, prevString: string) => {
   var current_set = data?.info?.period;
@@ -225,11 +221,31 @@ export const gameLines = (data: any) => {
         title: home.handicap,
         value: home.value_eu,
         suspend: home.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: home?.id,
+        participant_name: home?.name,
+        participant_handicap: home?.handicap,
+        participant_header: home?.header,
       };
       const away_obj = {
         title: away.handicap,
         value: away.value_eu,
         suspend: away.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: away?.id,
+        participant_name: away?.name,
+        participant_handicap: away?.handicap,
+        participant_header: away?.header,
       };
 
       const line_spread_arr = [title_obj, home_obj, away_obj];
@@ -256,11 +272,31 @@ export const gameLines = (data: any) => {
           title: "+" + home.handicap,
           value: home.value_eu,
           suspend: home.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: home?.id,
+          participant_name: home?.name,
+          participant_handicap: home?.handicap,
+          participant_header: home?.header,
         };
         const away_obj = {
           title: away.handicap,
           value: away.value_eu,
           suspend: away.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: away?.id,
+          participant_name: away?.name,
+          participant_handicap: away?.handicap,
+          participant_header: away?.header,
         };
 
         const total_spread_arr = [title_obj, away_obj, home_obj];
@@ -292,11 +328,31 @@ export const gameLines = (data: any) => {
           title: "O " + over.handicap,
           value: over.value_eu,
           suspend: over.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: over?.id,
+          participant_name: over?.name,
+          participant_handicap: over?.handicap,
+          participant_header: over?.header,
         };
         const under_obj = {
           title: "U " + under.handicap,
           value: under.value_eu,
           suspend: under.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: under?.id,
+          participant_name: under?.name,
+          participant_handicap: under?.handicap,
+          participant_header: under?.header,
         };
 
         const total_spread_arr = [title_obj, over_obj, under_obj];
@@ -354,11 +410,31 @@ export const linesToCurrentSet = (data: any) => {
         title: home.handicap,
         value: home.value_eu,
         suspend: home.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: home?.id,
+        participant_name: home?.name,
+        participant_handicap: home?.handicap,
+        participant_header: home?.header,
       };
       const away_obj = {
         title: away.handicap,
         value: away.value_eu,
         suspend: away.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: away?.id,
+        participant_name: away?.name,
+        participant_handicap: away?.handicap,
+        participant_header: away?.header,
       };
 
       const line_spread_arr = [title_obj, home_obj, away_obj];
@@ -382,11 +458,31 @@ export const linesToCurrentSet = (data: any) => {
         title: home.handicap,
         value: home.value_eu,
         suspend: home.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: home?.id,
+        participant_name: home?.name,
+        participant_handicap: home?.handicap,
+        participant_header: home?.header,
       };
       const away_obj = {
         title: "+" + Math.abs(away.handicap),
         value: away.value_eu,
         suspend: away.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: away?.id,
+        participant_name: away?.name,
+        participant_handicap: away?.handicap,
+        participant_header: away?.header,
       };
 
       const line_spread_arr = [title_obj, home_obj, away_obj];
@@ -410,11 +506,31 @@ export const linesToCurrentSet = (data: any) => {
         title: "O " + over.handicap,
         value: over.value_eu,
         suspend: over.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: over?.id,
+        participant_name: over?.name,
+        participant_handicap: over?.handicap,
+        participant_header: over?.header,
       };
       const under_obj = {
         title: "U " + "+" + Math.abs(under.handicap),
         value: under.value_eu,
         suspend: under.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: _odd_id_current_set_winner,
+        odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+        participant_id: under?.id,
+        participant_name: under?.name,
+        participant_handicap: under?.handicap,
+        participant_header: under?.header,
       };
 
       const line_spread_arr = [title_obj, over_obj, under_obj];
@@ -473,11 +589,35 @@ export const currentSetPointBetting = (data: any) => {
             title: "",
             value: _home_obj.value_eu,
             suspend: _home_obj.suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: odd_id,
+            odd_name: data?.odds?.[odd_id]?.name,
+            participant_id: _home_obj?.id,
+            participant_name: _home_obj?.name,
+            participant_handicap: _home_obj?.handicap,
+            participant_header: _home_obj?.header,
           };
           var away_obj = {
             title: "",
             value: _away_obj.value_eu,
             suspend: _away_obj.suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: odd_id,
+            odd_name: data?.odds?.[odd_id]?.name,
+            participant_id: _away_obj?.id,
+            participant_name: _away_obj?.name,
+            participant_handicap: _away_obj?.handicap,
+            participant_header: _away_obj?.header,
           };
           arr = [title_obj, home_obj, away_obj];
           base_arr.push(arr);
@@ -540,11 +680,35 @@ export const currentSetRaceTo = (data: any) => {
             title: "",
             value: _one_obj.value_eu,
             suspend: _one_obj.suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: odd_id,
+            odd_name: data?.odds?.[odd_id]?.name,
+            participant_id: _one_obj?.id,
+            participant_name: _one_obj?.name,
+            participant_handicap: _one_obj?.handicap,
+            participant_header: _one_obj?.header,
           };
           var two_obj = {
             title: "",
             value: _two_obj.value_eu,
             suspend: _two_obj.suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: odd_id,
+            odd_name: data?.odds?.[odd_id]?.name,
+            participant_id: _two_obj?.id,
+            participant_name: _two_obj?.name,
+            participant_handicap: _two_obj?.handicap,
+            participant_header: _two_obj?.header,
           };
           arr = [title_obj, one_obj, two_obj];
           base_arr.push(arr);
@@ -592,24 +756,70 @@ export const currentSetLeadAfter = (data: any) => {
     var odds = data?.odds?.[odd_id];
     if (odds) {
       var participants = odds.participants;
-      var group =
-        groupParticipantsByHandicapAndName(participants);
+      var group = groupParticipantsByHandicapAndName(participants);
       for (var handicap in group) {
         var arr = [] as any;
-        var group_obj = group[handicap]
+        var group_obj = group[handicap];
         if (group_obj["Home"] && group_obj["Away"] && group_obj["Tie"]) {
-          var home_obj = group_obj["Home"][0]
-          var away_obj = group_obj["Away"][0]
+          var home_obj = group_obj["Home"][0];
+          var away_obj = group_obj["Away"][0];
 
-          var tie_obj = group_obj["Tie"][0]
+          var tie_obj = group_obj["Tie"][0];
 
           var _title = { title: handicap, value: null, suspend: odds.suspend };
-          var _home = { title: "", value: home_obj.value_eu, suspend: home_obj.suspend }
-          var _away = { title: "", value: away_obj.value_eu, suspend: away_obj.suspend }
-          var _tie = { title: "", value: tie_obj.value_eu, suspend: tie_obj.suspend }
-          arr = [_title, _home, _away, _tie]
-          base_arr.push(arr)
+          var _home = {
+            title: "",
+            value: home_obj.value_eu,
+            suspend: home_obj.suspend,
 
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: odd_id,
+            odd_name: data?.odds?.[odd_id]?.name,
+            participant_id: home_obj?.id,
+            participant_name: home_obj?.name,
+            participant_handicap: home_obj?.handicap,
+            participant_header: home_obj?.header,
+          };
+          var _away = {
+            title: "",
+            value: away_obj.value_eu,
+            suspend: away_obj.suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: odd_id,
+            odd_name: data?.odds?.[odd_id]?.name,
+            participant_id: away_obj?.id,
+            participant_name: away_obj?.name,
+            participant_handicap: away_obj?.handicap,
+            participant_header: away_obj?.header,
+          };
+          var _tie = {
+            title: "",
+            value: tie_obj.value_eu,
+            suspend: tie_obj.suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: odd_id,
+            odd_name: data?.odds?.[odd_id]?.name,
+            participant_id: tie_obj?.id,
+            participant_name: tie_obj?.name,
+            participant_handicap: tie_obj?.handicap,
+            participant_header: tie_obj?.header,
+          };
+          arr = [_title, _home, _away, _tie];
+          base_arr.push(arr);
         }
       }
     }
@@ -663,11 +873,31 @@ export const currentSetExtraPoints = (data: any) => {
         title: yes.name,
         value: yes.value_eu,
         suspend: yes.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: yes?.id,
+        participant_name: yes?.name,
+        participant_handicap: yes?.handicap,
+        participant_header: yes?.header,
       };
       const no_obj = {
         title: no.name,
         value: no.value_eu,
         suspend: no.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: no?.id,
+        participant_name: no?.name,
+        participant_handicap: no?.handicap,
+        participant_header: no?.header,
       };
 
       const line_spread_arr = [yes_obj, no_obj];
@@ -692,6 +922,8 @@ export const getNextSetTitle = (data: any, prevString: string) => {
 };
 
 const _getParticipantsFieldWithoutHandicap = (
+  data: any,
+  odd_id: any,
   participants: any,
   line: string
 ) => {
@@ -704,7 +936,22 @@ const _getParticipantsFieldWithoutHandicap = (
       title = participant_obj.name;
       suspend = participant_obj?.suspend;
       value = participant_obj.value_eu;
-      var obj = { title: title, value: value, suspend: suspend };
+
+      var obj = {
+        title: title,
+        value: value,
+        suspend: suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: participant_obj?.id,
+        participant_name: participant_obj?.name,
+        participant_handicap: participant_obj?.handicap,
+        participant_header: participant_obj?.header,
+      };
       return obj;
     }
   }
@@ -754,11 +1001,31 @@ export const oddEven = (data: any) => {
         title: odd.handicap,
         value: odd.value_eu,
         suspend: odd.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: odd?.id,
+        participant_name: odd?.name,
+        participant_handicap: odd?.handicap,
+        participant_header: odd?.header,
       };
       const even_obj = {
         title: even.handicap,
         value: even.value_eu,
         suspend: even.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: even?.id,
+        participant_name: even?.name,
+        participant_handicap: even?.handicap,
+        participant_header: even?.header,
       };
 
       const line_spread_arr = [title_obj, odd_obj, even_obj];
@@ -774,15 +1041,25 @@ export const oddEven = (data: any) => {
     if (odds) {
       var participants = odds.participants;
       var title_row_obj: { title: string; value: null; suspend: string | any } =
-      {
-        title: current_period,
-        value: null,
-        suspend: "1",
-      };
+        {
+          title: current_period,
+          value: null,
+          suspend: "1",
+        };
 
       arr.push(title_row_obj);
-      var odd_1 = _getParticipantsFieldWithoutHandicap(participants, "Odd");
-      var even_1 = _getParticipantsFieldWithoutHandicap(participants, "Even");
+      var odd_1 = _getParticipantsFieldWithoutHandicap(
+        data,
+        odd_id,
+        participants,
+        "Odd"
+      );
+      var even_1 = _getParticipantsFieldWithoutHandicap(
+        data,
+        odd_id,
+        participants,
+        "Even"
+      );
 
       if (odd_1 !== null) {
         odd_1.title = "";
@@ -896,11 +1173,31 @@ export const currentSetWinningMargin = (data: any) => {
         title: "",
         value: home_participant.value_eu,
         suspend: home_participant.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: home_participant?.id,
+        participant_name: home_participant?.name,
+        participant_handicap: home_participant?.handicap,
+        participant_header: home_participant?.header,
       };
       var away_obj = {
         title: "",
         value: away_participant.value_eu,
         suspend: away_participant.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: away_participant?.id,
+        participant_name: away_participant?.name,
+        participant_handicap: away_participant?.handicap,
+        participant_header: away_participant?.header,
       };
       var arr = [title_obj, home_obj, away_obj];
       base_arr.push(arr);
@@ -910,11 +1207,8 @@ export const currentSetWinningMargin = (data: any) => {
   return { rows: base_arr, suspend: suspend_value };
 };
 
-
-
 function groupAndFilterParticipants(participants: any, threshold: number) {
   const groupedAndFilteredParticipants = {} as any;
-
 
   for (const participantId in participants) {
     const participant = participants[participantId];
@@ -924,10 +1218,15 @@ function groupAndFilterParticipants(participants: any, threshold: number) {
     homeScore = parseInt(homeScore);
     awayScore = parseInt(awayScore);
 
-    if (participant.name === 'T1 After extra points' || participant.name === 'T2 After extra points' || participant.name === 'T1 25-15 or better' || participant.name === 'T2 25-15 or better') {
-      const afterPoints_str = participant.name.split(" ")
+    if (
+      participant.name === "T1 After extra points" ||
+      participant.name === "T2 After extra points" ||
+      participant.name === "T1 25-15 or better" ||
+      participant.name === "T2 25-15 or better"
+    ) {
+      const afterPoints_str = participant.name.split(" ");
 
-      const scoreKey = afterPoints_str.slice(1).join(" ")
+      const scoreKey = afterPoints_str.slice(1).join(" ");
 
       if (!groupedAndFilteredParticipants[scoreKey]) {
         groupedAndFilteredParticipants[scoreKey] = [];
@@ -935,8 +1234,6 @@ function groupAndFilterParticipants(participants: any, threshold: number) {
 
       groupedAndFilteredParticipants[scoreKey].push(participant);
     }
-
-
 
     if (homeScore >= threshold && awayScore >= threshold) {
       const scoreKey = [homeScore, awayScore].sort().reverse().join("-");
@@ -949,10 +1246,8 @@ function groupAndFilterParticipants(participants: any, threshold: number) {
     }
   }
 
-
   return groupedAndFilteredParticipants;
 }
-
 
 // Completed Set Correct Score
 export const currentSetCorrectScore = (data: any) => {
@@ -1003,8 +1298,6 @@ export const currentSetCorrectScore = (data: any) => {
     least_game
   );
 
-
-
   for (var group in grouped_participants) {
     var arr = [] as any;
     var group_obj = grouped_participants[group];
@@ -1013,11 +1306,31 @@ export const currentSetCorrectScore = (data: any) => {
       title: "",
       value: group_obj[0].value_eu,
       suspend: group_obj[0].suspend,
+
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[0]?.id,
+      participant_name: group_obj[0]?.name,
+      participant_handicap: group_obj[0]?.handicap,
+      participant_header: group_obj[0]?.header,
     };
     var away_obj = {
       title: "",
       value: group_obj[1].value_eu,
       suspend: group_obj[1].suspend,
+
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[1]?.id,
+      participant_name: group_obj[1]?.name,
+      participant_handicap: group_obj[1]?.handicap,
+      participant_header: group_obj[1]?.header,
     };
     arr.push(title_obj, home_obj, away_obj);
     base_arr.push(arr);
@@ -1035,7 +1348,7 @@ export const scoreAfter3rdSet = (data: any) => {
 
   const base_arr = [] as any;
 
-  const _odd_id_current_set_winner = findIdByName(data, 'Score After 3rd Set');
+  const _odd_id_current_set_winner = findIdByName(data, "Score After 3rd Set");
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
     return { rows: [], suspend: "0" };
@@ -1069,11 +1382,31 @@ export const scoreAfter3rdSet = (data: any) => {
       title: "",
       value: group_obj[0].value_eu,
       suspend: group_obj[0].suspend,
+
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[0]?.id,
+      participant_name: group_obj[0]?.name,
+      participant_handicap: group_obj[0]?.handicap,
+      participant_header: group_obj[0]?.header,
     };
     var away_obj = {
       title: "",
       value: group_obj[1].value_eu,
       suspend: group_obj[1].suspend,
+
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[1]?.id,
+      participant_name: group_obj[1]?.name,
+      participant_handicap: group_obj[1]?.handicap,
+      participant_header: group_obj[1]?.header,
     };
     arr.push(title_obj, home_obj, away_obj);
     base_arr.push(arr);
@@ -1090,7 +1423,7 @@ export const scoreAfter2ndSet = (data: any) => {
 
   const base_arr = [] as any;
 
-  const _odd_id_current_set_winner = findIdByName(data, 'Score After 2nd Set');
+  const _odd_id_current_set_winner = findIdByName(data, "Score After 2nd Set");
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
     return { rows: [], suspend: "0" };
@@ -1124,11 +1457,31 @@ export const scoreAfter2ndSet = (data: any) => {
       title: "",
       value: group_obj[0].value_eu,
       suspend: group_obj[0].suspend,
+
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[0]?.id,
+      participant_name: group_obj[0]?.name,
+      participant_handicap: group_obj[0]?.handicap,
+      participant_header: group_obj[0]?.header,
     };
     var away_obj = {
       title: "",
       value: group_obj[1].value_eu,
       suspend: group_obj[1].suspend,
+
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[1]?.id,
+      participant_name: group_obj[1]?.name,
+      participant_handicap: group_obj[1]?.handicap,
+      participant_header: group_obj[1]?.header,
     };
     arr.push(title_obj, home_obj, away_obj);
     base_arr.push(arr);
@@ -1138,14 +1491,11 @@ export const scoreAfter2ndSet = (data: any) => {
   return { rows: base_arr, suspend: suspend_value };
 };
 
-
 export const setAfterNSets = (data: any) => {
   if (!data && !data.odds) {
     return { rows: [], suspend: "0" };
   }
 };
-
-
 
 // PENDING Set Correct Score
 export const correctSetScore = (data: any) => {
@@ -1154,7 +1504,6 @@ export const correctSetScore = (data: any) => {
   }
 
   const base_arr = [] as any;
-
 
   var search_line = "Set Betting";
   const _odd_id_current_set_winner = findIdByName(data, search_line);
@@ -1171,28 +1520,45 @@ export const correctSetScore = (data: any) => {
       ? current_set_stats.away
       : current_set_stats.home;
 
- 
-
   const grouped_participants = groupAndFilterParticipants(
     participants,
     least_game
   );
 
-
   for (var group in grouped_participants) {
     var arr = [] as any;
     var group_obj = grouped_participants[group];
- 
+
     var title_obj = { title: group, value: "", suspend: group_obj[0].suspend };
     var home_obj = {
       title: "",
       value: group_obj[0].value_eu,
       suspend: group_obj[0].suspend,
+
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[0]?.id,
+      participant_name: group_obj[0]?.name,
+      participant_handicap: group_obj[0]?.handicap,
+      participant_header: group_obj[0]?.header,
     };
     var away_obj = {
       title: "",
       value: group_obj[1].value_eu,
       suspend: group_obj[1].suspend,
+
+      event_id: data?.info?.id,
+      event_name:
+        data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+      odd_id: _odd_id_current_set_winner,
+      odd_name: data?.odds?.[_odd_id_current_set_winner]?.name,
+      participant_id: group_obj[1]?.id,
+      participant_name: group_obj[1]?.name,
+      participant_handicap: group_obj[1]?.handicap,
+      participant_header: group_obj[1]?.header,
     };
     arr.push(title_obj, home_obj, away_obj);
     base_arr.push(arr);
@@ -1200,9 +1566,7 @@ export const correctSetScore = (data: any) => {
   var suspend_value = areAllSuspended(base_arr);
 
   return { rows: base_arr, suspend: suspend_value };
-
 };
-
 
 // Completed Team Totals
 export const teamTotals = (data: any) => {
@@ -1214,7 +1578,7 @@ export const teamTotals = (data: any) => {
   var arr = [] as any;
 
   {
-    var search_string = "Home Team Total Points"
+    var search_string = "Home Team Total Points";
     // var search_string = "Home Team Total ("+ current_quarter + ")"
     var odd_id = findIdByName(data, search_string);
     var odds = data?.odds?.[odd_id];
@@ -1223,87 +1587,224 @@ export const teamTotals = (data: any) => {
       var group = groupParticipantsByHandicapAndName(participants);
       var length = Object.keys(group).length;
       if (length > 1) {
-
         for (var handicap in group) {
           var group_obj = group[handicap];
-          if (group_obj["Over"] === undefined || group_obj["Under"] === undefined) {
+          if (
+            group_obj["Over"] === undefined ||
+            group_obj["Under"] === undefined
+          ) {
             return { rows: [], suspend: "0" };
           }
 
+          if (
+            group_obj["Over"][0].is_main === "1" ||
+            group_obj["Under"][0].is_main === "1"
+          ) {
+            var over_obj = group_obj["Over"][0];
+            var under_obj = group_obj["Under"][0];
+            var _over = {
+              title: "Over " + handicap,
+              value: over_obj.value_eu,
+              suspend: over_obj.suspend,
 
-          if (group_obj["Over"][0].is_main === "1" || group_obj["Under"][0].is_main === "1") {
-            var over_obj = group_obj["Over"][0]
-            var under_obj = group_obj["Under"][0]
-            var _over = { title: "Over " + handicap, value: over_obj.value_eu, suspend: over_obj.suspend }
-            var _under = { title: "Under " + handicap, value: under_obj.value_eu, suspend: under_obj.suspend }
-            arr.push(_over, _under)
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: over_obj?.id,
+              participant_name: over_obj?.name,
+              participant_handicap: over_obj?.handicap,
+              participant_header: over_obj?.header,
+            };
+            var _under = {
+              title: "Under " + handicap,
+              value: under_obj.value_eu,
+              suspend: under_obj.suspend,
+
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: under_obj?.id,
+              participant_name: under_obj?.name,
+              participant_handicap: under_obj?.handicap,
+              participant_header: under_obj?.header,
+            };
+            arr.push(_over, _under);
           }
         }
       }
       if (length === 1) {
         for (var handicap in group) {
           var group_obj = group[handicap];
-          if (group_obj["Over"] === undefined || group_obj["Under"] === undefined) {
+          if (
+            group_obj["Over"] === undefined ||
+            group_obj["Under"] === undefined
+          ) {
             return { rows: [], suspend: "0" };
           }
 
+          var over_obj = group_obj["Over"][0];
+          var under_obj = group_obj["Under"][0];
+          var _over = {
+            title: "Over " + handicap,
+            value: over_obj.value_eu,
+            suspend: over_obj.suspend,
 
-          var over_obj = group_obj["Over"][0]
-          var under_obj = group_obj["Under"][0]
-          var _over = { title: "Over " + handicap, value: over_obj.value_eu, suspend: over_obj.suspend }
-          var _under = { title: "Under " + handicap, value: under_obj.value_eu, suspend: under_obj.suspend }
-          arr.push(_over, _under)
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: odd_id,
+            odd_name: data?.odds?.[odd_id]?.name,
+            participant_id: over_obj?.id,
+            participant_name: over_obj?.name,
+            participant_handicap: over_obj?.handicap,
+            participant_header: over_obj?.header,
+          };
+          var _under = {
+            title: "Under " + handicap,
+            value: under_obj.value_eu,
+            suspend: under_obj.suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: odd_id,
+            odd_name: data?.odds?.[odd_id]?.name,
+            participant_id: under_obj?.id,
+            participant_name: under_obj?.name,
+            participant_handicap: under_obj?.handicap,
+            participant_header: under_obj?.header,
+          };
+          arr.push(_over, _under);
         }
-
       }
     }
   }
 
   {
     // var search_string = "Away Team Total ("+ current_quarter + ")"
-    var search_string = "Away Team Total Points"
+    var search_string = "Away Team Total Points";
     var odd_id = findIdByName(data, search_string);
     var odds = data?.odds?.[odd_id];
 
     if (odds) {
-
       var participants = odds.participants;
       var group = groupParticipantsByHandicapAndName(participants);
       var length = Object.keys(group).length;
       if (length > 1) {
         for (var handicap in group) {
           var group_obj = group[handicap];
-          if (group_obj["Over"] === undefined || group_obj["Under"] === undefined) {
+          if (
+            group_obj["Over"] === undefined ||
+            group_obj["Under"] === undefined
+          ) {
             return { rows: [], suspend: "0" };
           }
 
+          if (
+            group_obj["Over"][0].is_main === "1" ||
+            group_obj["Under"][0].is_main === "1"
+          ) {
+            var over_obj = group_obj["Over"][0];
+            var under_obj = group_obj["Under"][0];
+            var _over = {
+              title: "Over " + handicap,
+              value: over_obj.value_eu,
+              suspend: over_obj.suspend,
 
-          if (group_obj["Over"][0].is_main === "1" || group_obj["Under"][0].is_main === "1") {
-            var over_obj = group_obj["Over"][0]
-            var under_obj = group_obj["Under"][0]
-            var _over = { title: "Over " + handicap, value: over_obj.value_eu, suspend: over_obj.suspend }
-            var _under = { title: "Under " + handicap, value: under_obj.value_eu, suspend: under_obj.suspend }
-            arr.push(_over, _under)
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: over_obj?.id,
+              participant_name: over_obj?.name,
+              participant_handicap: over_obj?.handicap,
+              participant_header: over_obj?.header,
+            };
+            var _under = {
+              title: "Under " + handicap,
+              value: under_obj.value_eu,
+              suspend: under_obj.suspend,
+
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: under_obj?.id,
+              participant_name: under_obj?.name,
+              participant_handicap: under_obj?.handicap,
+              participant_header: under_obj?.header,
+            };
+            arr.push(_over, _under);
           }
         }
       }
       if (length === 1) {
         for (var handicap in group) {
           var group_obj = group[handicap];
-          if (group_obj["Over"] === undefined || group_obj["Under"] === undefined) {
+          if (
+            group_obj["Over"] === undefined ||
+            group_obj["Under"] === undefined
+          ) {
             return { rows: [], suspend: "0" };
           }
 
+          var over_obj = group_obj["Over"][0];
+          var under_obj = group_obj["Under"][0];
+          var _over = {
+            title: "Over " + handicap,
+            value: over_obj.value_eu,
+            suspend: over_obj.suspend,
 
-          var over_obj = group_obj["Over"][0]
-          var under_obj = group_obj["Under"][0]
-          var _over = { title: "Over " + handicap, value: over_obj.value_eu, suspend: over_obj.suspend }
-          var _under = { title: "Under " + handicap, value: under_obj.value_eu, suspend: under_obj.suspend }
-          arr.push(_over, _under)
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: odd_id,
+            odd_name: data?.odds?.[odd_id]?.name,
+            participant_id: over_obj?.id,
+            participant_name: over_obj?.name,
+            participant_handicap: over_obj?.handicap,
+            participant_header: over_obj?.header,
+          };
+          var _under = {
+            title: "Under " + handicap,
+            value: under_obj.value_eu,
+            suspend: under_obj.suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: odd_id,
+            odd_name: data?.odds?.[odd_id]?.name,
+            participant_id: under_obj?.id,
+            participant_name: under_obj?.name,
+            participant_handicap: under_obj?.handicap,
+            participant_header: under_obj?.header,
+          };
+          arr.push(_over, _under);
         }
-
       }
-
     }
   }
   if (arr.length == 4) {
@@ -1313,5 +1814,5 @@ export const teamTotals = (data: any) => {
   // TODO Suspend value
 
   var suspend_value = areAllSuspended(base_arr);
-  return { rows: base_arr, suspend: suspend_value }
-}
+  return { rows: base_arr, suspend: suspend_value };
+};

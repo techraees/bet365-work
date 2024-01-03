@@ -20,7 +20,23 @@ export const gameLines = (data: any) => {
         let suspend = "0";
         title = item[1]?.name;
         if (toWin.length < 3 && (title === "Home" || title == "Away")) {
-          toWin.push({ title: ``, value: item[1].value_eu, suspend });
+          toWin.push({
+            title: ``,
+            value: item[1].value_eu,
+            suspend: suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: 410,
+            odd_name: data?.odds?.[410]?.name,
+            participant_id: item[1]?.id,
+            participant_name: item[1]?.name,
+            participant_handicap: item[1]?.handicap,
+            participant_header: item[1]?.header,
+          });
         }
       });
     }
@@ -39,7 +55,19 @@ export const gameLines = (data: any) => {
             value: ` ${Number(item[1].value_eu) > 0 ? "+" : ""}${
               item[1].value_eu
             }`,
-            suspend,
+            suspend: suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: 444,
+            odd_name: data?.odds?.[444]?.name,
+            participant_id: item[1]?.id,
+            participant_name: item[1]?.name,
+            participant_handicap: item[1]?.handicap,
+            participant_header: item[1]?.header,
           });
         }
         if (total.length < 3 && title === "Under") {
@@ -48,7 +76,19 @@ export const gameLines = (data: any) => {
             value: ` ${Number(item[1].value_eu) > 0 ? "+" : ""}${
               item[1].value_eu
             }`,
-            suspend,
+            suspend: suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: 444,
+            odd_name: data?.odds?.[444]?.name,
+            participant_id: item[1]?.id,
+            participant_name: item[1]?.name,
+            participant_handicap: item[1]?.handicap,
+            participant_header: item[1]?.header,
           });
         }
       });
@@ -66,14 +106,38 @@ export const gameLines = (data: any) => {
           line.push({
             title: item[1].handicap,
             value: item[1].value_eu,
-            suspend,
+            suspend: item[1].suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: 444,
+            odd_name: data?.odds?.[444]?.name,
+            participant_id: item[1]?.id,
+            participant_name: item[1]?.name,
+            participant_handicap: item[1]?.handicap,
+            participant_header: item[1]?.header,
           });
         }
         if (line.length < 3 && title === "Away") {
           line.push({
             title: item[1].handicap,
             value: item[1].value_eu,
-            suspend,
+            suspend: item[1].suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: 444,
+            odd_name: data?.odds?.[444]?.name,
+            participant_id: item[1]?.id,
+            participant_name: item[1]?.name,
+            participant_handicap: item[1]?.handicap,
+            participant_header: item[1]?.header,
           });
         }
       });
@@ -107,6 +171,16 @@ export const map1Winner = (data: any) => {
           title: data?.team_info?.home?.name,
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 1179,
+          odd_name: data?.odds?.[1179]?.name,
+          participant_id: item[1]?.id,
+          participant_name: item[1]?.name,
+          participant_handicap: item[1]?.handicap,
+          participant_header: item[1]?.header,
         });
       }
       if (row.length < 3 && title === "Away") {
@@ -114,6 +188,16 @@ export const map1Winner = (data: any) => {
           title: data?.team_info?.away?.name,
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 1179,
+          odd_name: data?.odds?.[1179]?.name,
+          participant_id: item[1]?.id,
+          participant_name: item[1]?.name,
+          participant_handicap: item[1]?.handicap,
+          participant_header: item[1]?.header,
         });
       }
     });
@@ -142,6 +226,16 @@ export const map1KillHandicap = (data: any) => {
           title: item.handicap,
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 9510035,
+          odd_name: data?.odds?.[9510035]?.name,
+          participant_id: item[1]?.id,
+          participant_name: item[1]?.name,
+          participant_handicap: item[1]?.handicap,
+          participant_header: item[1]?.header,
         });
       }
       if (row.length < 2 && title === "Away") {
@@ -149,6 +243,16 @@ export const map1KillHandicap = (data: any) => {
           title: item.handicap,
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 9510035,
+          odd_name: data?.odds?.[9510035]?.name,
+          participant_id: item[1]?.id,
+          participant_name: item[1]?.name,
+          participant_handicap: item[1]?.handicap,
+          participant_header: item[1]?.header,
         });
       }
     });
@@ -176,6 +280,16 @@ export const map1Totals = (data: any) => {
           title: item.handicap,
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 9510015,
+          odd_name: data?.odds?.[9510015]?.name,
+          participant_id: item?.id,
+          participant_name: item?.name,
+          participant_handicap: item?.handicap,
+          participant_header: item?.header,
         });
       }
       if (kills.length < 3 && title === "Under") {
@@ -183,6 +297,16 @@ export const map1Totals = (data: any) => {
           title: item.handicap,
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 9510015,
+          odd_name: data?.odds?.[9510015]?.name,
+          participant_id: item?.id,
+          participant_name: item?.name,
+          participant_handicap: item?.handicap,
+          participant_header: item?.header,
         });
       }
     });
@@ -206,13 +330,37 @@ export const map1TotalKills = (data: any) => {
       const item = itm[1];
       title = item?.name;
       if (row.length < 3 && title === "Odd") {
-        row.push({ title: "Odd", value: item.value_eu, suspend: item.suspend });
+        row.push({
+          title: "Odd",
+          value: item.value_eu,
+          suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 9291513,
+          odd_name: data?.odds?.[9291513]?.name,
+          participant_id: item?.id,
+          participant_name: item?.name,
+          participant_handicap: item?.handicap,
+          participant_header: item?.header,
+        });
       }
       if (row.length < 3 && title === "Even") {
         row.push({
           title: "Even",
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 9291513,
+          odd_name: data?.odds?.[9291513]?.name,
+          participant_id: item?.id,
+          participant_name: item?.name,
+          participant_handicap: item?.handicap,
+          participant_header: item?.header,
         });
       }
     });
@@ -240,6 +388,16 @@ export const map2Winner = (data: any) => {
           title: data?.team_info?.home?.name,
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 1180,
+          odd_name: data?.odds?.[1180]?.name,
+          participant_id: item?.id,
+          participant_name: item?.name,
+          participant_handicap: item?.handicap,
+          participant_header: item?.header,
         });
       }
       if (row.length < 3 && title === "Away") {
@@ -247,6 +405,16 @@ export const map2Winner = (data: any) => {
           title: data?.team_info?.away?.name,
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 1180,
+          odd_name: data?.odds?.[1180]?.name,
+          participant_id: item?.id,
+          participant_name: item?.name,
+          participant_handicap: item?.handicap,
+          participant_header: item?.header,
         });
       }
     });
@@ -274,6 +442,16 @@ export const map2KillHandicap = (data: any) => {
           title: item.handicap,
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 9510036,
+          odd_name: data?.odds?.[9510036]?.name,
+          participant_id: item?.id,
+          participant_name: item?.name,
+          participant_handicap: item?.handicap,
+          participant_header: item?.header,
         });
       }
       if (row.length < 2 && title === "Away") {
@@ -281,6 +459,16 @@ export const map2KillHandicap = (data: any) => {
           title: item.handicap,
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 9510036,
+          odd_name: data?.odds?.[9510036]?.name,
+          participant_id: item?.id,
+          participant_name: item?.name,
+          participant_handicap: item?.handicap,
+          participant_header: item?.header,
         });
       }
     });
@@ -308,6 +496,16 @@ export const map2Totals = (data: any) => {
           title: item.handicap,
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 9510016,
+          odd_name: data?.odds?.[9510016]?.name,
+          participant_id: item?.id,
+          participant_name: item?.name,
+          participant_handicap: item?.handicap,
+          participant_header: item?.header,
         });
       }
       if (kills.length < 3 && title === "Under") {
@@ -315,6 +513,16 @@ export const map2Totals = (data: any) => {
           title: item.handicap,
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 9510016,
+          odd_name: data?.odds?.[9510016]?.name,
+          participant_id: item?.id,
+          participant_name: item?.name,
+          participant_handicap: item?.handicap,
+          participant_header: item?.header,
         });
       }
     });
@@ -338,13 +546,37 @@ export const map2TotalKills = (data: any) => {
       const item = itm[1];
       title = item?.name;
       if (row.length < 3 && title === "Odd") {
-        row.push({ title: "Odd", value: item.value_eu, suspend: item.suspend });
+        row.push({
+          title: "Odd",
+          value: item.value_eu,
+          suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 9291514,
+          odd_name: data?.odds?.[9291514]?.name,
+          participant_id: item?.id,
+          participant_name: item?.name,
+          participant_handicap: item?.handicap,
+          participant_header: item?.header,
+        });
       }
       if (row.length < 3 && title === "Even") {
         row.push({
           title: "Even",
           value: item.value_eu,
           suspend: item.suspend,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: 9291514,
+          odd_name: data?.odds?.[9291514]?.name,
+          participant_id: item?.id,
+          participant_name: item?.name,
+          participant_handicap: item?.handicap,
+          participant_header: item?.header,
         });
       }
     });
@@ -370,10 +602,42 @@ export const correctMapScore = (data: any) => {
         let suspend = "0";
         title = item[1]?.name;
         if (twoZero.length < 3 && title === "2-0") {
-          twoZero.push({ title: "", value: item[1].value_eu, suspend });
+          twoZero.push({
+            title: "",
+            value: item[1].value_eu,
+            suspend: suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: 11810,
+            odd_name: data?.odds?.[11810]?.name,
+            participant_id: item[1]?.id,
+            participant_name: item[1]?.name,
+            participant_handicap: item[1]?.handicap,
+            participant_header: item[1]?.header,
+          });
         }
         if (twoZero.length < 3 && title === "0-2") {
-          twoZero.push({ title: "", value: item[1].value_eu, suspend });
+          twoZero.push({
+            title: "",
+            value: item[1].value_eu,
+            suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: 11810,
+            odd_name: data?.odds?.[11810]?.name,
+            participant_id: item[1]?.id,
+            participant_name: item[1]?.name,
+            participant_handicap: item[1]?.handicap,
+            participant_header: item[1]?.header,
+          });
         }
       });
     }
@@ -387,10 +651,42 @@ export const correctMapScore = (data: any) => {
         let suspend = "0";
         title = item[1]?.name;
         if (twoOne.length < 3 && title === "2-1") {
-          twoOne.push({ title: "", value: item[1].value_eu, suspend });
+          twoOne.push({
+            title: "",
+            value: item[1].value_eu,
+            suspend: suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: 11810,
+            odd_name: data?.odds?.[11810]?.name,
+            participant_id: item[1]?.id,
+            participant_name: item[1]?.name,
+            participant_handicap: item[1]?.handicap,
+            participant_header: item[1]?.header,
+          });
         }
         if (twoOne.length < 3 && title === "1-2") {
-          twoOne.push({ title: "", value: item[1].value_eu, suspend });
+          twoOne.push({
+            title: "",
+            value: item[1].value_eu,
+            suspend: suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: 11810,
+            odd_name: data?.odds?.[11810]?.name,
+            participant_id: item[1]?.id,
+            participant_name: item[1]?.name,
+            participant_handicap: item[1]?.handicap,
+            participant_header: item[1]?.header,
+          });
         }
       });
     }
@@ -422,7 +718,19 @@ export const matchEitherTeamsToScore = (data: any) => {
           ultraKill.push({
             title: item[1].handicap,
             value: item[1].value_eu,
-            suspend,
+            suspend: suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: 100101001,
+            odd_name: data?.odds?.[100101001]?.name,
+            participant_id: item[1]?.id,
+            participant_name: item[1]?.name,
+            participant_handicap: item[1]?.handicap,
+            participant_header: item[1]?.header,
           });
         }
       });
@@ -439,7 +747,19 @@ export const matchEitherTeamsToScore = (data: any) => {
           rampage.push({
             title: item[1].handicap,
             value: item[1].value_eu,
-            suspend,
+            suspend: suspend,
+
+            event_id: data?.info?.id,
+            event_name:
+              data?.team_info?.home?.name +
+              " vs " +
+              data?.team_info?.away?.name,
+            odd_id: 100101001,
+            odd_name: data?.odds?.[100101001]?.name,
+            participant_id: item[1]?.id,
+            participant_name: item[1]?.name,
+            participant_handicap: item[1]?.handicap,
+            participant_header: item[1]?.header,
           });
         }
       });

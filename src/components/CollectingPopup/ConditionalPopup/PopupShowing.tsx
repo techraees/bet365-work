@@ -10,27 +10,34 @@ import Image from "next/image";
 import useBetSlipStore from "@/store/betSlipStore";
 import BetSlipElement from "./BetSlipElement";
 import { useSession } from "next-auth/react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 import SystemElement from "./SystemElement";
 import MultipleElement from "./MultipleElement";
 const PopupShowing = () => {
-  const { type, selections, system, addSelection, setType, clearSystem, clearSelections } = useBetSlipStore();
+  const {
+    type,
+    selections,
+    system,
+    addSelection,
+    setType,
+    clearSystem,
+    clearSelections,
+  } = useBetSlipStore();
   const [soloStatus, setSoloStatus] = useState<any>(true);
   const [systemStatus, setSystemStatus] = useState<any>(false);
   const [multipleStatus, setMultipleStatus] = useState<any>(false);
   const [showingContent, setShowingContent] = useState<any>(false);
   const { data: session } = useSession();
-  const [showingFilterCollapse, setShowingFilterCollapse] = useState<any>(
-    false
-  );
+  const [showingFilterCollapse, setShowingFilterCollapse] =
+    useState<any>(false);
 
   const router = useRouter();
 
   useEffect(() => {
     // If there is no session, redirect to the login page
     if (!session) {
-      router.push('/auth/signin'); // Replace '/login' with your login route
+      router.push("/auth/signin"); // Replace '/login' with your login route
     }
   }, [session, router]);
 
@@ -61,22 +68,18 @@ const PopupShowing = () => {
     false;
   };
 
-  const handleRemoveAllSelections = () =>{
-
+  const handleRemoveAllSelections = () => {
     clearSelections();
-  }
+  };
 
   var selectedArray = selections;
-  useEffect(()=>{
-    if(selections.length > 1){
+  useEffect(() => {
+    if (selections.length > 1) {
       enableMultipleStatus();
-    }else{
+    } else {
       enableSoloStatus();
     }
-  }, [selections])
-
-
-
+  }, [selections]);
 
   // console.log({ handleArr: selectedArray });
   // Handling Deletion
@@ -99,49 +102,45 @@ const PopupShowing = () => {
     return result;
   }
 
-
-  function sumTotalStakesSystem(data:any) {
+  function sumTotalStakesSystem(data: any) {
     let totalSum = 0;
-  
+
     // Iterate over each key in the object
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         const system = data[key];
-        
+
         // Check if 'total_stake' exists and is a number
-        if (system && typeof system.total_stake === 'number') {
+        if (system && typeof system.total_stake === "number") {
           totalSum += system.total_stake;
         }
       }
     }
-  
+
     return totalSum;
   }
 
-
-  function findPossibleWinnings(data:any){
+  function findPossibleWinnings(data: any) {
     var total_winnings = 0;
-    
+
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         const _data = data[key];
         const combinations = _data.combinations;
 
-        
         if (combinations) {
-            var total_value = 1
-            combinations.forEach( (combination:any) =>{
-              combination.forEach( (event:any) =>{
-                  var stake_value = parseFloat(event.value);
-                  total_winnings += (stake_value  * parseFloat(_data.total_stake))
-              });
-            })
+          var total_value = 1;
+          combinations.forEach((combination: any) => {
+            combination.forEach((event: any) => {
+              var stake_value = parseFloat(event.value);
+              total_winnings += stake_value * parseFloat(_data.total_stake);
+            });
+          });
         }
       }
     }
     return total_winnings.toFixed(2);
   }
-
 
   if (selectedArray.length > 0) {
     var combinations = countCombinations(selectedArray);
@@ -154,7 +153,6 @@ const PopupShowing = () => {
         return sum;
       }
     }, 0);
-
 
     var total_bet_system = sumTotalStakesSystem(system);
 
@@ -176,7 +174,7 @@ const PopupShowing = () => {
     total_to_return = total_to_return.toFixed(2);
     return (
       <>
-        <div className="fixed left-[40%] bottom-9 rounded-[5px, 5px, 0, 0] flex flex-col bg-white rounded-[5px] w-[450px] z-50">
+        <div className="fixed left-[20%] bottom-9 rounded-[5px, 5px, 0, 0] flex flex-col bg-white rounded-[5px] w-[45vw] min-w-[300px] max-w-[500px] z-50">
           <div className="flex justify-between rounded-[5px] bg-[#f0f0f0] border-b-[1px] border-b-[#d4d4d4] border-solid">
             <div className="flex flex-col pl-[15px] flex-1">
               <div className="text-[17px]  font-[700] pt-[15px] text-[#545454] leading-[10px] flex items-center pb-[5px] relative">
@@ -202,21 +200,21 @@ const PopupShowing = () => {
                       <p
                         key={index}
                         className={`mr-[5px] text-[#666] text-[12px] leading-[18px] inline-flex self-center ${
-                          index > 10 ? "hidden" : ""
+                          index > 1 ? "hidden" : ""
                         }`}
                       >
-                        hello
+                        {showingValue.event_name} - {showingValue.odd_name} 
                         {/*{showingValue.home.substr(0, 10)} */}
                       </p>
                     ))}
                     <p
                       className={`${
-                        selectedArray.length > 9
+                        selectedArray.length > 1
                           ? "text-[green] border-solid border-[green] hover:border-b-[1px] cursor-pointer"
                           : "hidden"
                       }`}
                     >
-                      {selectedArray.length - 9}+ more
+                      {selectedArray.length - 1}+ more
                     </p>
                   </div>
                 </h1>
@@ -271,36 +269,33 @@ const PopupShowing = () => {
 
                 <div className="bss-ControlBar_TypesWrapper flex justify-center items-center relative">
                   {selections.length === 1 && (
-
-                      <div>
-                        <div
-                          onClick={() => enableSoloStatus()}
-                          className="bss-ControlBar_BetslipTypesButton  cursor-pointer  text-[11px] mr-2 border-solid border-[#137a5a] hover:border-b-[1px]"
-                          style={{ lineHeight: "14px" }}
-                        >
-                          Singles
-                        </div>
+                    <div>
+                      <div
+                        onClick={() => enableSoloStatus()}
+                        className="bss-ControlBar_BetslipTypesButton  cursor-pointer  text-[11px] mr-2 border-solid border-[#137a5a] hover:border-b-[1px]"
+                        style={{ lineHeight: "14px" }}
+                      >
+                        Singles
                       </div>
-                  )
-
-                  }
+                    </div>
+                  )}
 
                   {selections.length > 1 && (
                     <>
-                  <div
-                    onClick={() => enableMultipleStatus()}
-                    className="bss-ControlBar_BetslipTypesButton  cursor-pointer  text-[11px] mr-2 border-solid border-[#137a5a] hover:border-b-[1px]"
-                    style={{ lineHeight: "14px" }}
-                  >
-                    Multiples
-                  </div>
-                  <div
-                    onClick={() => enableSystemStatus()}
-                    className="bss-ControlBar_BetslipTypesButton  cursor-pointer  text-[11px] mr-2 border-solid border-[#137a5a] hover:border-b-[1px]"
-                    style={{ lineHeight: "14px" }}
-                  >
-                    System
-                  </div>
+                      <div
+                        onClick={() => enableMultipleStatus()}
+                        className="bss-ControlBar_BetslipTypesButton  cursor-pointer  text-[11px] mr-2 border-solid border-[#137a5a] hover:border-b-[1px]"
+                        style={{ lineHeight: "14px" }}
+                      >
+                        Multiples
+                      </div>
+                      <div
+                        onClick={() => enableSystemStatus()}
+                        className="bss-ControlBar_BetslipTypesButton  cursor-pointer  text-[11px] mr-2 border-solid border-[#137a5a] hover:border-b-[1px]"
+                        style={{ lineHeight: "14px" }}
+                      >
+                        System
+                      </div>
                     </>
                   )}
                   <div className="bss-ControlBar_BarsIcon"></div>
@@ -369,27 +364,13 @@ const PopupShowing = () => {
                             Place Bet
                           </div>
                           <div className="text-base text-[#9effe0] leading-[19px] font-bold ml-2.5">
-                            {type === "Solo" && 
-                              ( 
-                                <div>
-                                    € {total_bet}
-                                </div>
-                              )
-                            }
-                            {type === "System" && 
-                              ( 
-                                <div>
-                                    € {total_bet_system}
-                                </div>
-                              )
-                            }
-                            {type === "Multiple" && 
-                              ( 
-                                <div>
-                                    € {total_bet_system}
-                                </div>
-                              )
-                            }
+                            {type === "Solo" && <div>€ {total_bet}</div>}
+                            {type === "System" && (
+                              <div>€ {total_bet_system}</div>
+                            )}
+                            {type === "Multiple" && (
+                              <div>€ {total_bet_system}</div>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -397,28 +378,13 @@ const PopupShowing = () => {
                         <div>Total To Return</div>
                         <div className="inline-block ml-[3px]">
                           {" "}
-
-                            {type === "Solo" && 
-                              ( 
-                                <div>
-                                    € {total_to_return}
-                                </div>
-                              )
-                            }
-                            {type === "System" && 
-                              ( 
-                                <div>
-                                    € {total_possible_winnings}
-                                </div>
-                              )
-                            }
-                            {type === "Multiple" && 
-                              ( 
-                                <div>
-                                    € {total_possible_winnings}
-                                </div>
-                              )
-                            }
+                          {type === "Solo" && <div>€ {total_to_return}</div>}
+                          {type === "System" && (
+                            <div>€ {total_possible_winnings}</div>
+                          )}
+                          {type === "Multiple" && (
+                            <div>€ {total_possible_winnings}</div>
+                          )}
                         </div>
                       </div>
                     </div>
