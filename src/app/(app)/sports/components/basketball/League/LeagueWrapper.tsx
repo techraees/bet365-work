@@ -11,7 +11,8 @@ const LeagueWrapper = ({ sport, league }: any) => {
   const tabs = {
     tab: ["Lines", "Props", "Bet Boost", "Futures", "Table"],
   };
-  if (league)
+  if (league){
+
     return (
       <div className="text-base">
         <div className="min-h-[80px] w-full bg-[linear-gradient(rgba(12,22,20,.1),transparent_20px),radial-gradient(122%_370px_at_center_-220px,#009969_0,transparent_100%),linear-gradient(to_right_bottom,#0c1614,#084436)]">
@@ -59,5 +60,9 @@ const LeagueWrapper = ({ sport, league }: any) => {
         <LeagueBody sport={sport} leagueName={league} active={active} />
       </div>
     );
+
+
+  }
+  return null;
 };
 export default LeagueWrapper;

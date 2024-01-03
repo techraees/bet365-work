@@ -1,16 +1,19 @@
 "use client";
 import useBetSlipStore from "@/store/betSlipStore";
+import { ignore } from "antd/es/theme/useToken";
 import { useEffect, useState } from "react";
 import React from "react";
 
 type SystemNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
-function MultipleElement({
-  id,
-  system_number,
-  number_of_elements,
-}: any) {
+interface MultipleElementProps {
+  id: string; // or number, depending on what id represents
+  system_number: SystemNumber;
+  number_of_elements: number;
+}
 
+
+const MultipleElement: React.FC<MultipleElementProps> = ({ id, system_number, number_of_elements }) => {
 
 
 const SYSTEM_NAMES: { [key in SystemNumber]: string } = {
@@ -61,9 +64,11 @@ const SYSTEM_NAMES: { [key in SystemNumber]: string } = {
 
 
 
+  // @ts-ignore
   var combinations= getCombinations(selections, parseInt(system_number));
   const handleStakeChange = (event: any) => {
     if(!isNaN(parseFloat(event.target.value))){
+      // @ts-ignore
       addSystem(system_name, {number_of_elements:number_of_elements, single_stake: event.target.value, total_stake: number_of_elements* parseFloat(event.target.value), combinations:combinations});
     }else{
       removeSystem(system_name);

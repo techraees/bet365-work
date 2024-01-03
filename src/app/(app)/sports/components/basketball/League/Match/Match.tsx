@@ -7,6 +7,8 @@ import MatchBody from "./MatchBody";
 import { getPregame } from "@/api";
 
 const Match = ({ sport, league, gameid }: any) => {
+
+  const router = useRouter();
   const [active, setActive] = useState("Main Markets");
   // console.log('league clicked', decodeURIComponent(league))
 
@@ -25,14 +27,13 @@ const Match = ({ sport, league, gameid }: any) => {
   }, []); // Empty dependency array for running only once on mount
 
   if (odds === null) {
-    return;
+    return null;
   }
 
   const match = odds?.filter((item: any) => {
     return item.id === gameid;
   })[0];
 
-  const router = useRouter();
   const tabs = {
     basketball: [
       "Main Markets",

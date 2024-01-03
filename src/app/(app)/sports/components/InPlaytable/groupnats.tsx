@@ -7,7 +7,7 @@ import * as jsonpatch from "fast-json-patch";
 import SoccerTable from "./SoccerTable";
 import TennisTable from "./TennisTable";
 import { useRouter } from "next/navigation";
-import CollectingPopup from "../CollectingPopup/CollectingPopup";
+// import CollectingPopup from "../CollectingPopup/CollectingPopup";
 
 const sc = JSONCodec();
 
@@ -160,7 +160,7 @@ const Groupnats = ({
         setSelectedArray={setSelectedBidsArr}
       />
 
-      <CollectingPopup />
+      {/* <CollectingPopup /> */}
     </div>
   );
 };

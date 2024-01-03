@@ -11,7 +11,7 @@ const LeagueWrapper = ({ sport, league }: any) => {
   const tabs = {
     tab: ["Matches", "Bet Boost", "Knockout"],
   };
-  const [odds, setOdds] = useState([]);
+  const [odds, setOdds] = useState<any>([]);
 
   useEffect(() => {
     async function fetchData() {

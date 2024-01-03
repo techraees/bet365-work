@@ -477,7 +477,7 @@ export const quarterLines2Way = (data: any) => {
           title: title,
           value: value,
           suspend: suspend,
-
+          // @ts-ignore 
           event_id: data?.info?.id,
           event_name:
             data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
@@ -512,6 +512,7 @@ export const quarterLines2Way = (data: any) => {
             value: value,
             suspend: suspend,
 
+            // @ts-ignore 
             event_id: data?.info?.id,
             event_name:
               data?.team_info?.home?.name +
@@ -552,6 +553,7 @@ export const quarterLines2Way = (data: any) => {
           value: value,
           suspend: suspend,
 
+          // @ts-ignore 
           event_id: data?.info?.id,
           event_name:
             data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
@@ -630,6 +632,7 @@ export const half = (data: any) => {
           value: value,
           suspend: suspend,
 
+          // @ts-ignore 
           event_id: data?.info?.id,
           event_name:
             data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
@@ -664,6 +667,8 @@ export const half = (data: any) => {
             value: value,
             suspend: suspend,
 
+            
+            // @ts-ignore 
             event_id: data?.info?.id,
             event_name:
               data?.team_info?.home?.name +
@@ -682,6 +687,7 @@ export const half = (data: any) => {
             value: value,
             suspend: suspend,
 
+            // @ts-ignore 
             event_id: data?.info?.id,
             event_name:
               data?.team_info?.home?.name +
@@ -720,6 +726,7 @@ export const half = (data: any) => {
           value: value,
           suspend: suspend,
 
+          // @ts-ignore 
           event_id: data?.info?.id,
           event_name:
             data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
@@ -763,7 +770,7 @@ export const resultTotalGoals = (data: any) => {
             title: title,
             value: value,
             suspend: suspend,
-
+            // @ts-ignore 
             event_id: data?.info?.id,
             event_name:
               data?.team_info?.home?.name +
@@ -783,6 +790,7 @@ export const resultTotalGoals = (data: any) => {
             value: value,
             suspend: suspend,
 
+            // @ts-ignore 
             event_id: data?.info?.id,
             event_name:
               data?.team_info?.home?.name +

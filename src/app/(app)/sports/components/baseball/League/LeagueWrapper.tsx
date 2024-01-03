@@ -11,6 +11,9 @@ const LeagueWrapper = ({ odds, league }: any) => {
   const tabs = {
     soccer: ["Lines", "Props", "Bet Boost", "Futures", "Table"],
   };
+  //TODO FIX THIS
+  const particularOdd = [{}] as any;
+
   return (
     <div className="text-base">
       <div className="min-h-[80px] w-full bg-[linear-gradient(rgba(12,22,20,.1),transparent_20px),radial-gradient(122%_370px_at_center_-220px,#009969_0,transparent_100%),linear-gradient(to_right_bottom,#0c1614,#084436)]">

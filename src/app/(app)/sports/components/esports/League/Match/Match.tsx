@@ -8,7 +8,7 @@ import { getPregameEvent } from "@/api";
 
 const Match = ({ sport, gameid, league, getLeagues }: any) => {
   const [active, setActive] = useState("Main Markets");
-  const [match, setMatch] = useState({});
+  const [match, setMatch] = useState<any>({});
   console.log({ sport, league, getLeagues, gameid });
 
   useEffect(() => {

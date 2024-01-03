@@ -229,6 +229,7 @@ const PopupShowing = () => {
               <div className="bs-Balance_Label ">Balance</div>
               <div className="bs-Balance_ValueWrapper ">
                 <div className="bs-Balance_Value ">
+                  {/* @ts-ignore */}
                   €{session?.user?.balance?.sports_betting}
                 </div>
               </div>
@@ -308,6 +309,7 @@ const PopupShowing = () => {
               {selectedArray.map((item: any) => {
                 return (
                   <BetSlipElement
+                    key={item._id}
                     id={item._id}
                     event_id={item.event_id}
                     event_name={item.event_name}
@@ -328,6 +330,7 @@ const PopupShowing = () => {
                 {combinations.map((item: any, index: any) => {
                   return (
                     <SystemElement
+                      key={item._id}
                       id={item._id}
                       system_number={index + 1}
                       number_of_elements={item}
@@ -348,6 +351,7 @@ const PopupShowing = () => {
             <div className={multipleStatus ? "block" : "hidden"}>
               <div className="flex overflow-hidden overscroll-contain opacity-100 bg-transparent relative flex flex-col overflow-y-auto w-full transition-[height] duration-[0.25s] ease-[ease-in-out] pt-0">
                 <MultipleElement
+                  id={"1"}
                   system_number={combinations.length}
                   number_of_elements={combinations[combinations.length - 1]}
                 />

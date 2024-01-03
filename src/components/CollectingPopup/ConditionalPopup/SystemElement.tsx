@@ -63,6 +63,7 @@ const SYSTEM_NAMES: { [key in SystemNumber]: string } = {
   var combinations= getCombinations(selections, parseInt(system_number));
   const handleStakeChange = (event: any) => {
     if(!isNaN(parseFloat(event.target.value))){
+      {/* @ts-ignore */}
       addSystem(system_name, {number_of_elements:number_of_elements, single_stake: event.target.value, total_stake: number_of_elements* parseFloat(event.target.value), combinations:combinations});
     }else{
       removeSystem(system_name);
