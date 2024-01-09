@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import CasinoSearchBar from "./components/CasinoSearchBar";
-import CasinoProviderDropDown from "./components/CasinoProviderDropDown";
+import CasinoProvider from "./components/CasinoProvider";
 
 export const dynamic = "force-dynamic";
 
@@ -41,6 +41,8 @@ const Home = ({ params }: any) => {
   }, []);
 
   const handleSearch = (searchValue: string) => {
+    if(searchValue == "All")
+      searchValue = ""
     const filtered = slots.filter((slot: any) =>
       slot.name.includes(searchValue)
     );
@@ -65,43 +67,39 @@ const Home = ({ params }: any) => {
   console.log(slots);
 
   return (
-    <div className="">
+    <div className="bg-brand-green border-2 border-brand-green">
       {isFetching ? (
         <div className="flex justify-center mt-8" role="status">
           {/* ... Spinner code remains unchanged ... */}
         </div>
       ) : (
         <>
-          <div className="flex flex-col lg:flex-row mt-5 ml-8 space-y-2 lg:space-y-0 lg:space-x-2">
-            <div className="mb-2 lg:mb-0">
-              <CasinoSearchBar onSearch={handleSearch} />
-            </div>
-            <div>
-              <CasinoProviderDropDown
-                options={providerOptions}
-                onClick={handleProviderSearch}
-              />
-            </div>
+          <div className="flex flex-col lg:flex-row justify-between gap-x-4 p-4 shadow-[0px_2px_4px_0px_black]">
+            <CasinoProvider
+              options={providerOptions}
+              onClick={handleProviderSearch}
+            />
+            <CasinoSearchBar onSearch={handleSearch} />
           </div>
-          <div className="m-3 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-4">
+          <div className="m-3 flex flex-wrap flex-row justify-center">
             {slotsToRender.map((slot: any, index) => (
               <div
                 key={slot._id}
-                className="relative group transition-all duration-200"
+                className="relative group transition-all duration-200 w-[300px]"
               >
                 <img
                   src={slot.api_image}
                   alt={slot.name}
                   className="w-full h-auto"
                 />
+                <p className="text-center text-white md:text-sm text-white rounded mt-2 mb-2">
+                  {slot.name}
+                </p>
 
-                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-200 hover:bg-black">
-                  <p className="text-center text-white md:text-sm bg-black bg-opacity-0 rounded mb-2">
-                    {slot.name}
-                  </p>
+                <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-200 hover:bg-[#00000055]">
                   <div className="flex z-50">
                     <Link href={`/casino/play?id=${slot._id}`}>
-                      <button className="min-w-[20px] h-[20px] flex justify-center items-center text-[13px] font-[700] leading-[17px] text-[#26ffbe] px-[10px] rounded-[2px] border border-[#26ffbe80]">
+                      <button className="bg-[#111] min-w-[20px] h-[20px] flex justify-center items-center text-[13px] font-[700] leading-[17px] text-[#26ffbe] px-[10px] rounded-[2px] border border-[#26ffbe80]">
                         Play Now
                       </button>
                     </Link>
