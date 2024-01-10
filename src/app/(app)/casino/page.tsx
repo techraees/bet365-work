@@ -74,7 +74,7 @@ const Home = ({ params }: any) => {
         </div>
       ) : (
         <>
-          <div className="flex flex-col lg:flex-row justify-between gap-x-4 p-4 shadow-[0px_2px_4px_0px_black]">
+          <div className="flex flex-col md:flex-row justify-between gap-x-4 p-4 shadow-[0px_2px_4px_0px_black]">
             <CasinoProvider
               options={providerOptions}
               onClick={handleProviderSearch}
