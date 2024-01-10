@@ -75,7 +75,6 @@ export const authOption: NextAuthOptions = {
                     'X-ACCESS-TOKEN': `${token.token}`,
                 },
             });
-
             
             if (res.status === 200) {
                 // console.log('here')

@@ -31,8 +31,6 @@ export default function Scroller({betData}: Props) {
     <div className='overflow-y-auto overflow-x-hidden overscroll-none h-[calc(645px_-_50px)]'>
       <div>
         <BetsContainer betData={betData} />
-        <FeaturesContainer />
-        <GamesPodContainer />
       </div>
     </div>
   )

@@ -119,7 +119,7 @@ const BetContent = ({ active }: { active: string }) => {
             </div>
         </div>
     */}
-            <BetslipLoader />
+            {/* <BetslipLoader /> */}
             <TaxMessage message={'All Cash Out and To Return values are inclusive of deductions'} />
             <Scroller betData={betData}/>
         </>

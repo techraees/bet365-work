@@ -1,11 +1,26 @@
 'use client'
 import { cn } from "@/lib/utils";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BetContent from "./BetContent";
+import { useSession } from "next-auth/react";
+import { getCoupons } from "@/api";
 
 const Bets = () => {
     const [active, setActive] = useState('Cash Out');
     const tabs = ["Cash Out", "Live Now", "Unsettled", "Settled", "All"]
+    const { data: session } = useSession();
+    const userdata = session as any;
+    
+    useEffect(() => {
+        const fetchCoupons = async () => {
+            const token = userdata?.user?.token || "";
+            console.log('---------session------', userdata);
+            console.log('---------token------', token);
+            const response = await getCoupons(token);
+            console.log(await response.json());
+        }
+        fetchCoupons();
+    }, [])
 
     return (
         <div>
