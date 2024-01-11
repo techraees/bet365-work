@@ -2,93 +2,7 @@ import BetslipLoader from "./BetslipLoader/BetslipLoader";
 import Scroller from "./Scroller/Scroller";
 import TaxMessage from "./TaxMessage";
 
-type Participant = {
-    team: string,
-    event: string,
-    odds: string,
-    participant: string,
-    marketDesc: string,
-    matchName: string,
-    score: string,
-    playTime: string
-}
-
-type BetItemData = {
-    stake: string,
-    betInfoText: string,
-    betInfoLabel: string,
-    multi: string,
-    participants: Participant[]
-}
-
-const betData: BetItemData[] = [
-    {
-        stake: "€0.10",
-        betInfoText: "€0.26",
-        betInfoLabel: "To Return",
-        multi: "Double",
-        participants: [
-            {
-                participant: "Italy (Arthur) Esports",
-                team: "Germany (Cleo) Esports",
-                event: "Dangerous Attack",
-                odds: "1.40",
-                marketDesc: "Fulltime Result",
-                matchName: "Italy (Arthur) Esports v Germany (Cleo) Esports",
-                score: "1-0",
-                playTime: "04:12"
-            },
-            {
-                participant: "England (Obelix) Esports or Draw",
-                team: "England (Obelix) Esports",
-                event: "In Possession",
-                odds: "1.90",
-                marketDesc: "Double Chance",
-                matchName: "Netherlands (Alexis) Esports v England (Obelix) Esports",
-                score: "0-0",
-                playTime: "04:37"
-            }
-        ]
-    },
-    {
-        stake: "€0.10",
-        betInfoText: "€0.19",
-        betInfoLabel: "To Return",
-        multi: "Single",
-        participants: [
-            {
-                participant: "England (Obelix) Esports or Draw",
-                team: "England (Obelix) Esports",
-                event: "In Possession",
-                odds: "1.90",
-                marketDesc: "Double Chance",
-                matchName: "Netherlands (Alexis) Esports v England (Obelix) Esports",
-                score: "0-0",
-                playTime: "04:37"
-            }
-        ]
-    },
-    {
-        stake: "€0.10",
-        betInfoText: "€0.14",
-        betInfoLabel: "To Return",
-        multi: "Single",
-        participants: [
-            {
-                participant: "Italy (Arthur) Esports",
-                team: "Germany (Cleo) Esports",
-                event: "Dangerous Attack",
-                odds: "1.40",
-                marketDesc: "Double Chance",
-                matchName: "Italy (Arthur) Esports v Germany (Cleo) Esports",
-                score: "1-0",
-                playTime: "04:12"
-            }
-        ]
-    }
-]
-
-const BetContent = ({ active }: { active: string }) => {
+const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => {
     let description = null;
     let description2 = null;
     if (active === 'Cash Out') {
@@ -121,7 +35,7 @@ const BetContent = ({ active }: { active: string }) => {
     */}
             {/* <BetslipLoader /> */}
             <TaxMessage message={'All Cash Out and To Return values are inclusive of deductions'} />
-            <Scroller betData={betData}/>
+            <Scroller coupons={coupons}/>
         </>
     )
 }

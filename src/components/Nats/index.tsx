@@ -145,6 +145,8 @@ const Odds = ({ odds, sport, subcategory, currentdataId }: any) => {
     }
   );
 
+  console.log('----grouped----', grouped);
+
   // console.log({ grouped });
   // console.log({ currentdataId });
   if (sport === "esports") {

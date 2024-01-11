@@ -4,19 +4,16 @@ import BetPartMarketDescContainer from './BetPartMarketDescContainer/BetPartMark
 import BetPartFixtureContainer from './BetPartFixtureContainer/BetPartFixtureContainer'
 
 type Props = {
-  participant: string,
-  marketDesc: string,
-  matchName: string,
-  score: string,
-  playTime: string
+  selection: any,
+  event: any
 }
 
-export default function BetPartLeftContainer({participant, marketDesc, matchName, score, playTime}: Props) {
+export default function BetPartLeftContainer({ selection, event }: Props) {
   return (
     <div className='flex-1 pr-[15px]'>
-        <BetPartHeaderTitle participant={participant}/>
-        <BetPartMarketDescContainer marketDesc={marketDesc}/>
-        <BetPartFixtureContainer matchName={matchName} score={score} playTime={playTime} />
+        <BetPartHeaderTitle team={selection.participant_name == "Home" ? event?.team_info?.home?.name : event?.team_info?.away?.name} />
+        <BetPartMarketDescContainer marketDesc={selection.odd_name}/>
+        <BetPartFixtureContainer matchName={selection.event_name} score={event?.info?.score} playTime={event?.info?.seconds} />
     </div>
   )
 }

@@ -7,6 +7,7 @@ import { getCoupons } from "@/api";
 
 const Bets = () => {
     const [active, setActive] = useState('Cash Out');
+    const [coupons, setCoupons] = useState<any[]>([]);
     const tabs = ["Cash Out", "Live Now", "Unsettled", "Settled", "All"]
     const { data: session } = useSession();
     const userdata = session as any;
@@ -14,10 +15,12 @@ const Bets = () => {
     useEffect(() => {
         const fetchCoupons = async () => {
             const token = userdata?.user?.token || "";
-            console.log('---------session------', userdata);
-            console.log('---------token------', token);
             const response = await getCoupons(token);
-            console.log(await response.json());
+            const _coupons = await response.json();
+            if(_coupons.message) {
+                console.log(_coupons.message);
+            } else
+                setCoupons(_coupons);
         }
         fetchCoupons();
     }, [])
@@ -39,7 +42,7 @@ const Bets = () => {
                     })}
                 </div>
             </div>
-            <BetContent active={active}/>
+            <BetContent active={active} coupons={coupons}/>
         </div>
     )
 }

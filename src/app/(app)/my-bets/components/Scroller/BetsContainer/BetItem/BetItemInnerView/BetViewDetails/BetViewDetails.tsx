@@ -1,28 +1,17 @@
 import React from 'react'
 import BetParticipant from './BetParticipant/BetParticipant'
 
-type Participant = {
-  team: string,
-  event: string,
-  odds: string,
-  participant: string,
-  marketDesc: string,
-  matchName: string,
-  score: string,
-  playTime: string
-}
-
 type Props = {
-  participants: Participant[]
+  coupon: any
 }
 
-export default function BetViewDetails({participants}: Props) {
+export default function BetViewDetails({coupon}: Props) {
   return (
     <div >
         <div className='inline-block w-full'>
           {
-            participants.map((participant, index) =>
-              <BetParticipant {...participant} key={index}/> )
+            coupon.selections.map((selection: any, index: number) =>
+              <BetParticipant selection={selection} key={index}/> )
           }
         </div>
     </div>
