@@ -7,7 +7,6 @@ type Props = {
 }
 
 export default function BetPartTopContainer({selection, event}: Props) {
-  console.log('------><-----', selection.game, event);
   return (
     <div className='flex pr-5'>
         <BetPartLeftContainer selection={selection} event={event}/>

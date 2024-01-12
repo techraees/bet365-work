@@ -3,13 +3,14 @@ import BetViewDetails from './BetViewDetails/BetViewDetails'
 import BetViewInformation from './BetViewInformation/BetViewInformation'
 
 type Props = {
-  coupon: any
+  coupon: any,
+  events: any[]
 }
 
-export default function BetItemInnerView({coupon}: Props) {
+export default function BetItemInnerView({coupon, events}: Props) {
   return (
     <div>
-        <BetViewDetails coupon={coupon}/>
+        <BetViewDetails coupon={coupon} events={events}/>
         <BetViewInformation stake={coupon.stake} possibleWinnings={coupon.possible_winnings} />
     </div>
   )

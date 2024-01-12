@@ -11,7 +11,7 @@ export default function BetViewInformation({stake, possibleWinnings}: Props) {
       <div className='flex-[1_0_66.666%] inline-flex justify-center pb-0'>
         <div className='flex-[1_0_50%] pl-5'>
           <div className='text-[#ddd] text-[11px] leading-[13px] pb-0.5'>Stake</div>
-          <div className='text-white flex font-bold text-base leading-[22px] pb-[5px]'>{stake}</div>
+          <div className='text-white flex font-bold text-base leading-[22px] pb-[5px]'>€{stake}</div>
         </div>
         <div className='w-full px-5 py-0'>
           <div className='text-[#ddd] text-[11px] leading-[13px] pb-0.5'>
@@ -19,7 +19,7 @@ export default function BetViewInformation({stake, possibleWinnings}: Props) {
           </div>
           <div className='text-base inline-flex leading-5'>
             <div className='text-white flex font-bold text-base leading-[22px] pb-[5px]'>
-              {possibleWinnings}
+              €{possibleWinnings}
             </div>
           </div>
         </div>

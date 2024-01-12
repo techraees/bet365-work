@@ -129,6 +129,21 @@ export const getCoupons = (token: any) => {
   return fetch(`https://${API_URL}/users/getCoupons`, requestOptions1);
 };
 
+export const getLiveOddsEvents = (eventIds : string[], token: any) =>
+{
+  var myHeaders = new Headers();
+  myHeaders.append("X-ACCESS-TOKEN", token);
+
+  var requestOptions1 = {
+    method: "GET",
+    headers: myHeaders,
+  };
+
+  let eventIdStr: string = eventIds.join(',');
+
+  return fetch(`https://${API_URL}/odds/live/events/coupons?event_ids=${eventIdStr}`, requestOptions1);
+}
+
 export const getSlots = (token: any) => {
   var myHeaders = new Headers();
   myHeaders.append("X-ACCESS-TOKEN", token);

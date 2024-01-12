@@ -5,6 +5,14 @@ import BetContent from "./BetContent";
 import { useSession } from "next-auth/react";
 import { getCoupons } from "@/api";
 
+function compareTimestamps(a: any, b: any) {
+    const dateA: any = new Date(a.timestamp);
+    const dateB: any = new Date(b.timestamp);
+
+    // return a negative value if dateB is earlier (for descending order)
+    return dateB - dateA;
+}
+
 const Bets = () => {
     const [active, setActive] = useState('Cash Out');
     const [coupons, setCoupons] = useState<any[]>([]);
@@ -14,15 +22,26 @@ const Bets = () => {
     
     useEffect(() => {
         const fetchCoupons = async () => {
-            const token = userdata?.user?.token || "";
-            const response = await getCoupons(token);
-            const _coupons = await response.json();
-            if(_coupons.message) {
-                console.log(_coupons.message);
-            } else
-                setCoupons(_coupons);
+            try {
+                const token = userdata?.user?.token || "";
+                const response = await getCoupons(token);
+                const _coupons = await response.json();
+                console.log('------response------', _coupons);
+                if(_coupons.message) {
+                    console.log(_coupons.message);
+                } else {
+                    _coupons.sort(compareTimestamps);
+                    console.log('-----------coupons@', _coupons);
+                    setCoupons(_coupons);
+                }
+            } catch(e) {
+                console.log('---exception while fetching coupons---', e);
+            }
         }
-        fetchCoupons();
+        const interval: any = setInterval(async () => {
+            await fetchCoupons()
+        }, 1000);
+        return () => clearInterval(interval);
     }, [])
 
     return (
