@@ -3,7 +3,7 @@ import BetPartMiniMatchWrapper from './BetPartMiniMatchWrapper/BetPartMiniMatchW
 import MediaButtonsContainer from './MediaButtonsContainer/MediaButtonsContainer'
 import { getTeamMessage as getSoccerMatchMessage } from '@/components/Sports/Soccer/SoccerPitch'
 import { getTeamMessage as getTennisMatchMessage } from '@/components/Sports/Tennis/TennisPitch'
-import { getTeamMessage as getBasketballMatchMessage } from '@/components/Sports/Tennis/TennisPitch'
+import { getTeamMessage as getBasketballMatchMessage} from '@/components/Sports/Basketball/BasketballPitch'
 import { getTeamMessage as getHockeyMatchMessage } from '@/components/Sports/Hockey/HockeyPitch'
 import { getTeamMessage as getVolleyballMatchMessage } from '@/components/Sports/Volleyball/VolleyballPitch'
 

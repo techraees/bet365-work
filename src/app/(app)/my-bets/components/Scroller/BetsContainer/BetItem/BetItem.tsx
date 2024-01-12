@@ -17,22 +17,17 @@ export default function BetItem({coupon}: Props) {
   const userdata = session as any;
 
   useEffect(() => {
-
-    // let timerId: any = setInterval(() => {
-      const token = userdata?.user?.token || "";
-      getLiveOddsEvents(coupon.selections.map((selection: any) => selection.event_id), token)
-        .then(async res => {
-          const liveEvents = await res.json();
-          if(liveEvents && !liveEvents.message)
-            setEvents(liveEvents);
-        })
-        .catch(e => {
-          console.log('-----fetch error----', e);
-        })
-    // }, 1000);
+    const token = userdata?.user?.token || "";
+    getLiveOddsEvents(coupon.selections.map((selection: any) => selection.event_id), token)
+      .then(async res => {
+        const liveEvents = await res.json();
+        if(liveEvents && !liveEvents.message)
+          setEvents(liveEvents);
+      })
+      .catch(e => {
+        console.log('-----fetch error----', e);
+      })
     return () => {
-      // if(timerId)
-      //   clearInterval(timerId);
     }
 
   }, [coupon])

@@ -40,7 +40,7 @@ const Bets = () => {
         }
         const interval: any = setInterval(async () => {
             await fetchCoupons()
-        }, 1000);
+        }, 2000);
         return () => clearInterval(interval);
     }, [])
 
