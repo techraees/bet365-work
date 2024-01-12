@@ -19,8 +19,8 @@ export default function BetPartFixtureContainer({ matchName, score, playTime }: 
         }}>
             <div className='inline-flex mr-[5px] hover:text-[color(display-p3_0.157_1_0.733)]'>{matchName}</div>
             <div className='inline text-[:#ddd]'>
-                <div className='inline-block bg-[hsla(0,0%,100%,0.1)] text-white font-bold mr-[5px] px-[3px] py-0 rounded-[1px]'>{"1:1"}{score}</div>
-                <div className='inline-block'>{playTime}{"70:33"}</div>
+                <div className='inline-block bg-[hsla(0,0%,100%,0.1)] text-white font-bold mr-[5px] px-[3px] py-0 rounded-[1px]'>{score}</div>
+                <div className='inline-block'>{playTime}</div>
             </div>
         </div>
     </div>
