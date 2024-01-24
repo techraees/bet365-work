@@ -36,6 +36,18 @@ function getEventString(status: number): string {
       name: "Red Card",
     },
     {
+      status: 1008,
+      name: "Penalty"
+    },
+    {
+      status: 1009,
+      name: "Direct free kick"
+    },
+    {
+      status: 1010,
+      name: "Simple free kick"
+    },
+    {
       status: 1012,
       name: "Shot Off Goal",
     },
@@ -114,6 +126,42 @@ function getEventString(status: number): string {
     {
       status: 1902,
       name: "Corner Bottom",
+    },
+    {
+      status: 8,
+      name: "Penalty Score",
+    },
+    {
+      status: 9,
+      name: "Penalty Miss",
+    },
+    {
+      status: 21,
+      name: "Penalty To Take",
+    },
+    {
+      status: 1023,
+      name: "Penalty missed",
+    },
+    {
+      status: 1333,
+      name: "Reviewing Penalty",
+    },
+    {
+      status: 1022,
+      name: "Penaltyshootout",
+    },
+    {
+      status: 1014,
+      name: "Kickoff",
+    },
+    {
+      status: 1332,
+      name: "VAR - Reviewing Goal",
+    },
+    {
+      status: 1237,
+      name: "Zoned Throw",
     },
   ];
   const matchingCode = statusCodes.find((code) => code.status == status);
@@ -721,6 +769,25 @@ function getMessagePositionOnPossession(
     y: y,
   };
 }
+//position penalty message
+function getMessagePositionOnPenalty(team: number): { x: number; y: number } {
+  let y;
+  if (team == 1)
+    return {
+      x: 340,
+      y: 50
+    }
+  else if(team == 2)
+    return {
+      x: 60,
+      y: 90
+    }
+  return {
+    x: 200,
+    y: 75
+  }
+}
+
 //position match message
 function getMessagePosition(
   ballPos: { x: number; y: number },
@@ -750,6 +817,13 @@ function getMessagePosition(
     return {
       x: msgPossessionPos.x ?? 200,
       y: msgPossessionPos.y ?? 75,
+    };
+  }
+  if (status.startsWith('Penalty')) {
+    let messagePos = getMessagePositionOnPenalty(team);
+    return {
+      x: messagePos.x ?? 200,
+      y: messagePos.y ?? 75,
     };
   }
   return {
@@ -864,6 +938,7 @@ const SoccerPitch: React.FC<SoccerPitchInterface> = ({ data }) => {
   const awayGoalPos = { x: 400, y: 75 };
   const homeCornerTarget = { x: 30, y: 75 };
   const awayCornerTarget = { x: 370, y: 75 };
+
 
   const status = getState(curCode);
 
