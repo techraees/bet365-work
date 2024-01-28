@@ -463,7 +463,7 @@ const BetsList = () => {
                         }}
                       >
                         <td className="px-2 py-1 border border-gray-600 truncate">
-                          {user._id} - {user.username}
+                          {item.placedBy}
                         </td>
                         <td className="px-2 py-1 border border-gray-600 truncate">
                           {item.timestamp}

@@ -57,10 +57,10 @@ const get_objects_grouped_by_team = (odds_array: any) => {
 
 export const find_participants_by_name_in_odds = (
   odds: any,
-  participant_name: string
+  participant_name: string,
 ) => {
   var participant_match = odds.filter(
-    (participant: any) => participant.name === participant_name
+    (participant: any) => participant.name === participant_name,
   );
   if (participant_match && participant_match.length > 0) {
     return participant_match[0];
@@ -94,8 +94,6 @@ function splitArrayIntoChunks(array: any, chunkSize: any) {
   }
   return chunks;
 }
-
-
 
 export const gameLines = (data: any) => {
   var match = data?.odds?.main?.sp?.game_lines?.odds;
@@ -133,6 +131,8 @@ export const gameLines = (data: any) => {
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
           participant_header: obj.header ?? "",
+          bet_type: "Pregame",
+          game: "hockey",
         });
       }
       tosend.push(row);
@@ -141,9 +141,9 @@ export const gameLines = (data: any) => {
   return tosend;
 };
 export const threeWay = (data: any) => {
-  var match = data?.odds?.main?.sp['3_way']?.odds;
-  const odd_id = data?.odds?.main?.sp['3_way']?.id;
-  const odd_name = data?.odds?.main?.sp['3_way']?.name;
+  var match = data?.odds?.main?.sp["3_way"]?.odds;
+  const odd_id = data?.odds?.main?.sp["3_way"]?.id;
+  const odd_name = data?.odds?.main?.sp["3_way"]?.name;
   if (!match) {
     return [];
   }
@@ -176,6 +176,8 @@ export const threeWay = (data: any) => {
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
           participant_header: obj.header ?? "",
+          bet_type: "Pregame",
+          game: "hockey",
         });
       }
       tosend.push(row);
@@ -187,7 +189,7 @@ export const threeWay = (data: any) => {
 export const alternativePuckLine2Way = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "alternative_puck_line_2_way"
+    "alternative_puck_line_2_way",
   );
   if (!match) {
     return [];
@@ -218,6 +220,8 @@ export const alternativePuckLine2Way = (data: any) => {
         participant_name: home_obj.name ?? "",
         participant_handicap: home_obj.handicap ?? "",
         participant_header: home_obj.header ?? "",
+        bet_type: "Pregame",
+        game: "hockey",
       };
       left.push(obj);
     }
@@ -237,6 +241,8 @@ export const alternativePuckLine2Way = (data: any) => {
         participant_name: away_obj.name ?? "",
         participant_handicap: away_obj.handicap ?? "",
         participant_header: away_obj.header ?? "",
+        bet_type: "Pregame",
+        game: "hockey",
       };
       right.push(obj);
     }
@@ -257,11 +263,10 @@ export const alternativePuckLine2Way = (data: any) => {
   return tosend;
 };
 
-
 export const alternativeTotal2Way = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "alternative_total_2_way"
+    "alternative_total_2_way",
   );
   if (!match) {
     return [];
@@ -297,6 +302,8 @@ export const alternativeTotal2Way = (data: any) => {
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        bet_type: "Pregame",
+        game: "hockey",
       };
       var _under = {
         id: under_obj.id,
@@ -312,6 +319,8 @@ export const alternativeTotal2Way = (data: any) => {
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        bet_type: "Pregame",
+        game: "hockey",
       };
       row.push(_title, _over, _under);
       tosend.push(row);
@@ -323,7 +332,7 @@ export const alternativeTotal2Way = (data: any) => {
 export const alternativePuckLine3Way = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "alternative_puck_line_3_way"
+    "alternative_puck_line_3_way",
   );
   if (!match) {
     return [];
@@ -356,6 +365,8 @@ export const alternativePuckLine3Way = (data: any) => {
         participant_name: home_obj.name ?? "",
         participant_handicap: home_obj.handicap ?? "",
         participant_header: home_obj.header ?? "",
+        bet_type: "Pregame",
+        game: "hockey",
       };
       left.push(obj);
     }
@@ -374,6 +385,8 @@ export const alternativePuckLine3Way = (data: any) => {
         participant_name: tie_obj.name ?? "",
         participant_handicap: tie_obj.handicap ?? "",
         participant_header: tie_obj.header ?? "",
+        bet_type: "Pregame",
+        game: "hockey",
       };
       middle.push(obj);
     }
@@ -393,6 +406,8 @@ export const alternativePuckLine3Way = (data: any) => {
         participant_name: away_obj.name ?? "",
         participant_handicap: away_obj.handicap ?? "",
         participant_header: away_obj.header ?? "",
+        bet_type: "Pregame",
+        game: "hockey",
       };
       right.push(obj);
     }
@@ -410,18 +425,17 @@ export const alternativePuckLine3Way = (data: any) => {
       let l = left[i] ? left[i] : { title: " ", value: " ", suspend: "0" };
       let r = right[i] ? right[i] : { title: " ", value: " ", suspend: "0" };
       let m = middle[i] ? middle[i] : { title: " ", value: " ", suspend: "0" };
-      result.push([l,m, r]);
+      result.push([l, m, r]);
     }
     tosend = result;
   }
   return tosend;
 };
 
-
 export const alternativeTotal3Way = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "alternative_total_3_way"
+    "alternative_total_3_way",
   );
   if (!match) {
     return [];
@@ -456,10 +470,13 @@ export const alternativeTotal3Way = (data: any) => {
           participant_name: mm.name ?? "",
           participant_handicap: mm.handicap ?? "",
           participant_header: mm.header ?? "",
+          bet_type: "Pregame",
+          game: "hockey",
         });
       }
       tosend.push(row);
     }
   }
   return tosend;
-}; 
+};
+

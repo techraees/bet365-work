@@ -36,6 +36,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -68,6 +70,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
         if (total.length < 3 && title === "Under") {
@@ -89,6 +93,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -119,6 +125,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
         if (line.length < 3 && title === "Away") {
@@ -138,6 +146,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -181,6 +191,8 @@ export const matchWinner3Ways = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
       if (row.length < 3 && title === "Draw") {
@@ -198,6 +210,8 @@ export const matchWinner3Ways = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
       if (row.length < 3 && title === "Away") {
@@ -215,6 +229,8 @@ export const matchWinner3Ways = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
       if (row.length == 3) {
@@ -254,6 +270,8 @@ export const map1Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
       if (row.length < 3 && title === "Away" && item.suspend == "0") {
@@ -271,6 +289,8 @@ export const map1Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
     });
@@ -316,6 +336,8 @@ export const map1Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -345,6 +367,8 @@ export const map1Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -388,6 +412,8 @@ export const map2Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
       if (row.length < 3 && title === "Away" && item.suspend == "0") {
@@ -405,6 +431,8 @@ export const map2Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
     });
@@ -450,6 +478,8 @@ export const map2Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -479,6 +509,8 @@ export const map2Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -522,6 +554,8 @@ export const map3Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
       if (row.length < 3 && title === "Away" && item.suspend == "0") {
@@ -539,6 +573,8 @@ export const map3Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
     });
@@ -584,6 +620,8 @@ export const map3Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -613,6 +651,8 @@ export const map3Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -656,6 +696,8 @@ export const map4Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
       if (row.length < 3 && title === "Away" && item.suspend == "0") {
@@ -673,6 +715,8 @@ export const map4Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
     });
@@ -718,6 +762,8 @@ export const map4Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -747,6 +793,8 @@ export const map4Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -790,6 +838,8 @@ export const map5Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
       if (row.length < 3 && title === "Away" && item.suspend == "0") {
@@ -807,6 +857,8 @@ export const map5Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
     });
@@ -852,6 +904,8 @@ export const map5Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -881,6 +935,8 @@ export const map5Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -924,6 +980,8 @@ export const map6Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
       if (row.length < 3 && title === "Away" && item.suspend == "0") {
@@ -941,6 +999,8 @@ export const map6Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
     });
@@ -986,6 +1046,8 @@ export const map6Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -1015,6 +1077,8 @@ export const map6Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -1061,6 +1125,8 @@ export const map6Towers = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -1101,6 +1167,8 @@ export const map6FirstTyrant = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
       if (row.length < 3 && title === "2") {
@@ -1118,6 +1186,8 @@ export const map6FirstTyrant = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
     });
@@ -1155,6 +1225,8 @@ export const map7Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
       if (row.length < 3 && title === "Away" && item.suspend == "0") {
@@ -1172,6 +1244,8 @@ export const map7Winner = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
     });
@@ -1217,6 +1291,8 @@ export const map7Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -1246,6 +1322,8 @@ export const map7Kills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -1294,6 +1372,8 @@ export const map7RaceToKills = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
         if (row.length == 3) {
@@ -1339,6 +1419,8 @@ export const map7Towers = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -1379,6 +1461,8 @@ export const map7FirstTyrant = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
       if (row.length < 3 && title === "2") {
@@ -1396,6 +1480,8 @@ export const map7FirstTyrant = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          game: "esports",
+          bet_type: "Live",
         });
       }
     });
@@ -1439,6 +1525,8 @@ export const correctMapScore = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
         if (row.length == 3) {
@@ -1483,6 +1571,8 @@ export const matchEitherTeamsToScore = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });
@@ -1512,6 +1602,8 @@ export const matchEitherTeamsToScore = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "esports",
+            bet_type: "Live",
           });
         }
       });

@@ -240,6 +240,8 @@ export const gameLines = (data: any) => {
         participant_name: home?.name,
         participant_handicap: home?.handicap,
         participant_header: home?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       const away_obj = {
         title: away.handicap,
@@ -255,6 +257,8 @@ export const gameLines = (data: any) => {
         participant_name: away?.name,
         participant_handicap: away?.handicap,
         participant_header: away?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
 
       const line_spread_arr = [title_obj, home_obj, away_obj];
@@ -272,11 +276,11 @@ export const gameLines = (data: any) => {
         groupWithSmallestDeviation(participants);
       var over = _getParticipantsFieldRaw(
         group_with_smallest_deviation,
-        "Over"
+        "Over",
       );
       var under = _getParticipantsFieldRaw(
         group_with_smallest_deviation,
-        "Under"
+        "Under",
       );
 
       if (over && under) {
@@ -295,6 +299,8 @@ export const gameLines = (data: any) => {
           participant_name: over?.name,
           participant_handicap: over?.handicap,
           participant_header: over?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         const under_obj = {
           title: "U " + under.handicap,
@@ -310,6 +316,8 @@ export const gameLines = (data: any) => {
           participant_name: under?.name,
           participant_handicap: under?.handicap,
           participant_header: under?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
 
         const total_spread_arr = [title_obj, over_obj, under_obj];
@@ -346,6 +354,8 @@ export const gameLines = (data: any) => {
           participant_name: home?.name,
           participant_handicap: home?.handicap,
           participant_header: home?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         const away_obj = {
           title: away.handicap,
@@ -361,6 +371,8 @@ export const gameLines = (data: any) => {
           participant_name: away?.name,
           participant_handicap: away?.handicap,
           participant_header: away?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
 
         const money_line_arr = [title_obj, home_obj, away_obj];
@@ -420,6 +432,8 @@ export const pointBetting = (data: any) => {
       participant_name: _home?.name,
       participant_handicap: _home?.handicap,
       participant_header: _home?.header,
+      game: "basketball",
+      bet_type: "Live",
     };
     var away_obj = {
       title: "",
@@ -435,6 +449,8 @@ export const pointBetting = (data: any) => {
       participant_name: _away?.name,
       participant_handicap: _away?.handicap,
       participant_header: _away?.header,
+      game: "basketball",
+      bet_type: "Live",
     };
     arr = [title_obj, home_obj, away_obj];
     base_arr.push(arr);
@@ -477,7 +493,7 @@ export const quarterLines2Way = (data: any) => {
           title: title,
           value: value,
           suspend: suspend,
-          // @ts-ignore 
+          // @ts-ignore
           event_id: data?.info?.id,
           event_name:
             data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
@@ -487,6 +503,8 @@ export const quarterLines2Way = (data: any) => {
           participant_name: item[1]?.name,
           participant_handicap: item[1]?.handicap,
           participant_header: item[1]?.header,
+          game: "basketball",
+          bet_type: "Live",
         });
       });
       tosend.push(arr);
@@ -512,7 +530,7 @@ export const quarterLines2Way = (data: any) => {
             value: value,
             suspend: suspend,
 
-            // @ts-ignore 
+            // @ts-ignore
             event_id: data?.info?.id,
             event_name:
               data?.team_info?.home?.name +
@@ -524,6 +542,8 @@ export const quarterLines2Way = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "basketball",
+            bet_type: "Live",
           });
         } else {
           arr.push({ title: `U ${title}`, value: value, suspend: suspend });
@@ -553,7 +573,7 @@ export const quarterLines2Way = (data: any) => {
           value: value,
           suspend: suspend,
 
-          // @ts-ignore 
+          // @ts-ignore
           event_id: data?.info?.id,
           event_name:
             data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
@@ -563,6 +583,8 @@ export const quarterLines2Way = (data: any) => {
           participant_name: item[1]?.name,
           participant_handicap: item[1]?.handicap,
           participant_header: item[1]?.header,
+          game: "basketball",
+          bet_type: "Live",
         });
       });
       tosend.push(arr);
@@ -632,7 +654,7 @@ export const half = (data: any) => {
           value: value,
           suspend: suspend,
 
-          // @ts-ignore 
+          // @ts-ignore
           event_id: data?.info?.id,
           event_name:
             data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
@@ -642,6 +664,8 @@ export const half = (data: any) => {
           participant_name: item[1]?.name,
           participant_handicap: item[1]?.handicap,
           participant_header: item[1]?.header,
+          game: "basketball",
+          bet_type: "Live",
         });
       });
       tosend.push(arr);
@@ -667,8 +691,7 @@ export const half = (data: any) => {
             value: value,
             suspend: suspend,
 
-            
-            // @ts-ignore 
+            // @ts-ignore
             event_id: data?.info?.id,
             event_name:
               data?.team_info?.home?.name +
@@ -680,6 +703,8 @@ export const half = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "basketball",
+            bet_type: "Live",
           });
         } else {
           arr.push({
@@ -687,7 +712,7 @@ export const half = (data: any) => {
             value: value,
             suspend: suspend,
 
-            // @ts-ignore 
+            // @ts-ignore
             event_id: data?.info?.id,
             event_name:
               data?.team_info?.home?.name +
@@ -699,6 +724,8 @@ export const half = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "basketball",
+            bet_type: "Live",
           });
         }
       });
@@ -726,7 +753,7 @@ export const half = (data: any) => {
           value: value,
           suspend: suspend,
 
-          // @ts-ignore 
+          // @ts-ignore
           event_id: data?.info?.id,
           event_name:
             data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
@@ -736,6 +763,8 @@ export const half = (data: any) => {
           participant_name: item[1]?.name,
           participant_handicap: item[1]?.handicap,
           participant_header: item[1]?.header,
+          game: "basketball",
+          bet_type: "Live",
         });
       });
       tosend.push(arr);
@@ -770,7 +799,7 @@ export const resultTotalGoals = (data: any) => {
             title: title,
             value: value,
             suspend: suspend,
-            // @ts-ignore 
+            // @ts-ignore
             event_id: data?.info?.id,
             event_name:
               data?.team_info?.home?.name +
@@ -782,6 +811,8 @@ export const resultTotalGoals = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "basketball",
+            bet_type: "Live",
           });
         }
         if (item[1]?.name === "Away/o" || item[1]?.name === "Away/u") {
@@ -790,7 +821,7 @@ export const resultTotalGoals = (data: any) => {
             value: value,
             suspend: suspend,
 
-            // @ts-ignore 
+            // @ts-ignore
             event_id: data?.info?.id,
             event_name:
               data?.team_info?.home?.name +
@@ -802,6 +833,8 @@ export const resultTotalGoals = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            game: "basketball",
+            bet_type: "Live",
           });
         }
       });
@@ -844,33 +877,33 @@ export const quarterLines = (data: any) => {
           value: home.value_eu,
           suspend: home.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home?.id,
-            participant_name: home?.name,
-            participant_handicap: home?.handicap,
-            participant_header: home?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: home?.id,
+          participant_name: home?.name,
+          participant_handicap: home?.handicap,
+          participant_header: home?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         const away_obj = {
           title: away.handicap,
           value: away.value_eu,
           suspend: away.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: away?.id,
-            participant_name: away?.name,
-            participant_handicap: away?.handicap,
-            participant_header: away?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: away?.id,
+          participant_name: away?.name,
+          participant_handicap: away?.handicap,
+          participant_header: away?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
 
         const line_spread_arr = [title_obj, home_obj, away_obj];
@@ -890,11 +923,11 @@ export const quarterLines = (data: any) => {
         groupWithSmallestDeviation(participants);
       var over = _getParticipantsFieldRaw(
         group_with_smallest_deviation,
-        "Over"
+        "Over",
       );
       var under = _getParticipantsFieldRaw(
         group_with_smallest_deviation,
-        "Under"
+        "Under",
       );
       if (over && under) {
         const title_obj = { title: "Total", value: "", suspend: over.suspend };
@@ -902,33 +935,33 @@ export const quarterLines = (data: any) => {
           title: "O " + over.handicap,
           value: over.value_eu,
           suspend: over.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: over?.id,
-            participant_name: over?.name,
-            participant_handicap: over?.handicap,
-            participant_header: over?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: over?.id,
+          participant_name: over?.name,
+          participant_handicap: over?.handicap,
+          participant_header: over?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         const under_obj = {
           title: "U " + under.handicap,
           value: under.value_eu,
           suspend: under.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: under?.id,
-            participant_name: under?.name,
-            participant_handicap: under?.handicap,
-            participant_header: under?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: under?.id,
+          participant_name: under?.name,
+          participant_handicap: under?.handicap,
+          participant_header: under?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
 
         const total_spread_arr = [title_obj, over_obj, under_obj];
@@ -955,33 +988,33 @@ export const quarterLines = (data: any) => {
           title: home.handicap,
           value: home.value_eu,
           suspend: home.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home?.id,
-            participant_name: home?.name,
-            participant_handicap: home?.handicap,
-            participant_header: home?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: home?.id,
+          participant_name: home?.name,
+          participant_handicap: home?.handicap,
+          participant_header: home?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         const away_obj = {
           title: away.handicap,
           value: away.value_eu,
           suspend: away.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: away?.id,
-            participant_name: away?.name,
-            participant_handicap: away?.handicap,
-            participant_header: away?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: away?.id,
+          participant_name: away?.name,
+          participant_handicap: away?.handicap,
+          participant_header: away?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
 
         const money_line_arr = [title_obj, home_obj, away_obj];
@@ -1020,33 +1053,33 @@ export const nextQuarterLines = (data: any) => {
           title: home.handicap,
           value: home.value_eu,
           suspend: home.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home?.id,
-            participant_name: home?.name,
-            participant_handicap: home?.handicap,
-            participant_header: home?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: home?.id,
+          participant_name: home?.name,
+          participant_handicap: home?.handicap,
+          participant_header: home?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         const away_obj = {
           title: away.handicap,
           value: away.value_eu,
           suspend: away.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: away?.id,
-            participant_name: away?.name,
-            participant_handicap: away?.handicap,
-            participant_header: away?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: away?.id,
+          participant_name: away?.name,
+          participant_handicap: away?.handicap,
+          participant_header: away?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
 
         const line_spread_arr = [title_obj, home_obj, away_obj];
@@ -1066,11 +1099,11 @@ export const nextQuarterLines = (data: any) => {
         groupWithSmallestDeviation(participants);
       var over = _getParticipantsFieldRaw(
         group_with_smallest_deviation,
-        "Over"
+        "Over",
       );
       var under = _getParticipantsFieldRaw(
         group_with_smallest_deviation,
-        "Under"
+        "Under",
       );
       if (over && under) {
         const title_obj = { title: "Total", value: "", suspend: over.suspend };
@@ -1078,33 +1111,33 @@ export const nextQuarterLines = (data: any) => {
           title: "O " + over.handicap,
           value: over.value_eu,
           suspend: over.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: over?.id,
-            participant_name: over?.name,
-            participant_handicap: over?.handicap,
-            participant_header: over?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: over?.id,
+          participant_name: over?.name,
+          participant_handicap: over?.handicap,
+          participant_header: over?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         const under_obj = {
           title: "U " + under.handicap,
           value: under.value_eu,
           suspend: under.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: under?.id,
-            participant_name: under?.name,
-            participant_handicap: under?.handicap,
-            participant_header: under?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: under?.id,
+          participant_name: under?.name,
+          participant_handicap: under?.handicap,
+          participant_header: under?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
 
         const total_spread_arr = [title_obj, over_obj, under_obj];
@@ -1132,33 +1165,33 @@ export const nextQuarterLines = (data: any) => {
           value: home.value_eu,
           suspend: home.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home?.id,
-            participant_name: home?.name,
-            participant_handicap: home?.handicap,
-            participant_header: home?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: home?.id,
+          participant_name: home?.name,
+          participant_handicap: home?.handicap,
+          participant_header: home?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         const away_obj = {
           title: away.handicap,
           value: away.value_eu,
           suspend: away.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: away?.id,
-            participant_name: away?.name,
-            participant_handicap: away?.handicap,
-            participant_header: away?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: away?.id,
+          participant_name: away?.name,
+          participant_handicap: away?.handicap,
+          participant_header: away?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
 
         const money_line_arr = [title_obj, home_obj, away_obj];
@@ -1214,6 +1247,8 @@ export const currentQuarterRaceTo = (data: any) => {
             participant_name: home_obj?.name,
             participant_handicap: home_obj?.handicap,
             participant_header: home_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var _away = {
             title: "",
@@ -1230,6 +1265,8 @@ export const currentQuarterRaceTo = (data: any) => {
             participant_name: away_obj?.name,
             participant_handicap: away_obj?.handicap,
             participant_header: away_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var _neither = {
             title: "",
@@ -1246,6 +1283,8 @@ export const currentQuarterRaceTo = (data: any) => {
             participant_name: neither_obj?.name,
             participant_handicap: neither_obj?.handicap,
             participant_header: neither_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [_title, _home, _away, _neither];
           base_arr.push(arr);
@@ -1301,6 +1340,8 @@ export const nextQuarterRaceTo = (data: any) => {
             participant_name: home_obj?.name,
             participant_handicap: home_obj?.handicap,
             participant_header: home_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var _away = {
             title: "",
@@ -1317,6 +1358,8 @@ export const nextQuarterRaceTo = (data: any) => {
             participant_name: away_obj?.name,
             participant_handicap: away_obj?.handicap,
             participant_header: away_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var _neither = {
             title: "",
@@ -1333,6 +1376,8 @@ export const nextQuarterRaceTo = (data: any) => {
             participant_name: neither_obj?.name,
             participant_handicap: neither_obj?.handicap,
             participant_header: neither_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [_title, _home, _away, _neither];
           base_arr.push(arr);
@@ -1390,33 +1435,33 @@ export const currentHalfRaceTo = (data: any) => {
           title: "",
           value: home_obj.value_eu,
           suspend: home_obj.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home_obj?.id,
-            participant_name: home_obj?.name,
-            participant_handicap: home_obj?.handicap,
-            participant_header: home_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: home_obj?.id,
+          participant_name: home_obj?.name,
+          participant_handicap: home_obj?.handicap,
+          participant_header: home_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var _away = {
           title: "",
           value: away_obj.value_eu,
           suspend: away_obj.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: away_obj?.id,
-            participant_name: away_obj?.name,
-            participant_handicap: away_obj?.handicap,
-            participant_header: away_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: away_obj?.id,
+          participant_name: away_obj?.name,
+          participant_handicap: away_obj?.handicap,
+          participant_header: away_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr = [_title, _home, _away];
         base_arr.push(arr);
@@ -1479,49 +1524,55 @@ export const currentHalfRaceTo3Way = (data: any) => {
               title: "",
               value: home_obj.value_eu,
               suspend: home_obj.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home_obj?.id,
-            participant_name: home_obj?.name,
-            participant_handicap: home_obj?.handicap,
-            participant_header: home_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: home_obj?.id,
+              participant_name: home_obj?.name,
+              participant_handicap: home_obj?.handicap,
+              participant_header: home_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             var _away = {
               title: "",
               value: away_obj.value_eu,
               suspend: away_obj.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: away_obj?.id,
-            participant_name: away_obj?.name,
-            participant_handicap: away_obj?.handicap,
-            participant_header: away_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: away_obj?.id,
+              participant_name: away_obj?.name,
+              participant_handicap: away_obj?.handicap,
+              participant_header: away_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             var _neither = {
               title: "",
               value: neither_obj.value_eu,
               suspend: neither_obj.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: neither_obj?.id,
-            participant_name: neither_obj?.name,
-            participant_handicap: neither_obj?.handicap,
-            participant_header: neither_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: neither_obj?.id,
+              participant_name: neither_obj?.name,
+              participant_handicap: neither_obj?.handicap,
+              participant_header: neither_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             arr = [_title, _home, _away, _neither];
             base_arr.push(arr);
@@ -1563,33 +1614,33 @@ export const currentQuarterBothTeamsToScore = (data: any) => {
           title: "",
           value: yes_obj.value_eu,
           suspend: yes_obj.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: yes_obj?.id,
-            participant_name: yes_obj?.name,
-            participant_handicap: yes_obj?.handicap,
-            participant_header: yes_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: yes_obj?.id,
+          participant_name: yes_obj?.name,
+          participant_handicap: yes_obj?.handicap,
+          participant_header: yes_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var _no = {
           title: "",
           value: no_obj.value_eu,
           suspend: no_obj.suspend,
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: no_obj?.id,
-            participant_name: no_obj?.name,
-            participant_handicap: no_obj?.handicap,
-            participant_header: no_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: no_obj?.id,
+          participant_name: no_obj?.name,
+          participant_handicap: no_obj?.handicap,
+          participant_header: no_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr = [_title, _yes, _no];
         base_arr.push(arr);
@@ -1642,6 +1693,8 @@ export const nextQuarterBothTeamsToScore = (data: any) => {
             participant_name: yes_obj?.name,
             participant_handicap: yes_obj?.handicap,
             participant_header: yes_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var _no = {
             title: "",
@@ -1658,6 +1711,8 @@ export const nextQuarterBothTeamsToScore = (data: any) => {
             participant_name: no_obj?.name,
             participant_handicap: no_obj?.handicap,
             participant_header: no_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [_title, _yes, _no];
           base_arr.push(arr);
@@ -1709,34 +1764,34 @@ export const halfLines = (data: any) => {
         value: home.value_eu,
         suspend: home.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home?.id,
-            participant_name: home?.name,
-            participant_handicap: home?.handicap,
-            participant_header: home?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: home?.id,
+        participant_name: home?.name,
+        participant_handicap: home?.handicap,
+        participant_header: home?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       const away_obj = {
         title: away.handicap,
         value: away.value_eu,
         suspend: away.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: away?.id,
-            participant_name: away?.name,
-            participant_handicap: away?.handicap,
-            participant_header: away?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: away?.id,
+        participant_name: away?.name,
+        participant_handicap: away?.handicap,
+        participant_header: away?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
 
       const line_spread_arr = [title_obj, home_obj, away_obj];
@@ -1763,34 +1818,34 @@ export const halfLines = (data: any) => {
           value: _participants[0].value_eu,
           suspend: _participants[0].suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _participants[0]?.id,
-            participant_name: _participants[0]?.name,
-            participant_handicap: _participants[0]?.handicap,
-            participant_header: _participants[0]?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _participants[0]?.id,
+          participant_name: _participants[0]?.name,
+          participant_handicap: _participants[0]?.handicap,
+          participant_header: _participants[0]?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         const under_obj = {
           title: "U " + _participants[1].handicap,
           value: _participants[1].value_eu,
           suspend: _participants[1].suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _participants[1]?.id,
-            participant_name: _participants[1]?.name,
-            participant_handicap: _participants[1]?.handicap,
-            participant_header: _participants[1]?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _participants[1]?.id,
+          participant_name: _participants[1]?.name,
+          participant_handicap: _participants[1]?.handicap,
+          participant_header: _participants[1]?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
 
         const total_spread_arr = [title_obj, over_obj, under_obj];
@@ -1806,7 +1861,7 @@ export const halfLines = (data: any) => {
             title: "O " + over.handicap,
             value: over.value_eu,
             suspend: over.suspend,
-            
+
             event_id: data?.info?.id,
             event_name:
               data?.team_info?.home?.name +
@@ -1818,6 +1873,8 @@ export const halfLines = (data: any) => {
             participant_name: over?.name,
             participant_handicap: over?.handicap,
             participant_header: over?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           const under_obj = {
             title: "U " + under.handicap,
@@ -1835,6 +1892,8 @@ export const halfLines = (data: any) => {
             participant_name: under?.name,
             participant_handicap: under?.handicap,
             participant_header: under?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
 
           const total_spread_arr = [title_obj, over_obj, under_obj];
@@ -1863,34 +1922,34 @@ export const halfLines = (data: any) => {
         value: home.value_eu,
         suspend: home.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home?.id,
-            participant_name: home?.name,
-            participant_handicap: home?.handicap,
-            participant_header: home?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: home?.id,
+        participant_name: home?.name,
+        participant_handicap: home?.handicap,
+        participant_header: home?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       const away_obj = {
         title: away.handicap,
         value: away.value_eu,
         suspend: away.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: away?.id,
-            participant_name: away?.name,
-            participant_handicap: away?.handicap,
-            participant_header: away?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: away?.id,
+        participant_name: away?.name,
+        participant_handicap: away?.handicap,
+        participant_header: away?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
 
       const money_line_arr = [title_obj, home_obj, away_obj];
@@ -1942,12 +2001,13 @@ export const currentQuarterHomeTeamToScore = (data: any) => {
             participant_name: _yes_obj?.name,
             participant_handicap: _yes_obj?.handicap,
             participant_header: _yes_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var no_obj = {
             title: "",
             value: _no_obj.value_eu,
             suspend: _no_obj.suspend,
-
 
             event_id: data?.info?.id,
             event_name:
@@ -1960,6 +2020,8 @@ export const currentQuarterHomeTeamToScore = (data: any) => {
             participant_name: _no_obj?.name,
             participant_handicap: _no_obj?.handicap,
             participant_header: _no_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, yes_obj, no_obj];
           base_arr.push(arr);
@@ -2001,35 +2063,35 @@ export const nextQuarterHomeTeamToScore = (data: any) => {
           title: "",
           value: _yes_obj.value_eu,
           suspend: _yes_obj.suspend,
-          
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _yes_obj?.id,
-            participant_name: _yes_obj?.name,
-            participant_handicap: _yes_obj?.handicap,
-            participant_header: _yes_obj?.header,
+
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _yes_obj?.id,
+          participant_name: _yes_obj?.name,
+          participant_handicap: _yes_obj?.handicap,
+          participant_header: _yes_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var no_obj = {
           title: "",
           value: _no_obj.value_eu,
           suspend: _no_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _no_obj?.id,
-            participant_name: _no_obj?.name,
-            participant_handicap: _no_obj?.handicap,
-            participant_header: _no_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _no_obj?.id,
+          participant_name: _no_obj?.name,
+          participant_handicap: _no_obj?.handicap,
+          participant_header: _no_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr = [title_obj, yes_obj, no_obj];
         base_arr.push(arr);
@@ -2069,34 +2131,34 @@ export const currentQuarterAwayTeamToScore = (data: any) => {
           value: _yes_obj.value_eu,
           suspend: _yes_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _yes_obj?.id,
-            participant_name: _yes_obj?.name,
-            participant_handicap: _yes_obj?.handicap,
-            participant_header: _yes_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _yes_obj?.id,
+          participant_name: _yes_obj?.name,
+          participant_handicap: _yes_obj?.handicap,
+          participant_header: _yes_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var no_obj = {
           title: "",
           value: _no_obj.value_eu,
           suspend: _no_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _no_obj?.id,
-            participant_name: _no_obj?.name,
-            participant_handicap: _no_obj?.handicap,
-            participant_header: _no_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _no_obj?.id,
+          participant_name: _no_obj?.name,
+          participant_handicap: _no_obj?.handicap,
+          participant_header: _no_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr = [title_obj, yes_obj, no_obj];
         base_arr.push(arr);
@@ -2137,34 +2199,34 @@ export const nextQuarterAwayTeamToScore = (data: any) => {
           value: _yes_obj.value_eu,
           suspend: _yes_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _yes_obj?.id,
-            participant_name: _yes_obj?.name,
-            participant_handicap: _yes_obj?.handicap,
-            participant_header: _yes_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _yes_obj?.id,
+          participant_name: _yes_obj?.name,
+          participant_handicap: _yes_obj?.handicap,
+          participant_header: _yes_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var no_obj = {
           title: "",
           value: _no_obj.value_eu,
           suspend: _no_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _no_obj?.id,
-            participant_name: _no_obj?.name,
-            participant_handicap: _no_obj?.handicap,
-            participant_header: _no_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _no_obj?.id,
+          participant_name: _no_obj?.name,
+          participant_handicap: _no_obj?.handicap,
+          participant_header: _no_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr = [title_obj, yes_obj, no_obj];
         base_arr.push(arr);
@@ -2203,34 +2265,34 @@ export const currentQuarterHomeTeamToScore2 = (data: any) => {
           value: _yes_obj.value_eu,
           suspend: _yes_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _yes_obj?.id,
-            participant_name: _yes_obj?.name,
-            participant_handicap: _yes_obj?.handicap,
-            participant_header: _yes_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _yes_obj?.id,
+          participant_name: _yes_obj?.name,
+          participant_handicap: _yes_obj?.handicap,
+          participant_header: _yes_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var no_obj = {
           title: "",
           value: _no_obj.value_eu,
           suspend: _no_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _no_obj?.id,
-            participant_name: _no_obj?.name,
-            participant_handicap: _no_obj?.handicap,
-            participant_header: _no_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _no_obj?.id,
+          participant_name: _no_obj?.name,
+          participant_handicap: _no_obj?.handicap,
+          participant_header: _no_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr = [title_obj, yes_obj, no_obj];
         base_arr.push(arr);
@@ -2271,34 +2333,34 @@ export const nextQuarterHomeTeamToScore2 = (data: any) => {
           value: _yes_obj.value_eu,
           suspend: _yes_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _yes_obj?.id,
-            participant_name: _yes_obj?.name,
-            participant_handicap: _yes_obj?.handicap,
-            participant_header: _yes_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _yes_obj?.id,
+          participant_name: _yes_obj?.name,
+          participant_handicap: _yes_obj?.handicap,
+          participant_header: _yes_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var no_obj = {
           title: "",
           value: _no_obj.value_eu,
           suspend: _no_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _no_obj?.id,
-            participant_name: _no_obj?.name,
-            participant_handicap: _no_obj?.handicap,
-            participant_header: _no_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _no_obj?.id,
+          participant_name: _no_obj?.name,
+          participant_handicap: _no_obj?.handicap,
+          participant_header: _no_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr = [title_obj, yes_obj, no_obj];
         base_arr.push(arr);
@@ -2342,34 +2404,34 @@ export const currentQuarterAwayTeamToScore2 = (data: any) => {
           value: _yes_obj.value_eu,
           suspend: _yes_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _yes_obj?.id,
-            participant_name: _yes_obj?.name,
-            participant_handicap: _yes_obj?.handicap,
-            participant_header: _yes_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _yes_obj?.id,
+          participant_name: _yes_obj?.name,
+          participant_handicap: _yes_obj?.handicap,
+          participant_header: _yes_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var no_obj = {
           title: "",
           value: _no_obj.value_eu,
           suspend: _no_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _no_obj?.id,
-            participant_name: _no_obj?.name,
-            participant_handicap: _no_obj?.handicap,
-            participant_header: _no_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _no_obj?.id,
+          participant_name: _no_obj?.name,
+          participant_handicap: _no_obj?.handicap,
+          participant_header: _no_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr = [title_obj, yes_obj, no_obj];
         base_arr.push(arr);
@@ -2414,34 +2476,34 @@ export const nextQuarterAwayTeamToScore2 = (data: any) => {
           value: _yes_obj.value_eu,
           suspend: _yes_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _yes_obj?.id,
-            participant_name: _yes_obj?.name,
-            participant_handicap: _yes_obj?.handicap,
-            participant_header: _yes_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _yes_obj?.id,
+          participant_name: _yes_obj?.name,
+          participant_handicap: _yes_obj?.handicap,
+          participant_header: _yes_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var no_obj = {
           title: "",
           value: _no_obj.value_eu,
           suspend: _no_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _no_obj?.id,
-            participant_name: _no_obj?.name,
-            participant_handicap: _no_obj?.handicap,
-            participant_header: _no_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _no_obj?.id,
+          participant_name: _no_obj?.name,
+          participant_handicap: _no_obj?.handicap,
+          participant_header: _no_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr = [title_obj, yes_obj, no_obj];
         base_arr.push(arr);
@@ -2476,17 +2538,17 @@ export const currentQuarterMarginOfVictory = (data: any) => {
           value: participant_obj.value_eu,
           suspend: participant_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: participant_obj?.id,
-            participant_name: participant_obj?.name,
-            participant_handicap: participant_obj?.handicap,
-            participant_header: participant_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: participant_obj?.id,
+          participant_name: participant_obj?.name,
+          participant_handicap: participant_obj?.handicap,
+          participant_header: participant_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr.push(obj);
       }
@@ -2522,17 +2584,17 @@ export const nextQuarterMarginOfVictory = (data: any) => {
           value: participant_obj.value_eu,
           suspend: participant_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: participant_obj?.id,
-            participant_name: participant_obj?.name,
-            participant_handicap: participant_obj?.handicap,
-            participant_header: participant_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: participant_obj?.id,
+          participant_name: participant_obj?.name,
+          participant_handicap: participant_obj?.handicap,
+          participant_header: participant_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr.push(obj);
       }
@@ -2584,34 +2646,38 @@ export const currentQuarterTeamTotals = (data: any) => {
               value: over_obj.value_eu,
               suspend: over_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: over_obj?.id,
-            participant_name: over_obj?.name,
-            participant_handicap: over_obj?.handicap,
-            participant_header: over_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: over_obj?.id,
+              participant_name: over_obj?.name,
+              participant_handicap: over_obj?.handicap,
+              participant_header: over_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             var _under = {
               title: "Under " + handicap,
               value: under_obj.value_eu,
               suspend: under_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: under_obj?.id,
-            participant_name: under_obj?.name,
-            participant_handicap: under_obj?.handicap,
-            participant_header: under_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: under_obj?.id,
+              participant_name: under_obj?.name,
+              participant_handicap: under_obj?.handicap,
+              participant_header: under_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             arr.push(_over, _under);
           }
@@ -2644,6 +2710,8 @@ export const currentQuarterTeamTotals = (data: any) => {
             participant_name: over_obj?.name,
             participant_handicap: over_obj?.handicap,
             participant_header: over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var _under = {
             title: "Under " + handicap,
@@ -2661,6 +2729,8 @@ export const currentQuarterTeamTotals = (data: any) => {
             participant_name: under_obj?.name,
             participant_handicap: under_obj?.handicap,
             participant_header: under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr.push(_over, _under);
         }
@@ -2698,34 +2768,38 @@ export const currentQuarterTeamTotals = (data: any) => {
               value: over_obj.value_eu,
               suspend: over_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: over_obj?.id,
-            participant_name: over_obj?.name,
-            participant_handicap: over_obj?.handicap,
-            participant_header: over_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: over_obj?.id,
+              participant_name: over_obj?.name,
+              participant_handicap: over_obj?.handicap,
+              participant_header: over_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             var _under = {
               title: "Under " + handicap,
               value: under_obj.value_eu,
               suspend: under_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: under_obj?.id,
-            participant_name: under_obj?.name,
-            participant_handicap: under_obj?.handicap,
-            participant_header: under_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: under_obj?.id,
+              participant_name: under_obj?.name,
+              participant_handicap: under_obj?.handicap,
+              participant_header: under_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             arr.push(_over, _under);
           }
@@ -2760,6 +2834,8 @@ export const currentQuarterTeamTotals = (data: any) => {
             participant_name: over_obj?.name,
             participant_handicap: over_obj?.handicap,
             participant_header: over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var _under = {
             title: "Under " + handicap,
@@ -2777,6 +2853,8 @@ export const currentQuarterTeamTotals = (data: any) => {
             participant_name: under_obj?.name,
             participant_handicap: under_obj?.handicap,
             participant_header: under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr.push(_over, _under);
         }
@@ -2833,34 +2911,38 @@ export const nextQuarterTeamTotals = (data: any) => {
               value: over_obj.value_eu,
               suspend: over_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: over_obj?.id,
-            participant_name: over_obj?.name,
-            participant_handicap: over_obj?.handicap,
-            participant_header: over_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: over_obj?.id,
+              participant_name: over_obj?.name,
+              participant_handicap: over_obj?.handicap,
+              participant_header: over_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             var _under = {
               title: "Under " + handicap,
               value: under_obj.value_eu,
               suspend: under_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: under_obj?.id,
-            participant_name: under_obj?.name,
-            participant_handicap: under_obj?.handicap,
-            participant_header: under_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: under_obj?.id,
+              participant_name: under_obj?.name,
+              participant_handicap: under_obj?.handicap,
+              participant_header: under_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             arr.push(_over, _under);
           }
@@ -2893,6 +2975,8 @@ export const nextQuarterTeamTotals = (data: any) => {
             participant_name: over_obj?.name,
             participant_handicap: over_obj?.handicap,
             participant_header: over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var _under = {
             title: "Under " + handicap,
@@ -2910,6 +2994,8 @@ export const nextQuarterTeamTotals = (data: any) => {
             participant_name: under_obj?.name,
             participant_handicap: under_obj?.handicap,
             participant_header: under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr.push(_over, _under);
         }
@@ -2947,34 +3033,38 @@ export const nextQuarterTeamTotals = (data: any) => {
               value: over_obj.value_eu,
               suspend: over_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: over_obj?.id,
-            participant_name: over_obj?.name,
-            participant_handicap: over_obj?.handicap,
-            participant_header: over_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: over_obj?.id,
+              participant_name: over_obj?.name,
+              participant_handicap: over_obj?.handicap,
+              participant_header: over_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             var _under = {
               title: "Under " + handicap,
               value: under_obj.value_eu,
               suspend: under_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: under_obj?.id,
-            participant_name: under_obj?.name,
-            participant_handicap: under_obj?.handicap,
-            participant_header: under_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: under_obj?.id,
+              participant_name: under_obj?.name,
+              participant_handicap: under_obj?.handicap,
+              participant_header: under_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             arr.push(_over, _under);
           }
@@ -3009,6 +3099,8 @@ export const nextQuarterTeamTotals = (data: any) => {
             participant_name: over_obj?.name,
             participant_handicap: over_obj?.handicap,
             participant_header: over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var _under = {
             title: "Under " + handicap,
@@ -3026,6 +3118,8 @@ export const nextQuarterTeamTotals = (data: any) => {
             participant_name: under_obj?.name,
             participant_handicap: under_obj?.handicap,
             participant_header: under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr.push(_over, _under);
         }
@@ -3082,35 +3176,38 @@ export const teamTotals = (data: any) => {
               value: over_obj.value_eu,
               suspend: over_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: over_obj?.id,
-            participant_name: over_obj?.name,
-            participant_handicap: over_obj?.handicap,
-            participant_header: over_obj?.header,
-
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: over_obj?.id,
+              participant_name: over_obj?.name,
+              participant_handicap: over_obj?.handicap,
+              participant_header: over_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             var _under = {
               title: "Under " + handicap,
               value: under_obj.value_eu,
               suspend: under_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: under_obj?.id,
-            participant_name: under_obj?.name,
-            participant_handicap: under_obj?.handicap,
-            participant_header: under_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: under_obj?.id,
+              participant_name: under_obj?.name,
+              participant_handicap: under_obj?.handicap,
+              participant_header: under_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             arr.push(_over, _under);
           }
@@ -3144,6 +3241,8 @@ export const teamTotals = (data: any) => {
             participant_name: over_obj?.name,
             participant_handicap: over_obj?.handicap,
             participant_header: over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var _under = {
             title: "Under " + handicap,
@@ -3161,6 +3260,8 @@ export const teamTotals = (data: any) => {
             participant_name: under_obj?.name,
             participant_handicap: under_obj?.handicap,
             participant_header: under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr.push(_over, _under);
         }
@@ -3199,34 +3300,38 @@ export const teamTotals = (data: any) => {
               value: over_obj.value_eu,
               suspend: over_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: over_obj?.id,
-            participant_name: over_obj?.name,
-            participant_handicap: over_obj?.handicap,
-            participant_header: over_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: over_obj?.id,
+              participant_name: over_obj?.name,
+              participant_handicap: over_obj?.handicap,
+              participant_header: over_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             var _under = {
               title: "Under " + handicap,
               value: under_obj.value_eu,
               suspend: under_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: under_obj?.id,
-            participant_name: under_obj?.name,
-            participant_handicap: under_obj?.handicap,
-            participant_header: under_obj?.header,
+              event_id: data?.info?.id,
+              event_name:
+                data?.team_info?.home?.name +
+                " vs " +
+                data?.team_info?.away?.name,
+              odd_id: odd_id,
+              odd_name: data?.odds?.[odd_id]?.name,
+              participant_id: under_obj?.id,
+              participant_name: under_obj?.name,
+              participant_handicap: under_obj?.handicap,
+              participant_header: under_obj?.header,
+              game: "basketball",
+              bet_type: "Live",
             };
             arr.push(_over, _under);
           }
@@ -3260,6 +3365,8 @@ export const teamTotals = (data: any) => {
             participant_name: over_obj?.name,
             participant_handicap: over_obj?.handicap,
             participant_header: over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var _under = {
             title: "Under " + handicap,
@@ -3277,6 +3384,8 @@ export const teamTotals = (data: any) => {
             participant_name: under_obj?.name,
             participant_handicap: under_obj?.handicap,
             participant_header: under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr.push(_over, _under);
         }
@@ -3333,6 +3442,8 @@ export const alternativePointSpread = (data: any) => {
             participant_name: _home_obj?.name,
             participant_handicap: _home_obj?.handicap,
             participant_header: _home_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var away_obj = {
             title: _away_obj.handicap,
@@ -3350,6 +3461,8 @@ export const alternativePointSpread = (data: any) => {
             participant_name: _away_obj?.name,
             participant_handicap: _away_obj?.handicap,
             participant_header: _away_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [home_obj, away_obj];
           base_arr.push(arr);
@@ -3418,6 +3531,8 @@ export const gameLinesTotal = (data: any) => {
             participant_name: _over_obj?.name,
             participant_handicap: _over_obj?.handicap,
             participant_header: _over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var under_obj = {
             title: "",
@@ -3435,6 +3550,8 @@ export const gameLinesTotal = (data: any) => {
             participant_name: _under_obj?.name,
             participant_handicap: _under_obj?.handicap,
             participant_header: _under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, over_obj, under_obj];
           base_arr.push(arr);
@@ -3503,7 +3620,8 @@ export const homeTeamTotal = (data: any) => {
             participant_name: _over_obj?.name,
             participant_handicap: _over_obj?.handicap,
             participant_header: _over_obj?.header,
-
+            game: "basketball",
+            bet_type: "Live",
           };
           var under_obj = {
             title: "",
@@ -3521,6 +3639,8 @@ export const homeTeamTotal = (data: any) => {
             participant_name: _under_obj?.name,
             participant_handicap: _under_obj?.handicap,
             participant_header: _under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, over_obj, under_obj];
           base_arr.push(arr);
@@ -3590,6 +3710,8 @@ export const awayTeamTotal = (data: any) => {
             participant_name: _over_obj?.name,
             participant_handicap: _over_obj?.handicap,
             participant_header: _over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var under_obj = {
             title: "",
@@ -3607,6 +3729,8 @@ export const awayTeamTotal = (data: any) => {
             participant_name: _under_obj?.name,
             participant_handicap: _under_obj?.handicap,
             participant_header: _under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, over_obj, under_obj];
           base_arr.push(arr);
@@ -3656,35 +3780,34 @@ export const currentQuarterTotal = (data: any) => {
           value: _over_obj.value_eu,
           suspend: _over_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _over_obj?.id,
-            participant_name: _over_obj?.name,
-            participant_handicap: _over_obj?.handicap,
-            participant_header: _over_obj?.header,
-
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _over_obj?.id,
+          participant_name: _over_obj?.name,
+          participant_handicap: _over_obj?.handicap,
+          participant_header: _over_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var under_obj = {
           title: "",
           value: _under_obj.value_eu,
           suspend: _under_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: _under_obj?.id,
-            participant_name: _under_obj?.name,
-            participant_handicap: _under_obj?.handicap,
-            participant_header: _under_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: _under_obj?.id,
+          participant_name: _under_obj?.name,
+          participant_handicap: _under_obj?.handicap,
+          participant_header: _under_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr = [title_obj, over_obj, under_obj];
         base_arr.push(arr);
@@ -3757,6 +3880,8 @@ export const matchResultAndTotal = (data: any) => {
             participant_name: _home_over_obj?.name,
             participant_handicap: _home_over_obj?.handicap,
             participant_header: _home_over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var home_under = {
             title: handicap,
@@ -3774,6 +3899,8 @@ export const matchResultAndTotal = (data: any) => {
             participant_name: _home_under_obj?.name,
             participant_handicap: _home_under_obj?.handicap,
             participant_header: _home_under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
 
           arr_home = [home_title, home_over, home_under];
@@ -3799,6 +3926,8 @@ export const matchResultAndTotal = (data: any) => {
             participant_name: _away_over_obj?.name,
             participant_handicap: _away_over_obj?.handicap,
             participant_header: _away_over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var away_under = {
             title: handicap,
@@ -3816,6 +3945,8 @@ export const matchResultAndTotal = (data: any) => {
             participant_name: _away_under_obj?.name,
             participant_handicap: _away_under_obj?.handicap,
             participant_header: _away_under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
 
           arr_away = [away_title, away_over, away_under];
@@ -3864,51 +3995,51 @@ export const pointSpread3Way = (data: any) => {
           value: home.value_eu,
           suspend: home.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home?.id,
-            participant_name: home?.name,
-            participant_handicap: home?.handicap,
-            participant_header: home?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: home?.id,
+          participant_name: home?.name,
+          participant_handicap: home?.handicap,
+          participant_header: home?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var draw_obj = {
           title: draw.handicap,
           value: draw.value_eu,
           suspend: draw.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: draw?.id,
-            participant_name: draw?.name,
-            participant_handicap: draw?.handicap,
-            participant_header: draw?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: draw?.id,
+          participant_name: draw?.name,
+          participant_handicap: draw?.handicap,
+          participant_header: draw?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var away_obj = {
           title: away.handicap,
           value: away.value_eu,
           suspend: away.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: away?.id,
-            participant_name: away?.name,
-            participant_handicap: away?.handicap,
-            participant_header: away?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: away?.id,
+          participant_name: away?.name,
+          participant_handicap: away?.handicap,
+          participant_header: away?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr = [home_obj, draw_obj, away_obj];
         base_arr.push(arr);
@@ -3943,51 +4074,51 @@ export const highestScoringHalf = (data: any) => {
         value: first_half_obj.value_eu,
         suspend: first_half_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: first_half_obj?.id,
-            participant_name: first_half_obj?.name,
-            participant_handicap: first_half_obj?.handicap,
-            participant_header: first_half_obj?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: first_half_obj?.id,
+        participant_name: first_half_obj?.name,
+        participant_handicap: first_half_obj?.handicap,
+        participant_header: first_half_obj?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       var _second_half_obj = {
         title: second_half_obj.name,
         value: second_half_obj.value_eu,
         suspend: second_half_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: second_half_obj?.id,
-            participant_name: second_half_obj?.name,
-            participant_handicap: second_half_obj?.handicap,
-            participant_header: second_half_obj?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: second_half_obj?.id,
+        participant_name: second_half_obj?.name,
+        participant_handicap: second_half_obj?.handicap,
+        participant_header: second_half_obj?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       var _draw_obj = {
         title: draw_obj.name,
         value: draw_obj.value_eu,
         suspend: draw_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: draw_obj?.id,
-            participant_name: draw_obj?.name,
-            participant_handicap: draw_obj?.handicap,
-            participant_header: draw_obj?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: draw_obj?.id,
+        participant_name: draw_obj?.name,
+        participant_handicap: draw_obj?.handicap,
+        participant_header: draw_obj?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       arr = [_first_half_obj, _second_half_obj, _draw_obj];
       base_arr.push(arr);
@@ -4030,51 +4161,51 @@ export const halfTimeFullTime = (data: any) => {
         value: one_one_participant.value_eu,
         suspend: one_one_participant.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: one_one_participant?.id,
-            participant_name: one_one_participant?.name,
-            participant_handicap: one_one_participant?.handicap,
-            participant_header: one_one_participant?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: one_one_participant?.id,
+        participant_name: one_one_participant?.name,
+        participant_handicap: one_one_participant?.handicap,
+        participant_header: one_one_participant?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       var _x_one_obj = {
         title: "Tie -" + home_name,
         value: x_one_participant.value_eu,
         suspend: x_one_participant.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: x_one_participant?.id,
-            participant_name: x_one_participant?.name,
-            participant_handicap: x_one_participant?.handicap,
-            participant_header: x_one_participant?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: x_one_participant?.id,
+        participant_name: x_one_participant?.name,
+        participant_handicap: x_one_participant?.handicap,
+        participant_header: x_one_participant?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       var _two_one_obj = {
         title: away_name + "-" + home_name,
         value: two_one_participant.value_eu,
         suspend: two_one_participant.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: two_one_participant?.id,
-            participant_name: two_one_participant?.name,
-            participant_handicap: two_one_participant?.handicap,
-            participant_header: two_one_participant?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: two_one_participant?.id,
+        participant_name: two_one_participant?.name,
+        participant_handicap: two_one_participant?.handicap,
+        participant_header: two_one_participant?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
 
       first_row_arr = [_one_one_obj, _x_one_obj, _two_one_obj];
@@ -4084,52 +4215,51 @@ export const halfTimeFullTime = (data: any) => {
         value: one_two_participant.value_eu,
         suspend: one_two_participant.suspend,
 
-        
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: one_two_participant?.id,
-            participant_name: one_two_participant?.name,
-            participant_handicap: one_one_participant?.handicap,
-            participant_header: one_one_participant?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: one_two_participant?.id,
+        participant_name: one_two_participant?.name,
+        participant_handicap: one_one_participant?.handicap,
+        participant_header: one_one_participant?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       var _x_two_obj = {
         title: "Tie -" + away_name,
         value: x_two_participant.value_eu,
         suspend: x_two_participant.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: x_two_participant?.id,
-            participant_name: x_two_participant?.name,
-            participant_handicap: x_two_participant?.handicap,
-            participant_header: x_two_participant?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: x_two_participant?.id,
+        participant_name: x_two_participant?.name,
+        participant_handicap: x_two_participant?.handicap,
+        participant_header: x_two_participant?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       var _two_two_obj = {
         title: away_name + "-" + away_name,
         value: two_two_participant.value_eu,
         suspend: two_two_participant.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: two_two_participant?.id,
-            participant_name: two_two_participant?.name,
-            participant_handicap: two_two_participant?.handicap,
-            participant_header: two_two_participant?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: two_two_participant?.id,
+        participant_name: two_two_participant?.name,
+        participant_handicap: two_two_participant?.handicap,
+        participant_header: two_two_participant?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
 
       second_row_arr = [_one_two_obj, _x_two_obj, _two_two_obj];
@@ -4175,38 +4305,39 @@ export const oddEven = (data: any) => {
       var even = _getParticipantsFieldRaw(participants, "Even");
 
       const title_obj = { title: "Match", value: "", suspend: odds.suspend };
-      const home_obj = { title: "", value: odd.value_eu, suspend: odd.suspend,
-    
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: odd?.id,
-            participant_name: odd?.name,
-            participant_handicap: odd?.handicap,
-            participant_header: odd?.header,
-    
-    
-    };
+      const home_obj = {
+        title: "",
+        value: odd.value_eu,
+        suspend: odd.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: odd?.id,
+        participant_name: odd?.name,
+        participant_handicap: odd?.handicap,
+        participant_header: odd?.header,
+        game: "basketball",
+        bet_type: "Live",
+      };
       const away_obj = {
         title: "",
         value: even.value_eu,
         suspend: even.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: even?.id,
-            participant_name: even?.name,
-            participant_handicap: even?.handicap,
-            participant_header: even?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: even?.id,
+        participant_name: even?.name,
+        participant_handicap: even?.handicap,
+        participant_header: even?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
 
       const arr = [title_obj, home_obj, away_obj];
@@ -4228,38 +4359,40 @@ export const oddEven = (data: any) => {
         title: current_period,
         value: "",
         suspend: odds.suspend,
-
       };
-      const home_obj = { title: "", value: odd.value_eu, suspend: odd.suspend,
-    
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: odd?.id,
-            participant_name: odd?.name,
-            participant_handicap: odd?.handicap,
-            participant_header: odd?.header,
-    };
+      const home_obj = {
+        title: "",
+        value: odd.value_eu,
+        suspend: odd.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: odd?.id,
+        participant_name: odd?.name,
+        participant_handicap: odd?.handicap,
+        participant_header: odd?.header,
+        game: "basketball",
+        bet_type: "Live",
+      };
       const away_obj = {
         title: "",
         value: even.value_eu,
         suspend: even.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: even?.id,
-            participant_name: even?.name,
-            participant_handicap: even?.handicap,
-            participant_header: even?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: even?.id,
+        participant_name: even?.name,
+        participant_handicap: even?.handicap,
+        participant_header: even?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
 
       const arr = [title_obj, home_obj, away_obj];
@@ -4289,34 +4422,34 @@ export const oddEven = (data: any) => {
           value: odd.value_eu,
           suspend: odd.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: odd?.id,
-            participant_name: odd?.name,
-            participant_handicap: odd?.handicap,
-            participant_header: odd?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: odd?.id,
+          participant_name: odd?.name,
+          participant_handicap: odd?.handicap,
+          participant_header: odd?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         const away_obj = {
           title: "",
           value: even.value_eu,
           suspend: even.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: even?.id,
-            participant_name: even?.name,
-            participant_handicap: even?.handicap,
-            participant_header: even?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: even?.id,
+          participant_name: even?.name,
+          participant_handicap: even?.handicap,
+          participant_header: even?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
 
         const arr = [title_obj, home_obj, away_obj];
@@ -4341,37 +4474,39 @@ export const oddEven = (data: any) => {
         value: "",
         suspend: odds.suspend,
       };
-      const home_obj = { title: "", value: odd.value_eu, suspend: odd.suspend,
-    
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: odd?.id,
-            participant_name: odd?.name,
-            participant_handicap: odd?.handicap,
-            participant_header: odd?.header,
-    
-    };
+      const home_obj = {
+        title: "",
+        value: odd.value_eu,
+        suspend: odd.suspend,
+
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: odd?.id,
+        participant_name: odd?.name,
+        participant_handicap: odd?.handicap,
+        participant_header: odd?.header,
+        game: "basketball",
+        bet_type: "Live",
+      };
       const away_obj = {
         title: "",
         value: even.value_eu,
         suspend: even.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: even?.id,
-            participant_name: even?.name,
-            participant_handicap: even?.handicap,
-            participant_header: even?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: even?.id,
+        participant_name: even?.name,
+        participant_handicap: even?.handicap,
+        participant_header: even?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
 
       const arr = [title_obj, home_obj, away_obj];
@@ -4446,6 +4581,8 @@ export const currentHalfAwayTeamTotal = (data: any) => {
             participant_name: _over_obj?.name,
             participant_handicap: _over_obj?.handicap,
             participant_header: _over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var under_obj = {
             title: "",
@@ -4463,6 +4600,8 @@ export const currentHalfAwayTeamTotal = (data: any) => {
             participant_name: _under_obj?.name,
             participant_handicap: _under_obj?.handicap,
             participant_header: _under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, over_obj, under_obj];
           base_arr.push(arr);
@@ -4550,6 +4689,8 @@ export const currentHalfHomeTeamTotal = (data: any) => {
             participant_name: _over_obj?.name,
             participant_handicap: _over_obj?.handicap,
             participant_header: _over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var under_obj = {
             title: "",
@@ -4567,6 +4708,8 @@ export const currentHalfHomeTeamTotal = (data: any) => {
             participant_name: _under_obj?.name,
             participant_handicap: _under_obj?.handicap,
             participant_header: _under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, over_obj, under_obj];
           base_arr.push(arr);
@@ -4652,6 +4795,8 @@ export const currentHalfAwayTeamTotal2 = (data: any) => {
             participant_name: _over_obj?.name,
             participant_handicap: _over_obj?.handicap,
             participant_header: _over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var under_obj = {
             title: "",
@@ -4669,6 +4814,8 @@ export const currentHalfAwayTeamTotal2 = (data: any) => {
             participant_name: _under_obj?.name,
             participant_handicap: _under_obj?.handicap,
             participant_header: _under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, over_obj, under_obj];
           base_arr.push(arr);
@@ -4754,6 +4901,8 @@ export const currentHalfHomeTeamTotal2 = (data: any) => {
             participant_name: _over_obj?.name,
             participant_handicap: _over_obj?.handicap,
             participant_header: _over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var under_obj = {
             title: "",
@@ -4771,6 +4920,8 @@ export const currentHalfHomeTeamTotal2 = (data: any) => {
             participant_name: _under_obj?.name,
             participant_handicap: _under_obj?.handicap,
             participant_header: _under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, over_obj, under_obj];
           base_arr.push(arr);
@@ -4856,6 +5007,8 @@ export const currentHalfTotals = (data: any) => {
             participant_name: _over_obj?.name,
             participant_handicap: _over_obj?.handicap,
             participant_header: _over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var under_obj = {
             title: "",
@@ -4873,6 +5026,8 @@ export const currentHalfTotals = (data: any) => {
             participant_name: _under_obj?.name,
             participant_handicap: _under_obj?.handicap,
             participant_header: _under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, over_obj, under_obj];
           base_arr.push(arr);
@@ -4957,7 +5112,8 @@ export const currentQuarterAwayTeamTotal = (data: any) => {
             participant_name: _over_obj?.name,
             participant_handicap: _over_obj?.handicap,
             participant_header: _over_obj?.header,
-
+            game: "basketball",
+            bet_type: "Live",
           };
           var under_obj = {
             title: "",
@@ -4975,6 +5131,8 @@ export const currentQuarterAwayTeamTotal = (data: any) => {
             participant_name: _under_obj?.name,
             participant_handicap: _under_obj?.handicap,
             participant_header: _under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, over_obj, under_obj];
           base_arr.push(arr);
@@ -5062,12 +5220,13 @@ export const currentQuarterHomeTeamTotal = (data: any) => {
             participant_name: _over_obj?.name,
             participant_handicap: _over_obj?.handicap,
             participant_header: _over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var under_obj = {
             title: "",
             value: _under_obj.value_eu,
             suspend: _under_obj.suspend,
-
 
             event_id: data?.info?.id,
             event_name:
@@ -5080,6 +5239,8 @@ export const currentQuarterHomeTeamTotal = (data: any) => {
             participant_name: _under_obj?.name,
             participant_handicap: _under_obj?.handicap,
             participant_header: _under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, over_obj, under_obj];
           base_arr.push(arr);
@@ -5104,7 +5265,7 @@ export const currentQuarterHomeTeamTotal = (data: any) => {
 // Function to group participants by name
 function groupParticipantsByPropertyName(
   home_participants: any,
-  away_participants: any
+  away_participants: any,
 ) {
   const groupedParticipants = {} as any;
 
@@ -5162,7 +5323,7 @@ export const winningMargin = (data: any) => {
   if (home_participants != null && away_participants != null) {
     var group = groupParticipantsByPropertyName(
       home_participants,
-      away_participants
+      away_participants,
     );
     for (var row_name in group) {
       var group_obj = group[row_name];
@@ -5178,36 +5339,34 @@ export const winningMargin = (data: any) => {
         value: home_participant.value_eu,
         suspend: home_participant.suspend,
 
-
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home_participant?.id,
-            participant_name: home_participant?.name,
-            participant_handicap: home_participant?.handicap,
-            participant_header: home_participant?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: home_participant?.id,
+        participant_name: home_participant?.name,
+        participant_handicap: home_participant?.handicap,
+        participant_header: home_participant?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       var away_obj = {
         title: "",
         value: away_participant.value_eu,
         suspend: away_participant.suspend,
 
-
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: away_participant?.id,
-            participant_name: away_participant?.name,
-            participant_handicap: away_participant?.handicap,
-            participant_header: away_participant?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: away_participant?.id,
+        participant_name: away_participant?.name,
+        participant_handicap: away_participant?.handicap,
+        participant_header: away_participant?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       var arr = [title_obj, home_obj, away_obj];
       base_arr.push(arr);
@@ -5271,7 +5430,7 @@ export const currentHalfWinningMargin = (data: any) => {
   if (home_participants != null && away_participants != null) {
     var group = groupParticipantsByPropertyName(
       home_participants,
-      away_participants
+      away_participants,
     );
     for (var row_name in group) {
       var group_obj = group[row_name];
@@ -5287,35 +5446,34 @@ export const currentHalfWinningMargin = (data: any) => {
         value: home_participant.value_eu,
         suspend: home_participant.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home_participant?.id,
-            participant_name: home_participant?.name,
-            participant_handicap: home_participant?.handicap,
-            participant_header: home_participant?.header,
-
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: home_participant?.id,
+        participant_name: home_participant?.name,
+        participant_handicap: home_participant?.handicap,
+        participant_header: home_participant?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       var away_obj = {
         title: "",
         value: away_participant.value_eu,
         suspend: away_participant.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: away_participant?.id,
-            participant_name: away_participant?.name,
-            participant_handicap: away_participant?.handicap,
-            participant_header: away_participant?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: away_participant?.id,
+        participant_name: away_participant?.name,
+        participant_handicap: away_participant?.handicap,
+        participant_header: away_participant?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       var arr = [title_obj, home_obj, away_obj];
       base_arr.push(arr);
@@ -5377,7 +5535,7 @@ export const currentQuarterWinningMargin = (data: any) => {
   if (home_participants != null && away_participants != null) {
     var group = groupParticipantsByPropertyName(
       home_participants,
-      away_participants
+      away_participants,
     );
     for (var row_name in group) {
       var group_obj = group[row_name];
@@ -5393,34 +5551,34 @@ export const currentQuarterWinningMargin = (data: any) => {
         value: home_participant.value_eu,
         suspend: home_participant.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home_participant?.id,
-            participant_name: home_participant?.name,
-            participant_handicap: home_participant?.handicap,
-            participant_header: home_participant?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: home_participant?.id,
+        participant_name: home_participant?.name,
+        participant_handicap: home_participant?.handicap,
+        participant_header: home_participant?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       var away_obj = {
         title: "",
         value: away_participant.value_eu,
         suspend: away_participant.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: away_participant?.id,
-            participant_name: away_participant?.name,
-            participant_handicap: away_participant?.handicap,
-            participant_header: away_participant?.header,
+        event_id: data?.info?.id,
+        event_name:
+          data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+        odd_id: odd_id,
+        odd_name: data?.odds?.[odd_id]?.name,
+        participant_id: away_participant?.id,
+        participant_name: away_participant?.name,
+        participant_handicap: away_participant?.handicap,
+        participant_header: away_participant?.header,
+        game: "basketball",
+        bet_type: "Live",
       };
       var arr = [title_obj, home_obj, away_obj];
       base_arr.push(arr);
@@ -5462,17 +5620,17 @@ export const totalBand = (data: any) => {
           value: participant_obj.value_eu,
           suspend: participant_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: participant_obj?.id,
-            participant_name: participant_obj?.name,
-            participant_handicap: participant_obj?.handicap,
-            participant_header: participant_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: participant_obj?.id,
+          participant_name: participant_obj?.name,
+          participant_handicap: participant_obj?.handicap,
+          participant_header: participant_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr.push(_title_participant_obj, _participant_obj);
         if (arr.length == 4) {
@@ -5531,51 +5689,51 @@ export const currentHalfDoubleChance = (data: any) => {
           value: home_or_draw.value_eu,
           suspend: home_or_draw.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home_or_draw?.id,
-            participant_name: home_or_draw?.name,
-            participant_handicap: home_or_draw?.handicap,
-            participant_header: home_or_draw?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: home_or_draw?.id,
+          participant_name: home_or_draw?.name,
+          participant_handicap: home_or_draw?.handicap,
+          participant_header: home_or_draw?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var _draw_or_away_participant_obj = {
           title: "Draw or " + away_name,
           value: draw_or_away.value_eu,
           suspend: draw_or_away.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: draw_or_away?.id,
-            participant_name: draw_or_away?.name,
-            participant_handicap: draw_or_away?.handicap,
-            participant_header: draw_or_away?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: draw_or_away?.id,
+          participant_name: draw_or_away?.name,
+          participant_handicap: draw_or_away?.handicap,
+          participant_header: draw_or_away?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var _home_or_away_participant_obj = {
           title: home_name + " or " + away_name,
           value: home_or_away.value_eu,
           suspend: home_or_away.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: home_or_away?.id,
-            participant_name: home_or_away?.name,
-            participant_handicap: home_or_away?.handicap,
-            participant_header: home_or_away?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: home_or_away?.id,
+          participant_name: home_or_away?.name,
+          participant_handicap: home_or_away?.handicap,
+          participant_header: home_or_away?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var arr1 = [_home_or_draw_participant_obj];
         var arr2 = [_draw_or_away_participant_obj];
@@ -5645,102 +5803,102 @@ export const doubleResult = (data: any) => {
           value: one_and_one.value_eu,
           suspend: one_and_one.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: one_and_one?.id,
-            participant_name: one_and_one?.name,
-            participant_handicap: one_and_one?.handicap,
-            participant_header: one_and_one?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: one_and_one?.id,
+          participant_name: one_and_one?.name,
+          participant_handicap: one_and_one?.handicap,
+          participant_header: one_and_one?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var _x_and_one_participant_obj = {
           title: "Tie - " + home_name,
           value: x_and_one.value_eu,
           suspend: x_and_one.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: x_and_one?.id,
-            participant_name: x_and_one?.name,
-            participant_handicap: x_and_one?.handicap,
-            participant_header: x_and_one?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: x_and_one?.id,
+          participant_name: x_and_one?.name,
+          participant_handicap: x_and_one?.handicap,
+          participant_header: x_and_one?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var _two_and_one_participant_obj = {
           title: away_name + " - " + home_name,
           value: two_and_one.value_eu,
           suspend: two_and_one.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: two_and_one?.id,
-            participant_name: two_and_one?.name,
-            participant_handicap: two_and_one?.handicap,
-            participant_header: two_and_one?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: two_and_one?.id,
+          participant_name: two_and_one?.name,
+          participant_handicap: two_and_one?.handicap,
+          participant_header: two_and_one?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var _one_and_two_participant_obj = {
           title: home_name + " - " + away_name,
           value: one_and_two.value_eu,
           suspend: one_and_two.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: one_and_two?.id,
-            participant_name: one_and_two?.name,
-            participant_handicap: one_and_two?.handicap,
-            participant_header: one_and_two?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: one_and_two?.id,
+          participant_name: one_and_two?.name,
+          participant_handicap: one_and_two?.handicap,
+          participant_header: one_and_two?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var _x_and_two_participant_obj = {
           title: "Tie - " + away_name,
           value: x_and_two.value_eu,
           suspend: x_and_two.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: x_and_two?.id,
-            participant_name: x_and_two?.name,
-            participant_handicap: x_and_two?.handicap,
-            participant_header: x_and_two?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: x_and_two?.id,
+          participant_name: x_and_two?.name,
+          participant_handicap: x_and_two?.handicap,
+          participant_header: x_and_two?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var _two_and_two_participant_obj = {
           title: away_name + " - " + away_name,
           value: two_and_two.value_eu,
           suspend: two_and_two.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: two_and_two?.id,
-            participant_name: two_and_two?.name,
-            participant_handicap: two_and_two?.handicap,
-            participant_header: two_and_two?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: two_and_two?.id,
+          participant_name: two_and_two?.name,
+          participant_handicap: two_and_two?.handicap,
+          participant_header: two_and_two?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         var arr1 = [_one_and_one_participant_obj];
         var arr2 = [_x_and_one_participant_obj];
@@ -5800,17 +5958,17 @@ export const totalBand3Way = (data: any) => {
           value: participant_obj.value_eu,
           suspend: participant_obj.suspend,
 
-            event_id: data?.info?.id,
-            event_name:
-              data?.team_info?.home?.name +
-              " vs " +
-              data?.team_info?.away?.name,
-            odd_id: odd_id,
-            odd_name: data?.odds?.[odd_id]?.name,
-            participant_id: participant_obj?.id,
-            participant_name: participant_obj?.name,
-            participant_handicap: participant_obj?.handicap,
-            participant_header: participant_obj?.header,
+          event_id: data?.info?.id,
+          event_name:
+            data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
+          odd_id: odd_id,
+          odd_name: data?.odds?.[odd_id]?.name,
+          participant_id: participant_obj?.id,
+          participant_name: participant_obj?.name,
+          participant_handicap: participant_obj?.handicap,
+          participant_header: participant_obj?.header,
+          game: "basketball",
+          bet_type: "Live",
         };
         arr = [_obj];
         base_arr.push(arr);
@@ -5886,6 +6044,8 @@ export const currentQuarterTotals = (data: any) => {
             participant_name: _over_obj?.name,
             participant_handicap: _over_obj?.handicap,
             participant_header: _over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var under_obj = {
             title: "",
@@ -5903,6 +6063,8 @@ export const currentQuarterTotals = (data: any) => {
             participant_name: _under_obj?.name,
             participant_handicap: _under_obj?.handicap,
             participant_header: _under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, over_obj, under_obj];
           base_arr.push(arr);
@@ -5992,6 +6154,8 @@ export const nextQuarterTotals = (data: any) => {
             participant_name: _over_obj?.name,
             participant_handicap: _over_obj?.handicap,
             participant_header: _over_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           var under_obj = {
             title: "",
@@ -6009,6 +6173,8 @@ export const nextQuarterTotals = (data: any) => {
             participant_name: _under_obj?.name,
             participant_handicap: _under_obj?.handicap,
             participant_header: _under_obj?.header,
+            game: "basketball",
+            bet_type: "Live",
           };
           arr = [title_obj, over_obj, under_obj];
           base_arr.push(arr);

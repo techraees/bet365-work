@@ -1,7 +1,7 @@
 "use client";
 
 const find_in_array_by_sp_name = (arr: any, target_string: any) => {
-  if(!arr){
+  if (!arr) {
     return null;
   }
   for (var obj of arr) {
@@ -57,10 +57,10 @@ const get_objects_grouped_by_team = (odds_array: any) => {
 
 export const find_participants_by_name_in_odds = (
   odds: any,
-  participant_name: string
+  participant_name: string,
 ) => {
   var participant_match = odds.filter(
-    (participant: any) => participant.name === participant_name
+    (participant: any) => participant.name === participant_name,
   );
   if (participant_match && participant_match.length > 0) {
     return participant_match[0];
@@ -108,7 +108,12 @@ export const toWinMatch = (data: any) => {
     for (var mm of match) {
       row.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+              ? data?.visitorteam.name
+              : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -120,12 +125,14 @@ export const toWinMatch = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "tennis",
+        bet_type: "Pregame",
       });
     }
     tosend.push(row);
   }
   return tosend;
-}
+};
 export const matchHandicapGames = (data: any) => {
   const match = data?.odds?.main?.sp["match_handicap_(games)"]?.odds;
   const odd_id = data?.odds?.main?.sp["match_handicap_(games)"]?.id;
@@ -139,7 +146,12 @@ export const matchHandicapGames = (data: any) => {
     for (var mm of match) {
       row.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+              ? data?.visitorteam.name
+              : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -151,12 +163,14 @@ export const matchHandicapGames = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "tennis",
+        bet_type: "Pregame",
       });
     }
     tosend.push(row);
   }
   return tosend;
-}
+};
 
 export const totalGames2Way = (data: any) => {
   const match = data?.odds?.main?.sp["total_games_2_way"]?.odds;
@@ -175,7 +189,12 @@ export const totalGames2Way = (data: any) => {
       var under_obj = findObjectByHeader(obj, "Under");
       var _title = {
         id: 0,
-        title: line == "1" ? data?.localteam.name : line == "2" ? data?.visitorteam.name : line,
+        title:
+          line == "1"
+            ? data?.localteam.name
+            : line == "2"
+              ? data?.visitorteam.name
+              : line,
         suspend: "0",
         value: "",
       };
@@ -192,7 +211,9 @@ export const totalGames2Way = (data: any) => {
         participant_id: over_obj.id,
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
-        participant_header: over_obj.header ?? ""
+        participant_header: over_obj.header ?? "",
+        game: "tennis",
+        bet_type: "Pregame",
       };
       var _under = {
         id: under_obj.id,
@@ -207,15 +228,16 @@ export const totalGames2Way = (data: any) => {
         participant_id: under_obj.id,
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
-        participant_header: under_obj.header ?? ""
+        participant_header: under_obj.header ?? "",
+        game: "tennis",
+        bet_type: "Pregame",
       };
       row.push(_title, _over, _under);
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const setBetting = (data: any) => {
   const match = data?.odds?.main?.sp["set_betting"]?.odds;
@@ -251,15 +273,16 @@ export const setBetting = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "tennis",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const firstSetWinner = (data: any) => {
   const match = data?.odds?.main?.sp["first_set_winner"]?.odds;
@@ -275,7 +298,12 @@ export const firstSetWinner = (data: any) => {
     for (var mm of match) {
       constructed_data.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+              ? data?.visitorteam.name
+              : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -287,6 +315,8 @@ export const firstSetWinner = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "tennis",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 2);
@@ -298,7 +328,6 @@ export const firstSetWinner = (data: any) => {
 
   return tosend;
 };
-
 
 export const firstSetTotalGames = (data: any) => {
   const match = data?.odds?.main?.sp["1st_set_total_games"]?.odds;
@@ -334,15 +363,16 @@ export const firstSetTotalGames = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "tennis",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 export const firstSetScore = (data: any) => {
   const match = data?.odds?.main?.sp["first_set_score"]?.odds;
   const odd_id = data?.odds?.main?.sp["first_set_score"]?.id;
@@ -377,15 +407,16 @@ export const firstSetScore = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "tennis",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 export const matchResultAndTotalGames = (data: any) => {
   const match = data?.odds?.main?.sp["match_result_and_total_games"]?.odds;
   const odd_id = data?.odds?.main?.sp["match_result_and_total_games"]?.id;
@@ -401,7 +432,12 @@ export const matchResultAndTotalGames = (data: any) => {
       var objs = grouped_by_name[line];
       var _title = {
         id: 0,
-        title: line == "1" ? data?.localteam.name : line == "2" ? data?.visitorteam.name : line,
+        title:
+          line == "1"
+            ? data?.localteam.name
+            : line == "2"
+              ? data?.visitorteam.name
+              : line,
         suspend: "0",
         value: "",
       };
@@ -420,41 +456,40 @@ export const matchResultAndTotalGames = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "tennis",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 export const homeAwayTo = (data: any, main: any, team: any) => {
   if (!data || !data?.odds?.main?.sp || !main) {
     return {
       marketname: team === "home" ? "Home To" : "Away To",
       suspend: "0",
       header: ["", "Yes", "No"],
-      rows: []
+      rows: [],
     };
   }
   var odds: any;
   let marketname;
   if (team === "home") {
-    marketname = main?.marketname?.replace(
-      "undefined",
-      data?.localteam.name
-    );
+    marketname = main?.marketname?.replace("undefined", data?.localteam.name);
     marketname = main?.marketname?.replace("Home", data?.localteam.name);
-    odds = Object.values(data?.odds?.main?.sp)?.find((item: any) => item.id === "130251");
-  } else if (team === "away") {
-    marketname = main.marketname?.replace(
-      "undefined",
-      data?.visitorteam.name
+    odds = Object.values(data?.odds?.main?.sp)?.find(
+      (item: any) => item.id === "130251",
     );
+  } else if (team === "away") {
+    marketname = main.marketname?.replace("undefined", data?.visitorteam.name);
     marketname = main.marketname?.replace("Away", data?.visitorteam.name);
 
-    odds = Object.values(data?.odds?.main?.sp)?.find((item: any) => item.id === "130255");
+    odds = Object.values(data?.odds?.main?.sp)?.find(
+      (item: any) => item.id === "130255",
+    );
   }
   const odd_id = odds?.id;
   const odd_name = odds?.name;
@@ -470,7 +505,12 @@ export const homeAwayTo = (data: any, main: any, team: any) => {
       var objs = grouped_by_name[line];
       var _title = {
         id: 0,
-        title: line == "1" ? data?.localteam.name : line == "2" ? data?.visitorteam.name : line,
+        title:
+          line == "1"
+            ? data?.localteam.name
+            : line == "2"
+              ? data?.visitorteam.name
+              : line,
         suspend: "0",
         value: "",
       };
@@ -489,43 +529,49 @@ export const homeAwayTo = (data: any, main: any, team: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "tennis",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   main.rows = tosend;
   main.marketname = marketname;
   return main;
 };
-export const firstHomeAwayServiceGameWinners = (data: any, main: any, team: any) => {
+export const firstHomeAwayServiceGameWinners = (
+  data: any,
+  main: any,
+  team: any,
+) => {
   if (!data || !data?.odds?.main?.sp || !main) {
     return {
-      marketname: team === "home" ? "First Home Service Game - Winners" : "First Away Service Game - Winners",
+      marketname:
+        team === "home"
+          ? "First Home Service Game - Winners"
+          : "First Away Service Game - Winners",
       suspend: "0",
       header: ["", "Home", "Away"],
-      rows: []
+      rows: [],
     };
   }
   var odds: any;
   let marketname;
   if (team === "home") {
-    marketname = main?.marketname?.replace(
-      "undefined",
-      data?.localteam.name
-    );
+    marketname = main?.marketname?.replace("undefined", data?.localteam.name);
     marketname = main?.marketname?.replace("Home", data?.localteam.name);
-    odds = Object.values(data?.odds?.main?.sp)?.find((item: any) => item.id === "130286");
-  } else if (team === "away") {
-    marketname = main.marketname?.replace(
-      "undefined",
-      data?.visitorteam.name
+    odds = Object.values(data?.odds?.main?.sp)?.find(
+      (item: any) => item.id === "130286",
     );
+  } else if (team === "away") {
+    marketname = main.marketname?.replace("undefined", data?.visitorteam.name);
     marketname = main.marketname?.replace("Away", data?.visitorteam.name);
 
-    odds = Object.values(data?.odds?.main?.sp)?.find((item: any) => item.id === "130297");
+    odds = Object.values(data?.odds?.main?.sp)?.find(
+      (item: any) => item.id === "130297",
+    );
   }
   const odd_id = odds?.id;
   const odd_name = odds?.name;
@@ -541,7 +587,12 @@ export const firstHomeAwayServiceGameWinners = (data: any, main: any, team: any)
       var objs = grouped_by_name[line];
       var _title = {
         id: 0,
-        title: line == "1" ? data?.localteam.name : line == "2" ? data?.visitorteam.name : line,
+        title:
+          line == "1"
+            ? data?.localteam.name
+            : line == "2"
+              ? data?.visitorteam.name
+              : line,
         suspend: "0",
         value: "",
       };
@@ -560,43 +611,49 @@ export const firstHomeAwayServiceGameWinners = (data: any, main: any, team: any)
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "tennis",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   main.rows = tosend;
   main.marketname = marketname;
   return main;
 };
-export const firstHomeAwayServiceGameScore = (data: any, main: any, team: any) => {
+export const firstHomeAwayServiceGameScore = (
+  data: any,
+  main: any,
+  team: any,
+) => {
   if (!data || !data?.odds?.main?.sp || !main) {
     return {
-      marketname: team === "home" ? "First Home Service Game - Score" : "First Away Service Game - Score",
+      marketname:
+        team === "home"
+          ? "First Home Service Game - Score"
+          : "First Away Service Game - Score",
       suspend: "0",
       header: ["", "Home", "Away"],
-      rows: []
+      rows: [],
     };
   }
   var odds: any;
   let marketname;
   if (team === "home") {
-    marketname = main?.marketname?.replace(
-      "undefined",
-      data?.localteam.name
-    );
+    marketname = main?.marketname?.replace("undefined", data?.localteam.name);
     marketname = main?.marketname?.replace("Home", data?.localteam.name);
-    odds = Object.values(data?.odds?.main?.sp)?.find((item: any) => item.id === "130284");
-  } else if (team === "away") {
-    marketname = main.marketname?.replace(
-      "undefined",
-      data?.visitorteam.name
+    odds = Object.values(data?.odds?.main?.sp)?.find(
+      (item: any) => item.id === "130284",
     );
+  } else if (team === "away") {
+    marketname = main.marketname?.replace("undefined", data?.visitorteam.name);
     marketname = main.marketname?.replace("Away", data?.visitorteam.name);
 
-    odds = Object.values(data?.odds?.main?.sp)?.find((item: any) => item.id === "130295");
+    odds = Object.values(data?.odds?.main?.sp)?.find(
+      (item: any) => item.id === "130295",
+    );
   }
   const odd_id = odds?.id;
   const odd_name = odds?.name;
@@ -612,7 +669,12 @@ export const firstHomeAwayServiceGameScore = (data: any, main: any, team: any) =
       var objs = grouped_by_name[line];
       var _title = {
         id: 0,
-        title: line == "1" ? data?.localteam.name : line == "2" ? data?.visitorteam.name : line,
+        title:
+          line == "1"
+            ? data?.localteam.name
+            : line == "2"
+              ? data?.visitorteam.name
+              : line,
         suspend: "0",
         value: "",
       };
@@ -631,43 +693,49 @@ export const firstHomeAwayServiceGameScore = (data: any, main: any, team: any) =
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "tennis",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   main.rows = tosend;
   main.marketname = marketname;
   return main;
 };
-export const firstHomeAwayServiceGameToWinTo = (data: any, main: any, team: any) => {
+export const firstHomeAwayServiceGameToWinTo = (
+  data: any,
+  main: any,
+  team: any,
+) => {
   if (!data || !data?.odds?.main?.sp || !main) {
     return {
-      marketname: team === "home" ? "First Home Service Game - To Win To" : "First Away Service Game - To Win To",
+      marketname:
+        team === "home"
+          ? "First Home Service Game - To Win To"
+          : "First Away Service Game - To Win To",
       suspend: "0",
       header: ["", "Yes", "No"],
-      rows: []
+      rows: [],
     };
   }
   var odds: any;
   let marketname;
   if (team === "home") {
-    marketname = main?.marketname?.replace(
-      "undefined",
-      data?.localteam.name
-    );
+    marketname = main?.marketname?.replace("undefined", data?.localteam.name);
     marketname = main?.marketname?.replace("Home", data?.localteam.name);
-    odds = Object.values(data?.odds?.main?.sp)?.find((item: any) => item.id === "130280");
-  } else if (team === "away") {
-    marketname = main.marketname?.replace(
-      "undefined",
-      data?.visitorteam.name
+    odds = Object.values(data?.odds?.main?.sp)?.find(
+      (item: any) => item.id === "130280",
     );
+  } else if (team === "away") {
+    marketname = main.marketname?.replace("undefined", data?.visitorteam.name);
     marketname = main.marketname?.replace("Away", data?.visitorteam.name);
 
-    odds = Object.values(data?.odds?.main?.sp)?.find((item: any) => item.id === "130291");
+    odds = Object.values(data?.odds?.main?.sp)?.find(
+      (item: any) => item.id === "130291",
+    );
   }
   const odd_id = odds?.id;
   const odd_name = odds?.name;
@@ -683,7 +751,12 @@ export const firstHomeAwayServiceGameToWinTo = (data: any, main: any, team: any)
       var objs = grouped_by_name[line];
       var _title = {
         id: 0,
-        title: line == "1" ? data?.localteam.name : line == "2" ? data?.visitorteam.name : line,
+        title:
+          line == "1"
+            ? data?.localteam.name
+            : line == "2"
+              ? data?.visitorteam.name
+              : line,
         suspend: "0",
         value: "",
       };
@@ -702,43 +775,49 @@ export const firstHomeAwayServiceGameToWinTo = (data: any, main: any, team: any)
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "tennis",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   main.rows = tosend;
   main.marketname = marketname;
   return main;
 };
-export const firstHomeAwayServiceGameYesNo = (data: any, main: any, team: any) => {
+export const firstHomeAwayServiceGameYesNo = (
+  data: any,
+  main: any,
+  team: any,
+) => {
   if (!data || !data?.odds?.player?.sp || !main) {
     return {
-      marketname: team === "home" ? "First Home Service Game - Yes/No" : "First Away Service Game - Yes/No",
+      marketname:
+        team === "home"
+          ? "First Home Service Game - Yes/No"
+          : "First Away Service Game - Yes/No",
       suspend: "0",
       header: ["", "Yes", "No"],
-      rows: []
+      rows: [],
     };
   }
   var odds: any;
   let marketname;
   if (team === "home") {
-    marketname = main?.marketname?.replace(
-      "undefined",
-      data?.localteam.name
-    );
+    marketname = main?.marketname?.replace("undefined", data?.localteam.name);
     marketname = main?.marketname?.replace("Home", data?.localteam.name);
-    odds = Object.values(data?.odds?.player?.sp)?.find((item: any) => item.id === "130333");
-  } else if (team === "away") {
-    marketname = main.marketname?.replace(
-      "undefined",
-      data?.visitorteam.name
+    odds = Object.values(data?.odds?.player?.sp)?.find(
+      (item: any) => item.id === "130333",
     );
+  } else if (team === "away") {
+    marketname = main.marketname?.replace("undefined", data?.visitorteam.name);
     marketname = main.marketname?.replace("Away", data?.visitorteam.name);
 
-    odds = Object.values(data?.odds?.player?.sp)?.find((item: any) => item.id === "130304");
+    odds = Object.values(data?.odds?.player?.sp)?.find(
+      (item: any) => item.id === "130304",
+    );
   }
   const odd_id = odds?.id;
   const odd_name = odds?.name;
@@ -754,7 +833,12 @@ export const firstHomeAwayServiceGameYesNo = (data: any, main: any, team: any) =
       var objs = grouped_by_name[line];
       var _title = {
         id: 0,
-        title: line == "1" ? data?.localteam.name : line == "2" ? data?.visitorteam.name : line,
+        title:
+          line == "1"
+            ? data?.localteam.name
+            : line == "2"
+              ? data?.visitorteam.name
+              : line,
         suspend: "0",
         value: "",
       };
@@ -773,44 +857,50 @@ export const firstHomeAwayServiceGameYesNo = (data: any, main: any, team: any) =
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "tennis",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   main.rows = tosend;
   main.marketname = marketname;
   return main;
 };
-export const firstHomeAwayServiceGameTotalPoints = (data: any, main: any, team: any) => {
+export const firstHomeAwayServiceGameTotalPoints = (
+  data: any,
+  main: any,
+  team: any,
+) => {
   if (!data || !data?.odds?.player?.sp || !main) {
     return {
-      marketname: team === "home" ? "First Home Service Game - Total Points" : "First Away Service Game - Total Points",
+      marketname:
+        team === "home"
+          ? "First Home Service Game - Total Points"
+          : "First Away Service Game - Total Points",
       suspend: "0",
       header: [],
-      rows: []
+      rows: [],
     };
   }
   var key: any;
   let marketname;
   if (team === "home") {
-    marketname = main?.marketname?.replace(
-      "undefined",
-      data?.localteam.name
-    );
+    marketname = main?.marketname?.replace("undefined", data?.localteam.name);
     marketname = main?.marketname?.replace("Home", data?.localteam.name);
-    key = Object.keys(data?.odds?.player?.sp)?.find((item: any) => data?.odds?.player?.sp[item].id === "130283");
+    key = Object.keys(data?.odds?.player?.sp)?.find(
+      (item: any) => data?.odds?.player?.sp[item].id === "130283",
+    );
     console.log(Object.keys(data?.odds?.player?.sp));
   } else if (team === "away") {
-    marketname = main.marketname?.replace(
-      "undefined",
-      data?.visitorteam.name
-    );
+    marketname = main.marketname?.replace("undefined", data?.visitorteam.name);
     marketname = main.marketname?.replace("Away", data?.visitorteam.name);
 
-    key = Object.keys(data?.odds?.player?.sp)?.find((item: any) => data?.odds?.player?.sp[item].id === "130294");
+    key = Object.keys(data?.odds?.player?.sp)?.find(
+      (item: any) => data?.odds?.player?.sp[item].id === "130294",
+    );
   }
   var match = find_in_array_by_sp_name(data?.odds?.others, key);
   if (!match) {
@@ -825,7 +915,12 @@ export const firstHomeAwayServiceGameTotalPoints = (data: any, main: any, team: 
     for (var mm of match) {
       constructed_data.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+              ? data?.visitorteam.name
+              : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -837,6 +932,8 @@ export const firstHomeAwayServiceGameTotalPoints = (data: any, main: any, team: 
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "tennis",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 2);
@@ -851,7 +948,6 @@ export const firstHomeAwayServiceGameTotalPoints = (data: any, main: any, team: 
 };
 
 export const goTheDistance = (data: any) => {
-
   var match = find_in_array_by_sp_name(data?.odds?.others, "go_the_distance?");
   if (!match) {
     return [];
@@ -866,7 +962,12 @@ export const goTheDistance = (data: any) => {
     for (var mm of match) {
       constructed_data.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+              ? data?.visitorteam.name
+              : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -878,6 +979,8 @@ export const goTheDistance = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "tennis",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 2);
@@ -889,7 +992,6 @@ export const goTheDistance = (data: any) => {
 
   return tosend;
 };
-
 
 export const firstSethandicap = (data: any) => {
   const match = data?.odds?.set?.sp["first_set_handicap"]?.odds;
@@ -904,7 +1006,12 @@ export const firstSethandicap = (data: any) => {
     for (var mm of match) {
       row.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+              ? data?.visitorteam.name
+              : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -916,15 +1023,20 @@ export const firstSethandicap = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "tennis",
+        bet_type: "Pregame",
       });
     }
     tosend.push(row);
   }
   return tosend;
-}
+};
 
 export const firstSetCorrectScoreGroup = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "first_set_correct_score_group");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "first_set_correct_score_group",
+  );
   if (!match) {
     return [];
   }
@@ -958,18 +1070,22 @@ export const firstSetCorrectScoreGroup = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "tennis",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const firstSetScoreAnyPlayer = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "first_set_score_any_player");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "first_set_score_any_player",
+  );
   if (!match) {
     return [];
   }
@@ -982,7 +1098,12 @@ export const firstSetScoreAnyPlayer = (data: any) => {
     for (var mm of match) {
       constructed_data.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+              ? data?.visitorteam.name
+              : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -994,6 +1115,8 @@ export const firstSetScoreAnyPlayer = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "tennis",
+        bet_type: "Pregame",
       });
     }
     constructed_data.push({});
@@ -1004,10 +1127,13 @@ export const firstSetScoreAnyPlayer = (data: any) => {
     }
   }
   return tosend;
-}
+};
 
 export const firstSetPlayerToBreakServe = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "first_set_player_to_break_serve");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "first_set_player_to_break_serve",
+  );
   if (!match) {
     return [];
   }
@@ -1022,7 +1148,12 @@ export const firstSetPlayerToBreakServe = (data: any) => {
       var objs = grouped_by_name[line];
       var _title = {
         id: 0,
-        title: line == "1" ? data?.localteam.name : line == "2" ? data?.visitorteam.name : line,
+        title:
+          line == "1"
+            ? data?.localteam.name
+            : line == "2"
+              ? data?.visitorteam.name
+              : line,
         suspend: "0",
         value: "",
       };
@@ -1041,18 +1172,22 @@ export const firstSetPlayerToBreakServe = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "tennis",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const firstBreakOfServe = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "first_break_of_serve");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "first_break_of_serve",
+  );
   if (!match) {
     return [];
   }
@@ -1066,7 +1201,12 @@ export const firstBreakOfServe = (data: any) => {
     for (var mm of match) {
       constructed_data.push({
         id: mm.id,
-        title: mm.name == "1" ? data?.localteam.name : mm.name == "2" ? data?.visitorteam.name : mm.name,
+        title:
+          mm.name == "1"
+            ? data?.localteam.name
+            : mm.name == "2"
+              ? data?.visitorteam.name
+              : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -1078,6 +1218,8 @@ export const firstBreakOfServe = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "tennis",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 2);
@@ -1097,5 +1239,6 @@ export const totalGamesInSet = (data: any, oddData: any) => {
   let tosend = [] as any;
 
   return tosend;
-};firstSetScoreAnyPlayer
-firstSetScoreAnyPlayer
+};
+firstSetScoreAnyPlayer;
+firstSetScoreAnyPlayer;

@@ -36,6 +36,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (line.length < 3 && title === "Away" && item[1].is_main == "1") {
@@ -55,6 +57,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -80,6 +84,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (line.length < 3 && title === "Away") {
@@ -99,6 +105,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -128,6 +136,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -160,6 +170,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (total.length < 3 && title === "Under" && item[1].is_main == "1") {
@@ -181,6 +193,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -208,6 +222,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (total.length < 3 && title === "Under") {
@@ -229,6 +245,8 @@ export const gameLines = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -272,6 +290,8 @@ export const alternativeRunLine = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "Away" && item.is_main == "0") {
@@ -289,6 +309,8 @@ export const alternativeRunLine = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 2) {
@@ -329,6 +351,8 @@ export const alternativeGameTotal = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "Under" && item.is_main == "0") {
@@ -346,6 +370,8 @@ export const alternativeGameTotal = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 3) {
@@ -390,6 +416,8 @@ export const teamTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "Under" && item.is_main == "1") {
@@ -407,6 +435,8 @@ export const teamTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -429,6 +459,8 @@ export const teamTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Under" && item.is_main == "1") {
@@ -446,6 +478,8 @@ export const teamTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -489,6 +523,8 @@ export const teamAlternativeTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row1.length < 2 && title === "Under" && item.is_main == "0") {
@@ -506,6 +542,8 @@ export const teamAlternativeTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row1.length == 2) {
@@ -532,6 +570,8 @@ export const teamAlternativeTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row2.length < 4 && title === "Under" && item.is_main == "0") {
@@ -549,6 +589,8 @@ export const teamAlternativeTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row2.length == 2) {
@@ -606,6 +648,8 @@ export const aRunScoredHomeInning1 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -623,6 +667,8 @@ export const aRunScoredHomeInning1 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -659,6 +705,8 @@ export const aRunScoredAwayInning1 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -676,6 +724,8 @@ export const aRunScoredAwayInning1 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -713,6 +763,8 @@ export const runsInThe1thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "Under") {
@@ -730,6 +782,8 @@ export const runsInThe1thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 3) {
@@ -768,6 +822,8 @@ export const _1thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -785,6 +841,8 @@ export const _1thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -820,6 +878,8 @@ export const _1thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Away") {
@@ -837,6 +897,8 @@ export const _1thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Draw") {
@@ -854,6 +916,8 @@ export const _1thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -891,6 +955,8 @@ export const aRunScoredHomeInning2 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -908,6 +974,8 @@ export const aRunScoredHomeInning2 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -944,6 +1012,8 @@ export const aRunScoredAwayInning2 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -961,6 +1031,8 @@ export const aRunScoredAwayInning2 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -998,6 +1070,8 @@ export const runsInThe2thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "Under") {
@@ -1015,6 +1089,8 @@ export const runsInThe2thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 3) {
@@ -1056,6 +1132,8 @@ export const _2thInningRuns = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (row.length < 2 && title === "No") {
@@ -1075,6 +1153,8 @@ export const _2thInningRuns = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -1111,6 +1191,8 @@ export const _2thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Away") {
@@ -1128,6 +1210,8 @@ export const _2thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Draw") {
@@ -1145,6 +1229,8 @@ export const _2thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -1182,6 +1268,8 @@ export const aRunScoredHomeInning3 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -1199,6 +1287,8 @@ export const aRunScoredHomeInning3 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -1235,6 +1325,8 @@ export const aRunScoredAwayInning3 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -1252,6 +1344,8 @@ export const aRunScoredAwayInning3 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -1289,6 +1383,8 @@ export const runsInThe3thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "Under") {
@@ -1306,6 +1402,8 @@ export const runsInThe3thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 3) {
@@ -1344,6 +1442,8 @@ export const _3thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -1361,6 +1461,8 @@ export const _3thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -1396,6 +1498,8 @@ export const _3thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Away") {
@@ -1413,6 +1517,8 @@ export const _3thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Draw") {
@@ -1430,6 +1536,8 @@ export const _3thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -1467,6 +1575,8 @@ export const aRunScoredHomeInning4 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -1484,6 +1594,8 @@ export const aRunScoredHomeInning4 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -1520,6 +1632,8 @@ export const aRunScoredAwayInning4 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -1537,6 +1651,8 @@ export const aRunScoredAwayInning4 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -1574,6 +1690,8 @@ export const runsInThe4thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "Under") {
@@ -1591,6 +1709,8 @@ export const runsInThe4thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 3) {
@@ -1629,6 +1749,8 @@ export const _4thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -1646,6 +1768,8 @@ export const _4thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -1681,6 +1805,8 @@ export const _4thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Away") {
@@ -1698,6 +1824,8 @@ export const _4thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Draw") {
@@ -1715,6 +1843,8 @@ export const _4thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -1752,6 +1882,8 @@ export const aRunScoredHomeInning5 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -1769,6 +1901,8 @@ export const aRunScoredHomeInning5 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -1805,6 +1939,8 @@ export const aRunScoredAwayInning5 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -1822,6 +1958,8 @@ export const aRunScoredAwayInning5 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -1859,6 +1997,8 @@ export const runsInThe5thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "Under") {
@@ -1876,6 +2016,8 @@ export const runsInThe5thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 3) {
@@ -1914,6 +2056,8 @@ export const _5thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -1931,6 +2075,8 @@ export const _5thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -1966,6 +2112,8 @@ export const _5thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Away") {
@@ -1983,6 +2131,8 @@ export const _5thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Draw") {
@@ -2000,6 +2150,8 @@ export const _5thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2037,6 +2189,8 @@ export const aRunScoredHomeInning6 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -2054,6 +2208,8 @@ export const aRunScoredHomeInning6 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2090,6 +2246,8 @@ export const aRunScoredAwayInning6 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -2107,6 +2265,8 @@ export const aRunScoredAwayInning6 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2145,6 +2305,8 @@ export const runsInThe6thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "Under") {
@@ -2187,6 +2349,8 @@ export const _6thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -2204,6 +2368,8 @@ export const _6thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2239,6 +2405,8 @@ export const _6thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Away") {
@@ -2256,6 +2424,8 @@ export const _6thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Draw") {
@@ -2273,6 +2443,8 @@ export const _6thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2309,6 +2481,8 @@ export const aRunScoredHomeInning7 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -2326,6 +2500,8 @@ export const aRunScoredHomeInning7 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2362,6 +2538,8 @@ export const aRunScoredAwayInning7 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -2379,6 +2557,8 @@ export const aRunScoredAwayInning7 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2417,6 +2597,8 @@ export const runsInThe7thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "Under") {
@@ -2434,6 +2616,8 @@ export const runsInThe7thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 3) {
@@ -2473,6 +2657,8 @@ export const _7thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -2490,6 +2676,8 @@ export const _7thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2525,6 +2713,8 @@ export const _7thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Away") {
@@ -2542,6 +2732,8 @@ export const _7thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Draw") {
@@ -2559,6 +2751,8 @@ export const _7thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2595,6 +2789,8 @@ export const aRunScoredHomeInning8 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -2612,6 +2808,8 @@ export const aRunScoredHomeInning8 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2648,6 +2846,8 @@ export const aRunScoredAwayInning8 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -2665,6 +2865,8 @@ export const aRunScoredAwayInning8 = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2702,6 +2904,8 @@ export const runsInThe8thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
         row.push({
           title: "",
@@ -2717,6 +2921,8 @@ export const runsInThe8thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "Under") {
@@ -2734,6 +2940,8 @@ export const runsInThe8thInning = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 3) {
@@ -2773,6 +2981,8 @@ export const _8thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "No") {
@@ -2790,6 +3000,8 @@ export const _8thInningRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2824,6 +3036,8 @@ export const _8thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Away") {
@@ -2841,6 +3055,8 @@ export const _8thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Draw") {
@@ -2858,6 +3074,8 @@ export const _8thInningLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -2900,6 +3118,8 @@ export const winningMargin = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (run2.length < 3 && title === "2 runs") {
@@ -2919,6 +3139,8 @@ export const winningMargin = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (run3.length < 3 && title === "3 runs") {
@@ -2938,6 +3160,8 @@ export const winningMargin = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (run4.length < 3 && title === "4 or more runs") {
@@ -2957,6 +3181,8 @@ export const winningMargin = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -2987,6 +3213,8 @@ export const winningMargin = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (run2.length < 3 && title === "2 runs") {
@@ -3006,6 +3234,8 @@ export const winningMargin = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (run3.length < 3 && title === "3 runs") {
@@ -3025,6 +3255,8 @@ export const winningMargin = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (run4.length < 3 && title === "4 or more runs") {
@@ -3044,6 +3276,8 @@ export const winningMargin = (data: any) => {
             participant_name: item[1]?.name,
             participant_handicap: item[1]?.handicap,
             participant_header: item[1]?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -3092,6 +3326,8 @@ export const runLineIncl = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Draw") {
@@ -3109,6 +3345,8 @@ export const runLineIncl = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Away") {
@@ -3126,6 +3364,8 @@ export const runLineIncl = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
     });
@@ -3169,6 +3409,8 @@ export const matchCorrectScore = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (row.length == 3) {
@@ -3216,6 +3458,8 @@ export const totalRuns3Way = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -3260,6 +3504,8 @@ export const _3innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (line.length < 3 && title === "Away" && item[1].is_main == "1") {
@@ -3279,6 +3525,8 @@ export const _3innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -3310,6 +3558,8 @@ export const _3innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (total.length < 3 && title === "Under" && item[1].is_main == "1") {
@@ -3331,6 +3581,8 @@ export const _3innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -3375,6 +3627,8 @@ export const alternative3InningsTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "Under" && item.is_main == "0") {
@@ -3392,6 +3646,8 @@ export const alternative3InningsTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 3) {
@@ -3431,6 +3687,8 @@ export const alternative3InningsRunLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "Away" && item.is_main == "0") {
@@ -3448,6 +3706,8 @@ export const alternative3InningsRunLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 2) {
@@ -3493,6 +3753,8 @@ export const _5innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (line.length < 3 && title === "Away" && item[1].is_main == "1") {
@@ -3512,6 +3774,8 @@ export const _5innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -3540,6 +3804,8 @@ export const _5innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -3572,6 +3838,8 @@ export const _5innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (total.length < 3 && title === "Under" && item[1].is_main == "1") {
@@ -3593,6 +3861,8 @@ export const _5innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -3638,6 +3908,8 @@ export const alternative5InningsTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "Under" && item.is_main == "0") {
@@ -3655,6 +3927,8 @@ export const alternative5InningsTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 3) {
@@ -3694,6 +3968,8 @@ export const alternative5InningsRunLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "Away" && item.is_main == "0") {
@@ -3746,6 +4022,8 @@ export const _7innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (line.length < 3 && title === "Away" && item[1].is_main == "1") {
@@ -3765,6 +4043,8 @@ export const _7innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -3794,6 +4074,8 @@ export const _7innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -3826,6 +4108,8 @@ export const _7innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (total.length < 3 && title === "Under" && item[1].is_main == "1") {
@@ -3847,6 +4131,8 @@ export const _7innings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -3892,6 +4178,8 @@ export const alternative7InningsTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "Under" && item.is_main == "0") {
@@ -3909,6 +4197,8 @@ export const alternative7InningsTotals = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 3) {
@@ -3948,6 +4238,8 @@ export const alternative7InningsRunLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 2 && title === "Away" && item.is_main == "0") {
@@ -3965,6 +4257,8 @@ export const alternative7InningsRunLines = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 2) {
@@ -4006,6 +4300,8 @@ export const bothTeamsToScore = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 3 && title === "No") {
@@ -4023,6 +4319,8 @@ export const bothTeamsToScore = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 3) {
@@ -4063,6 +4361,8 @@ export const raceToRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Away") {
@@ -4080,6 +4380,8 @@ export const raceToRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Neither") {
@@ -4097,6 +4399,8 @@ export const raceToRuns = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 4) {
@@ -4137,6 +4441,8 @@ export const leadAfter = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Away") {
@@ -4154,6 +4460,8 @@ export const leadAfter = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length < 4 && title === "Draw") {
@@ -4171,6 +4479,8 @@ export const leadAfter = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 4) {
@@ -4214,6 +4524,8 @@ export const extraInnings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
         if (row.length < 2 && title === "No") {
@@ -4233,6 +4545,8 @@ export const extraInnings = (data: any) => {
             participant_name: item?.name,
             participant_handicap: item?.handicap,
             participant_header: item?.header,
+            bet_type: "Live",
+            game: "baseball",
           });
         }
       });
@@ -4273,6 +4587,8 @@ export const monyLinesAndTotal = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row1.length < 2 && title === "1/u" && item.suspend == "0") {
@@ -4290,6 +4606,8 @@ export const monyLinesAndTotal = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row1.length == 2) {
@@ -4311,6 +4629,8 @@ export const monyLinesAndTotal = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row1.length < 2 && title === "2/u" && item.suspend == "0") {
@@ -4328,6 +4648,8 @@ export const monyLinesAndTotal = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row2.length == 2) {
@@ -4405,6 +4727,8 @@ export const alternativeMonyLinesAndTotal = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row1.length < 2 && title === "1/u" && item.suspend == "0") {
@@ -4421,6 +4745,8 @@ export const alternativeMonyLinesAndTotal = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row1.length == 2) {
@@ -4442,6 +4768,8 @@ export const alternativeMonyLinesAndTotal = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row1.length < 2 && title === "2/u" && item.suspend == "0") {
@@ -4459,6 +4787,8 @@ export const alternativeMonyLinesAndTotal = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row2.length == 2) {
@@ -4531,6 +4861,8 @@ export const runLineAndTotal = (data: any) => {
           participant_name: item?.name,
           participant_handicap: item?.handicap,
           participant_header: item?.header,
+          bet_type: "Live",
+          game: "baseball",
         });
       }
       if (row.length == 2) {

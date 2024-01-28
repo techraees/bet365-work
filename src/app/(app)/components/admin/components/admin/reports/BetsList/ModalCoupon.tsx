@@ -215,7 +215,7 @@ function ModalCoupon({ item, user }: ModalCouponProps) {
                             {selection.event_name}
                           </td>
                           <td className="px-2 py-1 border border-gray-600 truncate">
-                            {selection.odd_name}, {selection.participant_name}, {selection.handicap}
+                            {selection.odd_name}, {selection.participant_name}, {selection.participant_handicap}
                           </td>
                           <td className="px-2 py-1 border border-gray-600 truncate">
                             {selection.odd_id}

@@ -106,6 +106,8 @@ export const fulltimeResult = (data: any) => {
         participant_name: title,
         participant_handicap: match[0].handicap ?? "",
         participant_header: match[0].header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
 
@@ -127,6 +129,8 @@ export const fulltimeResult = (data: any) => {
         participant_name: title,
         participant_handicap: match[1].handicap ?? "",
         participant_header: match[1].header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
 
@@ -147,6 +151,8 @@ export const fulltimeResult = (data: any) => {
         participant_name: title,
         participant_handicap: match[2].handicap ?? "",
         participant_header: match[2].header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
     tosend.push(arr);
@@ -184,6 +190,8 @@ export const doubleChance = (data: any) => {
           participant_name: odd.name,
           participant_handicap: odd.handicap ?? "",
           participant_header: odd.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         };
         arr.push(obj);
       });
@@ -228,6 +236,8 @@ export const goalsOverUnderOV = (data: any) => {
         participant_name: over_obj.name,
         participant_handicap: handicap,
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -243,6 +253,8 @@ export const goalsOverUnderOV = (data: any) => {
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap,
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       arr.push(_title, _over, _under);
       tosend.push(arr);
@@ -285,6 +297,8 @@ export const resultBothTeamsToScore = (data: any) => {
       participant_name: grouped["1"][0].name,
       participant_handicap: grouped["1"][0].handicap ?? "",
       participant_header: grouped["1"][0].header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var home_obj_no = {
@@ -300,6 +314,8 @@ export const resultBothTeamsToScore = (data: any) => {
       participant_name: grouped["1"][1].name,
       participant_handicap: grouped["1"][1].handicap ?? "",
       participant_header: grouped["1"][1].header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var title_away_obj = {
@@ -320,6 +336,8 @@ export const resultBothTeamsToScore = (data: any) => {
       participant_name: grouped["2"][0].name,
       participant_handicap: grouped["1"][1].handicap ?? "",
       participant_header: grouped["1"][1].header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var away_obj_no = {
@@ -335,6 +353,8 @@ export const resultBothTeamsToScore = (data: any) => {
       participant_name: grouped["2"][1].name,
       participant_handicap: grouped["2"][1].handicap ?? "",
       participant_header: grouped["2"][1].header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var title_draw_obj = {
@@ -355,6 +375,8 @@ export const resultBothTeamsToScore = (data: any) => {
       participant_name: grouped["Draw"][0].name ?? "",
       participant_handicap: grouped["Draw"][0].handicap ?? "",
       participant_header: grouped["Draw"][0].header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var draw_obj_no = {
@@ -370,6 +392,8 @@ export const resultBothTeamsToScore = (data: any) => {
       participant_name: grouped["Draw"][1].name ?? "",
       participant_handicap: grouped["Draw"][1].handicap ?? "",
       participant_header: grouped["Draw"][1].header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     arr_home.push(title_home_obj, home_obj_yes, home_obj_no);
     arr_away.push(title_away_obj, away_obj_yes, away_obj_no);
@@ -407,6 +431,8 @@ export const bothTeamsToScore = (data: any) => {
       participant_name: yes_obj.name,
       participant_handicap: yes_obj.handicap ?? "",
       participant_header: yes_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var _no = {
@@ -422,6 +448,8 @@ export const bothTeamsToScore = (data: any) => {
       participant_name: no_obj.name,
       participant_handicap: no_obj.handicap ?? "",
       participant_header: no_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     arr.push(_yes);
     arr.push(_no);
@@ -457,6 +485,8 @@ export const teamsToScore = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 2);
@@ -502,6 +532,8 @@ export const correctScore = (data: any) => {
         participant_name: home_score_obj.name,
         participant_handicap: home_score_obj.handicap ?? "",
         participant_header: home_score_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       left.push(obj);
     }
@@ -521,6 +553,8 @@ export const correctScore = (data: any) => {
         participant_name: away_score_obj.name,
         participant_handicap: away_score_obj.handicap ?? "",
         participant_header: away_score_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       right.push(obj);
     }
@@ -540,6 +574,8 @@ export const correctScore = (data: any) => {
         participant_name: draw_score_obj.name,
         participant_handicap: draw_score_obj.handicap ?? "",
         participant_header: draw_score_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       middle.push(obj);
     }
@@ -596,6 +632,8 @@ export const halfTimeFullTime = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 3);
@@ -642,6 +680,8 @@ export const halftimeFulltimeCorrectScore = (data: any) => {
         participant_name: home_score_obj.name,
         participant_handicap: home_score_obj.handicap ?? "",
         participant_header: home_score_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       left.push(obj);
     }
@@ -661,6 +701,8 @@ export const halftimeFulltimeCorrectScore = (data: any) => {
         participant_name: away_score_obj.name,
         participant_handicap: away_score_obj.handicap ?? "",
         participant_header: away_score_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       right.push(obj);
     }
@@ -680,6 +722,8 @@ export const halftimeFulltimeCorrectScore = (data: any) => {
         participant_name: draw_score_obj.name,
         participant_handicap: draw_score_obj.handicap ?? "",
         participant_header: draw_score_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       middle.push(obj);
     }
@@ -729,6 +773,8 @@ export const asianHandicap = (data: any) => {
       participant_name: home_obj.handicap,
       participant_handicap: home_obj.handicap ?? "",
       participant_header: home_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var _away = {
@@ -745,6 +791,8 @@ export const asianHandicap = (data: any) => {
       participant_name: away_obj.handicap,
       participant_handicap: away_obj.handicap ?? "",
       participant_header: away_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     tosend.push([_home, _away]);
   }
@@ -789,6 +837,8 @@ export const goalLine = (data: any) => {
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -805,6 +855,8 @@ export const goalLine = (data: any) => {
         participant_name: under_obj.group,
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       tosend.push([_title, _over, _under]);
     }
@@ -838,6 +890,8 @@ export const drawNoBet = (data: any) => {
       participant_name: home_obj.name,
       participant_handicap: home_obj.handicap ?? "",
       participant_header: home_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var _away = {
@@ -854,6 +908,8 @@ export const drawNoBet = (data: any) => {
       participant_name: away_obj.name,
       participant_handicap: away_obj.handicap ?? "",
       participant_header: away_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     tosend.push([_home, _away]);
@@ -889,6 +945,8 @@ export const handicapResult = (data: any) => {
       participant_name: home_obj.name,
       participant_handicap: home_obj.handicap ?? "",
       participant_header: home_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var _away = {
@@ -905,6 +963,8 @@ export const handicapResult = (data: any) => {
       participant_name: away_obj.name,
       participant_handicap: away_obj.handicap ?? "",
       participant_header: away_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var _tie = {
@@ -921,6 +981,8 @@ export const handicapResult = (data: any) => {
       participant_name: tie_obj.name,
       participant_handicap: tie_obj.handicap ?? "",
       participant_header: tie_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     tosend.push([_home, _tie, _away]);
@@ -965,6 +1027,8 @@ export const totalCorners3Way = (data: any) => {
         participant_name: over.name,
         participant_handicap: over.handicap ?? "",
         participant_header: over.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var under_obj = {
@@ -980,6 +1044,8 @@ export const totalCorners3Way = (data: any) => {
         participant_name: under.name,
         participant_handicap: under.handicap ?? "",
         participant_header: under.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var exactly_obj = {
@@ -995,6 +1061,8 @@ export const totalCorners3Way = (data: any) => {
         participant_name: exactly.name,
         participant_handicap: exactly.handicap ?? "",
         participant_header: exactly.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       tosend.push([title_obj, over_obj, exactly_obj, under_obj]);
     }
@@ -1005,7 +1073,7 @@ export const totalCorners3Way = (data: any) => {
 export const alternativeAsianHandicap = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "alternative_asian_handicap"
+    "alternative_asian_handicap",
   );
   const odd_id = match?.id;
   const odd_name = match?.name;
@@ -1037,6 +1105,8 @@ export const alternativeAsianHandicap = (data: any) => {
         participant_name: home_obj.name ?? "",
         participant_handicap: home_obj.handicap ?? "",
         participant_header: home_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _away = {
@@ -1053,6 +1123,8 @@ export const alternativeAsianHandicap = (data: any) => {
         participant_name: away_obj.name ?? "",
         participant_handicap: away_obj.handicap ?? "",
         participant_header: away_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       var arr = [_home, _away];
       tosend.push(arr);
@@ -1064,7 +1136,7 @@ export const alternativeAsianHandicap = (data: any) => {
 export const alternativeHandicapResult = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "alternative_handicap_result"
+    "alternative_handicap_result",
   );
   const odd_id = match?.id;
   const odd_name = match?.name;
@@ -1097,6 +1169,8 @@ export const alternativeHandicapResult = (data: any) => {
         participant_name: home_obj.name ?? "",
         participant_handicap: home_obj.handicap ?? "",
         participant_header: home_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _away = {
@@ -1113,6 +1187,8 @@ export const alternativeHandicapResult = (data: any) => {
         participant_name: away_obj.name,
         participant_handicap: away_obj.handicap ?? "",
         participant_header: away_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _tie = {
@@ -1129,6 +1205,8 @@ export const alternativeHandicapResult = (data: any) => {
         participant_name: tie_obj.name,
         participant_handicap: tie_obj.handicap ?? "",
         participant_header: tie_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       tosend.push([_home, _tie, _away]);
@@ -1140,7 +1218,7 @@ export const alternativeHandicapResult = (data: any) => {
 export const alternativeGoalLine = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "alternative_goal_line"
+    "alternative_goal_line",
   );
   const odd_id = match?.id;
   const odd_name = match?.name;
@@ -1178,6 +1256,8 @@ export const alternativeGoalLine = (data: any) => {
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -1194,6 +1274,8 @@ export const alternativeGoalLine = (data: any) => {
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       tosend.push([_title, _over, _under]);
@@ -1230,6 +1312,8 @@ export const minuteResult = (data: any) => {
         participant_name: match[0].name ?? "",
         participant_handicap: match[0].handicap ?? "",
         participant_header: match[0].header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
 
@@ -1251,6 +1335,8 @@ export const minuteResult = (data: any) => {
         participant_name: match[1].name ?? "",
         participant_handicap: match[1].handicap ?? "",
         participant_header: match[1].header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
 
@@ -1271,6 +1357,8 @@ export const minuteResult = (data: any) => {
         participant_name: match[2].name ?? "",
         participant_handicap: match[2].handicap ?? "",
         participant_header: match[2].header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
     tosend.push(arr);
@@ -1308,6 +1396,8 @@ export const toScoreaPenalty = (data: any) => {
           participant_name: odd.name,
           participant_handicap: odd.handicap ?? "",
           participant_header: odd.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         };
         arr.push(obj);
       });
@@ -1346,6 +1436,8 @@ export const toMissaPenalty = (data: any) => {
           participant_name: odd.name,
           participant_handicap: odd.handicap ?? "",
           participant_header: odd.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         };
         arr.push(obj);
       });
@@ -1382,6 +1474,8 @@ export const ownGoal = (data: any) => {
       participant_name: yes_obj.name,
       participant_handicap: yes_obj.handicap ?? "",
       participant_header: yes_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var _no = {
@@ -1397,6 +1491,8 @@ export const ownGoal = (data: any) => {
       participant_name: no_obj.name,
       participant_handicap: no_obj.handicap ?? "",
       participant_header: no_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     arr.push(_yes);
     arr.push(_no);
@@ -1432,6 +1528,8 @@ export const firstHalfAsianHandicap = (data: any) => {
       participant_name: home_obj.name ?? "",
       participant_handicap: home_obj.handicap ?? "",
       participant_header: home_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var _away = {
@@ -1448,6 +1546,8 @@ export const firstHalfAsianHandicap = (data: any) => {
       participant_name: away_obj.name ?? "",
       participant_handicap: away_obj.handicap ?? "",
       participant_header: away_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     tosend.push([_home, _away]);
   }
@@ -1459,7 +1559,7 @@ export const firstHalfAsianHandicap = (data: any) => {
 export const alternativeFirstHalfAsianHandicap = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "alternative_1st_half_asian_handicap"
+    "alternative_1st_half_asian_handicap",
   );
   if (match === undefined) {
     return [];
@@ -1494,6 +1594,8 @@ export const alternativeFirstHalfAsianHandicap = (data: any) => {
         participant_name: home_obj.name ?? "",
         participant_handicap: home_obj.handicap ?? "",
         participant_header: home_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _away = {
@@ -1510,6 +1612,8 @@ export const alternativeFirstHalfAsianHandicap = (data: any) => {
         participant_name: away_obj.name ?? "",
         participant_handicap: away_obj.handicap ?? "",
         participant_header: away_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       var arr = [_home, _away];
       tosend.push(arr);
@@ -1554,6 +1658,8 @@ export const firstHalfGoalLine = (data: any) => {
         participant_name: over_obj.name ?? "",
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -1570,6 +1676,8 @@ export const firstHalfGoalLine = (data: any) => {
         participant_name: under_obj.name ?? "",
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       tosend.push([_title, _over, _under]);
     }
@@ -1580,7 +1688,7 @@ export const firstHalfGoalLine = (data: any) => {
 export const alternativeFirstHalfGoalLine = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "alternative_1st_half_goal_line"
+    "alternative_1st_half_goal_line",
   );
   if (match === undefined) {
     return [];
@@ -1621,6 +1729,8 @@ export const alternativeFirstHalfGoalLine = (data: any) => {
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -1637,6 +1747,8 @@ export const alternativeFirstHalfGoalLine = (data: any) => {
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       tosend.push([_title, _over, _under]);
@@ -1680,6 +1792,8 @@ export const betteamSpecials = (data: any) => {
           participant_name: item.name,
           participant_handicap: item.handicap ?? "",
           participant_header: item.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
@@ -1725,6 +1839,8 @@ export const alternativetotalGoals = (data: any) => {
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -1741,6 +1857,8 @@ export const alternativetotalGoals = (data: any) => {
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       tosend.push([_title, _over, _under]);
@@ -1769,8 +1887,8 @@ export const resultTotalGoals = (data: any) => {
           line == "1"
             ? data?.localteam.name
             : line == "2"
-            ? data?.visitorteam.name
-            : line,
+              ? data?.visitorteam.name
+              : line,
         suspend: "0",
         value: "",
       };
@@ -1789,6 +1907,8 @@ export const resultTotalGoals = (data: any) => {
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -1805,6 +1925,8 @@ export const resultTotalGoals = (data: any) => {
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       tosend.push([_title, _over, _under]);
@@ -1841,6 +1963,8 @@ export const totalGoalsBothTeamsToScore = (data: any) => {
       participant_name: over_yes_obj.name,
       participant_handicap: over_yes_obj.handicap ?? "",
       participant_header: over_yes_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     var _over_no = {
       id: over_no_obj.id,
@@ -1856,6 +1980,8 @@ export const totalGoalsBothTeamsToScore = (data: any) => {
       participant_name: over_no_obj.name,
       participant_handicap: over_no_obj.handicap ?? "",
       participant_header: over_no_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     var _under_yes = {
       id: under_yes_obj.id,
@@ -1871,6 +1997,8 @@ export const totalGoalsBothTeamsToScore = (data: any) => {
       participant_name: under_yes_obj.name,
       participant_handicap: under_yes_obj.handicap ?? "",
       participant_header: under_yes_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     var _under_no = {
       id: under_no_obj.id,
@@ -1886,6 +2014,8 @@ export const totalGoalsBothTeamsToScore = (data: any) => {
       participant_name: under_no_obj.name,
       participant_handicap: under_no_obj.handicap ?? "",
       participant_header: under_no_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     tosend.push([_over_yes, _over_no], [_under_yes, _under_no]);
@@ -1925,6 +2055,8 @@ export const exactTotalGoals = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 4);
@@ -1966,6 +2098,8 @@ export const numberOfGoalsInMatch = (data: any) => {
           participant_name: odd.name,
           participant_handicap: odd.handicap ?? "",
           participant_header: odd.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         };
         arr.push(obj);
       });
@@ -2000,6 +2134,8 @@ export const goalOddEven = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
   }
@@ -2009,7 +2145,7 @@ export const goalOddEven = (data: any) => {
 export const teamOddEvenGoals = (data: any, team_name: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "home_team_odd_even_goals"
+    "home_team_odd_even_goals",
   );
   if (!match) {
     return [];
@@ -2017,7 +2153,7 @@ export const teamOddEvenGoals = (data: any, team_name: any) => {
   if (team_name == "2") {
     var match = find_in_array_by_sp_name(
       data?.odds?.others,
-      "away_team_odd_even_goals"
+      "away_team_odd_even_goals",
     );
   }
   const odd_id = match.id;
@@ -2041,6 +2177,8 @@ export const teamOddEvenGoals = (data: any, team_name: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
   }
@@ -2051,7 +2189,7 @@ export const teamOddEvenGoals = (data: any, team_name: any) => {
 export const firsthalfgoalOddEven = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "1st_half_goals_odd_even"
+    "1st_half_goals_odd_even",
   );
   if (!match) {
     return [];
@@ -2077,6 +2215,8 @@ export const firsthalfgoalOddEven = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
   }
@@ -2086,7 +2226,7 @@ export const firsthalfgoalOddEven = (data: any) => {
 export const secondhalfgoalOddEven = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "1st_half_goals_odd_even"
+    "1st_half_goals_odd_even",
   );
   if (!match) {
     return [];
@@ -2112,6 +2252,8 @@ export const secondhalfgoalOddEven = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
   }
@@ -2121,7 +2263,7 @@ export const secondhalfgoalOddEven = (data: any) => {
 export const lastTeamToScore = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "last_team_to_score"
+    "last_team_to_score",
   );
   if (!match) {
     return [];
@@ -2139,8 +2281,8 @@ export const lastTeamToScore = (data: any) => {
           mm.name == "1"
             ? data?.localteam.name
             : mm.name == "2"
-            ? data?.visitorteam.name
-            : mm.name,
+              ? data?.visitorteam.name
+              : mm.name,
         value: mm.odds,
         suspend: "0",
 
@@ -2152,6 +2294,8 @@ export const lastTeamToScore = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
   }
@@ -2194,6 +2338,8 @@ export const first10Minutes = (data: any) => {
           participant_name: item.name,
           participant_handicap: item.handicap ?? "",
           participant_header: item.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
@@ -2237,6 +2383,8 @@ export const first10Minutes_minuetes = (data: any) => {
           participant_name: item.name,
           participant_handicap: item.handicap ?? "",
           participant_header: item.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
@@ -2277,6 +2425,8 @@ export const bothTeamsToScoreHalf = (data: any, half: any) => {
       participant_name: yes_obj.name,
       participant_handicap: yes_obj.handicap ?? "",
       participant_header: yes_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var _no = {
@@ -2292,6 +2442,8 @@ export const bothTeamsToScoreHalf = (data: any, half: any) => {
       participant_name: no_obj.name,
       participant_handicap: no_obj.handicap ?? "",
       participant_header: no_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     arr.push(_yes);
     arr.push(_no);
@@ -2336,6 +2488,8 @@ export const firstHalfGoals = (data: any) => {
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -2352,6 +2506,8 @@ export const firstHalfGoals = (data: any) => {
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       tosend.push([_title, _over, _under]);
@@ -2363,7 +2519,7 @@ export const firstHalfGoals = (data: any) => {
 export const exactFirstHalfGoals = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "exact_1st_half_goals"
+    "exact_1st_half_goals",
   );
   if (!match) {
     return [];
@@ -2395,6 +2551,8 @@ export const exactFirstHalfGoals = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 4);
@@ -2443,6 +2601,8 @@ export const firstHalfCorners = (data: any) => {
         participant_name: over_obj.name ?? "",
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       var _exact = {
         id: exact_obj.id,
@@ -2458,6 +2618,8 @@ export const firstHalfCorners = (data: any) => {
         participant_name: exact_obj.name ?? "",
         participant_handicap: exact_obj.handicap ?? "",
         participant_header: exact_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -2474,6 +2636,8 @@ export const firstHalfCorners = (data: any) => {
         participant_name: under_obj.name ?? "",
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       tosend.push([_title, _over, _exact, _under]);
     }
@@ -2523,6 +2687,8 @@ export const homeToScoreInHalf = (data: any) => {
           participant_name: mm.name ?? "",
           participant_handicap: mm.handicap ?? "",
           participant_header: mm.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         });
       } else {
         row2.push({
@@ -2539,6 +2705,8 @@ export const homeToScoreInHalf = (data: any) => {
           participant_name: mm.name ?? "",
           participant_handicap: mm.handicap ?? "",
           participant_header: mm.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         });
       }
     }
@@ -2588,6 +2756,8 @@ export const awayToScoreInHalf = (data: any) => {
           participant_name: mm.name ?? "",
           participant_handicap: mm.handicap ?? "",
           participant_header: mm.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         });
       } else {
         row2.push({
@@ -2604,6 +2774,8 @@ export const awayToScoreInHalf = (data: any) => {
           participant_name: mm.name ?? "",
           participant_handicap: mm.handicap ?? "",
           participant_header: mm.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         });
       }
     }
@@ -2640,6 +2812,8 @@ export const secondHalfResult = (data: any) => {
         participant_name: match[0].name ?? "",
         participant_handicap: match[0].handicap ?? "",
         participant_header: match[0].header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
 
@@ -2661,6 +2835,8 @@ export const secondHalfResult = (data: any) => {
         participant_name: match[1].name ?? "",
         participant_handicap: match[1].handicap ?? "",
         participant_header: match[1].header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
 
@@ -2681,6 +2857,8 @@ export const secondHalfResult = (data: any) => {
         participant_name: match[2].name ?? "",
         participant_handicap: match[2].handicap ?? "",
         participant_header: match[2].header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
     tosend.push(arr);
@@ -2691,7 +2869,7 @@ export const secondHalfResult = (data: any) => {
 export const totalGoalMinutes = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "total_goal_minutes"
+    "total_goal_minutes",
   );
   if (!match) {
     return [];
@@ -2722,6 +2900,8 @@ export const totalGoalMinutes = (data: any) => {
           participant_name: odd.name,
           participant_handicap: odd.handicap ?? "",
           participant_header: odd.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         };
         arr.push(obj);
       });
@@ -2733,7 +2913,7 @@ export const totalGoalMinutes = (data: any) => {
 export const firstTeamToScore = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "first_team_to_score"
+    "first_team_to_score",
   );
   if (!match) {
     return [];
@@ -2756,8 +2936,8 @@ export const firstTeamToScore = (data: any) => {
             title == "1"
               ? data?.localteam.name
               : title == "2"
-              ? data?.visitorteam.name
-              : title,
+                ? data?.visitorteam.name
+                : title,
           value: value,
           suspend: suspend,
 
@@ -2769,6 +2949,8 @@ export const firstTeamToScore = (data: any) => {
           participant_name: odd.name,
           participant_handicap: odd.handicap ?? "",
           participant_header: odd.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         };
         arr.push(obj);
       });
@@ -2806,6 +2988,8 @@ export const firstGoalMethod = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 3);
@@ -2848,6 +3032,8 @@ export const earlyGoal = (data: any) => {
           participant_name: odd.name,
           participant_handicap: odd.handicap ?? "",
           participant_header: odd.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         };
         arr.push(obj);
       });
@@ -2887,6 +3073,8 @@ export const lateGoal = (data: any) => {
           participant_name: odd.name,
           participant_handicap: odd.handicap ?? "",
           participant_header: odd.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         };
         arr.push(obj);
       });
@@ -2933,6 +3121,8 @@ export const secondHalfGoals = (data: any) => {
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -2949,6 +3139,8 @@ export const secondHalfGoals = (data: any) => {
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       tosend.push([_title, _over, _under]);
@@ -2960,7 +3152,7 @@ export const secondHalfGoals = (data: any) => {
 export const halfWithMostGoals = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "half_with_most_goals"
+    "half_with_most_goals",
   );
   if (!match) {
     return [];
@@ -2990,6 +3182,8 @@ export const halfWithMostGoals = (data: any) => {
           participant_name: odd.name,
           participant_handicap: odd.handicap ?? "",
           participant_header: odd.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         };
         arr.push(obj);
       });
@@ -3001,12 +3195,12 @@ export const halfWithMostGoals = (data: any) => {
 export const teamHighestScoringHalf = (data: any, team: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "home_team_highest_scoring_half"
+    "home_team_highest_scoring_half",
   );
   if (team == "2") {
     match = find_in_array_by_sp_name(
       data?.odds?.others,
-      "away_team_highest_scoring_half"
+      "away_team_highest_scoring_half",
     );
   }
   if (!match) {
@@ -3037,6 +3231,8 @@ export const teamHighestScoringHalf = (data: any, team: any) => {
           participant_name: odd.name,
           participant_handicap: odd.handicap ?? "",
           participant_header: odd.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         };
         arr.push(obj);
       });
@@ -3049,7 +3245,7 @@ export const teamHighestScoringHalf = (data: any, team: any) => {
 export const exactSecondHalfGoals = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "exact_2nd_half_goals"
+    "exact_2nd_half_goals",
   );
   if (!match) {
     return [];
@@ -3081,6 +3277,8 @@ export const exactSecondHalfGoals = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 4);
@@ -3095,7 +3293,7 @@ export const exactSecondHalfGoals = (data: any) => {
 export const timeOfFirstGoalBrackets = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "time_of_first_goal_brackets"
+    "time_of_first_goal_brackets",
   );
   if (!match) {
     return [];
@@ -3127,6 +3325,8 @@ export const timeOfFirstGoalBrackets = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 4);
@@ -3164,6 +3364,8 @@ export const cleanSheet = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
   }
@@ -3199,6 +3401,8 @@ export const teamTotalGoals = (data: any) => {
           participant_name: mm.name,
           participant_handicap: mm.handicap ?? "",
           participant_header: mm.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         });
       } else {
         away_data.push({
@@ -3215,6 +3419,8 @@ export const teamTotalGoals = (data: any) => {
           participant_name: mm.name,
           participant_handicap: mm.handicap ?? "",
           participant_header: mm.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         });
       }
     }
@@ -3242,12 +3448,12 @@ export const teamTotalGoals = (data: any) => {
 export const teamExactGoals = (data: any, team_name: any) => {
   let match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "home_team_exact_goals"
+    "home_team_exact_goals",
   );
   if (team_name == "2") {
     match = find_in_array_by_sp_name(
       data?.odds?.others,
-      "away_team_exact_goals"
+      "away_team_exact_goals",
     );
   }
   if (!match) {
@@ -3275,6 +3481,8 @@ export const teamExactGoals = (data: any, team_name: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
   }
@@ -3321,6 +3529,8 @@ export const winningMargin = (data: any) => {
           participant_name: item.name,
           participant_handicap: item.handicap ?? "",
           participant_header: item.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
@@ -3332,7 +3542,7 @@ export const winningMargin = (data: any) => {
 export const timeOfFirstTeamGoal = (data: any) => {
   let match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "time_of_1st_team_goal"
+    "time_of_1st_team_goal",
   );
   if (!match) {
     return [];
@@ -3361,6 +3571,8 @@ export const timeOfFirstTeamGoal = (data: any) => {
           participant_name: mm.name,
           participant_handicap: mm.handicap ?? "",
           participant_header: mm.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         });
       } else {
         second.push({
@@ -3377,6 +3589,8 @@ export const timeOfFirstTeamGoal = (data: any) => {
           participant_name: mm.name,
           participant_handicap: mm.handicap ?? "",
           participant_header: mm.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         });
       }
     }
@@ -3412,6 +3626,8 @@ export const halfTimeResult = (data: any) => {
         participant_name: match[0].name ?? "",
         participant_handicap: match[0].handicap ?? "",
         participant_header: match[0].header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
 
@@ -3433,6 +3649,8 @@ export const halfTimeResult = (data: any) => {
         participant_name: match[1].name ?? "",
         participant_handicap: match[1].handicap ?? "",
         participant_header: match[1].header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
 
@@ -3453,6 +3671,8 @@ export const halfTimeResult = (data: any) => {
         participant_name: match[2].name ?? "",
         participant_handicap: match[2].handicap ?? "",
         participant_header: match[2].header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
     tosend.push(arr);
@@ -3490,6 +3710,8 @@ export const halfTimeDoubleChance = (data: any) => {
           participant_name: odd.name,
           participant_handicap: odd.handicap ?? "",
           participant_header: odd.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         };
         arr.push(obj);
       });
@@ -3502,7 +3724,7 @@ export const halfTimeDoubleChance = (data: any) => {
 export const halfTimeResultBothTeamsToScore = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "half_time_result_both_teams_to_score"
+    "half_time_result_both_teams_to_score",
   );
   if (!match) {
     return [];
@@ -3537,6 +3759,8 @@ export const halfTimeResultBothTeamsToScore = (data: any) => {
       participant_name: grouped["1"][0].name ?? "",
       participant_handicap: grouped["1"][0].handicap ?? "",
       participant_header: grouped["1"][0].header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var home_obj_no = {
@@ -3552,6 +3776,8 @@ export const halfTimeResultBothTeamsToScore = (data: any) => {
       participant_name: grouped["1"][1].name ?? "",
       participant_handicap: grouped["1"][1].handicap ?? "",
       participant_header: grouped["1"][1].header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var title_away_obj = {
@@ -3572,6 +3798,8 @@ export const halfTimeResultBothTeamsToScore = (data: any) => {
       participant_name: grouped["2"][0].name ?? "",
       participant_handicap: grouped["2"][0].handicap ?? "",
       participant_header: grouped["2"][0].header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var away_obj_no = {
@@ -3587,6 +3815,8 @@ export const halfTimeResultBothTeamsToScore = (data: any) => {
       participant_name: grouped["2"][1].name ?? "",
       participant_handicap: grouped["2"][1].handicap ?? "",
       participant_header: grouped["2"][1].header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var title_draw_obj = {
@@ -3607,6 +3837,8 @@ export const halfTimeResultBothTeamsToScore = (data: any) => {
       participant_name: grouped["Draw"][0].name ?? "",
       participant_handicap: grouped["Draw"][0].handicap ?? "",
       participant_header: grouped["Draw"][0].header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var draw_obj_no = {
@@ -3622,6 +3854,8 @@ export const halfTimeResultBothTeamsToScore = (data: any) => {
       participant_name: grouped["Draw"][1].name ?? "",
       participant_handicap: grouped["Draw"][1].handicap ?? "",
       participant_header: grouped["Draw"][1].header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     arr_home.push(title_home_obj, home_obj_yes, home_obj_no);
     arr_away.push(title_away_obj, away_obj_yes, away_obj_no);
@@ -3635,7 +3869,7 @@ export const halfTimeResultBothTeamsToScore = (data: any) => {
 export const halfTimeResultTotalGoals = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "half_time_result_total_goals"
+    "half_time_result_total_goals",
   );
   if (!match) {
     return [];
@@ -3672,6 +3906,8 @@ export const halfTimeResultTotalGoals = (data: any) => {
         participant_name: over_obj.name,
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -3688,6 +3924,8 @@ export const halfTimeResultTotalGoals = (data: any) => {
         participant_name: under_obj.name,
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       tosend.push([_title, _over, _under]);
@@ -3729,6 +3967,8 @@ export const halfTimeCorrectScore = (data: any) => {
         participant_name: home_score_obj.name,
         participant_handicap: home_score_obj.handicap ?? "",
         participant_header: home_score_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       left.push(obj);
     }
@@ -3748,6 +3988,8 @@ export const halfTimeCorrectScore = (data: any) => {
         participant_name: away_score_obj.name,
         participant_handicap: away_score_obj.handicap ?? "",
         participant_header: away_score_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       right.push(obj);
     }
@@ -3767,6 +4009,8 @@ export const halfTimeCorrectScore = (data: any) => {
         participant_name: draw_score_obj.name,
         participant_handicap: draw_score_obj.handicap ?? "",
         participant_header: draw_score_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       middle.push(obj);
     }
@@ -3792,7 +4036,7 @@ export const halfTimeCorrectScore = (data: any) => {
 export const bothTeamsToScorein1stHalf2ndHalf = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "both_teams_to_score_1st_half_2nd_half"
+    "both_teams_to_score_1st_half_2nd_half",
   );
   if (!match) {
     return [];
@@ -3819,6 +4063,8 @@ export const bothTeamsToScorein1stHalf2ndHalf = (data: any) => {
         participant_name: mm.name,
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 2);
@@ -3859,6 +4105,8 @@ export const firstHalfAsian3Way = (data: any) => {
       participant_name: home_obj.name ?? "",
       participant_handicap: home_obj.handicap ?? "",
       participant_header: home_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     var _tie = {
       id: tie_obj.id,
@@ -3874,6 +4122,8 @@ export const firstHalfAsian3Way = (data: any) => {
       participant_name: tie_obj.name ?? "",
       participant_handicap: tie_obj.handicap ?? "",
       participant_header: tie_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var _away = {
@@ -3890,6 +4140,8 @@ export const firstHalfAsian3Way = (data: any) => {
       participant_name: away_obj.name ?? "",
       participant_handicap: away_obj.handicap ?? "",
       participant_header: away_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     tosend.push([_home, _tie, _away]);
   }
@@ -3900,7 +4152,7 @@ export const firstHalfAsian3Way = (data: any) => {
 export const alternativeFirstHalfHandicapResult = (data: any) => {
   var match = find_in_array_by_sp_name(
     data?.odds?.others,
-    "alternative_1st_half_handicap_result"
+    "alternative_1st_half_handicap_result",
   );
   const odd_id = match?.id;
   const odd_name = match?.name;
@@ -3934,6 +4186,8 @@ export const alternativeFirstHalfHandicapResult = (data: any) => {
         participant_name: home_obj.name ?? "",
         participant_handicap: home_obj.handicap ?? "",
         participant_header: home_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       var _tie = {
         id: tie_obj.id,
@@ -3949,6 +4203,8 @@ export const alternativeFirstHalfHandicapResult = (data: any) => {
         participant_name: tie_obj.name ?? "",
         participant_handicap: tie_obj.handicap ?? "",
         participant_header: tie_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _away = {
@@ -3965,6 +4221,8 @@ export const alternativeFirstHalfHandicapResult = (data: any) => {
         participant_name: away_obj.name ?? "",
         participant_handicap: away_obj.handicap ?? "",
         participant_header: away_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       var arr = [_home, _tie, _away];
       tosend.push(arr);
@@ -4009,6 +4267,8 @@ export const asianTotalCorners = (data: any) => {
         participant_name: over_obj.name ?? "",
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -4025,6 +4285,8 @@ export const asianTotalCorners = (data: any) => {
         participant_name: under_obj.name ?? "",
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       tosend.push([_title, _over, _under]);
     }
@@ -4059,6 +4321,8 @@ export const asianHandicapCorners = (data: any) => {
       participant_name: home_obj.name ?? "",
       participant_handicap: home_obj.handicap ?? "",
       participant_header: home_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
 
     var _away = {
@@ -4075,6 +4339,8 @@ export const asianHandicapCorners = (data: any) => {
       participant_name: away_obj.name ?? "",
       participant_handicap: away_obj.handicap ?? "",
       participant_header: away_obj.header ?? "",
+      game: "soccer",
+      bet_type: "Pregame",
     };
     tosend.push([_home, _away]);
   }
@@ -4119,6 +4385,8 @@ export const firstHalfAsianCorners = (data: any) => {
         participant_name: over_obj.name ?? "",
         participant_handicap: over_obj.handicap ?? "",
         participant_header: over_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
 
       var _under = {
@@ -4135,6 +4403,8 @@ export const firstHalfAsianCorners = (data: any) => {
         participant_name: under_obj.name ?? "",
         participant_handicap: under_obj.handicap ?? "",
         participant_header: under_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       tosend.push([_title, _over, _under]);
     }
@@ -4179,6 +4449,8 @@ export const goalscorers = (data: any) => {
         participant_name: first_obj.name ?? "",
         participant_handicap: first_obj.handicap ?? "",
         participant_header: first_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       let _last = {
         id: last_obj.id,
@@ -4194,6 +4466,8 @@ export const goalscorers = (data: any) => {
         participant_name: last_obj.name ?? "",
         participant_handicap: last_obj.handicap ?? "",
         participant_header: last_obj.header ?? "",
+        game: "soccer",
+        bet_type: "Pregame",
       };
       let _anytime = {};
       if (anytime_obj != undefined) {
@@ -4211,6 +4485,8 @@ export const goalscorers = (data: any) => {
           participant_name: anytime_obj.name ?? "",
           participant_handicap: anytime_obj.handicap ?? "",
           participant_header: anytime_obj.header ?? "",
+          game: "soccer",
+          bet_type: "Pregame",
         };
       } else {
         _anytime = {

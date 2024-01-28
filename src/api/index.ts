@@ -1,7 +1,7 @@
 var headers = new Headers();
 headers.append(
   "X-ACCESS-TOKEN",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjIsInVzZXJuYW1lIjoiYWRtaW43Iiwicm9sZSI6IlR5cGU3QWRtaW4iLCJpYXQiOjE3MDA4NTY3MTcsImV4cCI6MTczMjM5MjcxN30.OcP8_HEsm8_LhNgS9T04smZgJHPIdDCuI4rvXhvTTbQ",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjIsInVzZXJuYW1lIjoiYWRtaW43Iiwicm9sZSI6IlR5cGU3QWRtaW4iLCJpYXQiOjE3MDA4NTY3MTcsImV4cCI6MTczMjM5MjcxN30.OcP8_HEsm8_LhNgS9T04smZgJHPIdDCuI4rvXhvTTbQ"
 );
 
 var requestOptions: any = {
@@ -31,7 +31,10 @@ export const getPregameNames = () =>
     .catch((error) => console.log("error", error));
 
 export const getSoccerFeaturedMatches = () =>
-  fetch(`https://${API_URL}/odds/soccer/betsapi/featured_matches`, requestOptions)
+  fetch(
+    `https://${API_URL}/odds/soccer/betsapi/featured_matches`,
+    requestOptions
+  )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
@@ -39,7 +42,7 @@ export const getSoccerFeaturedMatches = () =>
 export const getEventFromLeague = (league_name: string, event_id: string) =>
   fetch(
     `https://${API_URL}/odds/soccer/pregame/betsapi/events/${league_name}/${event_id}`,
-    requestOptions,
+    requestOptions
   )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
@@ -48,14 +51,17 @@ export const getEventFromLeague = (league_name: string, event_id: string) =>
 export const getEventNamesForLeague = (sport: string, league_name: string) =>
   fetch(
     `https://${API_URL}/odds/${sport}/pregame/betsapi/event_names/${league_name}`,
-    requestOptions,
+    requestOptions
   )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
 
 export const getPregameLeagues = (sport: string) =>
-  fetch(`https://${API_URL}/odds/${sport}/pregame/betsapi/leagues`, requestOptions)
+  fetch(
+    `https://${API_URL}/odds/${sport}/pregame/betsapi/leagues`,
+    requestOptions
+  )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
     .catch((error) => console.log("error", error));
@@ -63,7 +69,7 @@ export const getPregameLeagues = (sport: string) =>
 export const getPregameSoccerEngland = () =>
   fetch(
     `https://${API_URL}/odds/soccer/pregame/betsapi/events/England: Fa Community Shield`,
-    requestOptions,
+    requestOptions
   )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
@@ -72,7 +78,7 @@ export const getPregameSoccerEngland = () =>
 export const getPregameSoccer = (leagues: string) =>
   fetch(
     `https://${API_URL}/odds/soccer/pregame/betsapi/events/${leagues}`,
-    requestOptions,
+    requestOptions
   )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
@@ -81,7 +87,7 @@ export const getPregameSoccer = (leagues: string) =>
 export const getPregame = (sport: string, leagues: string) =>
   fetch(
     `https://${API_URL}/odds/${sport}/pregame/betsapi/events/${leagues}`,
-    requestOptions,
+    requestOptions
   )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
@@ -90,11 +96,11 @@ export const getPregame = (sport: string, leagues: string) =>
 export const getPregameEvent = (
   sport: string,
   league: string,
-  event_id: string,
+  event_id: string
 ) =>
   fetch(
     `https://${API_URL}/odds/${sport}/pregame/betsapi/events/${league}/${event_id}`,
-    requestOptions,
+    requestOptions
   )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
@@ -102,7 +108,7 @@ export const getPregameEvent = (
 export const getPregamesSoccerLeaguesGroupedByCountry = () =>
   fetch(
     `https://${API_URL}/odds/soccer/pregame/betsapi/leagues/groupedBy/country`,
-    requestOptions,
+    requestOptions
   )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
@@ -111,7 +117,7 @@ export const getPregamesSoccerLeaguesGroupedByCountry = () =>
 export const getPregamesLeaguesGroupedByCountry = (sport: string) =>
   fetch(
     `https://${API_URL}/odds/${sport}/pregame/betsapi/leagues/groupedBy/country`,
-    requestOptions,
+    requestOptions
   )
     .then((response) => response.text())
     .then((result) => JSON.parse(result))
@@ -157,4 +163,22 @@ export const getGameIFrame = (token: any, game_id: any) => {
   };
 
   return fetch(`https://${API_URL}/casino/get-game-frame`, requestOptions1);
+};
+
+export const placeCoupon = (token: any, payload: any) => {
+  var _payload = JSON.stringify(payload);
+  var headers = {
+    "X-ACCESS-TOKEN": token,
+    "Content-Type": "application/json",
+  };
+  var requestOptions1 = {
+    method: "POST",
+    headers: headers,
+    body: _payload,
+  };
+
+  return fetch(`https://${API_URL}/users/placeCoupon`, requestOptions1)
+    .then((response) => {
+      return response;
+    })
 };

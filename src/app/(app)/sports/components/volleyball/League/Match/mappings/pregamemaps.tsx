@@ -42,10 +42,10 @@ export const get_objects_grouped_by_name = (odds_array: any) => {
 
 export const find_participants_by_name_in_odds = (
   odds: any,
-  participant_name: string
+  participant_name: string,
 ) => {
   var participant_match = odds.filter(
-    (participant: any) => participant.name === participant_name
+    (participant: any) => participant.name === participant_name,
   );
   if (participant_match && participant_match.length > 0) {
     return participant_match[0];
@@ -114,15 +114,16 @@ export const gameLines = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "volleyball",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 export const correctSetScore = (data: any) => {
   const match = data?.odds?.main?.sp["correct_set_score"]?.odds;
   const odd_id = data?.odds?.main?.sp["correct_set_score"]?.id;
@@ -157,19 +158,22 @@ export const correctSetScore = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "volleyball",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
-
+};
 
 export const matchTotalOddEven = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "match_total_odd_even");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "match_total_odd_even",
+  );
   if (!match) {
     return [];
   }
@@ -195,6 +199,8 @@ export const matchTotalOddEven = (data: any) => {
         participant_name: mm.name ?? "",
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "volleyball",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 2);
@@ -242,18 +248,22 @@ export const firstSetLine = (data: any) => {
           participant_id: obj.id,
           participant_name: obj.name,
           participant_handicap: obj.handicap ?? "",
-          participant_header: obj.header ?? ""
+          participant_header: obj.header ?? "",
+          game: "volleyball",
+          bet_type: "Pregame",
         });
       }
       tosend.push(row);
-
     }
   }
   return tosend;
-}
+};
 
 export const firstSetToGoToExtraPoints = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "1st_set_to_go_to_extra_points");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "1st_set_to_go_to_extra_points",
+  );
   if (!match) {
     return [];
   }
@@ -279,6 +289,8 @@ export const firstSetToGoToExtraPoints = (data: any) => {
         participant_name: mm.name ?? "",
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "volleyball",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 2);
@@ -291,9 +303,11 @@ export const firstSetToGoToExtraPoints = (data: any) => {
   return tosend;
 };
 
-
 export const firstSetTotalOddEven = (data: any) => {
-  var match = find_in_array_by_sp_name(data?.odds?.others, "1st_set_total_odd_even");
+  var match = find_in_array_by_sp_name(
+    data?.odds?.others,
+    "1st_set_total_odd_even",
+  );
   if (!match) {
     return [];
   }
@@ -319,6 +333,8 @@ export const firstSetTotalOddEven = (data: any) => {
         participant_name: mm.name ?? "",
         participant_handicap: mm.handicap ?? "",
         participant_header: mm.header ?? "",
+        game: "volleyball",
+        bet_type: "Pregame",
       });
     }
     const splitted_array = splitArrayIntoChunks(constructed_data, 2);

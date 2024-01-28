@@ -276,3 +276,47 @@ html {
   padding: 15px !important;
   text-align: center !important;
 }
+
+
+.custom-svg-background {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='28' height='28' viewBox='0 0 28 28'%3E%3Cdefs%3E%3Cpath id='a' d='M11.689 20.442l-5.737-5.737 1.043-1.043 4.694 4.694 9.977-9.978 1.043 1.043-9.977 9.978z'/%3E%3C/defs%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle cx='14' cy='14' r='14' fill='%235FE8BD'/%3E%3Cuse fill='%231F4D3E' xlink:href='%23a'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+}
+
+@keyframes linearAnimation {
+  from {
+    width: 0;
+    /* Define starting state (0%) */
+  }
+  to {
+    /* Define ending state (100%) */
+    width: 28px;
+  }
+}
+
+.linear-animation {
+  animation: linearAnimation 0.5s linear 1;
+}
+
+
+.bl-Preloader_Spinner {
+    /* box-sizing: border-box; */
+    width: 45px;
+    height: 45px;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-left: 2px solid #28FFBB;
+    border-radius: 50%;
+    position: absolute;
+    -webkit-animation: bl-Spinner .6s linear infinite;
+    animation: bl-Spinner .6s linear infinite;
+
+}
+
+@keyframes bl-Spinner {
+  from {
+    transform: translateX(-50%) translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateX(-50%) translateY(-50%) rotate(360deg);
+  }
+}

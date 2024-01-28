@@ -1,6 +1,6 @@
 "use client";
 import Account, { Deposit } from "@/components/ui/icons/account";
-import { getSession, signOut, useSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -78,7 +78,7 @@ const Dialog: React.FC<DialogProps> = ({}) => {
           <div className="flex flex-col">
             <div>{userdata?.user?.username}</div>
             <div className="text-xl font-bold">
-              ${userdata?.user?.balance?.sports_betting}
+              ${userdata?.user?.balance?.sports_betting_slots}
             </div>
           </div>
           <div>
@@ -109,11 +109,11 @@ const Dialog: React.FC<DialogProps> = ({}) => {
 
           {/* <div className="flex flex-col">
                             <div>{'Withdrawable'}</div>
-                            <div className=" font-semibold">${userdata?.user?.balance?.sports_betting}</div>
+                            <div className=" font-semibold">${userdata?.user?.balance?.sports_betting_slots}</div>
                         </div>
                         <div className="flex flex-col ml-8">
                             <div>{'Bet Credits'}</div>
-                            <div className=" font-semibold">${userdata?.user?.balance?.sports_betting}</div>
+                            <div className=" font-semibold">${userdata?.user?.balance?.sports_betting_slots}</div>
                         </div> */}
         </div>
         <div className="border-solid border-t-[#c3c3c3] border-t-[1px]">

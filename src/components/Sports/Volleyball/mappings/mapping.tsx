@@ -231,6 +231,8 @@ export const gameLines = (data: any) => {
         participant_name: home?.name,
         participant_handicap: home?.handicap,
         participant_header: home?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
       const away_obj = {
         title: away.handicap,
@@ -246,6 +248,8 @@ export const gameLines = (data: any) => {
         participant_name: away?.name,
         participant_handicap: away?.handicap,
         participant_header: away?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
 
       const line_spread_arr = [title_obj, home_obj, away_obj];
@@ -282,6 +286,8 @@ export const gameLines = (data: any) => {
           participant_name: home?.name,
           participant_handicap: home?.handicap,
           participant_header: home?.header,
+          game: "volleyball",
+          bet_type: "Live",
         };
         const away_obj = {
           title: away.handicap,
@@ -297,6 +303,8 @@ export const gameLines = (data: any) => {
           participant_name: away?.name,
           participant_handicap: away?.handicap,
           participant_header: away?.header,
+          game: "volleyball",
+          bet_type: "Live",
         };
 
         const total_spread_arr = [title_obj, away_obj, home_obj];
@@ -315,11 +323,11 @@ export const gameLines = (data: any) => {
 
       var over = _getParticipantsFieldRaw(
         group_with_smallest_deviation,
-        "Over"
+        "Over",
       );
       var under = _getParticipantsFieldRaw(
         group_with_smallest_deviation,
-        "Under"
+        "Under",
       );
 
       if (over && under) {
@@ -338,6 +346,8 @@ export const gameLines = (data: any) => {
           participant_name: over?.name,
           participant_handicap: over?.handicap,
           participant_header: over?.header,
+          game: "volleyball",
+          bet_type: "Live",
         };
         const under_obj = {
           title: "U " + under.handicap,
@@ -353,6 +363,8 @@ export const gameLines = (data: any) => {
           participant_name: under?.name,
           participant_handicap: under?.handicap,
           participant_header: under?.header,
+          game: "volleyball",
+          bet_type: "Live",
         };
 
         const total_spread_arr = [title_obj, over_obj, under_obj];
@@ -420,6 +432,8 @@ export const linesToCurrentSet = (data: any) => {
         participant_name: home?.name,
         participant_handicap: home?.handicap,
         participant_header: home?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
       const away_obj = {
         title: away.handicap,
@@ -435,6 +449,8 @@ export const linesToCurrentSet = (data: any) => {
         participant_name: away?.name,
         participant_handicap: away?.handicap,
         participant_header: away?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
 
       const line_spread_arr = [title_obj, home_obj, away_obj];
@@ -468,6 +484,8 @@ export const linesToCurrentSet = (data: any) => {
         participant_name: home?.name,
         participant_handicap: home?.handicap,
         participant_header: home?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
       const away_obj = {
         title: "+" + Math.abs(away.handicap),
@@ -483,6 +501,8 @@ export const linesToCurrentSet = (data: any) => {
         participant_name: away?.name,
         participant_handicap: away?.handicap,
         participant_header: away?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
 
       const line_spread_arr = [title_obj, home_obj, away_obj];
@@ -516,6 +536,8 @@ export const linesToCurrentSet = (data: any) => {
         participant_name: over?.name,
         participant_handicap: over?.handicap,
         participant_header: over?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
       const under_obj = {
         title: "U " + "+" + Math.abs(under.handicap),
@@ -531,6 +553,8 @@ export const linesToCurrentSet = (data: any) => {
         participant_name: under?.name,
         participant_handicap: under?.handicap,
         participant_header: under?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
 
       const line_spread_arr = [title_obj, over_obj, under_obj];
@@ -601,6 +625,8 @@ export const currentSetPointBetting = (data: any) => {
             participant_name: _home_obj?.name,
             participant_handicap: _home_obj?.handicap,
             participant_header: _home_obj?.header,
+            game: "volleyball",
+            bet_type: "Live",
           };
           var away_obj = {
             title: "",
@@ -618,6 +644,8 @@ export const currentSetPointBetting = (data: any) => {
             participant_name: _away_obj?.name,
             participant_handicap: _away_obj?.handicap,
             participant_header: _away_obj?.header,
+            game: "volleyball",
+            bet_type: "Live",
           };
           arr = [title_obj, home_obj, away_obj];
           base_arr.push(arr);
@@ -692,6 +720,8 @@ export const currentSetRaceTo = (data: any) => {
             participant_name: _one_obj?.name,
             participant_handicap: _one_obj?.handicap,
             participant_header: _one_obj?.header,
+            game: "volleyball",
+            bet_type: "Live",
           };
           var two_obj = {
             title: "",
@@ -709,6 +739,8 @@ export const currentSetRaceTo = (data: any) => {
             participant_name: _two_obj?.name,
             participant_handicap: _two_obj?.handicap,
             participant_header: _two_obj?.header,
+            game: "volleyball",
+            bet_type: "Live",
           };
           arr = [title_obj, one_obj, two_obj];
           base_arr.push(arr);
@@ -783,6 +815,8 @@ export const currentSetLeadAfter = (data: any) => {
             participant_name: home_obj?.name,
             participant_handicap: home_obj?.handicap,
             participant_header: home_obj?.header,
+            game: "volleyball",
+            bet_type: "Live",
           };
           var _away = {
             title: "",
@@ -800,6 +834,8 @@ export const currentSetLeadAfter = (data: any) => {
             participant_name: away_obj?.name,
             participant_handicap: away_obj?.handicap,
             participant_header: away_obj?.header,
+            game: "volleyball",
+            bet_type: "Live",
           };
           var _tie = {
             title: "",
@@ -817,6 +853,8 @@ export const currentSetLeadAfter = (data: any) => {
             participant_name: tie_obj?.name,
             participant_handicap: tie_obj?.handicap,
             participant_header: tie_obj?.header,
+            game: "volleyball",
+            bet_type: "Live",
           };
           arr = [_title, _home, _away, _tie];
           base_arr.push(arr);
@@ -883,6 +921,8 @@ export const currentSetExtraPoints = (data: any) => {
         participant_name: yes?.name,
         participant_handicap: yes?.handicap,
         participant_header: yes?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
       const no_obj = {
         title: no.name,
@@ -898,6 +938,8 @@ export const currentSetExtraPoints = (data: any) => {
         participant_name: no?.name,
         participant_handicap: no?.handicap,
         participant_header: no?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
 
       const line_spread_arr = [yes_obj, no_obj];
@@ -925,7 +967,7 @@ const _getParticipantsFieldWithoutHandicap = (
   data: any,
   odd_id: any,
   participants: any,
-  line: string
+  line: string,
 ) => {
   for (var participant_id in participants) {
     var title = "";
@@ -951,6 +993,8 @@ const _getParticipantsFieldWithoutHandicap = (
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
       return obj;
     }
@@ -1011,6 +1055,8 @@ export const oddEven = (data: any) => {
         participant_name: odd?.name,
         participant_handicap: odd?.handicap,
         participant_header: odd?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
       const even_obj = {
         title: even.handicap,
@@ -1026,6 +1072,8 @@ export const oddEven = (data: any) => {
         participant_name: even?.name,
         participant_handicap: even?.handicap,
         participant_header: even?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
 
       const line_spread_arr = [title_obj, odd_obj, even_obj];
@@ -1052,13 +1100,13 @@ export const oddEven = (data: any) => {
         data,
         odd_id,
         participants,
-        "Odd"
+        "Odd",
       );
       var even_1 = _getParticipantsFieldWithoutHandicap(
         data,
         odd_id,
         participants,
-        "Even"
+        "Even",
       );
 
       if (odd_1 !== null) {
@@ -1080,7 +1128,7 @@ export const oddEven = (data: any) => {
 // Function to group participants by name
 function groupParticipantsByPropertyName(
   home_participants: any,
-  away_participants: any
+  away_participants: any,
 ) {
   const groupedParticipants = {} as any;
 
@@ -1158,7 +1206,7 @@ export const currentSetWinningMargin = (data: any) => {
   if (home_participants != null && away_participants != null) {
     var group = groupParticipantsByPropertyName(
       home_participants,
-      away_participants
+      away_participants,
     );
     for (var row_name in group) {
       var group_obj = group[row_name];
@@ -1183,6 +1231,8 @@ export const currentSetWinningMargin = (data: any) => {
         participant_name: home_participant?.name,
         participant_handicap: home_participant?.handicap,
         participant_header: home_participant?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
       var away_obj = {
         title: "",
@@ -1198,6 +1248,8 @@ export const currentSetWinningMargin = (data: any) => {
         participant_name: away_participant?.name,
         participant_handicap: away_participant?.handicap,
         participant_header: away_participant?.header,
+        game: "volleyball",
+        bet_type: "Live",
       };
       var arr = [title_obj, home_obj, away_obj];
       base_arr.push(arr);
@@ -1295,7 +1347,7 @@ export const currentSetCorrectScore = (data: any) => {
   // console.log("ll least gamell least game", least_game);
   const grouped_participants = groupAndFilterParticipants(
     participants,
-    least_game
+    least_game,
   );
 
   for (var group in grouped_participants) {
@@ -1316,6 +1368,8 @@ export const currentSetCorrectScore = (data: any) => {
       participant_name: group_obj[0]?.name,
       participant_handicap: group_obj[0]?.handicap,
       participant_header: group_obj[0]?.header,
+      game: "volleyball",
+      bet_type: "Live",
     };
     var away_obj = {
       title: "",
@@ -1331,6 +1385,8 @@ export const currentSetCorrectScore = (data: any) => {
       participant_name: group_obj[1]?.name,
       participant_handicap: group_obj[1]?.handicap,
       participant_header: group_obj[1]?.header,
+      game: "volleyball",
+      bet_type: "Live",
     };
     arr.push(title_obj, home_obj, away_obj);
     base_arr.push(arr);
@@ -1365,7 +1421,7 @@ export const scoreAfter3rdSet = (data: any) => {
   // console.log("ll least game", least_game);
   const grouped_participants = groupAndFilterParticipants(
     participants,
-    least_game
+    least_game,
   );
 
   // console.log(
@@ -1392,6 +1448,8 @@ export const scoreAfter3rdSet = (data: any) => {
       participant_name: group_obj[0]?.name,
       participant_handicap: group_obj[0]?.handicap,
       participant_header: group_obj[0]?.header,
+      game: "volleyball",
+      bet_type: "Live",
     };
     var away_obj = {
       title: "",
@@ -1407,6 +1465,8 @@ export const scoreAfter3rdSet = (data: any) => {
       participant_name: group_obj[1]?.name,
       participant_handicap: group_obj[1]?.handicap,
       participant_header: group_obj[1]?.header,
+      game: "volleyball",
+      bet_type: "Live",
     };
     arr.push(title_obj, home_obj, away_obj);
     base_arr.push(arr);
@@ -1440,7 +1500,7 @@ export const scoreAfter2ndSet = (data: any) => {
   // console.log("ll least game", least_game);
   const grouped_participants = groupAndFilterParticipants(
     participants,
-    least_game
+    least_game,
   );
 
   // console.log(
@@ -1467,6 +1527,8 @@ export const scoreAfter2ndSet = (data: any) => {
       participant_name: group_obj[0]?.name,
       participant_handicap: group_obj[0]?.handicap,
       participant_header: group_obj[0]?.header,
+      game: "volleyball",
+      bet_type: "Live",
     };
     var away_obj = {
       title: "",
@@ -1482,6 +1544,8 @@ export const scoreAfter2ndSet = (data: any) => {
       participant_name: group_obj[1]?.name,
       participant_handicap: group_obj[1]?.handicap,
       participant_header: group_obj[1]?.header,
+      game: "volleyball",
+      bet_type: "Live",
     };
     arr.push(title_obj, home_obj, away_obj);
     base_arr.push(arr);
@@ -1522,7 +1586,7 @@ export const correctSetScore = (data: any) => {
 
   const grouped_participants = groupAndFilterParticipants(
     participants,
-    least_game
+    least_game,
   );
 
   for (var group in grouped_participants) {
@@ -1544,6 +1608,8 @@ export const correctSetScore = (data: any) => {
       participant_name: group_obj[0]?.name,
       participant_handicap: group_obj[0]?.handicap,
       participant_header: group_obj[0]?.header,
+      game: "volleyball",
+      bet_type: "Live",
     };
     var away_obj = {
       title: "",
@@ -1559,6 +1625,8 @@ export const correctSetScore = (data: any) => {
       participant_name: group_obj[1]?.name,
       participant_handicap: group_obj[1]?.handicap,
       participant_header: group_obj[1]?.header,
+      game: "volleyball",
+      bet_type: "Live",
     };
     arr.push(title_obj, home_obj, away_obj);
     base_arr.push(arr);
@@ -1618,6 +1686,8 @@ export const teamTotals = (data: any) => {
               participant_name: over_obj?.name,
               participant_handicap: over_obj?.handicap,
               participant_header: over_obj?.header,
+              game: "volleyball",
+              bet_type: "Live",
             };
             var _under = {
               title: "Under " + handicap,
@@ -1635,6 +1705,8 @@ export const teamTotals = (data: any) => {
               participant_name: under_obj?.name,
               participant_handicap: under_obj?.handicap,
               participant_header: under_obj?.header,
+              game: "volleyball",
+              bet_type: "Live",
             };
             arr.push(_over, _under);
           }
@@ -1668,6 +1740,8 @@ export const teamTotals = (data: any) => {
             participant_name: over_obj?.name,
             participant_handicap: over_obj?.handicap,
             participant_header: over_obj?.header,
+            game: "volleyball",
+            bet_type: "Live",
           };
           var _under = {
             title: "Under " + handicap,
@@ -1685,6 +1759,8 @@ export const teamTotals = (data: any) => {
             participant_name: under_obj?.name,
             participant_handicap: under_obj?.handicap,
             participant_header: under_obj?.header,
+            game: "volleyball",
+            bet_type: "Live",
           };
           arr.push(_over, _under);
         }
@@ -1734,6 +1810,8 @@ export const teamTotals = (data: any) => {
               participant_name: over_obj?.name,
               participant_handicap: over_obj?.handicap,
               participant_header: over_obj?.header,
+              game: "volleyball",
+              bet_type: "Live",
             };
             var _under = {
               title: "Under " + handicap,
@@ -1751,6 +1829,8 @@ export const teamTotals = (data: any) => {
               participant_name: under_obj?.name,
               participant_handicap: under_obj?.handicap,
               participant_header: under_obj?.header,
+              game: "volleyball",
+              bet_type: "Live",
             };
             arr.push(_over, _under);
           }
@@ -1784,6 +1864,8 @@ export const teamTotals = (data: any) => {
             participant_name: over_obj?.name,
             participant_handicap: over_obj?.handicap,
             participant_header: over_obj?.header,
+            game: "volleyball",
+            bet_type: "Live",
           };
           var _under = {
             title: "Under " + handicap,
@@ -1801,6 +1883,8 @@ export const teamTotals = (data: any) => {
             participant_name: under_obj?.name,
             participant_handicap: under_obj?.handicap,
             participant_header: under_obj?.header,
+            game: "volleyball",
+            bet_type: "Live",
           };
           arr.push(_over, _under);
         }

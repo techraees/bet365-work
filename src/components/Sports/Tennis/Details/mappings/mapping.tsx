@@ -126,7 +126,7 @@ export const toWin = (data: any) => {
   const current_set_winner_string = current_period + " Winner";
   const odd_id_current_set_winner = findIdByName(
     data,
-    current_set_winner_string
+    current_set_winner_string,
   );
 
   var odds_final_winner = data?.odds[67];
@@ -143,13 +143,13 @@ export const toWin = (data: any) => {
       data,
       67,
       participants,
-      "Home"
+      "Home",
     );
     var away = _getParticipantsFieldWithoutHandicap(
       data,
       67,
       participants,
-      "Away"
+      "Away",
     );
     if (home !== null) {
       home.title = "";
@@ -178,13 +178,13 @@ export const toWin = (data: any) => {
       data,
       odd_id_current_set_winner,
       participants,
-      "Home"
+      "Home",
     );
     var away = _getParticipantsFieldWithoutHandicap(
       data,
       odd_id_current_set_winner,
       participants,
-      "Away"
+      "Away",
     );
     if (home !== null) {
       home.title = "";
@@ -253,6 +253,8 @@ export const pointBetting = (data: any) => {
       participant_name: home_obj.name,
       participant_handicap: home_obj.handicap,
       participant_header: home_obj.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var away_row_obj = {
       title: "",
@@ -268,6 +270,8 @@ export const pointBetting = (data: any) => {
       participant_name: away_obj.name,
       participant_handicap: away_obj.handicap,
       participant_header: away_obj.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr = [title_obj, home_row_obj, away_row_obj];
     base_arr.push(arr);
@@ -320,7 +324,7 @@ export const gameWinner = (data: any) => {
   const _current_set_winner_string = "Game Winner";
   const _odd_id_current_set_winner = findIdByName(
     data,
-    _current_set_winner_string
+    _current_set_winner_string,
   );
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
@@ -335,14 +339,14 @@ export const gameWinner = (data: any) => {
     _odd_id_current_set_winner,
     participants,
     "Home",
-    current_game
+    current_game,
   );
   var away = _getParticipantsField(
     data,
     _odd_id_current_set_winner,
     participants,
     "Away",
-    current_game
+    current_game,
   );
   if (home) {
     home.title = data?.team_info?.home?.name;
@@ -400,7 +404,7 @@ export const gameToDeuce = (data: any) => {
   const current_set_winner_string = "Game Deuce";
   const odd_id_current_set_winner = findIdByName(
     data,
-    current_set_winner_string
+    current_set_winner_string,
   );
 
   var odds = data?.odds[odd_id_current_set_winner];
@@ -416,14 +420,14 @@ export const gameToDeuce = (data: any) => {
     odd_id_current_set_winner,
     participants,
     "Yes",
-    current_game
+    current_game,
   );
   var no = _getParticipantsField(
     data,
     odd_id_current_set_winner,
     participants,
     "No",
-    current_game
+    current_game,
   );
   if (yes !== null && no !== null) {
     arr.push(yes);
@@ -433,7 +437,7 @@ export const gameToDeuce = (data: any) => {
 
   var suspended_value = allSuspendedForHandicap(
     participants,
-    current_game
+    current_game,
   ).toString();
 
   console.log(current_set_winner_string, base_arr);
@@ -446,7 +450,7 @@ const _gameScoreCreateRow = (
   odd_id: any,
   participants: any,
   scorePoint: string,
-  handicap: any
+  handicap: any,
 ) => {
   var arr = [] as any;
   var away_score_string = "W-" + scorePoint;
@@ -471,6 +475,8 @@ const _gameScoreCreateRow = (
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(obj);
     }
@@ -492,6 +498,8 @@ const _gameScoreCreateRow = (
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(obj);
     }
@@ -553,8 +561,8 @@ export const gameScore = (data: any) => {
       odd_id_game_score,
       participants,
       "0",
-      current_game
-    )
+      current_game,
+    ),
   );
   var rows_of_15 = [{ title: "to 15", value: null, suspend: "0" }].concat(
     _gameScoreCreateRow(
@@ -562,8 +570,8 @@ export const gameScore = (data: any) => {
       odd_id_game_score,
       participants,
       "15",
-      current_game
-    )
+      current_game,
+    ),
   );
   var rows_of_30 = [{ title: "to 30", value: null, suspend: "0" }].concat(
     _gameScoreCreateRow(
@@ -571,8 +579,8 @@ export const gameScore = (data: any) => {
       odd_id_game_score,
       participants,
       "30",
-      current_game
-    )
+      current_game,
+    ),
   );
   var rows_of_40 = [{ title: "to 40", value: null, suspend: "0" }].concat(
     _gameScoreCreateRow(
@@ -580,8 +588,8 @@ export const gameScore = (data: any) => {
       odd_id_game_score,
       participants,
       "40",
-      current_game
-    )
+      current_game,
+    ),
   );
   if (
     rows_of_0.length > 1 &&
@@ -661,7 +669,7 @@ export const nextGameWinner = (data: any) => {
   const _current_set_winner_string = "Game Winner";
   const _odd_id_current_set_winner = findIdByName(
     data,
-    _current_set_winner_string
+    _current_set_winner_string,
   );
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
@@ -697,6 +705,8 @@ export const nextGameWinner = (data: any) => {
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(obj);
     }
@@ -721,6 +731,8 @@ export const nextGameWinner = (data: any) => {
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(obj);
     }
@@ -775,7 +787,7 @@ export const nextGameToDeuce = (data: any) => {
   const current_set_winner_string = "Game Deuce";
   const odd_id_current_set_winner = findIdByName(
     data,
-    current_set_winner_string
+    current_set_winner_string,
   );
 
   var odds = data?.odds[odd_id_current_set_winner];
@@ -812,6 +824,8 @@ export const nextGameToDeuce = (data: any) => {
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(obj);
     }
@@ -836,6 +850,8 @@ export const nextGameToDeuce = (data: any) => {
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(obj);
     }
@@ -854,13 +870,13 @@ export const nextGameToDeuce = (data: any) => {
 
 function allSuspendedForHandicap(
   participants: any,
-  targetHandicap: number
+  targetHandicap: number,
 ): string {
   const filteredParticipants = Object.values(participants).filter(
-    (participant: any) => parseInt(participant.handicap) === targetHandicap
+    (participant: any) => parseInt(participant.handicap) === targetHandicap,
   );
   var result = filteredParticipants.every(
-    (participant: any) => participant.suspend === "1"
+    (participant: any) => participant.suspend === "1",
   );
   if (result) {
     return "1";
@@ -871,7 +887,7 @@ function allSuspendedForHandicap(
 function allParticipantsSuspended(participants: any): string {
   var _participants = Object.values(participants);
   var result = _participants.every(
-    (participant: any) => participant.suspend === "1"
+    (participant: any) => participant.suspend === "1",
   );
   if (result) {
     return "1";
@@ -927,16 +943,40 @@ export const nextGameScore = (data: any) => {
 
   var participants = odds.participants;
   var rows_of_0 = [{ title: "to love", value: null, suspend: "0" }].concat(
-    _gameScoreCreateRow(data, odd_id_game_score,participants, "0", current_game).reverse()
+    _gameScoreCreateRow(
+      data,
+      odd_id_game_score,
+      participants,
+      "0",
+      current_game,
+    ).reverse(),
   );
   var rows_of_15 = [{ title: "to 15", value: null, suspend: "0" }].concat(
-    _gameScoreCreateRow(data, odd_id_game_score,participants, "15", current_game).reverse()
+    _gameScoreCreateRow(
+      data,
+      odd_id_game_score,
+      participants,
+      "15",
+      current_game,
+    ).reverse(),
   );
   var rows_of_30 = [{ title: "to 30", value: null, suspend: "0" }].concat(
-    _gameScoreCreateRow(data, odd_id_game_score, participants, "30", current_game).reverse()
+    _gameScoreCreateRow(
+      data,
+      odd_id_game_score,
+      participants,
+      "30",
+      current_game,
+    ).reverse(),
   );
   var rows_of_40 = [{ title: "to 40", value: null, suspend: "0" }].concat(
-    _gameScoreCreateRow(data, odd_id_game_score, participants, "40", current_game).reverse()
+    _gameScoreCreateRow(
+      data,
+      odd_id_game_score,
+      participants,
+      "40",
+      current_game,
+    ).reverse(),
   );
   if (
     rows_of_0.length > 1 &&
@@ -997,7 +1037,7 @@ export const pointWinner = (data: any) => {
   const _current_set_winner_string = "Point Winner";
   const _odd_id_current_set_winner = findIdByName(
     data,
-    _current_set_winner_string
+    _current_set_winner_string,
   );
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
@@ -1033,6 +1073,8 @@ export const pointWinner = (data: any) => {
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(obj);
     }
@@ -1057,6 +1099,8 @@ export const pointWinner = (data: any) => {
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(obj);
     }
@@ -1111,7 +1155,7 @@ export const nextPointWinner = (data: any) => {
   const _current_set_winner_string = "Point Winner";
   const _odd_id_current_set_winner = findIdByName(
     data,
-    _current_set_winner_string
+    _current_set_winner_string,
   );
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
@@ -1147,6 +1191,8 @@ export const nextPointWinner = (data: any) => {
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(obj);
     }
@@ -1171,6 +1217,8 @@ export const nextPointWinner = (data: any) => {
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(obj);
     }
@@ -1223,7 +1271,7 @@ export const gameScoreAfter2Points = (data: any) => {
 
   const _odd_id_current_set_winner = findIdByName(
     data,
-    "Game Score after 2 points"
+    "Game Score after 2 points",
   );
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
@@ -1256,6 +1304,8 @@ export const gameScoreAfter2Points = (data: any) => {
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(obj);
     }
@@ -1310,7 +1360,7 @@ export const nextGameScoreAfter2Points = (data: any) => {
 
   const _odd_id_current_set_winner = findIdByName(
     data,
-    "Game Score after 2 points"
+    "Game Score after 2 points",
   );
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
@@ -1343,6 +1393,8 @@ export const nextGameScoreAfter2Points = (data: any) => {
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(obj);
     }
@@ -1359,7 +1411,7 @@ const _getParticipantsField = (
   odd_id: any,
   participants: any,
   line: string,
-  handicap: number
+  handicap: number,
 ) => {
   for (var participant_id in participants) {
     var title = "";
@@ -1387,6 +1439,8 @@ const _getParticipantsField = (
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       return obj;
     }
@@ -1398,7 +1452,7 @@ const _getParticipantsFieldWithoutHandicap = (
   event: any,
   odd_id: any,
   participants: any,
-  line: string
+  line: string,
 ) => {
   console.log("participants", participants);
   for (var participant_id in participants) {
@@ -1427,6 +1481,8 @@ const _getParticipantsFieldWithoutHandicap = (
         participant_name: participant_obj?.name,
         participant_handicap: participant_obj?.handicap,
         participant_header: participant_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       return obj;
     }
@@ -1446,7 +1502,7 @@ const _getParticipantsFieldRaw = (participants: any, line: string) => {
 
 const _getParticipantsFieldRawWithoutSuspend = (
   participants: any,
-  line: string
+  line: string,
 ) => {
   for (var participant_id in participants) {
     const participant_obj = participants[participant_id];
@@ -1498,7 +1554,7 @@ export const gameScoreAfter3Points = (data: any) => {
 
   const _odd_id_current_set_winner = findIdByName(
     data,
-    "Game Score after 3 points"
+    "Game Score after 3 points",
   );
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
@@ -1512,14 +1568,14 @@ export const gameScoreAfter3Points = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "30-15",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "15-30",
-      current_game
+      current_game,
     ),
   ];
   var secondRow = [
@@ -1528,14 +1584,14 @@ export const gameScoreAfter3Points = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "40-0",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "0-40",
-      current_game
+      current_game,
     ),
   ];
   if (firstRow.includes(null) == false && secondRow.includes(null) == false) {
@@ -1588,7 +1644,7 @@ export const nextGameScoreAfter3Points = (data: any) => {
 
   const _odd_id_current_set_winner = findIdByName(
     data,
-    "Game Score after 3 points"
+    "Game Score after 3 points",
   );
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
@@ -1602,14 +1658,14 @@ export const nextGameScoreAfter3Points = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "30-15",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "15-30",
-      current_game
+      current_game,
     ),
   ];
   var secondRow = [
@@ -1618,14 +1674,14 @@ export const nextGameScoreAfter3Points = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "40-0",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "0-40",
-      current_game
+      current_game,
     ),
   ];
   if (firstRow.includes(null) == false && secondRow.includes(null) == false) {
@@ -1678,7 +1734,7 @@ export const gameScoreAfter4Points = (data: any) => {
 
   const _odd_id_current_set_winner = findIdByName(
     data,
-    "Game Score after 4 points"
+    "Game Score after 4 points",
   );
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
@@ -1692,21 +1748,21 @@ export const gameScoreAfter4Points = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "W-0",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "30-30",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "0-W",
-      current_game
+      current_game,
     ),
   ];
   var secondRow = [
@@ -1715,7 +1771,7 @@ export const gameScoreAfter4Points = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "40-15",
-      current_game
+      current_game,
     ),
     { title: "", value: "", suspend: "0" },
     _getParticipantsField(
@@ -1723,7 +1779,7 @@ export const gameScoreAfter4Points = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "15-40",
-      current_game
+      current_game,
     ),
   ];
   if (firstRow.includes(null) == false && secondRow.includes(null) == false) {
@@ -1777,7 +1833,7 @@ export const nextGameScoreAfter4Points = (data: any) => {
 
   const _odd_id_current_set_winner = findIdByName(
     data,
-    "Game Score after 4 points"
+    "Game Score after 4 points",
   );
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
@@ -1791,21 +1847,21 @@ export const nextGameScoreAfter4Points = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "W-0",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "30-30",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "0-W",
-      current_game
+      current_game,
     ),
   ];
   var secondRow = [
@@ -1814,7 +1870,7 @@ export const nextGameScoreAfter4Points = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "40-15",
-      current_game
+      current_game,
     ),
     { title: "", value: "", suspend: "0" },
     _getParticipantsField(
@@ -1822,7 +1878,7 @@ export const nextGameScoreAfter4Points = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "15-40",
-      current_game
+      current_game,
     ),
   ];
   if (firstRow.includes(null) == false && secondRow.includes(null) == false) {
@@ -1886,14 +1942,14 @@ export const gameTotalPoints = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "4 Points",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "5 Points",
-      current_game
+      current_game,
     ),
   ];
   var secondRow = [
@@ -1902,14 +1958,14 @@ export const gameTotalPoints = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "6 Points",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "Over 6 points",
-      current_game
+      current_game,
     ),
   ];
   if (firstRow.includes(null) == false && secondRow.includes(null) == false) {
@@ -1974,14 +2030,14 @@ export const nextGameTotalPoints = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "4 Points",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "5 Points",
-      current_game
+      current_game,
     ),
   ];
   var secondRow = [
@@ -1990,14 +2046,14 @@ export const nextGameTotalPoints = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "6 Points",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "Over 6 points",
-      current_game
+      current_game,
     ),
   ];
   if (firstRow.includes(null) == false && secondRow.includes(null) == false) {
@@ -2051,7 +2107,7 @@ export const nextGameToHaveBreakpoint = (data: any) => {
 
   const _odd_id_current_set_winner = findIdByName(
     data,
-    "Game to Have Break Point"
+    "Game to Have Break Point",
   );
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
@@ -2065,14 +2121,14 @@ export const nextGameToHaveBreakpoint = (data: any) => {
       _odd_id_current_set_winner,
       participants,
       "Yes",
-      current_game
+      current_game,
     ),
     _getParticipantsField(
       data,
       _odd_id_current_set_winner,
       participants,
       "No",
-      current_game
+      current_game,
     ),
   ];
   if (firstRow.includes(null) == false) {
@@ -2093,7 +2149,7 @@ export const nextToGamesEitherGameToDeuce = (data: any) => {
 
   const _odd_id_next_two_games = findIdByName(
     data,
-    "Next Two Games - Either Game to Deuce"
+    "Next Two Games - Either Game to Deuce",
   );
   var odds = data?.odds[_odd_id_next_two_games];
   if (odds === undefined) {
@@ -2106,13 +2162,13 @@ export const nextToGamesEitherGameToDeuce = (data: any) => {
       data,
       _odd_id_next_two_games,
       participants,
-      "Yes"
+      "Yes",
     ),
     _getParticipantsFieldWithoutHandicap(
       data,
       _odd_id_next_two_games,
       participants,
-      "No"
+      "No",
     ),
   ];
   if (firstRow.includes(null) == false) {
@@ -2133,7 +2189,7 @@ export const nextTwoGamesWinner = (data: any) => {
 
   const _odd_id_current_set_winner = findIdByName(
     data,
-    "Next Two Games - Winner"
+    "Next Two Games - Winner",
   );
   var odds = data?.odds[_odd_id_current_set_winner];
   if (odds === undefined) {
@@ -2145,19 +2201,19 @@ export const nextTwoGamesWinner = (data: any) => {
     data,
     _odd_id_current_set_winner,
     participants,
-    "Home"
+    "Home",
   );
   var away = _getParticipantsFieldWithoutHandicap(
     data,
     _odd_id_current_set_winner,
     participants,
-    "Away"
+    "Away",
   );
   var tie = _getParticipantsFieldWithoutHandicap(
     data,
     _odd_id_current_set_winner,
     participants,
-    "Tie"
+    "Tie",
   );
   if (home !== null && away !== null && tie != null) {
     home.title = data?.team_info?.home.name;
@@ -2253,6 +2309,8 @@ export const totalGamesInCurrentSet = (data: any) => {
       participant_name: grouped_obj["Over"][0].name,
       participant_handicap: grouped_obj["Over"][0].handicap,
       participant_header: grouped_obj["Over"][0].header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var under_obj = {
       title: "",
@@ -2268,6 +2326,8 @@ export const totalGamesInCurrentSet = (data: any) => {
       participant_name: grouped_obj["Under"][0]?.name,
       participant_handicap: grouped_obj["Under"][0]?.handicap,
       participant_header: grouped_obj["Under"][0]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
 
     arr.push(over_obj);
@@ -2339,6 +2399,8 @@ export const overUnderCurrentSet = (data: any) => {
       participant_name: grouped_obj["Over"][0]?.name,
       participant_handicap: grouped_obj["Over"][0]?.handicap,
       participant_header: grouped_obj["Over"][0]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var under_obj = {
       title: "",
@@ -2354,6 +2416,8 @@ export const overUnderCurrentSet = (data: any) => {
       participant_name: grouped_obj["Under"][0]?.name,
       participant_handicap: grouped_obj["Under"][0]?.handicap,
       participant_header: grouped_obj["Under"][0]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
 
     arr.push(over_obj);
@@ -2462,6 +2526,8 @@ export const raceToCurrentSet = (data: any) => {
         participant_name: grouped_obj["Home"][0]?.name,
         participant_handicap: grouped_obj["Home"][0]?.handicap,
         participant_header: grouped_obj["Home"][0]?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       var away_obj = {
         title: "",
@@ -2477,6 +2543,8 @@ export const raceToCurrentSet = (data: any) => {
         participant_name: grouped_obj["Away"][0]?.name,
         participant_handicap: grouped_obj["Away"][0]?.handicap,
         participant_header: grouped_obj["Away"][0]?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
 
       arr.push(home_obj);
@@ -2552,6 +2620,8 @@ export const leadAfterCurrentSet = (data: any) => {
       participant_name: grouped_obj["1"][0]?.name,
       participant_handicap: grouped_obj["1"][0]?.handicap,
       participant_header: grouped_obj["1"][0]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var away_obj = {
       title: "",
@@ -2567,6 +2637,8 @@ export const leadAfterCurrentSet = (data: any) => {
       participant_name: grouped_obj["2"][0]?.name,
       participant_handicap: grouped_obj["2"][0]?.handicap,
       participant_header: grouped_obj["2"][0]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var tie_obj = {
       title: "",
@@ -2582,6 +2654,8 @@ export const leadAfterCurrentSet = (data: any) => {
       participant_name: grouped_obj["X"][0]?.name,
       participant_handicap: grouped_obj["X"][0]?.handicap,
       participant_header: grouped_obj["X"][0]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
 
     arr.push(home_obj);
@@ -2679,7 +2753,7 @@ export const correctScoreCurrentSet = (data: any) => {
   console.log("ll least game", least_game);
   const grouped_participants = groupAndFilterParticipants(
     participants,
-    least_game
+    least_game,
   );
   for (var group in grouped_participants) {
     var arr = [] as any;
@@ -2699,6 +2773,8 @@ export const correctScoreCurrentSet = (data: any) => {
       participant_name: group_obj[0]?.name,
       participant_handicap: group_obj[0]?.handicap,
       participant_header: group_obj[0]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var away_obj = {
       title: "",
@@ -2714,6 +2790,8 @@ export const correctScoreCurrentSet = (data: any) => {
       participant_name: group_obj[1]?.name,
       participant_handicap: group_obj[1]?.handicap,
       participant_header: group_obj[1]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr.push(title_obj, home_obj, away_obj);
     base_arr.push(arr);
@@ -2832,7 +2910,7 @@ export const correctScoreCurrentSetAnyPlayer = (data: any) => {
         : current_set_stats.home;
     const grouped_participants = groupAndFilterParticipants(
       participants,
-      parseInt(least_game)
+      parseInt(least_game),
     );
     for (var group in grouped_participants) {
       var arr = [] as any;
@@ -2857,6 +2935,8 @@ export const correctScoreCurrentSetAnyPlayer = (data: any) => {
         participant_name: group_obj[0]?.name,
         participant_handicap: group_obj[0]?.handicap,
         participant_header: group_obj[0]?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       var away_obj = {
         title: "",
@@ -2872,6 +2952,8 @@ export const correctScoreCurrentSetAnyPlayer = (data: any) => {
         participant_name: group_obj[1]?.name,
         participant_handicap: group_obj[1]?.handicap,
         participant_header: group_obj[1]?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       console.log("hh", home_obj);
       console.log("ii", away_obj);
@@ -2931,7 +3013,7 @@ export const correctScoreCurrentSetAnyPlayerDrawBack = (data: any) => {
       : current_set_stats.home;
   const grouped_participants = groupAndFilterParticipants(
     participants,
-    parseInt(least_game)
+    parseInt(least_game),
   );
   console.log("gg", grouped_participants);
 
@@ -2957,6 +3039,8 @@ export const correctScoreCurrentSetAnyPlayerDrawBack = (data: any) => {
           participant_name: participant_obj?.name,
           participant_handicap: participant_obj?.handicap,
           participant_header: participant_obj?.header,
+          bet_type: "Live",
+          game: "tennis",
         };
         group.push(element);
         // group.push(participants[keys[i]]);
@@ -2979,6 +3063,8 @@ export const correctScoreCurrentSetAnyPlayerDrawBack = (data: any) => {
           participant_name: participant_obj?.name,
           participant_handicap: participant_obj?.handicap,
           participant_header: participant_obj?.header,
+          bet_type: "Live",
+          game: "tennis",
         };
         group.push(element);
       }
@@ -3035,7 +3121,7 @@ export const correctScoreNextSetAnyPlayer = (data: any) => {
         : current_set_stats.home;
     const grouped_participants = groupAndFilterParticipants(
       participants,
-      parseInt(least_game)
+      parseInt(least_game),
     );
     for (var group in grouped_participants) {
       var arr = [] as any;
@@ -3060,6 +3146,8 @@ export const correctScoreNextSetAnyPlayer = (data: any) => {
         participant_name: group_obj[0]?.name,
         participant_handicap: group_obj[0]?.handicap,
         participant_header: group_obj[0]?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       var away_obj = {
         title: "",
@@ -3075,6 +3163,8 @@ export const correctScoreNextSetAnyPlayer = (data: any) => {
         participant_name: group_obj[1]?.name,
         participant_handicap: group_obj[1]?.handicap,
         participant_header: group_obj[1]?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       console.log("hh", home_obj);
       console.log("ii", away_obj);
@@ -3134,7 +3224,7 @@ export const correctScoreNextSetAnyPlayerDrawBack = (data: any) => {
       : current_set_stats.home;
   const grouped_participants = groupAndFilterParticipants(
     participants,
-    parseInt(least_game)
+    parseInt(least_game),
   );
   console.log("gg", grouped_participants);
 
@@ -3160,6 +3250,8 @@ export const correctScoreNextSetAnyPlayerDrawBack = (data: any) => {
           participant_name: participant_obj?.name,
           participant_handicap: participant_obj?.handicap,
           participant_header: participant_obj?.header,
+          bet_type: "Live",
+          game: "tennis",
         };
         group.push(element);
         // group.push(participants[keys[i]]);
@@ -3182,6 +3274,8 @@ export const correctScoreNextSetAnyPlayerDrawBack = (data: any) => {
           participant_name: participant_obj?.name,
           participant_handicap: participant_obj?.handicap,
           participant_header: participant_obj?.header,
+          bet_type: "Live",
+          game: "tennis",
         };
         group.push(element);
       }
@@ -3234,25 +3328,25 @@ export const currentSetToBreakServe = (data: any) => {
     data,
     _odd_id_current_set_winner,
     participants,
-    "1/Yes"
+    "1/Yes",
   );
   var away_yes = _getParticipantsFieldWithoutHandicap(
     data,
     _odd_id_current_set_winner,
     participants,
-    "2/Yes"
+    "2/Yes",
   );
   var home_no = _getParticipantsFieldWithoutHandicap(
     data,
     _odd_id_current_set_winner,
     participants,
-    "1/No"
+    "1/No",
   );
   var away_no = _getParticipantsFieldWithoutHandicap(
     data,
     _odd_id_current_set_winner,
     participants,
-    "2/No"
+    "2/No",
   );
 
   if (
@@ -3328,25 +3422,25 @@ export const nextSetToBreakServe = (data: any) => {
     data,
     _odd_id_current_set_winner,
     participants,
-    "1/Yes"
+    "1/Yes",
   );
   var away_yes = _getParticipantsFieldWithoutHandicap(
     data,
     _odd_id_current_set_winner,
     participants,
-    "2/Yes"
+    "2/Yes",
   );
   var home_no = _getParticipantsFieldWithoutHandicap(
     data,
     _odd_id_current_set_winner,
     participants,
-    "1/No"
+    "1/No",
   );
   var away_no = _getParticipantsFieldWithoutHandicap(
     data,
     _odd_id_current_set_winner,
     participants,
-    "2/No"
+    "2/No",
   );
 
   if (
@@ -3401,13 +3495,13 @@ export const goTheDistance = (data: any) => {
     data,
     _odd_id_current_set_winner,
     participants,
-    "Yes"
+    "Yes",
   );
   var no = _getParticipantsFieldWithoutHandicap(
     data,
     _odd_id_current_set_winner,
     participants,
-    "No"
+    "No",
   );
 
   var row_1 = [yes, no];
@@ -3437,13 +3531,13 @@ export const matchOddEven = (data: any) => {
     data,
     _odd_id_current_set_winner,
     participants,
-    "Odd"
+    "Odd",
   );
   var even = _getParticipantsFieldWithoutHandicap(
     data,
     _odd_id_current_set_winner,
     participants,
-    "Even"
+    "Even",
   );
 
   var row_1 = [odd, even];
@@ -3493,7 +3587,7 @@ function groupSymmetrically(data: any) {
     // Check if the symmetric pair is already processed
     if (!visited[symmetricName]) {
       const symmetricItem = Object.values(data).find(
-        (i: any) => i.name === symmetricName
+        (i: any) => i.name === symmetricName,
       );
 
       if (symmetricItem) {
@@ -3565,6 +3659,8 @@ export const currectSetCorrectScoreGroup = (data: any) => {
       participant_name: group_obj[1]?.name,
       participant_handicap: group_obj[1]?.handicap,
       participant_header: group_obj[1]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var second_group = {
       title: "",
@@ -3580,6 +3676,8 @@ export const currectSetCorrectScoreGroup = (data: any) => {
       participant_name: group_obj[0]?.name,
       participant_handicap: group_obj[0]?.handicap,
       participant_header: group_obj[0]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr.push(title_obj);
     arr.push(first_group);
@@ -3648,6 +3746,8 @@ export const currectSetCorrectScoreGroup2 = (data: any) => {
       participant_name: group_obj[1]?.name,
       participant_handicap: group_obj[1]?.handicap,
       participant_header: group_obj[1]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var second_group = {
       title: "",
@@ -3663,6 +3763,8 @@ export const currectSetCorrectScoreGroup2 = (data: any) => {
       participant_name: group_obj[0]?.name,
       participant_handicap: group_obj[0]?.handicap,
       participant_header: group_obj[0]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr.push(title_obj);
     arr.push(first_group);
@@ -3731,6 +3833,8 @@ export const nextSetCorrectScoreGroup = (data: any) => {
       participant_name: group_obj[1]?.name,
       participant_handicap: group_obj[1]?.handicap,
       participant_header: group_obj[1]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var second_group = {
       title: "",
@@ -3746,6 +3850,8 @@ export const nextSetCorrectScoreGroup = (data: any) => {
       participant_name: group_obj[0]?.name,
       participant_handicap: group_obj[0]?.handicap,
       participant_header: group_obj[0]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr.push(title_obj);
     arr.push(first_group);
@@ -3815,6 +3921,8 @@ export const nextSetCorrectScoreGroup2 = (data: any) => {
       participant_name: group_obj[1]?.name,
       participant_handicap: group_obj[1]?.handicap,
       participant_header: group_obj[1]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var second_group = {
       title: "",
@@ -3830,6 +3938,8 @@ export const nextSetCorrectScoreGroup2 = (data: any) => {
       participant_name: group_obj[0]?.name,
       participant_handicap: group_obj[0]?.handicap,
       participant_header: group_obj[0]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr.push(title_obj);
     arr.push(first_group);
@@ -3908,6 +4018,8 @@ export const currentSetScoreAfter4Games = (data: any) => {
         participant_name: obj?.name,
         participant_handicap: obj?.handicap,
         participant_header: obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(value_obj);
     }
@@ -3984,6 +4096,8 @@ export const currentSetScoreAfter6Games = (data: any) => {
         participant_name: obj?.name,
         participant_handicap: obj?.handicap,
         participant_header: obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr.push(value_obj);
     }
@@ -4059,6 +4173,8 @@ export const nextSetScoreAfter4Games = (data: any) => {
           participant_name: obj?.name,
           participant_handicap: obj?.handicap,
           participant_header: obj?.header,
+          bet_type: "Live",
+          game: "tennis",
         };
         arr.push(value_obj);
       }
@@ -4137,6 +4253,8 @@ export const nextSetScoreAfter6Games = (data: any) => {
           participant_name: obj?.name,
           participant_handicap: obj?.handicap,
           participant_header: obj?.header,
+          bet_type: "Live",
+          game: "tennis",
         };
         arr.push(value_obj);
       }
@@ -4207,6 +4325,8 @@ export const currentSetHandicap = (data: any) => {
       participant_name: home_participant?.name,
       participant_handicap: home_participant?.handicap,
       participant_header: home_participant?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr.push(home_obj);
   }
@@ -4228,6 +4348,8 @@ export const currentSetHandicap = (data: any) => {
       participant_name: away_participant?.name,
       participant_handicap: away_participant?.handicap,
       participant_header: away_participant?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr.push(away_obj);
   }
@@ -4295,6 +4417,8 @@ export const currentSetTieBreak = (data: any) => {
       participant_name: home_participant?.name,
       participant_handicap: home_participant?.handicap,
       participant_header: home_participant?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr.push(home_obj);
   }
@@ -4316,6 +4440,8 @@ export const currentSetTieBreak = (data: any) => {
       participant_name: away_participant?.name,
       participant_handicap: away_participant?.handicap,
       participant_header: away_participant?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr.push(away_obj);
   }
@@ -4393,6 +4519,8 @@ export const currentSetTieBreakTotalPoints = (data: any) => {
       participant_name: over_participant?.name,
       participant_handicap: over_participant?.handicap,
       participant_header: over_participant?.header,
+      bet_type: "Live",
+      game: "tennis",
     });
     arr.push({
       title: "",
@@ -4408,6 +4536,8 @@ export const currentSetTieBreakTotalPoints = (data: any) => {
       participant_name: under_participant?.name,
       participant_handicap: under_participant?.handicap,
       participant_header: under_participant?.header,
+      bet_type: "Live",
+      game: "tennis",
     });
     base_arr.push(arr);
   }
@@ -4529,6 +4659,8 @@ export const currentSetTieBreakWinner = (data: any) => {
       participant_name: home_participant?.name,
       participant_handicap: home_participant?.handicap,
       participant_header: home_participant?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var away_obj = {
       title: data?.team_info?.away?.name,
@@ -4544,6 +4676,8 @@ export const currentSetTieBreakWinner = (data: any) => {
       participant_name: away_participant?.name,
       participant_handicap: away_participant?.handicap,
       participant_header: away_participant?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     row1 = [home_obj];
     row2 = [away_obj];
@@ -4616,6 +4750,8 @@ export const nextSetHandicap = (data: any) => {
       participant_name: home_participant?.name,
       participant_handicap: home_participant?.handicap,
       participant_header: home_participant?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr.push(home_obj);
   }
@@ -4637,6 +4773,8 @@ export const nextSetHandicap = (data: any) => {
       participant_name: away_participant?.name,
       participant_handicap: away_participant?.handicap,
       participant_header: away_participant?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr.push(away_obj);
   }
@@ -4706,6 +4844,8 @@ export const totalSets = (data: any) => {
         participant_name: first_participant?.name,
         participant_handicap: first_participant?.handicap,
         participant_header: first_participant?.header,
+        bet_type: "Live",
+        game: "tennis",
       });
 
       // Getting the next participant
@@ -4724,6 +4864,8 @@ export const totalSets = (data: any) => {
         participant_name: second_participant?.name,
         participant_handicap: second_participant?.handicap,
         participant_header: second_participant?.header,
+        bet_type: "Live",
+        game: "tennis",
       });
 
       base_arr.push(arr);
@@ -4749,6 +4891,8 @@ export const totalSets = (data: any) => {
         participant_name: last_participant?.name,
         participant_handicap: last_participant?.handicap,
         participant_header: last_participant?.header,
+        bet_type: "Live",
+        game: "tennis",
       },
     ]);
   }
@@ -4807,19 +4951,19 @@ export const playersOverUnder = (data: any) => {
   var arr = [] as any;
   var player_1_over_participant = _getParticipantsFieldRaw(
     player_1_participants,
-    "Over"
+    "Over",
   );
   var player_1_under_participant = _getParticipantsFieldRaw(
     player_1_participants,
-    "Under"
+    "Under",
   );
   var player_2_over_participant = _getParticipantsFieldRaw(
     player_2_participants,
-    "Over"
+    "Over",
   );
   var player_2_under_participant = _getParticipantsFieldRaw(
     player_2_participants,
-    "Under"
+    "Under",
   );
   var player_1_over_obj = {
     title:
@@ -4836,6 +4980,8 @@ export const playersOverUnder = (data: any) => {
     participant_name: player_1_over_participant?.name,
     participant_handicap: player_1_over_participant?.handicap,
     participant_header: player_1_over_participant?.header,
+    bet_type: "Live",
+    game: "tennis",
   };
   var player_1_under_obj = {
     title:
@@ -4853,6 +4999,8 @@ export const playersOverUnder = (data: any) => {
     participant_name: player_1_under_participant?.name,
     participant_handicap: player_1_under_participant?.handicap,
     participant_header: player_1_under_participant?.header,
+    bet_type: "Live",
+    game: "tennis",
   };
   var player_2_over_obj = {
     title:
@@ -4869,6 +5017,8 @@ export const playersOverUnder = (data: any) => {
     participant_name: player_2_over_participant?.name,
     participant_handicap: player_2_over_participant?.handicap,
     participant_header: player_2_over_participant?.header,
+    bet_type: "Live",
+    game: "tennis",
   };
   var player_2_under_obj = {
     title:
@@ -4887,13 +5037,15 @@ export const playersOverUnder = (data: any) => {
     participant_name: player_2_under_participant?.name,
     participant_handicap: player_2_under_participant?.handicap,
     participant_header: player_2_under_participant?.header,
+    bet_type: "Live",
+    game: "tennis",
   };
 
   arr.push(
     player_1_over_obj,
     player_1_under_obj,
     player_2_over_obj,
-    player_2_under_obj
+    player_2_under_obj,
   );
   base_arr.push(arr);
 
@@ -4928,7 +5080,7 @@ export const _groupSetBetting = (participants: {
     if (!processedIds.includes(participant.id)) {
       const reversedName = participant.name.split(":").reverse().join(":");
       const symmetric = Object.values(participants).find(
-        (p) => p.name === reversedName && !processedIds.includes(p.id)
+        (p) => p.name === reversedName && !processedIds.includes(p.id),
       );
 
       if (symmetric) {
@@ -5080,6 +5232,8 @@ export const totalGamesInMatch = (data: any) => {
         participant_name: over_obj?.name,
         participant_handicap: over_obj?.handicap,
         participant_header: over_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       var _under_obj = {
         title: "",
@@ -5095,6 +5249,8 @@ export const totalGamesInMatch = (data: any) => {
         participant_name: under_obj?.name,
         participant_handicap: under_obj?.handicap,
         participant_header: under_obj?.header,
+        bet_type: "Live",
+        game: "tennis",
       };
       arr = [_title_obj, _over_obj, _under_obj];
       base_arr.push(arr);
@@ -5141,11 +5297,11 @@ export const player1To = (data: any) => {
   if (player_1_to_win_in_straight_sets_odds !== undefined) {
     var player_1_to_win_in_straight_sets_yes = _getParticipantsFieldRaw(
       player_1_to_win_in_straight_sets_odds.participants,
-      "Yes"
+      "Yes",
     );
     var player_1_to_win_in_straight_sets_no = _getParticipantsFieldRaw(
       player_1_to_win_in_straight_sets_odds.participants,
-      "No"
+      "No",
     );
 
     var player_1_to_win_in_straight_sets_title = {
@@ -5167,6 +5323,8 @@ export const player1To = (data: any) => {
       participant_name: player_1_to_win_in_straight_sets_yes?.name,
       participant_handicap: player_1_to_win_in_straight_sets_yes?.handicap,
       participant_header: player_1_to_win_in_straight_sets_yes?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_to_win_in_straight_sets_no_obj = {
       title: "",
@@ -5182,6 +5340,8 @@ export const player1To = (data: any) => {
       participant_name: player_1_to_win_in_straight_sets_no?.name,
       participant_handicap: player_1_to_win_in_straight_sets_no?.handicap,
       participant_header: player_1_to_win_in_straight_sets_no?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_to_win_in_straight_sets_arr = [
       player_1_to_win_in_straight_sets_title,
@@ -5198,11 +5358,11 @@ export const player1To = (data: any) => {
   if (player_1_to_win_a_set_odds !== undefined) {
     var player_1_to_win_a_set_yes = _getParticipantsFieldRaw(
       player_1_to_win_a_set_odds.participants,
-      "Yes"
+      "Yes",
     );
     var player_1_to_win_a_set_no = _getParticipantsFieldRaw(
       player_1_to_win_a_set_odds.participants,
-      "No"
+      "No",
     );
     var player_1_to_win_a_set_title = {
       title: "Win a set",
@@ -5223,6 +5383,8 @@ export const player1To = (data: any) => {
       participant_name: player_1_to_win_a_set_yes?.name,
       participant_handicap: player_1_to_win_a_set_yes?.handicap,
       participant_header: player_1_to_win_a_set_yes?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_to_win_a_set_no_obj = {
       title: "",
@@ -5238,6 +5400,8 @@ export const player1To = (data: any) => {
       participant_name: player_1_to_win_a_set_yes?.name,
       participant_handicap: player_1_to_win_a_set_yes?.handicap,
       participant_header: player_1_to_win_a_set_yes?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_to_win_a_set_arr = [
       player_1_to_win_a_set_title,
@@ -5253,11 +5417,11 @@ export const player1To = (data: any) => {
   if (player_1_to_win_from_behind_odds !== undefined) {
     var player_1_to_win_from_behind_yes = _getParticipantsFieldRaw(
       player_1_to_win_from_behind_odds.participants,
-      "Yes"
+      "Yes",
     );
     var player_1_to_win_from_behind_no = _getParticipantsFieldRaw(
       player_1_to_win_from_behind_odds.participants,
-      "No"
+      "No",
     );
     var player_1_to_win_from_behind_title = {
       title: "Win from Behind(Sets)",
@@ -5278,6 +5442,8 @@ export const player1To = (data: any) => {
       participant_name: player_1_to_win_from_behind_yes?.name,
       participant_handicap: player_1_to_win_from_behind_yes?.handicap,
       participant_header: player_1_to_win_from_behind_yes?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_to_win_from_behind_no_obj = {
       title: "",
@@ -5293,6 +5459,8 @@ export const player1To = (data: any) => {
       participant_name: player_1_to_win_from_behind_yes?.name,
       participant_handicap: player_1_to_win_from_behind_yes?.handicap,
       participant_header: player_1_to_win_from_behind_yes?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_to_win_from_behind_arr = [
       player_1_to_win_from_behind_title,
@@ -5348,11 +5516,11 @@ export const player2To = (data: any) => {
   if (player_1_to_win_in_straight_sets_odds !== undefined) {
     var player_1_to_win_in_straight_sets_yes = _getParticipantsFieldRaw(
       player_1_to_win_in_straight_sets_odds.participants,
-      "Yes"
+      "Yes",
     );
     var player_1_to_win_in_straight_sets_no = _getParticipantsFieldRaw(
       player_1_to_win_in_straight_sets_odds.participants,
-      "No"
+      "No",
     );
 
     var player_1_to_win_in_straight_sets_title = {
@@ -5374,6 +5542,8 @@ export const player2To = (data: any) => {
       participant_name: player_1_to_win_in_straight_sets_yes?.name,
       participant_handicap: player_1_to_win_in_straight_sets_yes?.handicap,
       participant_header: player_1_to_win_in_straight_sets_yes?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_to_win_in_straight_sets_no_obj = {
       title: "",
@@ -5389,6 +5559,8 @@ export const player2To = (data: any) => {
       participant_name: player_1_to_win_in_straight_sets_no?.name,
       participant_handicap: player_1_to_win_in_straight_sets_no?.handicap,
       participant_header: player_1_to_win_in_straight_sets_no?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_to_win_in_straight_sets_arr = [
       player_1_to_win_in_straight_sets_title,
@@ -5405,11 +5577,11 @@ export const player2To = (data: any) => {
   if (player_1_to_win_a_set_odds !== undefined) {
     var player_1_to_win_a_set_yes = _getParticipantsFieldRaw(
       player_1_to_win_a_set_odds.participants,
-      "Yes"
+      "Yes",
     );
     var player_1_to_win_a_set_no = _getParticipantsFieldRaw(
       player_1_to_win_a_set_odds.participants,
-      "No"
+      "No",
     );
     var player_1_to_win_a_set_title = {
       title: "Win a set",
@@ -5430,6 +5602,8 @@ export const player2To = (data: any) => {
       participant_name: player_1_to_win_a_set_yes?.name,
       participant_handicap: player_1_to_win_a_set_yes?.handicap,
       participant_header: player_1_to_win_a_set_yes?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_to_win_a_set_no_obj = {
       title: "",
@@ -5445,6 +5619,8 @@ export const player2To = (data: any) => {
       participant_name: player_1_to_win_a_set_yes?.name,
       participant_handicap: player_1_to_win_a_set_yes?.handicap,
       participant_header: player_1_to_win_a_set_yes?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_to_win_a_set_arr = [
       player_1_to_win_a_set_title,
@@ -5460,11 +5636,11 @@ export const player2To = (data: any) => {
   if (player_1_to_win_from_behind_odds !== undefined) {
     var player_1_to_win_from_behind_yes = _getParticipantsFieldRaw(
       player_1_to_win_from_behind_odds.participants,
-      "Yes"
+      "Yes",
     );
     var player_1_to_win_from_behind_no = _getParticipantsFieldRaw(
       player_1_to_win_from_behind_odds.participants,
-      "No"
+      "No",
     );
     var player_1_to_win_from_behind_title = {
       title: "Win from Behind(Sets)",
@@ -5485,6 +5661,8 @@ export const player2To = (data: any) => {
       participant_name: player_1_to_win_from_behind_yes?.name,
       participant_handicap: player_1_to_win_from_behind_yes?.handicap,
       participant_header: player_1_to_win_from_behind_yes?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_to_win_from_behind_no_obj = {
       title: "",
@@ -5500,6 +5678,8 @@ export const player2To = (data: any) => {
       participant_name: player_1_to_win_from_behind_no?.name,
       participant_handicap: player_1_to_win_from_behind_no?.handicap,
       participant_header: player_1_to_win_from_behind_no?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_to_win_from_behind_arr = [
       player_1_to_win_from_behind_title,
@@ -5577,6 +5757,8 @@ export const nextSetLeadAfter = (data: any) => {
       participant_name: obj_1?.name,
       participant_handicap: obj_1?.handicap,
       participant_header: obj_1?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var _2_obj = {
       title: "",
@@ -5592,6 +5774,8 @@ export const nextSetLeadAfter = (data: any) => {
       participant_name: obj_2?.name,
       participant_handicap: obj_2?.handicap,
       participant_header: obj_2?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var _x_obj = {
       title: "",
@@ -5607,6 +5791,8 @@ export const nextSetLeadAfter = (data: any) => {
       participant_name: obj_x?.name,
       participant_handicap: obj_x?.handicap,
       participant_header: obj_x?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr = [_title_obj, _1_obj, _2_obj, _x_obj];
     base_arr.push(arr);
@@ -5674,6 +5860,8 @@ export const nextSetRaceTo = (data: any) => {
       participant_name: obj_1?.name,
       participant_handicap: obj_1?.handicap,
       participant_header: obj_1?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var _2_obj = {
       title: "",
@@ -5689,6 +5877,8 @@ export const nextSetRaceTo = (data: any) => {
       participant_name: obj_2?.name,
       participant_handicap: obj_2?.handicap,
       participant_header: obj_2?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr = [_title_obj, _1_obj, _2_obj];
     base_arr.push(arr);
@@ -5754,6 +5944,8 @@ export const currentSetLeadAfter = (data: any) => {
       participant_name: obj_1?.name,
       participant_handicap: obj_1?.handicap,
       participant_header: obj_1?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var _2_obj = {
       title: "",
@@ -5769,6 +5961,8 @@ export const currentSetLeadAfter = (data: any) => {
       participant_name: obj_2?.name,
       participant_handicap: obj_2?.handicap,
       participant_header: obj_2?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var _x_obj = {
       title: "",
@@ -5784,6 +5978,8 @@ export const currentSetLeadAfter = (data: any) => {
       participant_name: obj_x?.name,
       participant_handicap: obj_x?.handicap,
       participant_header: obj_x?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr = [_title_obj, _1_obj, _2_obj, _x_obj];
     base_arr.push(arr);
@@ -5863,6 +6059,8 @@ export const currentSetLeadAfter2 = (data: any) => {
       participant_name: group["Home"]?.name,
       participant_handicap: group["Home"]?.handicap,
       participant_header: group["Home"]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var away_obj = {
       title: "",
@@ -5878,6 +6076,8 @@ export const currentSetLeadAfter2 = (data: any) => {
       participant_name: group["Away"]?.name,
       participant_handicap: group["Away"]?.handicap,
       participant_header: group["Away"]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var tie_obj = {
       title: "",
@@ -5893,6 +6093,8 @@ export const currentSetLeadAfter2 = (data: any) => {
       participant_name: group["Tie"]?.name,
       participant_handicap: group["Tie"]?.handicap,
       participant_header: group["Tie"]?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr = [title_obj, home_obj, away_obj, tie_obj];
     base_arr.push(arr);
@@ -5962,6 +6164,8 @@ export const currentSetRaceTo = (data: any) => {
       participant_name: obj_1?.name,
       participant_handicap: obj_1?.handicap,
       participant_header: obj_1?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var _2_obj = {
       title: "",
@@ -5977,6 +6181,8 @@ export const currentSetRaceTo = (data: any) => {
       participant_name: obj_2?.name,
       participant_handicap: obj_2?.handicap,
       participant_header: obj_2?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr = [_title_obj, _1_obj, _2_obj];
     base_arr.push(arr);
@@ -6038,6 +6244,8 @@ export const matchHandicap = (data: any) => {
     participant_name: home_participant?.name,
     participant_handicap: home_participant?.handicap,
     participant_header: home_participant?.header,
+    bet_type: "Live",
+    game: "tennis",
   };
   var away_obj = {
     title: data?.team_info?.away?.name + " " + away_participant.handicap,
@@ -6053,6 +6261,8 @@ export const matchHandicap = (data: any) => {
     participant_name: away_participant?.name,
     participant_handicap: away_participant?.handicap,
     participant_header: away_participant?.header,
+    bet_type: "Live",
+    game: "tennis",
   };
   var arr = [] as any;
   arr = [home_obj, away_obj];
@@ -6115,6 +6325,8 @@ export const nextSetWinner = (data: any) => {
     participant_name: home_participant?.name,
     participant_handicap: home_participant?.handicap,
     participant_header: home_participant?.header,
+    bet_type: "Live",
+    game: "tennis",
   };
   var away_obj = {
     title: data?.team_info?.away?.name,
@@ -6130,6 +6342,8 @@ export const nextSetWinner = (data: any) => {
     participant_name: away_participant?.name,
     participant_handicap: away_participant?.handicap,
     participant_header: away_participant?.header,
+    bet_type: "Live",
+    game: "tennis",
   };
 
   arr = [home_obj, away_obj];
@@ -6206,6 +6420,8 @@ export const doubleResult = (data: any) => {
       participant_name: player_1_win_win?.name,
       participant_handicap: player_1_win_win?.handicap,
       participant_header: player_1_win_win?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_1_win_lose_obj = {
       title:
@@ -6225,6 +6441,8 @@ export const doubleResult = (data: any) => {
       participant_name: player_1_win_lose?.name,
       participant_handicap: player_1_win_lose?.handicap,
       participant_header: player_1_win_lose?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
 
     var player_2_win_win_obj = {
@@ -6245,6 +6463,8 @@ export const doubleResult = (data: any) => {
       participant_name: player_2_win_win?.name,
       participant_handicap: player_2_win_win?.handicap,
       participant_header: player_2_win_win?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var player_2_win_lose_obj = {
       title:
@@ -6264,6 +6484,8 @@ export const doubleResult = (data: any) => {
       participant_name: player_2_win_lose?.name,
       participant_handicap: player_2_win_lose?.handicap,
       participant_header: player_2_win_lose?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
 
     arr1 = [player_1_win_win_obj, player_1_win_lose_obj];
@@ -6320,11 +6542,11 @@ export const matchResultAndTotalGames = (data: any) => {
 
   var player_1_over_participant = _getParticipantsFieldRawWithoutSuspend(
     participants,
-    "1/o"
+    "1/o",
   );
   var player_1_under_participant = _getParticipantsFieldRawWithoutSuspend(
     participants,
-    "1/u"
+    "1/u",
   );
 
   if (player_1_over_participant == null || player_1_under_participant == null) {
@@ -6350,6 +6572,8 @@ export const matchResultAndTotalGames = (data: any) => {
     participant_name: player_1_over_participant?.name,
     participant_handicap: player_1_over_participant?.handicap,
     participant_header: player_1_over_participant?.header,
+    bet_type: "Live",
+    game: "tennis",
   };
   var player_1_under_participant_obj = {
     title: player_1_under_participant.handicap,
@@ -6365,15 +6589,17 @@ export const matchResultAndTotalGames = (data: any) => {
     participant_name: player_1_under_participant?.name,
     participant_handicap: player_1_under_participant?.handicap,
     participant_header: player_1_under_participant?.header,
+    bet_type: "Live",
+    game: "tennis",
   };
 
   var player_2_over_participant = _getParticipantsFieldRawWithoutSuspend(
     participants,
-    "2/o"
+    "2/o",
   );
   var player_2_under_participant = _getParticipantsFieldRawWithoutSuspend(
     participants,
-    "2/u"
+    "2/u",
   );
   if (player_2_over_participant == null || player_2_under_participant == null) {
     return { rows: [], suspend: "0" };
@@ -6398,6 +6624,8 @@ export const matchResultAndTotalGames = (data: any) => {
     participant_name: player_2_over_participant?.name,
     participant_handicap: player_2_over_participant?.handicap,
     participant_header: player_2_over_participant?.header,
+    bet_type: "Live",
+    game: "tennis",
   };
   var player_2_under_participant_obj = {
     title: player_2_under_participant.handicap,
@@ -6413,6 +6641,8 @@ export const matchResultAndTotalGames = (data: any) => {
     participant_name: player_2_under_participant?.name,
     participant_handicap: player_2_under_participant?.handicap,
     participant_header: player_2_under_participant?.header,
+    bet_type: "Live",
+    game: "tennis",
   };
 
   arr1 = [
@@ -6473,6 +6703,8 @@ export const setBetting2 = (data: any) => {
       participant_name: home_group?.name,
       participant_handicap: home_group?.handicap,
       participant_header: home_group?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     var away_obj = {
       title: "",
@@ -6488,6 +6720,8 @@ export const setBetting2 = (data: any) => {
       participant_name: away_group?.name,
       participant_handicap: away_group?.handicap,
       participant_header: away_group?.header,
+      bet_type: "Live",
+      game: "tennis",
     };
     arr = [title_obj, home_obj, away_obj];
     base_arr.push(arr);

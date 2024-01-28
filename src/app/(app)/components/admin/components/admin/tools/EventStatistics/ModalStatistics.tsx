@@ -1,10 +1,43 @@
+"use client";
 import { Modal } from "antd";
 
 import { useModalContext } from "../../../../contexts/ModalContext";
 
-const ModalStatistics = ({ item }: { item: any }) => {
-  const { isStatisticsModalOpen, closeStatisticsModal } = useModalContext();
+import { getEventStatistics } from "@/app/(app)/admin/api/events";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
+const ModalStatistics = ({ item }: { item: any }) => {
+  const { data: session } = useSession();
+  const { isStatisticsModalOpen, closeStatisticsModal } = useModalContext();
+  const [eventStatistics, setEventStatistics] = useState<any>({});
+
+  useEffect(() => {
+    if (session === undefined) {
+      return;
+    }
+    if (item === undefined) {
+      return;
+    }
+    async function fetchEventStatistics() {
+      try {
+        const fetchedEventStatistics = await getEventStatistics(
+          //@ts-ignore
+          session?.user?.token,
+          //@ts-ignore
+          session?.user?.role,
+          item.pregame_event_id
+        );
+        setEventStatistics(fetchedEventStatistics);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    }
+
+    fetchEventStatistics();
+  }, [session, item]);
+
+  console.log({ eventStats: eventStatistics });
   return (
     <Modal
       className="modal-statistics"
@@ -22,88 +55,38 @@ const ModalStatistics = ({ item }: { item: any }) => {
         </div>,
       ]}
     >
-      {item !== null && (
+      {eventStatistics?.stats !== undefined && (
         <section className="flex flex-col gap-4 bg-brand-dialog items-center pt-4 px-4">
           <section className="w-full overflow-x-auto md: overflow-hidden">
             <table className="w-full text-sm text-white bg-[#666] text-center">
               <thead className="text-sm bg-brand-yellow text-black">
                 <tr>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    date
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    final score
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    halftime score
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    corners
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    penalties
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    yellow cards
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    red cards
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    status
-                  </th>
+                  {Object.values(eventStatistics?.stats).map(
+                    (item: any, index: any) => (
+                      <th
+                        key={index}
+                        scope="col"
+                        className="px-2 py-1.5 border border-gray-600 truncate"
+                      >
+                        {item.name}
+                      </th>
+                    )
+                  )}
                 </tr>
               </thead>
               <tbody>
                 <tr className="cursor-pointer">
-                  <td className="px-2 py-1.5 border border-gray-600 truncate">
-                    {totalStatisticsInfo.date}
-                  </td>
-                  <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
-                    {totalStatisticsInfo.final_score}
-                  </td>
-                  <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
-                    {totalStatisticsInfo.halftime_score}
-                  </td>
-                  <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
-                    {totalStatisticsInfo.corners}
-                  </td>
-                  <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
-                    {totalStatisticsInfo.penalties}
-                  </td>
-                  <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
-                    {totalStatisticsInfo.yellow_cards}
-                  </td>
-                  <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
-                    {totalStatisticsInfo.red_cards}
-                  </td>
-                  <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
-                    {item.status}
-                  </td>
+                  {Object.values(eventStatistics.stats).map(
+                    (item: any, index: any) => (
+                      <th
+                        key={index}
+                        scope="col"
+                        className="px-2 py-1.5 border border-gray-600 bg-white text-black"
+                      >
+                        {item.home}:{item.away}
+                      </th>
+                    )
+                  )}
                 </tr>
               </tbody>
             </table>
@@ -130,55 +113,19 @@ const ModalStatistics = ({ item }: { item: any }) => {
                     scope="col"
                     className="px-2 py-1.5 border border-gray-600 truncate"
                   >
-                    score
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    corners
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    penalties
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    yellow cards
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    red cards
+                    Event
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {statisticsList.map((item: any, index: number) => {
+                {Object.values(eventStatistics?.extra).map((item: any, index: number) => {
                   return (
                     <tr key={index}>
                       <td className="px-2 py-1.5 border border-gray-600 truncate">
                         {item.minute}
                       </td>
-                      <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
-                        {item.score}
-                      </td>
-                      <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
-                        {item.corners}
-                      </td>
-                      <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
-                        {item.penalties}
-                      </td>
-                      <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
-                        {item.yellow_cards}
-                      </td>
-                      <td className="px-2 py-1.5 border border-gray-600 bg-white text-black">
-                        {item.red_cards}
+                      <td className="px-2 py-1.5 border border-gray-600 truncate">
+                        {item.value}
                       </td>
                     </tr>
                   );

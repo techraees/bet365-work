@@ -81,8 +81,8 @@ export const doubleChance = (data: any) => {
           event_id: data?.info?.id,
           event_name:
             data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
-          odd_id: 1777,
-          odd_name: data?.odds?.[1777]?.name,
+          odd_id: 10115,
+          odd_name: data?.odds?.[10115]?.name,
           participant_id: item[1].id,
           participant_name: item[1].name,
           participant_handicap: item[1].handicap ?? "",

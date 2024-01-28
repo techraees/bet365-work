@@ -1,17 +1,25 @@
-import { useState } from "react";
+"use client"
+import { useEffect, useState } from "react";
 
 import { useModalContext } from "../../../../contexts/ModalContext";
 import ModalStatistics from "./ModalStatistics";
 import EventStatisticsTableItem from "./EventStatisticsTableItem";
 
+import { getEvents } from "@/app/(app)/admin/api/events";
+import { useSession } from "next-auth/react";
+
 interface EventStatisticsTableProps {
   tableList: Array<any>;
   currentPage: number;
+  numberOfElementsPerPage:number;
 }
 
-const EventStatisticsTable = ({ tableList, currentPage }: EventStatisticsTableProps) => {
-  const { openStatisticsModal } = useModalContext();
 
+
+
+const EventStatisticsTable = ({ tableList, currentPage, numberOfElementsPerPage }: EventStatisticsTableProps) => {
+  const { openStatisticsModal } = useModalContext();
+  const { data: session } = useSession();
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (
@@ -29,16 +37,19 @@ const EventStatisticsTable = ({ tableList, currentPage }: EventStatisticsTablePr
                   Sport
                 </th>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
-                  Country
+                  Pregame Event ID 
                 </th>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
-                  League
+                  Live Event ID 
                 </th>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Start Date
                 </th>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
-                  Games
+                  Game Name
+                </th>
+                <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
+                  Status
                 </th>
                 <th scope="col" className="px-2 py-1.5 border border-gray-600 truncate">
                   Action
@@ -47,13 +58,13 @@ const EventStatisticsTable = ({ tableList, currentPage }: EventStatisticsTablePr
             </thead>
             <tbody>
               {tableList.map((item: any, index: number) => {
-                if (index >= currentPage * 5 && index < (currentPage + 1) * 5)
+                if (index >= currentPage * numberOfElementsPerPage && index < (currentPage + 1) * numberOfElementsPerPage)
                   return (
                     <EventStatisticsTableItem
                       key={index}
                       item={item}
                       onHandleStatisticsClick={(item: any) => {
-                        console.log(item)
+                        // console.log(item)
                         setSelectedItem(item);
                         openStatisticsModal();
                       }}

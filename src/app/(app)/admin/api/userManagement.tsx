@@ -76,17 +76,13 @@ export const transferBalance = async (
 
   let raw;
 
-  if (balance_type === "casino")
+  if (balance_type === "live_casino")
     raw = JSON.stringify({
-      casino: balance,
+      live_casino: balance,
     });
-  else if (balance_type === "sports_betting")
+  else if (balance_type === "sports_bettings_slots")
     raw = JSON.stringify({
-      sports_betting: balance,
-    });
-  else
-    raw = JSON.stringify({
-      agent: balance,
+      sports_betting_slots: balance,
     });
 
   const requestOptions = {

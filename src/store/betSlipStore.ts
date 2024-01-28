@@ -1,3 +1,4 @@
+//@ts-ignore
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -55,7 +56,7 @@ const useBetSlipStore = create<BetSlipStore>(persist(
       set((state) => ({
         selections: state.selections.map((sel) =>
           (sel.event_id === eventId && sel.odd_id === oddId && sel.participant_id === participantId) 
-            ? { ...sel, stake_value: newStakeValue } 
+            ? { ...sel, stake: newStakeValue } 
             : sel
         ),
       })),

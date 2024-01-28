@@ -36,9 +36,9 @@ const Matchcard: FC<PostsProps> = ({ listOfData }) => {
       const hometeam = item?.localteam?.name;
       const awayteam = item?.visitorteam?.name;
       const time = item?.time;
-      const home = item?.odds.main.sp.full_time_result.odds[0].odds;
-      const draw = item?.odds.main.sp.full_time_result.odds[1].odds;
-      const away = item?.odds.main.sp.full_time_result.odds[2].odds;
+      const home = item?.odds?.main?.sp?.full_time_result?.odds[0]?.odds;
+      const draw = item?.odds?.main?.sp?.full_time_result?.odds[1]?.odds;
+      const away = item?.odds?.main?.sp?.full_time_result?.odds[2]?.odds;
       data.push({
         hometeam,
         awayteam,
