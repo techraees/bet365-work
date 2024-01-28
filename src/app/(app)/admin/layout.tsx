@@ -2,8 +2,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { ModalProvider } from "../components/admin/contexts/ModalContext";
-import PrimaryHeader from "../components/admin/components/PrimaryHeader";
+import PrimaryHeader from "../components/admin/components/admin/PrimaryHeader";
 import Sidenav from "../components/admin/components/Sidenav";
+import SecondaryHeader from "../components/SecondarHeader";
 
 export default function AdminLayout({
   children,
@@ -13,6 +14,7 @@ export default function AdminLayout({
   return (
     <>
       <header>
+        <SecondaryHeader/>
         <PrimaryHeader />
       </header>
       <div className="flex flex-row">

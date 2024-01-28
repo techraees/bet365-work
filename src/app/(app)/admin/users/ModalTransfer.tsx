@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Modal } from "antd";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { useSession } from "next-auth/react";
 
 import { useModalContext } from "../../components/admin/contexts/ModalContext";
@@ -21,7 +23,7 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
   const [name, setName] = useState("");
   const [balance, setBalance] = useState(0);
   const [transactionType, setTransactionType] = useState("Deposit");
-  const [balanceType, setBalanceType] = useState("casino");
+  const [balanceType, setBalanceType] = useState("sports_betting_slots");
   const [amount, setAmount] = useState(0);
 
   useEffect(() => {
@@ -29,10 +31,10 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
       setId(item._id);
       setName(item.username);
       setBalance(
-        item.balance.sports_betting +
-          item.balance.casino +
-          item.balance.sports_betting_bonus +
-          item.balance.casino_bonus
+        item.balance.sports_betting_slots +
+          item.balance.live_casino +
+          item.balance.sports_betting_slots_bonus +
+          item.balance.live_casino_bonus
       );
     }
   }, [item]);
@@ -46,12 +48,16 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
 
     const _result = await transferBalance(session.user.token, session.user.role, id, _transferType, balanceType, amount);
     if (_result?.status === 200)
-      toast.success(_result?.data.message);
+      toast.success(_result?.data.message, {
+        position: "bottom-center"
+      });
     else
-      toast.error(_result?.data.message);
+      toast.error(_result?.data.message, {
+        position: "bottom-center"
+      });
 
     setTransactionType("Deposit");
-    setBalanceType("casino");
+    setBalanceType("live_casino");
     setAmount(0);
     closeTransferModal();
     handleConfirm();
@@ -59,7 +65,7 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
 
   const onHandleClose = () => {
     setTransactionType("Deposit");
-    setBalanceType("casino");
+    setBalanceType("live_casino");
     setAmount(0);
     closeTransferModal();
   };
@@ -104,8 +110,9 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
             <p className="w-full text-right m-auto">Type of Transaction:</p>
             <div className="w-full m-auto">
               <select
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-36 focus:ring-0 focus:border-gray-300"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-37 focus:ring-0 focus:border-gray-300 w-full"
                 defaultValue={transactionType}
+                value={transactionType}
                 onChange={(e) => setTransactionType(e.target.value)}
               >
                 <option value="Deposit">Deposit</option>
@@ -117,13 +124,13 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
             <p className="w-full text-right m-auto">Type of Balance:</p>
             <div className="w-full m-auto">
               <select
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-36 focus:ring-0 focus:border-gray-300"
-                defaultValue="casino"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block w-37 focus:ring-0 focus:border-gray-300 w-full"
+                defaultValue={balanceType}
+                value={balanceType}
                 onChange={(e) => setBalanceType(e.target.value)}
               >
-                <option defaultValue="casino" value="casino">casino</option>
-                <option value="sports_betting">sports betting</option>
-                <option value="agent">agent</option>
+                <option value="live_casino">live_casino</option>
+                <option value="sports_betting_slots">sports_betting_slots</option>
               </select>
             </div>
           </div>
@@ -132,7 +139,7 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
             <div className="w-full m-auto">
               <input
                 type="text"
-                className="bg-white border-gray-300 w-36 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
+                className="bg-white border-gray-300 w-37 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
                 placeholder="Amount"
                 value={amount}
                 onChange={(e) => {
@@ -145,6 +152,8 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
           </div>
         </section>
       </Modal>
+      <ToastContainer />
+
     </div>
   );
 }

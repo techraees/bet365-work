@@ -162,6 +162,19 @@ export const getSlots = (token: any) => {
   return fetch(`https://${API_URL}/casino/get-game-list`, requestOptions1);
 };
 
+export const getCasinoGames = (token: any) => {
+  var myHeaders = new Headers();
+  myHeaders.append("X-ACCESS-TOKEN", token);
+
+  var requestOptions1 = {
+    method: "GET",
+    headers: myHeaders,
+  };
+
+  return fetch(`https://${API_URL}/casino/get-live-casino-game-list`, requestOptions1);
+};
+
+
 export const getGameIFrame = (token: any, game_id: any) => {
   let _payload = {
     game_id: game_id,

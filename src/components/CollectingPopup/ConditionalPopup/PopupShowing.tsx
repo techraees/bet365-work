@@ -126,14 +126,30 @@ const PopupShowing = () => {
 
       return newObj;
     });
+    var current_stake  = 0;
+    var possible_winnings = 0;
+    if(type=== "Solo"){
+      current_stake = total_bet;
+      possible_winnings = parseFloat(total_to_return);
+    }
+    if(type=== "System"){
+      current_stake = total_bet_system;
+      possible_winnings = parseFloat(total_possible_winnings);
+
+    }
+    if(type === "Multiple"){
+      current_stake = total_bet_system
+      possible_winnings = parseFloat(total_possible_winnings);
+    }
     const payload = {
       type: type,
       selections: updatedSelections,
       system: system,
-      stake: 0,
+      stake: current_stake,
+      possible_winnings: possible_winnings,
       allowOnChange: 1,
     };
-    console.log({ pp: payload });
+    console.log({ payloadz: payload });
     // @ts-ignore
     const token = session?.user?.token;
     placeCoupon(token, payload).then((res) => {
@@ -188,7 +204,7 @@ const PopupShowing = () => {
       }
     }
     // total_winnings = total_stake;
-    console.log({total_winnings:total_winnings})
+    // console.log({total_winnings:total_winnings})
     return total_winnings.toFixed(2);
   }
 
@@ -280,7 +296,7 @@ const PopupShowing = () => {
                             Total Stake
                           </div>
                           <div className="text-2xl text-[#545454] font-normal leading-6">
-                            0.31
+                            {couponObject.stake} 
                           </div>
                         </div>
                         <div className="flex-1"></div>{" "}
@@ -290,7 +306,7 @@ const PopupShowing = () => {
                             Possible Winnings
                           </div>
                           <div className="text-2xl text-[#545454] font-normal leading-6">
-                            0.31
+                            {couponObject.possible_winnings} 
                           </div>
                         </div>
                         <div className="flex-1"></div>{" "}

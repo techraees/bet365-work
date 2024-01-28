@@ -56,10 +56,10 @@ const UserTableItem = ({
             {item.role}
           </td>
           <td className="px-2 max-sm:hidden py-1.5 border border-gray-600">
-            {item.balance.sports_betting +
-              item.balance.casino +
-              item.balance.sports_betting_bonus +
-              item.balance.casino_bonus}
+            {item.balance.sports_betting_slots +
+              item.balance.live_casino +
+              item.balance.sports_betting_slots_bonus +
+              item.balance.live_casino_bonus}
           </td>
           <td className="px-2 py-1.5 border border-gray-600 truncate">
             <div className="flex gap-2 w-full justify-end">
