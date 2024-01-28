@@ -212,6 +212,26 @@ function getStateFromCode(code: number): string | undefined {
   );
   return matchingCode?.name;
 }
+
+export function getTeamMessage(code: number): { team: string; message: string } {
+  let status = getStateFromCode(code) ?? "";
+  let message, team;
+  if(status.startsWith("Home Team ")) {
+    team = "Home Team"
+    message = status.replace(/^Home Team/, '');
+  } else if(status.startsWith("Away Team")) {
+    team = "Away Team"
+    message = status.replace(/^Away Team/, '');
+  } else {
+    team = "Global"
+    message = status;
+  }
+  return {
+    team: team,
+    message: message
+  }
+}
+
 //get kit colors of two teams
 function getKitColors(data: any): { home: string; away: string } {
   let homeColors = data?.team_info?.home.kit_color?.split(",") ?? ["#ff0000"];

@@ -2,31 +2,16 @@ import React from 'react'
 import BetViewDetails from './BetViewDetails/BetViewDetails'
 import BetViewInformation from './BetViewInformation/BetViewInformation'
 
-
-type Participant = {
-  team: string,
-  event: string,
-  odds: string,
-  participant: string,
-  marketDesc: string,
-  matchName: string,
-  score: string,
-  playTime: string
-}
-
 type Props = {
-  stake: string,
-  betInfoText: string,
-  betInfoLabel: string,
-  participants: Participant[]
+  coupon: any,
+  events: any[]
 }
 
-
-export default function BetItemInnerView({stake, betInfoText, betInfoLabel, ...other}: Props) {
+export default function BetItemInnerView({coupon, events}: Props) {
   return (
     <div>
-        <BetViewDetails {...other}/>
-        <BetViewInformation stake={stake} betInfoText={betInfoText} betInfoLabel={betInfoLabel} />
+        <BetViewDetails coupon={coupon} events={events}/>
+        <BetViewInformation stake={coupon.stake} possibleWinnings={coupon.possible_winnings} />
     </div>
   )
 }

@@ -16,7 +16,7 @@ interface GropedEventsInterface {
   subcategory?: string;
 }
 const Grouped: React.FC<GropedEventsInterface> = ({ name, events, sport, subcategory }) => {
-  console.log('grouped comp', { name, events, sport })
+  // console.log('grouped comp', { name, events, sport })
 
   if(sport === "basketball"){
     return(

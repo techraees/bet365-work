@@ -1,23 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import BetPartTopContainer from './BetPartTopContainer/BetPartTopContainer'
 import BetPartMatchLive from './BetPartMatchLive/BetPartMatchLive'
 
 type Props = {
-  team: string,
-  event: string,
-  odds: string,
-  participant: string,
-  marketDesc: string,
-  matchName: string,
-  score: string,
-  playTime: string
+  selection: any,
+  event: any
 }
 
-export default function BetParticipant({team, event, ...other}: Props) {
+export default function BetParticipant({selection, event}: Props) {
+
   return (
     <div className='inline-block w-full align-top pl-9 pl-[30px] pr-0 py-[15px]'>
-        <BetPartTopContainer {...other} />
-        <BetPartMatchLive team={team} event={event}/>
+        <BetPartTopContainer selection={selection} event={event}/>
+        { event && <BetPartMatchLive event={event}/>}
     </div>
   )
 }

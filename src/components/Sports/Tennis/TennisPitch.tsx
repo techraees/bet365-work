@@ -190,6 +190,25 @@ function getStatusFromCode(code: number): string | undefined {
   return matchingCode?.name;
 }
 
+export function getTeamMessage(code: number): { team: string; message: string } {
+  let status = getStatusFromCode(code) ?? "";
+  let message, team;
+  if(status.startsWith("Player 1 ")) {
+    team = "Player 1"
+    message = status.replace(/^Player 1/, '');
+  } else if(status.startsWith("Player 2")) {
+    team = "Player 2"
+    message = status.replace(/^Player 2/, '');
+  } else {
+    team = "Global"
+    message = status;
+  }
+  return {
+    team: team,
+    message: message
+  }
+}
+
 function getServePlayer(data: any): number {
   return data?.stats[3]?.home == "1" ? 1 : 0;
 }

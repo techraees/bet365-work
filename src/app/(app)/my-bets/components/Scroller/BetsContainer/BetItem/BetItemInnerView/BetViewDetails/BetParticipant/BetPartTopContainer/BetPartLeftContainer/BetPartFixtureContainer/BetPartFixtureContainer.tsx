@@ -9,11 +9,7 @@ type Props = {
 export default function BetPartFixtureContainer({ matchName, score, playTime }: Props) {
   return (
     <div className='flex'>
-        <div className='font-normal text-xs leading-[15px] inline-block overflow-hidden leading-[15px] max-h-[calc(15px_*_2)] text-[11px] text-[#ddd] self-start cursor-pointer pl-0 pr-[5px] pt-0 pb-2.5 pb-[7px] pb-[3px]' style={{
-            display: "-webkit-box",
-            WebkitBoxOrient: "vertical",
-            lineClamp: "2",
-            WebkitLineClamp: "2",
+        <div className='font-normal text-xs leading-[15px] inline-block overflow-hidden leading-[15px] text-[11px] text-[#ddd] self-start cursor-pointer pl-0 pr-[5px] pt-0 pb-2.5 pb-[7px] pb-[3px]' style={{
             wordBreak: "break-word",
             wordWrap: "break-word"
         }}>

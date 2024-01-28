@@ -20,7 +20,7 @@ interface SoccerEventProps {
 
 const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) => {
     // console.log({ data, sport });
-    console.log(">>>SOCCER!>>>", {data, sport});
+    // console.log(">>>SOCCER!>>>", {data, sport});
 
     const initialSeconds = data?.info?.seconds || "00:00";
     // const initialSecondsIncreased = increaseTimeBySeconds(initialSeconds, 10);
