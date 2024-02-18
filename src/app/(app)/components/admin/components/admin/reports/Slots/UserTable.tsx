@@ -64,7 +64,7 @@ const UserTable = ({
                     </tr>
                   );
                 } else {
-                  if (item.generalTable === undefined) {
+                  if (item?.generalTable === undefined) {
                     return (
                       <tr key={index} className="bg-brand-dark-grey">
                         <UserTableItem
