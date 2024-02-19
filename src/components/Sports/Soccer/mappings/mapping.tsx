@@ -228,6 +228,7 @@ export const matchGoals = (data: any) => {
     const participantsObject = { ...data?.odds?.[421]?.participants };
     const keys = Object.keys(participantsObject).slice(-2);
 
+    console.log({ haha: data.odds[421] });
     console.log(keys);
     let arr = [] as any;
     keys.map((key: any, index: number) => {
