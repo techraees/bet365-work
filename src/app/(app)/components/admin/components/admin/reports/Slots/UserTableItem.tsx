@@ -72,7 +72,6 @@ const UserTableItem = ({
             className={clsx(
               "border border-black !p-0",
               item?.role !== "User" ? "w-32" : "w-20"
-              item?.role !== "User" ? "w-32" : "w-20"
             )}
           >
             <div className="flex">
@@ -91,7 +90,6 @@ const UserTableItem = ({
               >
                 Vendors
               </div>
-              {item?.role !== "User" && (
               {item?.role !== "User" && (
                 <div
                   className={clsx(
