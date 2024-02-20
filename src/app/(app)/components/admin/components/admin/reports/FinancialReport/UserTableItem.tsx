@@ -68,13 +68,13 @@ const UserTableItem = ({
         ggr += _res.data.live[0].overallTotal[0].ggr;
       if (_res.data.slots !== undefined && _res.data.slots.length > 0)
         ggr += _res.data.slots[0].overallTotal[0].ggr;
-      if (_res.data.casino !== undefined && _res.data.casino.length > 0)
-        ggr += _res.data.casino[0].overallTotal[0].ggr;
+      if (_res.data.live_casino !== undefined && _res.data.live_casino.length > 0)
+        ggr += _res.data.live_casino[0].overallTotal[0].ggr;
       if (
         _res.data.sports_betting !== undefined &&
         _res.data.sports_betting.length > 0
       )
-        ggr += _res.data.sports_betting[_res.data.sports_betting.length - 1].ggr;
+        // ggr += _res.data.sports_betting[_res.data.sports_betting.length - 1].ggr;
       setGGR(ggr);
     } else toast.error(_res?.data.message);
   };

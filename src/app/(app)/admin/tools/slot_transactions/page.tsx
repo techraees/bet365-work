@@ -11,10 +11,12 @@ import { getSlotTransactions } from "../../api/tools";
 import ModalGameTransaction from "../../../components/admin/components/admin/tools/SlotsTransactions/ModalGameTransaction";
 import Input from "../../../components/admin/components/ui/Input";
 import Pagination from "../../../components/admin/components/ui/Pagination";
+import { start } from "repl";
 
 const SlotTransactions = () => {
   const { data: session }: any = useSession();
   const { openGameTransactionModal } = useModalContext();
+
 
   const [startingOn, setStartingOn] = useState(
     new Date().getFullYear() +
@@ -30,6 +32,8 @@ const SlotTransactions = () => {
       "-" +
       String(new Date().getDate()).padStart(2, "0")
   );
+  console.log({ee:startingOn})
+  console.log({ee:endingOn})
 
   const [betSymbol, setBetSymbol] = useState("All");
   const [betCost, setBetCost] = useState(0);
@@ -66,22 +70,20 @@ const SlotTransactions = () => {
       winAmount
     );
     if (_res?.status === 200) {
+      const uniqueUserIds = new Set(_res.data.map((item:any) => item.user_id)).size;
+      const totalBet = _res.data.reduce((acc:any, item:any) => acc + item.bet, 0);
+      const totalWin = _res.data.reduce((acc:any, item:any) => acc + item.win, 0);
+      const totalNewBalance = _res.data.reduce((acc:any, item:any) => acc + item.new_balance, 0);
+      setTotalUserCount(uniqueUserIds);
+      setTotalBalanceAmount(totalNewBalance);
+      setTotalWinAmount(totalWin);
+      setTotalBetAmount(totalBet);
       setPageTotalCount(Math.ceil(_res.data.length / env.PAGE_ITEMCOUNT));
       setSearchList(_res.data);
 
-      let _totalBetAmount = 0;
-      let _totalWinAmount = 0;
-      let _totalBalanceAmount = 0;
-      for (let i = 0;i < _res.data.length;i++) {
-        _totalBetAmount += _res.data[i].bet;
-        _totalWinAmount += _res.data[i].win;
-        _totalBalanceAmount += _res.data[i].new_balance;
-      }
-      setTotalUserCount(_res.data.length);
-      setTotalBetAmount(_totalBetAmount);
-      setTotalWinAmount(_totalWinAmount);
-      setTotalBalanceAmount(_totalBalanceAmount);
-      setTotalGameCount(_res.data.length);
+      setPageTotalCount(Math.ceil(_res.data.length / env.PAGE_ITEMCOUNT));
+      setSearchList(_res.data);
+
     } else toast.error(_res?.data.error);
   };
 
@@ -166,7 +168,7 @@ const SlotTransactions = () => {
                 onHandleChange={(e: any) => setUserId(e.target.value)}
               />
             </div>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <p className="text-sm text-white">Vendors:</p>
               <select
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
@@ -176,7 +178,7 @@ const SlotTransactions = () => {
                 <option value="egt">egt</option>
                 <option value="netent">netent</option>
               </select>
-            </div>
+            </div> */}
           </div>
           <div className="flex justify-center">
             <div className="flex flex-col">

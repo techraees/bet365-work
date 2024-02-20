@@ -20,8 +20,8 @@ const SecondaryHeader = () => {
     //   link: "/fantasy",
     // },
     {
-      label: "Casino",
-      link: "/casino",
+      label: "Slots",
+      link: "/slots",
     },
     {
       label: "Live Casino",

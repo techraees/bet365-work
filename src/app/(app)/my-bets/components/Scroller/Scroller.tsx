@@ -9,7 +9,7 @@ type Props = {
 
 export default function Scroller({coupons}: Props) {
   return (
-    <div className='overflow-y-auto overflow-x-hidden overscroll-none md:h-[calc(645px_-_50px)]'>
+    <div className='overflow-y-auto overflow-x-hidden overscroll-none md:h-[calc(645px_-1px)]'>
       <div>
         <BetsContainer coupons={coupons} />
       </div>

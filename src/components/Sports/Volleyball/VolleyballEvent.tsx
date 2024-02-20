@@ -49,6 +49,7 @@ const VolleyballEvent: React.FC<VolleyballEventProps> = ({
             className="w-[100%] flex-col"
           >
             <div className="flex items-left text-[11px] font-[400]">
+              {/* <div className="flex flex-col text-[13px] font-semibold hover:text-brand-green-light cursor-pointer w-[calc(100%_-_100px)] md:w-[calc(100%_-_180px)]"> */}
               <div className="flex flex-col text-[13px] font-semibold hover:text-brand-green-light cursor-pointer w-[calc(100%_-_100px)] md:w-[calc(100%_-_180px)]">
                 <div className="flex h-[25px] items-center">
                   <div className="min-w-[15px] min-h-[15px] h-[15px] w-[15px] mr-[10px]">

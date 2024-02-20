@@ -2,41 +2,86 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import clsx from "clsx";
+import { toast } from "react-toastify";
 
+import * as env from "@/app/env";
 import { useModalContext } from "../../../components/admin/contexts/ModalContext";
-import {
-  getUsersByQuery,
-  getUserById,
-  getUsersCreatedBy,
-} from "../../api/userManagement";
-import CasinoTransactionsTable from "../../../components/admin/components/admin/tools/CasinoTransactions/CasinoTransactionsTable";
+import { getUsersByQuery } from "../../api/userManagement";
+import { getLiveCasinoTransactions } from "../../api/tools";
+import ModalGameTransaction from "../../../components/admin/components/admin/tools/SlotsTransactions/ModalGameTransaction";
 import Input from "../../../components/admin/components/ui/Input";
 import Pagination from "../../../components/admin/components/ui/Pagination";
+import { start } from "repl";
 
-const CasinoTransactions = () => {
+const SlotTransactions = () => {
   const { data: session }: any = useSession();
-  const { openCasinoTransactionModal } = useModalContext();
+  const { openGameTransactionModal } = useModalContext();
 
-  const [startingOn, setStartingOn] = useState("");
-  const [endingOn, setEndingOn] = useState("");
-  const [cashout, setCashout] = useState("All");
-  const [bonus, setBonus] = useState("All");
+  const [startingOn, setStartingOn] = useState(
+    new Date().getFullYear() +
+      "-" +
+      String(new Date().getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(new Date().getDate()).padStart(2, "0")
+  );
+  const [endingOn, setEndingOn] = useState(
+    new Date().getFullYear() +
+      "-" +
+      String(new Date().getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(new Date().getDate()).padStart(2, "0")
+  );
+
   const [betSymbol, setBetSymbol] = useState("All");
   const [betCost, setBetCost] = useState(0);
   const [winSymbol, setWinSymbol] = useState("All");
   const [winAmount, setWinAmount] = useState(0);
   const [userId, setUserId] = useState("");
-  const [providers, setProviders] = useState("All");
+  const [vendors, setVendors] = useState("All");
 
   const [user, setUser] = useState("");
-  const [searchList, setSearchList] = useState(search_list);
+  const [searchList, setSearchList] = useState(null);
   const [descendants, setDescendants] = useState([]);
   const [descendantListView, setDescendantListView] = useState(false);
 
-  const [pageTotalCount, setPageTotalCount] = useState(2);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [pageTotalCount, setPageTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const onHandleSearch = async () => {};
+  const [totalUserCount, setTotalUserCount] = useState(0);
+  const [totalBetAmount, setTotalBetAmount] = useState(0);
+  const [totalWinAmount, setTotalWinAmount] = useState(0);
+  const [totalBalanceAmount, setTotalBalanceAmount] = useState(0);
+  const [totalGameCount, setTotalGameCount] = useState(0);
+
+  const onHandleSearch = async () => {
+    const _res = await getLiveCasinoTransactions(
+      session.user.token,
+      session.user.role,
+      user,
+      startingOn,
+      endingOn,
+      betSymbol,
+      betCost,
+      winSymbol,
+      winAmount
+    );
+    if (_res?.status === 200) {
+      console.log({dataz:_res.data})
+      // Calculating unique user IDs, total bets, wins, and new balance
+      const uniqueUserIds = new Set(_res.data.map((item:any) => item.user_id)).size;
+      const totalBet = _res.data.reduce((acc:any, item:any) => acc + item.bet, 0);
+      const totalWin = _res.data.reduce((acc:any, item:any) => acc + item.win, 0);
+      const totalNewBalance = _res.data.reduce((acc:any, item:any) => acc + item.new_balance, 0);
+      setTotalUserCount(uniqueUserIds);
+      setTotalBalanceAmount(totalNewBalance);
+      setTotalWinAmount(totalWin);
+      setTotalBetAmount(totalBet);
+      setPageTotalCount(Math.ceil(_res.data.length / env.PAGE_ITEMCOUNT));
+      setSearchList(_res.data);
+
+    } else toast.error(_res?.data.error);
+  };
 
   return (
     <>
@@ -119,27 +164,17 @@ const CasinoTransactions = () => {
                 onHandleChange={(e: any) => setUserId(e.target.value)}
               />
             </div>
-            <div className="flex flex-col">
-              <p className="text-sm text-white">Providers:</p>
+            {/* <div className="flex flex-col">
+              <p className="text-sm text-white">Vendors:</p>
               <select
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-                onChange={(e) => setProviders(e.target.value)}
+                onChange={(e) => setVendors(e.target.value)}
               >
                 <option value="All">All</option>
-                <option value="Live Casino">Live Casino</option>
-                <option value="Evolution">Evolution</option>
-                <option value="BBTECH">BBTECH</option>
-                <option value="Betsoft">Betsoft</option>
-                <option value="Spinomenal">Spinomenal</option>
-                <option value="Tom Horn">Tom Horn</option>
-                <option value="Arrow's Edge">Arrow&apos;s Edge</option>
-                <option value="7Mojos">7Mojos</option>
-                <option value="Leap">Leap</option>
-                <option value="Red Rake">Red Rake</option>
-                <option value="Booongo">Booongo</option>
-                <option value="Playson">Playson</option>
+                <option value="egt">egt</option>
+                <option value="netent">netent</option>
               </select>
-            </div>
+            </div> */}
           </div>
           <div className="flex justify-center">
             <div className="flex flex-col">
@@ -193,123 +228,155 @@ const CasinoTransactions = () => {
             </button>
           </div>
         </section>
-        <CasinoTransactionsTable tableList={searchList} currentPage={currentPage} />
+        {searchList !== null && (
+          <section className="pt-4 w-full overflow-scroll md:overflow-hidden">
+            {(searchList as Array<any>)?.length === 0 ? (
+              <p className="text-lg font-bold text-center text-brand-button-text">
+                No results
+              </p>
+            ) : (
+              <table className="w-full text-sm text-gray-400 text-center">
+                <thead className="text-sm bg-brand-yellow text-black">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Id
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      User
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Date
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Type
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Bet
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Win
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Balance
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Vendor
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      Game
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-brand-dark-grey text-white">
+                    <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      Players: {totalUserCount}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                    <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      Total Bet: {totalBetAmount.toFixed(2)}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      Total Win: {totalWinAmount.toFixed(2)}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      Total: {totalBalanceAmount.toFixed(2)}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate"></td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      Games: {totalGameCount}
+                    </td>
+                  </tr>
+                  {(searchList as Array<any>).map((item: any, index: number) => {
+                    if (
+                      index >= currentPage * env.PAGE_ITEMCOUNT &&
+                      index < (currentPage + 1) * env.PAGE_ITEMCOUNT
+                    )
+                      return (
+                        <tr
+                          key={index}
+                          className="text-white bg-[#777] hover:cursor-pointer"
+                          onClick={() => {
+                            setSelectedItem(item);
+                            openGameTransactionModal();
+                          }}
+                        >
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item._id}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.user_id}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {new Date(item.updated_at).toString()}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.label}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.bet}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.win}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.new_balance}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.label}
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {item.game_id}
+                          </td>
+                        </tr>
+                      );
+                  })}
+                </tbody>
+              </table>
+            )}
+          </section>
+        )}
+      </section>
+      {pageTotalCount >= 2 && (
         <div className="flex flex-row justify-center">
           <Pagination
             pageCount={pageTotalCount}
             gotoPage={(page: number) => setCurrentPage(page)}
           />
         </div>
-      </section>
+      )}
+      <ModalGameTransaction item={selectedItem} />
     </>
   );
 };
 
-export default CasinoTransactions;
-
-const search_list = [
-  {
-    id: "17179924",
-    user: "cryptoRoshan",
-    date: "07/09 12:31:56",
-    type: "BETWIN",
-    bet_amount: "0.20",
-    win_amount: "0.18",
-    balance: "7.20",
-    vendor: "ekko",
-    game: "9k Yeti",
-    round: "1084171997",
-    description: "GameRound TableID=3"
-  },
-  {
-    id: "17179924",
-    user: "cryptoRoshan",
-    date: "07/09 12:31:56",
-    type: "BETWIN",
-    bet_amount: "0.20",
-    win_amount: "0.18",
-    balance: "7.20",
-    vendor: "ekko",
-    game: "9k Yeti",
-    round: "1084171997",
-    description: "GameRound TableID=3"
-  },
-  {
-    id: "17179924",
-    user: "cryptoRoshan",
-    date: "07/09 12:31:56",
-    type: "BETWIN",
-    bet_amount: "0.20",
-    win_amount: "0.18",
-    balance: "7.20",
-    vendor: "ekko",
-    game: "9k Yeti",
-    round: "1084171997",
-    description: "GameRound TableID=3"
-  },
-  {
-    id: "17179924",
-    user: "cryptoRoshan",
-    date: "07/09 12:31:56",
-    type: "BETWIN",
-    bet_amount: "0.20",
-    win_amount: "0.18",
-    balance: "7.20",
-    vendor: "ekko",
-    game: "9k Yeti",
-    round: "1084171997",
-    description: "GameRound TableID=3"
-  },
-  {
-    id: "17179924",
-    user: "cryptoRoshan",
-    date: "07/09 12:31:56",
-    type: "BETWIN",
-    bet_amount: "0.20",
-    win_amount: "0.18",
-    balance: "7.20",
-    vendor: "ekko",
-    game: "9k Yeti",
-    round: "1084171997",
-    description: "GameRound TableID=3"
-  },
-  {
-    id: "17179924",
-    user: "cryptoRoshan",
-    date: "07/09 12:31:56",
-    type: "BETWIN",
-    bet_amount: "0.20",
-    win_amount: "0.18",
-    balance: "7.20",
-    vendor: "ekko",
-    game: "9k Yeti",
-    round: "1084171997",
-    description: "GameRound TableID=3"
-  },
-  {
-    id: "17179924",
-    user: "cryptoRoshan",
-    date: "07/09 12:31:56",
-    type: "BETWIN",
-    bet_amount: "0.20",
-    win_amount: "0.18",
-    balance: "7.20",
-    vendor: "ekko",
-    game: "9k Yeti",
-    round: "1084171997",
-    description: "GameRound TableID=3"
-  },
-  {
-    id: "17179924",
-    user: "cryptoRoshan",
-    date: "07/09 12:31:56",
-    type: "BETWIN",
-    bet_amount: "0.20",
-    win_amount: "0.18",
-    balance: "7.20",
-    vendor: "ekko",
-    game: "9k Yeti",
-    round: "1084171997",
-    description: "GameRound TableID=3"
-  }
-];
+export default SlotTransactions;

@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Modal } from "antd";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { useSession } from "next-auth/react";
 
@@ -41,19 +41,24 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
 
   const onHandleConfirm = async () => {
     let _transferType;
-    if (transactionType === "Deposit")
-      _transferType = "increase";
-    else
-      _transferType = "decrease";
+    if (transactionType === "Deposit") _transferType = "increase";
+    else _transferType = "decrease";
 
-    const _result = await transferBalance(session.user.token, session.user.role, id, _transferType, balanceType, amount);
+    const _result = await transferBalance(
+      session.user.token,
+      session.user.role,
+      id,
+      _transferType,
+      balanceType,
+      amount
+    );
     if (_result?.status === 200)
       toast.success(_result?.data.message, {
-        position: "bottom-center"
+        position: "bottom-center",
       });
     else
       toast.error(_result?.data.message, {
-        position: "bottom-center"
+        position: "bottom-center",
       });
 
     setTransactionType("Deposit");
@@ -103,9 +108,14 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
             <p className="w-full m-auto">{name}</p>
           </div>
           <div className="flex gap-6 justify-center h-10 w-full text-white">
-            <p className="w-full text-right m-auto">Balance:</p>
-            <p className="w-full m-auto">{balance}</p>
+            <p className="w-full text-right m-auto">[B]Sports Betting Slots:</p>
+            <p className="w-full m-auto">€ {item?.balance.sports_betting_slots}</p>
           </div>
+          <div className="flex gap-6 justify-center h-10 w-full text-white">
+            <p className="w-full text-right m-auto">[B]Live Casino:</p>
+            <p className="w-full m-auto">€ {item?.balance.live_casino}</p>
+          </div>
+
           <div className="flex gap-6 items-center justify-center h-10 w-full text-white">
             <p className="w-full text-right m-auto">Type of Transaction:</p>
             <div className="w-full m-auto">
@@ -130,7 +140,9 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
                 onChange={(e) => setBalanceType(e.target.value)}
               >
                 <option value="live_casino">live_casino</option>
-                <option value="sports_betting_slots">sports_betting_slots</option>
+                <option value="sports_betting_slots">
+                  sports_betting_slots
+                </option>
               </select>
             </div>
           </div>
@@ -139,7 +151,7 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
             <div className="w-full m-auto">
               <input
                 type="text"
-                className="bg-white border-gray-300 w-37 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
+                className="bg-white border-gray-300 w-full h-10 p-2 focus:ring-0 rounded-sm focus:border-gray-300"
                 placeholder="Amount"
                 value={amount}
                 onChange={(e) => {
@@ -152,8 +164,17 @@ function TransferModal({ item, handleConfirm }: TransferModalProps) {
           </div>
         </section>
       </Modal>
-      <ToastContainer />
-
+      <ToastContainer
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar
+        pauseOnHover={false}
+        pauseOnFocusLoss={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        theme="dark"
+      />
     </div>
   );
 }

@@ -14,9 +14,14 @@ interface GeneralTableProps {
 const GeneralTable = ({ item_, startingOn, endingOn }: GeneralTableProps) => {
   const { data: session }: any = useSession();
 
-  const [IN, setIN] = useState(0);
-  const [out, setOut] = useState(0);
-  const [ggr, setGGR] = useState(0);
+  const [slotIn, setSlotIn] = useState(0);
+  const [slotOut, setSlotOut] = useState(0);
+  const [slotGGR, setSlotGGR] = useState(0);
+
+  const [casinoIn, setCasinoIn] = useState(0);
+  const [casinoOut, setCasinoOut] = useState(0);
+  const [casinoGGR, setCasinoGGR] = useState(0);
+
   const [share, setShare] = useState(0);
   const [bonus, setBonus] = useState(0);
   const [converted, setConverted] = useState(0);
@@ -44,9 +49,19 @@ const GeneralTable = ({ item_, startingOn, endingOn }: GeneralTableProps) => {
     if (_res?.status === 200) {
       if (_res.data.slots !== undefined && _res.data.slots.length > 0) {
         setFinancialData(_res.data);
-        setIN(_res.data.slots[0].overallTotal[0].total_in);
-        setOut(_res.data.slots[0].overallTotal[0].total_out);
-        setGGR(_res.data.slots[0].overallTotal[0].ggr);
+        setSlotIn(_res.data.slots[0].overallTotal[0].total_in);
+        setSlotOut(_res.data.slots[0].overallTotal[0].total_out);
+        setSlotGGR(_res.data.slots[0].overallTotal[0].ggr);
+      }
+
+      if (
+        _res.data.live_casino !== undefined &&
+        _res.data.live_casino.length > 0
+      ) {
+        console.log({ ss: _res.data.live_casino });
+        setCasinoIn(_res.data.live_casino[0]?.overallTotal[0]?.total_in);
+        setCasinoOut(_res.data.live_casino[0]?.overallTotal[0]?.total_out);
+        setCasinoGGR(_res.data.live_casino[0]?.overallTotal[0]?.ggr);
       }
     } else toast.error(_res?.data.message);
   };
@@ -86,6 +101,66 @@ const GeneralTable = ({ item_, startingOn, endingOn }: GeneralTableProps) => {
         </tr>
       </thead>
       <tbody>
+        {
+          <tr className="bg-brand-dark-grey">
+            <td className="px-2 py-1 border border-black">Live Casino</td>
+
+            <td className="px-2 py-1 border border-black">
+              {casinoIn.toFixed(2)}
+            </td>
+            <td className="px-2 py-1 border border-black">
+              {casinoOut.toFixed(2)}
+            </td>
+            <td
+              className={clsx(
+                "px-2 py-1 border border-black",
+                casinoGGR === 0
+                  ? "bg-brand-dark-grey"
+                  : casinoGGR > 0
+                  ? "bg-brand-plus-cell"
+                  : "bg-brand-minus-cell"
+              )}
+            >
+              {casinoGGR.toFixed(2)}
+            </td>
+            <td className="px-2 py-1 border border-black">0</td>
+            <td className="px-2 py-1 border border-black">0</td>
+            <td className={clsx("px-2 py-1 border border-black")}>0</td>
+            <td className="px-2 py-1 border border-black">0</td>
+            <td className="px-2 py-1 border border-black">0</td>
+            <td className="px-2 py-1 border border-black">0</td>
+          </tr>
+        }
+        {
+          <tr className="bg-brand-dark-grey">
+            <td className="px-2 py-1 border border-black">Slots</td>
+
+            <td className="px-2 py-1 border border-black">
+              {slotIn.toFixed(2)}
+            </td>
+            <td className="px-2 py-1 border border-black">
+              {slotOut.toFixed(2)}
+            </td>
+            <td
+              className={clsx(
+                "px-2 py-1 border border-black",
+                slotGGR === 0
+                  ? "bg-brand-dark-grey"
+                  : slotGGR > 0
+                  ? "bg-brand-plus-cell"
+                  : "bg-brand-minus-cell"
+              )}
+            >
+              {slotGGR.toFixed(2)}
+            </td>
+            <td className="px-2 py-1 border border-black">0</td>
+            <td className="px-2 py-1 border border-black">0</td>
+            <td className={clsx("px-2 py-1 border border-black")}>0</td>
+            <td className="px-2 py-1 border border-black">0</td>
+            <td className="px-2 py-1 border border-black">0</td>
+            <td className="px-2 py-1 border border-black">0</td>
+          </tr>
+        }
         {financialData !== null && (
           <>
             {financialData?.sports_betting.map((item: any, index: number) => {
@@ -143,31 +218,31 @@ const GeneralTable = ({ item_, startingOn, endingOn }: GeneralTableProps) => {
                   </tr>
                 );
             })}
-            {financialData.slots !== undefined &&
+            {/* {financialData.slots !== undefined &&
               financialData.slots.length > 0 && (
                 <tr className="bg-brand-dark-grey">
                   <td className="px-2 py-1 border border-black">
                     {financialData.slots[0].totalsPerSlot.length > 1
-                      ? "+ SLOTS"
-                      : "SLOTS"}
+                      ? "Slots"
+                      : "Slots"}
                   </td>
                   <td className="px-2 py-1 border border-black">
-                    {IN.toFixed(2)}
+                    {slotIn.toFixed(2)}
                   </td>
                   <td className="px-2 py-1 border border-black">
-                    {out.toFixed(2)}
+                    {slotOut.toFixed(2)}
                   </td>
                   <td
                     className={clsx(
                       "px-2 py-1 border border-black",
-                      ggr === 0
+                      slotGGR === 0
                         ? "bg-brand-dark-grey"
-                        : ggr > 0
+                        : slotGGR > 0
                         ? "bg-brand-plus-cell"
                         : "bg-brand-minus-cell"
                     )}
                   >
-                    {ggr.toFixed(2)}
+                    {slotGGR.toFixed(2)}
                   </td>
                   <td className="px-2 py-1 border border-black">{share}</td>
                   <td className="px-2 py-1 border border-black">{bonus}</td>
@@ -183,7 +258,7 @@ const GeneralTable = ({ item_, startingOn, endingOn }: GeneralTableProps) => {
                   <td className="px-2 py-1 border border-black">{open}</td>
                   <td className="px-2 py-1 border border-black">{sumOpen}</td>
                 </tr>
-              )}
+              )} */}
           </>
         )}
       </tbody>
@@ -192,54 +267,3 @@ const GeneralTable = ({ item_, startingOn, endingOn }: GeneralTableProps) => {
 };
 
 export default GeneralTable;
-
-const general_table = [
-  {
-    name: "PRE",
-    in: "0.00",
-    out: "0.00",
-    ggr: "0.00",
-    share: "0%",
-    bonus: "0.00",
-    converted: "0.00",
-    ngr: "0.00",
-    open: "0",
-    sum_open: "0.00",
-  },
-  {
-    name: "LIVE",
-    in: "0.00",
-    out: "0.00",
-    ggr: "0.00",
-    share: "0%",
-    bonus: "0.00",
-    converted: "0.00",
-    ngr: "0.00",
-    open: "0",
-    sum_open: "0.00",
-  },
-  {
-    name: "SLOTS",
-    in: "0.00",
-    out: "0.00",
-    ggr: "0.00",
-    share: "0%",
-    bonus: "0.00",
-    converted: "0.00",
-    ngr: "0.00",
-    open: "0",
-    sum_open: "0.00",
-  },
-  {
-    name: "CASINO",
-    in: "0.00",
-    out: "0.00",
-    ggr: "0.00",
-    share: "0%",
-    bonus: "0.00",
-    converted: "0.00",
-    ngr: "0.00",
-    open: "0",
-    sum_open: "0.00",
-  },
-];

@@ -55,10 +55,10 @@ const UserTableItem = ({
     setFinancialReportData(_res?.data);
 
     if (_res?.status === 200) {
-      if (_res.data.slots !== undefined) {
-        setTotalIn(_res.data.slots[0].overallTotal[0].total_in);
-        setTotalOut(_res.data.slots[0].overallTotal[0].total_out);
-        setTotalGGR(_res.data.slots[0].overallTotal[0].ggr);
+      if (_res.data.live_casino !== undefined) {
+        setTotalIn(_res.data.live_casino[0].overallTotal[0].total_in);
+        setTotalOut(_res.data.live_casino[0].overallTotal[0].total_out);
+        setTotalGGR(_res.data.live_casino[0].overallTotal[0].ggr);
       }
     } else toast.error(_res?.data.message);
   };

@@ -16,6 +16,10 @@ import SystemElement from "./SystemElement";
 import MultipleElement from "./MultipleElement";
 import CouponElement from "./CouponElement";
 import { placeCoupon } from "@/api";
+
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 const PopupShowing = () => {
   const {
     type,
@@ -35,9 +39,11 @@ const PopupShowing = () => {
   const [couponObject, setCouponObject] = useState<any>({});
 
   const { data: session } = useSession();
-  const [showingFilterCollapse, setShowingFilterCollapse] =
-    useState<any>(false);
+  // const [showingFilterCollapse, setShowingFilterCollapse] =
+  //   useState<any>(false);
 
+  const [showingFilterCollapse, setShowingFilterCollapse] =
+    useState<any>(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -156,12 +162,24 @@ const PopupShowing = () => {
       if (res.ok) {
         setBetIsPlacing(false);
         setBetPlaced(true);
+        res.json().then((result) => {
+          setCouponObject(result.message);
+          console.log({ rs: result });
+        });
+      } else {
+        // Handle non-200 responses
+        res.json().then((result) => {
+          // Assuming you have a showToast function to display the message
+          toast.error(result.message, {position: "top-center"}); // Display error message in a toast
+          setBetIsPlacing(false);
+        });
       }
-      res.json().then((result) => {
-        setCouponObject(result.message);
-        console.log({ rs: result });
-      });
+    }).catch((error) => {
+      // Handle network errors or issues with the fetch call itself
+      toast.error(error, {position: "top-center"}); // Display error message in a toast
+      setBetIsPlacing(false);
     });
+
   }
 
   function sumTotalStakesSystem(data: any) {
@@ -363,7 +381,7 @@ const PopupShowing = () => {
                   !showingContent ? "block" : "hidden"
                 }`}
               >
-                Show Options
+                {/* Show Options */}
               </span>
               <div className={showingContent ? "block" : "hidden"}>
                 <h1 className="text-[#666] text-[11px] flex flex-wrap overflow-hidden max-h-[36px] items-center mb-[9px] transition-margin">
@@ -585,6 +603,17 @@ const PopupShowing = () => {
             </div>
           </div>
         </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar
+        pauseOnHover={false}
+        pauseOnFocusLoss={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        theme="dark"
+      />
       </>
     );
   } else {

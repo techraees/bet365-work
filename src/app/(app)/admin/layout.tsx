@@ -1,4 +1,5 @@
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 
 import { ModalProvider } from "../components/admin/contexts/ModalContext";
@@ -14,7 +15,7 @@ export default function AdminLayout({
   return (
     <>
       <header>
-        <SecondaryHeader/>
+        <SecondaryHeader />
         <PrimaryHeader />
       </header>
       <div className="flex flex-row">
@@ -25,6 +26,7 @@ export default function AdminLayout({
           </main>
         </ModalProvider>
       </div>
+
       <ToastContainer
         position="top-center"
         autoClose={4000}

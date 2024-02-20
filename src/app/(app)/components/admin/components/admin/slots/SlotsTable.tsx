@@ -11,6 +11,7 @@ const SlotsTable = ({
   currentPage,
   onHandleEditClick,
 }: SlotsTableProps) => {
+  console.log({ll:tableList})
   return (
     <div className="w-full overflow-x-scroll md:overflow-hidden">
       {tableList?.length === 0 ? (
@@ -33,24 +34,14 @@ const SlotsTable = ({
               >
                 Name
               </th>
-              <th
-                scope="col"
-                className="px-2 py-1.5 border border-gray-600 truncate"
-              >
-                Type
-              </th>
+             
               <th
                 scope="col"
                 className="px-2 py-1.5 border border-gray-600 truncate"
               >
                 Order
               </th>
-              <th
-                scope="col"
-                className="px-2 py-1.5 border border-gray-600 truncate"
-              >
-                Listed
-              </th>
+             
               <th
                 scope="col"
                 className="px-2 py-1.5 border border-gray-600 truncate"
@@ -72,12 +63,18 @@ const SlotsTable = ({
               <th
                 scope="col"
                 className="px-2 py-1.5 border border-gray-600 truncate"
+              >
+                Active
+              </th>
+              <th
+                scope="col"
+                className="px-2 py-1.5 border border-gray-600 truncate"
               ></th>
             </tr>
           </thead>
           <tbody>
             {tableList?.map((item, index) => {
-              if (index >= currentPage * 5 && index < (currentPage + 1) * 5)
+              if (index >= currentPage * 100 && index < (currentPage + 1) * 100)
                 return (
                   <tr key={index} className="bg-[#666] text-white">
                     <SlotsTableItem

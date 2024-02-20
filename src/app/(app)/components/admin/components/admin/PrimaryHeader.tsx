@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Container from "@/components/ui/Container";
 import Logo, { SmallLogo, BurgerSearch } from "@/components/ui/icons/logo";
 import CustomLink from "@/components/ui/Link";
-import { Button } from "@/components/ui/button";
 import Search from "@/components/ui/icons/search";
 import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -65,7 +64,7 @@ const PrimaryHeader = () => {
             <Search />
           </div>
           <div className="flex gap-6 items-center ">
-            <div className="flex flex-col gap-4 p-1">
+            <div className="flex flex-col gap-1 p-1">
               <div className="flex-1 text-white">
                 €{userSession?.user?.balance?.sports_betting_slots}
               </div>

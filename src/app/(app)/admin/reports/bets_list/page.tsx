@@ -456,7 +456,7 @@ const BetsList = () => {
                     return (
                       <tr
                         key={index}
-                        className="bg-brand-red text-white hover:cursor-pointer"
+                        className="bg-brand-dark-grey text-white"
                         onClick={() => {
                           setSelectedItem(item);
                           openCouponModal();

@@ -87,7 +87,7 @@ const ReportsTab = () => {
               Transactions
             </Link>
           </li>
-          <li className="mr-2">
+          {/* <li className="mr-2">
             <Link
               href="/admin/reports/deposit"
               className={clsx(
@@ -97,7 +97,7 @@ const ReportsTab = () => {
             >
               Deposit
             </Link>
-          </li>
+          </li> */}
         </ul>
       </section>
     </>

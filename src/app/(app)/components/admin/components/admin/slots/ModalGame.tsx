@@ -3,34 +3,40 @@ import { Modal } from "antd";
 
 import { useModalContext } from "../../../contexts/ModalContext";
 import Input from "../../ui/Input";
+import { updateSlot } from "@/app/(app)/admin/api/tools";
+import { useSession } from "next-auth/react";
 
 const ModalGame = ({ item }: { item: any }) => {
   const { isGameModalOpen, closeGameModal } = useModalContext();
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [order, setOrder] = useState(0);
+  const [order, setOrder] = useState("0");
+  const { data: session }: any = useSession();
 
   useEffect(() => {
     if (item !== null) {
       setName(item.name);
-      setImageUrl(item.image_url);
+      setImageUrl(item.api_image);
       setOrder(item.order);
     }
   }, [item])
 
   const onHandleSave = () => {
-    setName("");
-    setImageUrl("");
-    setOrder(0);
-    closeGameModal();
+
+    updateSlot(session.user.token, session.user.role, item.api_id, name, order, imageUrl)
+    // setName("");
+    // setImageUrl("");
+    // setOrder("0");
+    // closeGameModal();
   };
 
   const onHandleClose = () => {
-    setName("");
-    setImageUrl("");
-    setOrder(0);
+    // setName("");
+    // setImageUrl("");
+    // setOrder(0);
     closeGameModal();
   };
+
 
   return (
     <Modal
@@ -58,36 +64,41 @@ const ModalGame = ({ item }: { item: any }) => {
         <div className="flex gap-6 items-center justify-center h-10 w-full">
           <p className="w-full text-right m-auto text-white">Name:</p>
           <div className="w-full m-auto">
-            <Input
+            <input
               className="w-full bg-white border-gray-300 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300 text-black"
               placeholder=""
               value={name}
-              disable_value={false}
-              onHandleChange={(value: string) => setName(value)}
+              // disable_value={false}
+              // onHandleChange={(value: string) => setName(value)}
+              onChange={(e) => setName(e.target.value)}
+
             />
           </div>
         </div>
         <div className="flex gap-6 items-center justify-center h-10 w-full">
           <p className="w-full text-right m-auto text-white">Image:</p>
           <div className="w-full m-auto">
-            <Input
+            <input
               className="w-full bg-white border-gray-300 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300 text-black"
               placeholder=""
               value={imageUrl}
-              disable_value={false}
-              onHandleChange={(value: string) => setImageUrl(value)}
+              // disable_value={false}
+              // onHandleChange={(value: string) => setImageUrl(value)}
+              onChange={(e) => setImageUrl(e.target.value)}
+
             />
           </div>
         </div>
         <div className="flex gap-6 items-center justify-center h-10 w-full">
           <p className="w-full text-right m-auto text-white">Order:</p>
           <div className="w-full m-auto">
-            <Input
+            <input
               className="w-full bg-white border-gray-300 h-9 p-2 focus:ring-0 rounded-sm focus:border-gray-300 text-black"
               placeholder=""
               value={order}
-              disable_value={false}
-              onHandleChange={(value: number) => setOrder(value)}
+              // disable_value={false}
+              // onHandleChange={(value: number) => setOrder(value)}
+              onChange={(e) => setOrder(e.target.value)}
             />
           </div>
         </div>

@@ -15,26 +15,27 @@ import { getFinalcialReports } from "../../api/reports";
 
 import VendorTable from "@/app/(app)/components/admin/components/admin/reports/Slots/VendorTable";
 import UserTable from "@/app/(app)/components/admin/components/admin/reports/Slots/UserTable";
+import { start } from "repl";
+
+function formatDate(date:any) {
+  const year = date.getFullYear();
+  // Pad the month and day with a leading zero if they are less than 10
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
 
 const Slots = () => {
   const searchParams = useSearchParams();
   const username = searchParams?.get("username");
   const { data: session }: any = useSession();
-  const [startingOn, setStartingOn] = useState(
-    new Date().getFullYear() -
-      1 +
-      "-" +
-      (new Date().getMonth() + 1) +
-      "-" +
-      new Date().getDate()
-  );
-  const [endingOn, setEndingOn] = useState(
-    new Date().getFullYear() +
-      "-" +
-      (new Date().getMonth() + 1) +
-      "-" +
-      new Date().getDate()
-  );
+  
+  const today = new Date();
+
+  const [startingOn, setStartingOn] = useState(formatDate(today));
+  const [endingOn, setEndingOn] = useState(formatDate(today));
+  
   const [provider, setProvider] = useState("All");
   const [vendor, setVendor] = useState("All");
   const [bonus, setBonus] = useState("Without Bonus");
@@ -235,21 +236,21 @@ const Slots = () => {
         <div className="grid md:flex gap-1 justify-center items-center">
           <div className="flex flex-col">
             <p className="text-sm text-white">From:</p>
-            <input
-              type="date"
-              className="w-44 fill-blue-500 h-9 text-primary text-lg font-medium focus:outline-none border border-primary bg-white"
-              value={startingOn}
-              onChange={(e) => setStartingOn(e.target.value)}
-            />
+              <input
+                type="date"
+                className="w-44 fill-blue-500 h-9 text-primary text-lg font-medium focus:outline-none border border-primary bg-white"
+                value={startingOn}
+                onChange={(e) => setStartingOn(e.target.value)}
+              />
           </div>
           <div className="flex flex-col">
             <p className="text-sm text-white">To:</p>
-            <input
-              type="date"
-              className="w-44 fill-blue-500 h-9 text-primary text-lg font-medium focus:outline-none border border-primary bg-white"
-              value={endingOn}
-              onChange={(e) => setEndingOn(e.target.value)}
-            />
+              <input
+                type="date"
+                className="w-44 fill-blue-500 h-9 text-primary text-lg font-medium focus:outline-none border border-primary bg-white"
+                value={endingOn}
+                onChange={(e) => setEndingOn(e.target.value)}
+              />
           </div>
           {username === null && (
             <div className="flex flex-col">

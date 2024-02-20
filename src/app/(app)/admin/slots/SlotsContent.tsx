@@ -6,51 +6,54 @@ import SlotsTable from "../../components/admin/components/admin/slots/SlotsTable
 import Input from "../../components/admin/components/ui/Input";
 import Pagination from "../../components/admin/components/ui/Pagination";
 import ModalGame from "../../components/admin/components/admin/slots/ModalGame";
+import { getSlots } from "../api/tools";
+import { useSession } from "next-auth/react";
 
 const SlotsContent = () => {
   const { openGameModal } = useModalContext();
   const [provider, setProvider] = useState("Ekko");
   const [vendor, setVendor] = useState("egt");
+  const [vendorsList, setVendorsList] = useState([]);
   const [filter, setFilter] = useState("");
 
-  const [slotList, setSlotList] = useState(slot_list);
+  const { data: session }: any = useSession();
+  const [slotList, setSlotList] = useState([] as any);
   const [gameSelected, setGameSelected] = useState(null);
   const [pageTotalCount, setPageTotalCount] = useState(2);
   const [currentPage, setCurrentPage] = useState(0);
 
+  useEffect(() => {
+    // Define an async function inside useEffect
+    async function fetchSlots() {
+      const slots = await getSlots(session.user.token, session.user.role); // Call getSlots and wait for the data
+      setSlotList(slots?.data); // Update the state with the fetched slots
+      var slot_api = slots?.data;
+      const uniqueLabels = [
+        ...new Set(slot_api.map((obj: any) => obj.label)),
+      ] as any;
+      setVendorsList(uniqueLabels);
+      console.log({ llz: uniqueLabels });
+
+      setPageTotalCount(slots?.data.length / 100);
+    }
+
+    fetchSlots(); // Execute the function defined above
+  }, []); // Empty dependency array means this effect runs once on mount
+
   return (
     <section className="flex flex-col gap-4 p-4">
       <div className="grid md:flex gap-1 items-center">
-        <div className="flex flex-col">
-          <p className="text-sm text-white">Provider:</p>
-          <select
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
-            onChange={(e) => setProvider(e.target.value)}
-          >
-            <option value="Ekko">Ekko</option>
-            <option value="Gapi">Gapi</option>
-            <option value="Gbs">Gbs</option>
-            <option value="MGS">MGS</option>
-            <option value="Riseup">Riseup</option>
-            <option value="Softswiss">Softswiss</option>
-          </select>
-        </div>
         <div className="flex flex-col">
           <p className="text-sm text-white">Vendor:</p>
           <select
             className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
             onChange={(e) => setVendor(e.target.value)}
           >
-            <option value="egt">egt</option>
-            <option value="novomatic">novomatic</option>
-            <option value="yggdrasil">yggdrasil</option>
-            <option value="netent">netent</option>
-            <option value="pragmatic">pragmatic</option>
-            <option value="amatic">amatic</option>
-            <option value="playngo">playngo</option>
-            <option value="playtech">playtech</option>
-            <option value="aristocrat">aristocrat</option>
-            <option value="redtiger">redtiger</option>
+            {vendorsList.map((vendor) => (
+              <option key={vendor} value={vendor}>
+                {vendor}
+              </option>
+            ))}
           </select>
         </div>
         <div className="flex flex-col">
@@ -88,83 +91,3 @@ const SlotsContent = () => {
 };
 
 export default SlotsContent;
-
-const slot_list = [
-  {
-    id: 1,
-    name: "Fruity Time",
-    type: "slot",
-    order: 1,
-    listed: "Yes",
-    open_count: 550,
-    played: "06/09 20:03",
-    changed: "",
-    image_url: "https://example.com"
-  },
-  {
-    id: 2,
-    name: "Fruity Time",
-    type: "slot",
-    order: 1,
-    listed: "Yes",
-    open_count: 550,
-    played: "06/09 20:03",
-    changed: "",
-    image_url: "https://example.com"
-  },
-  {
-    id: 3,
-    name: "Fruity Time",
-    type: "slot",
-    order: 1,
-    listed: "Yes",
-    open_count: 550,
-    played: "06/09 20:03",
-    changed: "",
-    image_url: "https://example.com"
-  },
-  {
-    id: 4,
-    name: "Fruity Time",
-    type: "slot",
-    order: 1,
-    listed: "Yes",
-    open_count: 550,
-    played: "06/09 20:03",
-    changed: "",
-    image_url: "https://example.com"
-  },
-  {
-    id: 5,
-    name: "Fruity Time",
-    type: "slot",
-    order: 1,
-    listed: "Yes",
-    open_count: 550,
-    played: "06/09 20:03",
-    changed: "",
-    image_url: "https://example.com"
-  },
-  {
-    id: 6,
-    name: "Fruity Time",
-    type: "slot",
-    order: 1,
-    listed: "Yes",
-    open_count: 550,
-    played: "06/09 20:03",
-    changed: "",
-    image_url: "https://example.com"
-  },
-  {
-    id: 7,
-    name: "Fruity Time",
-    type: "slot",
-    order: 1,
-    listed: "Yes",
-    open_count: 550,
-    played: "06/09 20:03",
-    changed: "",
-    image_url: "https://example.com"
-  }
-];

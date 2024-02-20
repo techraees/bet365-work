@@ -1,3 +1,4 @@
+
 export const metadata = {
   title: "Bet with bet365 - Live Online Betting",
   viewport:
@@ -13,6 +14,7 @@ export default function RootLayout({
   return (
     <>
       <body>{children}</body>
+    
     </>
   );
 }

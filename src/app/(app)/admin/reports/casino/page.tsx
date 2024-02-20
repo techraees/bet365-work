@@ -1,50 +1,79 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import clsx from "clsx";
+import { toast } from "react-toastify";
 
-import { getUserById, getUsersCreatedBy, getUsersByQuery } from "../../api/userManagement";
-import VendorTable from "../../../components/admin/components/admin/reports/Slots/VendorTable";
-import UserTable from "../../../components/admin/components/admin/reports/Slots/UserTable";
+import {
+  getUserById,
+  getUsersCreatedBy,
+  getUsersByQuery,
+} from "../../api/userManagement";
 
-const Casino = () => {
+import { getFinalcialReports } from "../../api/reports";
+
+import VendorTable from "@/app/(app)/components/admin/components/admin/reports/Live Casino/VendorTable";
+import UserTable from "@/app/(app)/components/admin/components/admin/reports/Live Casino/UserTable";
+
+function formatDate(date:any) {
+  const year = date.getFullYear();
+  // Pad the month and day with a leading zero if they are less than 10
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
+const LiveCasino = () => {
+  const searchParams = useSearchParams();
+  const username = searchParams?.get("username");
   const { data: session }: any = useSession();
-  const [startingOn, setStartingOn] = useState(
-    new Date().getFullYear() +
-      "-" +
-      String(new Date().getMonth() + 1).padStart(2, "0") +
-      "-" +
-      String(new Date().getDate()).padStart(2, "0")
-  );
-  const [endingOn, setEndingOn] = useState(
-    new Date().getFullYear() +
-      "-" +
-      String(new Date().getMonth() + 1).padStart(2, "0") +
-      "-" +
-      String(new Date().getDate()).padStart(2, "0")
-  );
-  
+
+  const today = new Date();
+
+  const [startingOn, setStartingOn] = useState(formatDate(today));
+  const [endingOn, setEndingOn] = useState(formatDate(today));
+  const [provider, setProvider] = useState("All");
+  const [vendor, setVendor] = useState("All");
   const [bonus, setBonus] = useState("Without Bonus");
+
   const [user, setUser] = useState("");
+  const [selectedUser, setSelectedUser]: any = useState({
+    _id: "",
+    username: "",
+  });
   const [descendants, setDescendants] = useState([]);
   const [descendantListView, setDescendantListView] = useState(false);
 
   const [vendorsSelected, setVendorsSelected] = useState(false);
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList]: Array<any> = useState(null);
 
-  useEffect(() => {
-    if (session !== undefined) getUserInfo();
-  }, [session]);
+  const [totalVendors, setTotalVendors] = useState(0);
+  const [totalPlayers, setTotalPlayers] = useState(0);
+  const [totalGames, setTotalGames] = useState(0);
+  const [totalIn, setTotalIn] = useState(0);
+  const [totalOut, setTotalOut] = useState(0);
+  const [totalGGR, setTotalGGR] = useState(0);
 
   const getUserInfo = async () => {
-    const _userinfo = await getUserById(
-      session.user._id,
+    let userid = 0;
+    if (selectedUser.username !== "") {
+      userid = selectedUser._id;
+    }
+    else
+      userid = session.user._id;
+
+    const _userinfo = await getUsersCreatedBy(
+      userid,
       session.user.token,
       session.user.role
     );
     const _userList = [];
+    for (let i = 0; i < _userinfo.length; i++)
+      _userinfo[i].vendorsSelected = false;
     _userList.push(_userinfo);
-    setUserList(([..._userList] as any));
+    setUserList(..._userList);
   };
 
   const getChildren = async (username: string, id: number) => {
@@ -53,15 +82,17 @@ const Casino = () => {
       session.user.token,
       session.user.role
     );
+    for (let i = 0; i < _childrenInfo.length; i++)
+      _childrenInfo[i].vendorsSelected = false;
     if (_childrenInfo.length !== 0) {
       const _newUserList = addUserList(userList, username, _childrenInfo);
-      setUserList(([..._newUserList] as any));
+      setUserList([..._newUserList]);
     }
   };
 
   const removeChildren = (username: string, id: number) => {
     const _newUserList = removeUserList(userList, username, id);
-    setUserList(([..._newUserList] as any));
+    setUserList([..._newUserList]);
   };
 
   const removeUserList = (userInfo_: any[], username: string, id: number) => {
@@ -99,7 +130,7 @@ const Casino = () => {
 
   const addGeneralTable = (username: string) => {
     const _newUserList = _addGeneralTable(userList, username);
-    setUserList(([..._newUserList] as any));
+    setUserList([..._newUserList]);
   };
 
   const _addGeneralTable = (userInfo_: any[], username: string) => {
@@ -109,7 +140,10 @@ const Casino = () => {
         if (i === userInfo_.length - 1) break;
       }
       if (userInfo_[i].username === username) {
-        userInfo_.splice(i + 1, 0, { vendorsSelected: false });
+        userInfo_.splice(i + 1, 0, {
+          _id: userInfo_[i]._id,
+          generalTable: true,
+        });
         break;
       }
     }
@@ -118,7 +152,7 @@ const Casino = () => {
 
   const removeGeneralTable = (username: string, id: number) => {
     const _newUserList = _removeGeneralTable(userList, username, id);
-    setUserList(([..._newUserList] as any));
+    setUserList([..._newUserList]);
   };
 
   const _removeGeneralTable = (
@@ -134,7 +168,7 @@ const Casino = () => {
         }
       } else {
         if (userInfo_[i]._id === id) {
-          if (userInfo_[i + 1].vendorsSelected === undefined)
+          if (userInfo_[i + 1].generalTable === undefined)
             userInfo_.splice(i + 2, 1);
           else userInfo_.splice(i + 1, 1);
         }
@@ -163,7 +197,36 @@ const Casino = () => {
     );
   };
 
-  const onHandleSearch = async () => {};
+  const onHandleSearch = async () => {
+    getTotalFinancialReportData();
+    getUserInfo();
+  };
+
+  const getTotalFinancialReportData = async () => {
+    let userid = 0;
+    if (selectedUser.username !== "") {
+      userid = selectedUser._id;
+    }
+    else
+      userid = session.user._id;
+
+    const _res = await getFinalcialReports(
+      session.user.token,
+      session.user.role,
+      userid,
+      startingOn,
+      endingOn
+    );
+
+    if (_res?.status === 200) {
+      if (_res.data.live_casino !== undefined) {
+        setTotalVendors(_res.data.live_casino[0]?.totalsPerLiveCasino.length);
+        setTotalIn(_res.data.live_casino[0]?.overallTotal[0]?.total_in);
+        setTotalOut(_res.data.live_casino[0]?.overallTotal[0]?.total_out);
+        setTotalGGR(_res.data.live_casino[0]?.overallTotal[0]?.ggr);
+      }
+    } else toast.error(_res?.data.error);
+  };
 
   return (
     <section className="flex flex-col gap-4 p-4">
@@ -187,6 +250,34 @@ const Casino = () => {
               onChange={(e) => setEndingOn(e.target.value)}
             />
           </div>
+          {username === null && (
+            <div className="flex flex-col">
+              <p className="text-sm text-white">Provider:</p>
+              <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
+                onChange={(e) => setProvider(e.target.value)}
+              >
+                <option value="All">All</option>
+                <option value="Ekko">Ekko</option>
+                <option value="Gapi">Gapi</option>
+                <option value="Gbs">Gbs</option>
+              </select>
+            </div>
+          )}
+          {provider !== "All" && (
+            <div className="flex flex-col">
+              <p className="text-sm text-white">Vendor:</p>
+              <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-sm block focus:ring-0 focus:border-gray-300"
+                onChange={(e) => setVendor(e.target.value)}
+              >
+                <option value="All">All</option>
+                <option value="Ekko">amatic</option>
+                <option value="Gapi">egt</option>
+                <option value="Gbs">netent</option>
+              </select>
+            </div>
+          )}
           <div className="flex flex-col">
             <p className="text-sm text-white">Bonus:</p>
             <select
@@ -230,6 +321,7 @@ const Casino = () => {
                       className="hover:bg-red-400 px-4 cursor-pointer py-1"
                       onClick={() => {
                         setUser(item.username);
+                        setSelectedUser(item);
                         setDescendantListView(false);
                       }}
                     >
@@ -250,107 +342,115 @@ const Casino = () => {
           </button>
         </div>
       </section>
-      <section className="flex flex-col gap-4 pt-4">
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-xl font-semibold text-white">Vendors Summary</p>
-          <div className="w-full overflow-x-scroll md:overflow-hidden">
-            <table className="w-full text-sm text-white text-center">
-              <thead className="text-sm text-black bg-brand-yellow uppercase">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  ></th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    vendors
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    players
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    games
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    in
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    out
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-2 py-1.5 border border-gray-600 truncate"
-                  >
-                    ggr
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="bg-brand-dark-grey border border-gray-600">
-                  <td
-                    className={clsx(
-                      "px-6 py-1 border border-gray-600 cursor-pointer hover:bg-orange-400 text-black w-14",
-                      vendorsSelected === true ? "bg-orange-400" : "bg-white"
-                    )}
-                    onClick={() => setVendorsSelected(!vendorsSelected)}
-                  >
-                    Pr
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">16</td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">94</td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">378</td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                    261,169.52
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                    247,634.09
-                  </td>
-                  <td className="px-2 py-1 border border-gray-600 truncate">
-                    13,535.43
-                  </td>
-                </tr>
-                {vendorsSelected === true && (
+      {userList !== null && (
+        <section className="flex flex-col gap-4 pt-4">
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-xl font-semibold text-white">Vendors Summary</p>
+            <div className="w-full overflow-x-scroll md:overflow-hidden">
+              <table className="w-full text-sm text-white text-center">
+                <thead className="text-sm text-black bg-brand-yellow uppercase">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    ></th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      vendors
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      players
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      games
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      in
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      out
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-2 py-1.5 border border-gray-600 truncate"
+                    >
+                      ggr
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
                   <tr className="bg-brand-dark-grey border border-gray-600">
-                    <td colSpan={7} className="p-4">
-                      {/* <VendorTable /> */}
+                    <td
+                      className={clsx(
+                        "px-6 py-1 border border-gray-600 cursor-pointer hover:bg-orange-400 text-black w-14",
+                        vendorsSelected === true ? "bg-orange-400" : "bg-white"
+                      )}
+                      onClick={() => setVendorsSelected(!vendorsSelected)}
+                    >
+                      Vendors
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      {totalVendors}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      {totalPlayers}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      {totalGames}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      {totalIn.toFixed(2)}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                    {totalOut.toFixed(2)}
+                    </td>
+                    <td className="px-2 py-1 border border-gray-600 truncate">
+                      {totalGGR.toFixed(2)}
                     </td>
                   </tr>
-                )}
-              </tbody>
-            </table>
+                  {vendorsSelected === true && (
+                    <tr className="bg-brand-dark-grey border border-gray-600">
+                      <td colSpan={7} className="p-4">
+                        <VendorTable item_={session.user} startingOn={startingOn} endingOn={endingOn} />
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-xl font-semibold text-white">By Agents</p>
-          <UserTable
-            parentId_={0}
-            child={userList}
-            startingOn={startingOn}
-            endingOn={endingOn}
-            createTable={createTable}
-            getChildren={getChildren}
-            removeChildren={removeChildren}
-            addGeneralTable={addGeneralTable}
-            removeGeneralTable={removeGeneralTable}
-          />
-        </div>
-      </section>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-xl font-semibold text-white">By Agents</p>
+            <UserTable
+              parentId_={0}
+              child={userList}
+              startingOn={startingOn}
+              endingOn={endingOn}
+              createTable={createTable}
+              getChildren={getChildren}
+              removeChildren={removeChildren}
+              addGeneralTable={addGeneralTable}
+              removeGeneralTable={removeGeneralTable}
+            />
+          </div>
+        </section>
+      )}
     </section>
   );
 };
 
-export default Casino;
+export default LiveCasino;
