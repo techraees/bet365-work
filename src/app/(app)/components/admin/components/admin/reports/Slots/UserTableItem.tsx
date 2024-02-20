@@ -39,6 +39,7 @@ const UserTableItem = ({
     if (item_ !== null) {
       setItem(item_);
       setVendorSelected(item_?.vendorsSelected);
+      setVendorSelected(item_?.vendorsSelected);
       getFinancialReports();
     }
   }, [item_]);
@@ -71,6 +72,7 @@ const UserTableItem = ({
             className={clsx(
               "border border-black !p-0",
               item?.role !== "User" ? "w-32" : "w-20"
+              item?.role !== "User" ? "w-32" : "w-20"
             )}
           >
             <div className="flex">
@@ -90,13 +92,17 @@ const UserTableItem = ({
                 Vendors
               </div>
               {item?.role !== "User" && (
+              {item?.role !== "User" && (
                 <div
                   className={clsx(
                     "px-2 py-1 border border-black",
                     item?.role === "User" && "bg-brand-dark-grey",
                     item?.role !== "User" &&
+                    item?.role === "User" && "bg-brand-dark-grey",
+                    item?.role !== "User" &&
                       open === true &&
                       "bg-brand-yellow hover:bg-brand-yellow cursor-pointer text-black",
+                    item?.role !== "User" &&
                     item?.role !== "User" &&
                       open === false &&
                       "bg-white hover:bg-brand-yellow cursor-pointer text-black"

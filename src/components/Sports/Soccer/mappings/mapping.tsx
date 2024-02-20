@@ -166,7 +166,7 @@ export const nthGoalMarketName = (data: any, oddData: any) => {
       ) {
         let ngoal = data.odds[item].name.replace(
           "Which team will score the ",
-          "",
+          ""
         );
         goal = ngoal.replace(" goal?", "");
         console.log(data.odds[item]);
@@ -228,6 +228,7 @@ export const matchGoals = (data: any) => {
     const participantsObject = { ...data?.odds?.[421]?.participants };
     const keys = Object.keys(participantsObject).slice(-2);
 
+    console.log({ haha: data.odds[421] });
     console.log(keys);
     let arr = [] as any;
     keys.map((key: any, index: number) => {
@@ -287,7 +288,7 @@ export const alternativematchGoals = (data: any) => {
     array = Object.values(participantsObject).reduce(
       (acc: any, participant: any) => {
         const existingIndex = acc.findIndex(
-          (arr: any) => arr[0].title === participant.handicap,
+          (arr: any) => arr[0].title === participant.handicap
         );
 
         if (existingIndex !== -1) {
@@ -352,7 +353,7 @@ export const alternativematchGoals = (data: any) => {
         }
         return acc;
       },
-      [],
+      []
     );
     array.sort((a: any, b: any) => a[0].title - b[0].title);
     return array;
@@ -639,7 +640,7 @@ export const firstHalfGoals = (data: any) => {
       array = Object.values(participantsObject).reduce(
         (acc: any, participant: any) => {
           const existingIndex = acc.findIndex(
-            (arr: any) => arr[0].title === participant.handicap,
+            (arr: any) => arr[0].title === participant.handicap
           );
 
           if (existingIndex !== -1) {
@@ -706,7 +707,7 @@ export const firstHalfGoals = (data: any) => {
 
           return acc;
         },
-        [],
+        []
       );
       array.sort((a: any, b: any) => a[0].title - b[0].title);
       return array;
@@ -729,7 +730,7 @@ export const goalLine = (data: any) => {
       array = Object.values(participantsObject).reduce(
         (acc: any, participant: any) => {
           const existingIndex = acc.findIndex(
-            (arr: any) => arr[0].title === participant.handicap,
+            (arr: any) => arr[0].title === participant.handicap
           );
 
           if (existingIndex !== -1) {
@@ -795,7 +796,7 @@ export const goalLine = (data: any) => {
 
           return acc;
         },
-        [],
+        []
       );
       array.sort((a: any, b: any) => a[0].title - b[0].title);
       return array;
@@ -821,8 +822,9 @@ export const finalScore = (data: any) => {
     const middle = [] as any;
     const right = [] as any;
     Object.keys(data?.odds?.[10001]?.participants).map((item) => {
-      let checkingData =
-        data?.odds?.[10001]?.participants[item]?.name.split("-");
+      let checkingData = data?.odds?.[10001]?.participants[item]?.name.split(
+        "-"
+      );
       checkingData[0] = Number(checkingData[0]);
       checkingData[1] = Number(checkingData[1]);
       if (data?.odds?.[10001]?.participants[item]?.suspend === "0") {
@@ -1034,7 +1036,7 @@ export const halfTimeFullTime = (data: any) => {
         event_id: data?.info?.id,
         event_name:
           data?.team_info?.home?.name + " vs " + data?.team_info?.away?.name,
-        odd_id: 227,
+        odd_id: 226,
         odd_name: data?.odds?.[226]?.name,
         participant_id: data?.odds?.[226]?.participants[item].id,
         participant_name: data?.odds?.[226]?.participants[item].name,
@@ -1168,7 +1170,7 @@ export const firstHalfHandicap = (data: any) => {
   if (data?.odds?.[2000]?.participants) {
     console.log(
       "data?.odds?.[2000]?.participants",
-      data?.odds?.[2000]?.participants,
+      data?.odds?.[2000]?.participants
     );
     const spread = Object.entries(data?.odds?.[2000]?.participants);
     if (spread.length > 0) {
@@ -1402,7 +1404,7 @@ export const asianCorners = (data: any) => {
       array = Object.values(participantsObject).reduce(
         (acc: any, participant: any) => {
           const existingIndex = acc.findIndex(
-            (arr: any) => arr[0].title === participant.handicap,
+            (arr: any) => arr[0].title === participant.handicap
           );
 
           if (existingIndex !== -1) {
@@ -1454,7 +1456,7 @@ export const asianCorners = (data: any) => {
           }
           return acc;
         },
-        [],
+        []
       );
       array.sort((a: any, b: any) => a[0].title - b[0].title);
       return array;
@@ -1475,7 +1477,7 @@ export const firstHalfAsianCorners = (data: any) => {
       array = Object.values(participantsObject).reduce(
         (acc: any, participant: any) => {
           const existingIndex = acc.findIndex(
-            (arr: any) => arr[0].title === participant.handicap,
+            (arr: any) => arr[0].title === participant.handicap
           );
 
           if (existingIndex !== -1) {
@@ -1527,7 +1529,7 @@ export const firstHalfAsianCorners = (data: any) => {
           }
           return acc;
         },
-        [],
+        []
       );
       array.sort((a: any, b: any) => a[0].title - b[0].title);
       return array;
@@ -1604,7 +1606,7 @@ export const corners = (data: any) => {
       ) {
         let corner = data.odds[item].name.replace(
           "Which team will score the ",
-          "",
+          ""
         );
         corner = corner.replace(" corner? (2 Way)", "");
         corner = corner + " Corner";
@@ -1930,13 +1932,13 @@ export const goalsOverUnder = (data: any, oddData: any, fn: string) => {
     id = 1;
     oddData.marketname = oddData?.marketname?.replace(
       "Home",
-      data?.team_info?.home?.name,
+      data?.team_info?.home?.name
     );
   } else if (fn === "awayGoals") {
     id = 2;
     oddData.marketname = oddData?.marketname?.replace(
       "Away",
-      data?.team_info?.home?.name,
+      data?.team_info?.home?.name
     );
   } else {
     return oddData;
@@ -1950,7 +1952,7 @@ export const goalsOverUnder = (data: any, oddData: any, fn: string) => {
       array = Object.values(participantsObject).reduce(
         (acc: any, participant: any) => {
           const existingIndex = acc.findIndex(
-            (arr: any) => arr[0].title === participant.handicap,
+            (arr: any) => arr[0].title === participant.handicap
           );
 
           if (existingIndex !== -1) {
@@ -2003,7 +2005,7 @@ export const goalsOverUnder = (data: any, oddData: any, fn: string) => {
 
           return acc;
         },
-        [],
+        []
       );
       array.sort((a: any, b: any) => a[0].title - b[0].title);
       return array;
@@ -2096,7 +2098,7 @@ export const betResult = (data: any) => {
     });
     array.sort(
       (a: any, b: any) =>
-        Number(a[0].title.substring(0, 2)) - Number(b[0].title.substring(0, 2)),
+        Number(a[0].title.substring(0, 2)) - Number(b[0].title.substring(0, 2))
     );
     tosend.push(...array);
   }
@@ -2274,7 +2276,7 @@ export const betMatchGoals = (data: any, oddData: any) => {
     array = Object.values(participantsObject).reduce(
       (acc: any, participant: any) => {
         const existingIndex = acc.findIndex(
-          (arr: any) => arr[0].title === participant.handicap,
+          (arr: any) => arr[0].title === participant.handicap
         );
 
         if (existingIndex !== -1) {
@@ -2327,7 +2329,7 @@ export const betMatchGoals = (data: any, oddData: any) => {
         }
         return acc;
       },
-      [],
+      []
     );
     array.sort((a: any, b: any) => a[0].title - b[0].title);
 
@@ -2340,7 +2342,7 @@ export const betMatchGoals = (data: any, oddData: any) => {
     array = Object.values(participantsObject1sthalf).reduce(
       (acc: any, participant: any) => {
         const existingIndex = acc.findIndex(
-          (arr: any) => arr[0].title === participant.handicap,
+          (arr: any) => arr[0].title === participant.handicap
         );
 
         if (existingIndex !== -1) {
@@ -2393,7 +2395,7 @@ export const betMatchGoals = (data: any, oddData: any) => {
         }
         return acc;
       },
-      [],
+      []
     );
     array.sort((a: any, b: any) => a[0].title - b[0].title);
 
@@ -2484,7 +2486,7 @@ export const betTeamGoals = (data: any, oddData: any) => {
     array = Object.values(participantsObject).reduce(
       (acc: any, participant: any) => {
         const existingIndex = acc.findIndex(
-          (arr: any) => arr[0].title === participant.handicap,
+          (arr: any) => arr[0].title === participant.handicap
         );
 
         if (existingIndex !== -1) {
@@ -2537,7 +2539,7 @@ export const betTeamGoals = (data: any, oddData: any) => {
         }
         return acc;
       },
-      [],
+      []
     );
     array.sort((a: any, b: any) => a[0].title - b[0].title);
 
@@ -2551,7 +2553,7 @@ export const betTeamGoals = (data: any, oddData: any) => {
     array = Object.values(participantsObject1sthalf).reduce(
       (acc: any, participant: any) => {
         const existingIndex = acc.findIndex(
-          (arr: any) => arr[0].title === participant.handicap,
+          (arr: any) => arr[0].title === participant.handicap
         );
 
         if (existingIndex !== -1) {
@@ -2604,7 +2606,7 @@ export const betTeamGoals = (data: any, oddData: any) => {
         }
         return acc;
       },
-      [],
+      []
     );
     array.sort((a: any, b: any) => a[0].title - b[0].title);
 
@@ -2642,8 +2644,9 @@ export const betScore = (data: any, oddData: any) => {
     const middle = [] as any;
     const right = [] as any;
     Object.keys(data?.odds?.[10001]?.participants).map((item) => {
-      let checkingData =
-        data?.odds?.[10001]?.participants[item]?.name.split("-");
+      let checkingData = data?.odds?.[10001]?.participants[item]?.name.split(
+        "-"
+      );
       checkingData[0] = Number(checkingData[0]);
       checkingData[1] = Number(checkingData[1]);
       if (data?.odds?.[10001]?.participants[item]?.suspend === "0") {

@@ -39,11 +39,10 @@ const PopupShowing = () => {
   const [couponObject, setCouponObject] = useState<any>({});
 
   const { data: session } = useSession();
-  // const [showingFilterCollapse, setShowingFilterCollapse] =
-  //   useState<any>(false);
+  const [showingFilterCollapse, setShowingFilterCollapse] = useState<any>(
+    false
+  );
 
-  const [showingFilterCollapse, setShowingFilterCollapse] =
-    useState<any>(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -132,19 +131,18 @@ const PopupShowing = () => {
 
       return newObj;
     });
-    var current_stake  = 0;
+    var current_stake = 0;
     var possible_winnings = 0;
-    if(type=== "Solo"){
+    if (type === "Solo") {
       current_stake = total_bet;
       possible_winnings = parseFloat(total_to_return);
     }
-    if(type=== "System"){
+    if (type === "System") {
       current_stake = total_bet_system;
       possible_winnings = parseFloat(total_possible_winnings);
-
     }
-    if(type === "Multiple"){
-      current_stake = total_bet_system
+    if (type === "Multiple") {
+      current_stake = total_bet_system;
       possible_winnings = parseFloat(total_possible_winnings);
     }
     const payload = {
@@ -215,7 +213,7 @@ const PopupShowing = () => {
               var stake_value = parseFloat(event.value);
               total_stake *= stake_value;
             });
-            total_winnings += (total_stake) * parseFloat(data[key].single_stake)
+            total_winnings += total_stake * parseFloat(data[key].single_stake);
             total_stake = 1;
           });
         }
@@ -243,10 +241,7 @@ const PopupShowing = () => {
 
     var total_to_return = selectedArray.reduce((sum, item) => {
       // console.log(parseFloat(item.stake));
-      if (
-        !isNaN(parseFloat(item.stake)) &&
-        !isNaN(parseFloat(item.value))
-      ) {
+      if (!isNaN(parseFloat(item.stake)) && !isNaN(parseFloat(item.value))) {
         return sum + parseFloat(item.stake) * parseFloat(item.value);
       } else {
         return sum;
@@ -256,7 +251,7 @@ const PopupShowing = () => {
     total_bet = total_bet.toFixed(2);
     total_to_return = total_to_return.toFixed(2);
     console.log({ ccObj: couponObject });
-    if (betPlaced && couponObject.selections !== undefined) {
+    if (betPlaced && couponObject?.selections !== undefined) {
       return (
         <>
           <div className="fixed bottom-9 rounded-[5px, 5px, 0, 0] flex flex-col bg-white rounded-[5px] z-50 left-0 w-screen md:left-[20%] md:w-full md:min-w-[300px] md:max-w-[500px]">
@@ -314,7 +309,7 @@ const PopupShowing = () => {
                             Total Stake
                           </div>
                           <div className="text-2xl text-[#545454] font-normal leading-6">
-                            {couponObject.stake} 
+                            {couponObject.stake}
                           </div>
                         </div>
                         <div className="flex-1"></div>{" "}
@@ -324,7 +319,7 @@ const PopupShowing = () => {
                             Possible Winnings
                           </div>
                           <div className="text-2xl text-[#545454] font-normal leading-6">
-                            {couponObject.possible_winnings} 
+                            {couponObject.possible_winnings}
                           </div>
                         </div>
                         <div className="flex-1"></div>{" "}
@@ -419,8 +414,8 @@ const PopupShowing = () => {
               <div className="bs-Balance_Label ">Balance</div>
               <div className="bs-Balance_ValueWrapper ">
                 <div className="bs-Balance_Value ">
-                  {/* @ts-ignore */}
-                  €{session?.user?.balance?.sports_betting_slots}
+                  {/* @ts-ignore */}€
+                  {session?.user?.balance?.sports_betting_slots}
                 </div>
               </div>
             </div>
@@ -558,9 +553,9 @@ const PopupShowing = () => {
                       <div className="relative whitespace-nowrap cursor-pointer min-h-[48px] flex items-center justify-center flex-col w-full transition-[background-color] duration-[0.2s,height] delay-[0.2s] h-full pt-1.5 pb-[7px] px-2.5 pt-1.5 pb-[7px] px-[15px]">
                         {betIsPlacing ? (
                           <div className="text-center flex flex-wrap justify-center w-full leading-5 min-h-[16px] mt-5">
-                              <div className="text-base text-white leading-[19px] relative whitespace-normal font-bold transition-opacity duration-[0.25s]">
-                                <div className="bl-Preloader_Spinner bl-Spinner"></div>
-                              </div>
+                            <div className="text-base text-white leading-[19px] relative whitespace-normal font-bold transition-opacity duration-[0.25s]">
+                              <div className="bl-Preloader_Spinner bl-Spinner"></div>
+                            </div>
                           </div>
                         ) : (
                           <div>
