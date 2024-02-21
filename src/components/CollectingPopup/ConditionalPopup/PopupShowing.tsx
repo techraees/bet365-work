@@ -17,7 +17,7 @@ import MultipleElement from "./MultipleElement";
 import CouponElement from "./CouponElement";
 import { placeCoupon } from "@/api";
 
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const PopupShowing = () => {
@@ -39,9 +39,7 @@ const PopupShowing = () => {
   const [couponObject, setCouponObject] = useState<any>({});
 
   const { data: session } = useSession();
-  const [showingFilterCollapse, setShowingFilterCollapse] = useState<any>(
-    false
-  );
+  const [showingFilterCollapse, setShowingFilterCollapse] = useState<any>(true);
 
   const router = useRouter();
 
@@ -156,28 +154,29 @@ const PopupShowing = () => {
     console.log({ payloadz: payload });
     // @ts-ignore
     const token = session?.user?.token;
-    placeCoupon(token, payload).then((res) => {
-      if (res.ok) {
-        setBetIsPlacing(false);
-        setBetPlaced(true);
-        res.json().then((result) => {
-          setCouponObject(result.message);
-          console.log({ rs: result });
-        });
-      } else {
-        // Handle non-200 responses
-        res.json().then((result) => {
-          // Assuming you have a showToast function to display the message
-          toast.error(result.message, {position: "top-center"}); // Display error message in a toast
+    placeCoupon(token, payload)
+      .then((res) => {
+        if (res.ok) {
           setBetIsPlacing(false);
-        });
-      }
-    }).catch((error) => {
-      // Handle network errors or issues with the fetch call itself
-      toast.error(error, {position: "top-center"}); // Display error message in a toast
-      setBetIsPlacing(false);
-    });
-
+          setBetPlaced(true);
+          res.json().then((result) => {
+            setCouponObject(result.message);
+            console.log({ rs: result });
+          });
+        } else {
+          // Handle non-200 responses
+          res.json().then((result) => {
+            // Assuming you have a showToast function to display the message
+            toast.error(result.message, { position: "top-center" }); // Display error message in a toast
+            setBetIsPlacing(false);
+          });
+        }
+      })
+      .catch((error) => {
+        // Handle network errors or issues with the fetch call itself
+        toast.error(error, { position: "top-center" }); // Display error message in a toast
+        setBetIsPlacing(false);
+      });
   }
 
   function sumTotalStakesSystem(data: any) {
@@ -598,17 +597,17 @@ const PopupShowing = () => {
             </div>
           </div>
         </div>
-      <ToastContainer
-        position="top-center"
-        autoClose={4000}
-        hideProgressBar
-        pauseOnHover={false}
-        pauseOnFocusLoss={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        theme="dark"
-      />
+        <ToastContainer
+          position="top-center"
+          autoClose={4000}
+          hideProgressBar
+          pauseOnHover={false}
+          pauseOnFocusLoss={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          theme="dark"
+        />
       </>
     );
   } else {

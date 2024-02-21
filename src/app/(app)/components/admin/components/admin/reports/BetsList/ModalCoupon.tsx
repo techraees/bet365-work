@@ -14,14 +14,28 @@ function ModalCoupon({ item, user }: ModalCouponProps) {
   const { data: session }: any = useSession();
   const { isCouponModalOpen, closeCouponModal } = useModalContext();
   const [totalSumOdds, setTotalSumOdds] = useState(0);
+  const [readableDate, setReadableDate] = useState() as any;
 
   useEffect(() => {
     if (item !== null) {
-      console.log(item)
+      console.log(item);
       let _totalSumOdds = 0;
       for (let i = 0; i < item.selections.length; i++)
         _totalSumOdds += item.selections[i].value_eu;
       setTotalSumOdds(_totalSumOdds);
+
+      var date = new Date();
+      if (item.timestamp !== undefined) {
+        // Convert to readable string (e.g., for the US locale)
+        const readableString = date.toLocaleString("en-US", {
+          timeZone: "Etc/GMT-2",
+          dateStyle: "full",
+          timeStyle: "long",
+        });
+        setReadableDate(readableString);
+      } else {
+        date = new Date();
+      }
     }
   }, [item]);
 
@@ -69,7 +83,7 @@ function ModalCoupon({ item, user }: ModalCouponProps) {
                       Date
                     </td>
                     <td className="px-4 py-1 border border-gray-600 truncate">
-                      {item.timestamp}
+                      {readableDate}
                     </td>
                   </tr>
                   <tr>
@@ -85,7 +99,7 @@ function ModalCoupon({ item, user }: ModalCouponProps) {
                       User
                     </td>
                     <td className="px-4 py-1 border border-gray-600 truncate">
-                      {user._id} - {user.username}
+                      {item.placedBy}
                     </td>
                   </tr>
                   <tr>
@@ -134,7 +148,11 @@ function ModalCoupon({ item, user }: ModalCouponProps) {
                       <div
                         className={clsx(
                           "w-20 px-4 py-1 h-full text-center",
-                          item.status === "Won" ? "bg-green-700" : item.status === "Lost" ? "bg-brand-red" : "bg-gray-500"
+                          item.status === "Won"
+                            ? "bg-green-700"
+                            : item.status === "Lost"
+                            ? "bg-brand-red"
+                            : "bg-gray-500"
                         )}
                       >
                         {item.status}
@@ -215,14 +233,30 @@ function ModalCoupon({ item, user }: ModalCouponProps) {
                             {selection.event_name}
                           </td>
                           <td className="px-2 py-1 border border-gray-600 truncate">
-                            {selection.odd_name}, {selection.participant_name}, {selection.participant_handicap}
+                            {selection.odd_name} [{" "}
+                            {selection.participant_header}{" "}
+                            {selection.participant_name}{" "}
+                            {selection.participant_handicap} ]
+                          </td>
+                          <td className="px-2 py-1 border border-gray-600 truncate">
+                            {selection.value_eu}
                           </td>
                           <td className="px-2 py-1 border border-gray-600 truncate">
                             {selection.odd_id}
                           </td>
-                          <td className="px-2 py-1 border border-gray-600 truncate">{selection.value_eu}</td>
                           <td className="border border-gray-600 px-2 truncate">
-                            <div className={clsx("py-2", selection.status === "Won" ? "bg-green-700" : selection.status === "Lost" ? "bg-brand-red" : "bg-gray-500")}>
+                            <div
+                              className={clsx(
+                                "py-2",
+                                selection.status === "WON" ||
+                                  selection.status === "HALF WON" ||
+                                  selection.status === "HALF LOST"
+                                  ? "bg-green-700"
+                                  : selection.status === "LOST"
+                                  ? "bg-brand-red"
+                                  : "bg-gray-500"
+                              )}
+                            >
                               {selection.status}
                             </div>
                           </td>

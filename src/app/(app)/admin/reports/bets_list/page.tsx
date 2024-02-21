@@ -27,7 +27,7 @@ const BetsList = () => {
       "-" +
       String(new Date().getDate()).padStart(2, "0")
   );
-  
+
   const [betSymbol, setBetSymbol] = useState("All");
   const [betCost, setBetCost] = useState(0);
   const [sumSymbol, setSumSymbol] = useState("All");
@@ -89,14 +89,22 @@ const BetsList = () => {
       let _totalAmount = 0;
       let _totalPossibleWinnings = 0;
       let _totalWonAmount = 0;
+      let totalOpen = 0;
       for (let i = 0; i < _res.data.length; i++) {
         _totalAmount += _res.data[i].stake;
         _totalPossibleWinnings += _res.data[i].possible_winnings;
         _totalWonAmount += _res.data[i].won_amount;
+        if (_res.data[i].status === "Open") {
+          totalOpen++;
+        }
       }
+      _totalPossibleWinnings = _totalPossibleWinnings.toFixed(2) as any;
+      _totalAmount = _totalAmount.toFixed(2) as any;
+      _totalWonAmount = _totalWonAmount.toFixed(2) as any;
+
       setTotalInfo({
         coupon_id: `Total: ${_res.data.length}`,
-        type: "Open: 0",
+        type: "Open:" + totalOpen.toString(),
         status: `Average: ${_totalAmount / _res.data.length}`,
         amount: _totalAmount,
         possible_winnings: _totalPossibleWinnings,
@@ -453,6 +461,15 @@ const BetsList = () => {
                     </td>
                   </tr>
                   {betsList.map((item: any, index: number) => {
+                    const date = new Date(item.timestamp);
+
+                    // Convert to readable string (e.g., for the US locale)
+                    const readableString = date.toLocaleString("en-US", {
+                      timeZone: "Etc/GMT-2",
+                      dateStyle: "full",
+                      timeStyle: "long",
+                    });
+
                     return (
                       <tr
                         key={index}
@@ -466,7 +483,7 @@ const BetsList = () => {
                           {item.placedBy}
                         </td>
                         <td className="px-2 py-1 border border-gray-600 truncate">
-                          {item.timestamp}
+                          {readableString}
                         </td>
                         <td className="px-2 py-1 border border-gray-600 truncate">
                           {item._id}
