@@ -96,7 +96,7 @@ const Home = ({ params }: any) => {
 
                 <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-90 transition-opacity duration-200 hover:bg-[#00000055]">
                   <div className="flex z-50">
-                    <Link href={`/casino/play?id=${slot._id}`}>
+                    <Link href={`/live-casino/play?id=${slot._id}`}>
                       <button className="bg-[#111] min-w-[20px] h-[20px] flex justify-center items-center text-[13px] font-[700] leading-[17px] text-[#26ffbe] px-[10px] rounded-[2px] border border-[#26ffbe80]">
                         Play Now
                       </button>
