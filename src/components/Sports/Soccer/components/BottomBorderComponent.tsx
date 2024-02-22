@@ -84,15 +84,78 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
     _attacks: any = null,
     _dangerous_attacks: any = null,
     _possession: any = null,
-    _on_target: any = null;
+    _on_target: any = null,
+    _attackPercentage: number = 39,
+    _possessionPercentage: number = 39,
+    _onTargetPercentage:number = 50,
+    _totalTargetPercentage:number = 50,
+    _totalTargetTeam1 = 0,
+    _totalTargetTeam2 = 0,
+    _dangerousAttackPercentage:number = 39;
 
   status.forEach((state: string) => {
-    if (_off_target == null) _off_target = state.match(_off_target_regx);
-    if (_attacks == null) _attacks = state.match(_attacks_regx);
-    if (_dangerous_attacks == null)
+    if (_off_target == null){
+      _off_target = state.match(_off_target_regx);
+      let team1OffTarget = _off_target ? Number(_off_target[1]) : 0;
+      let team2OffTarget = _off_target ? Number(_off_target[2]) : 0;
+      _totalTargetTeam1 += team1OffTarget;
+      _totalTargetTeam2 += team2OffTarget;
+    }
+    if (_attacks == null) {
+      _attacks = state.match(_attacks_regx);
+      let team1Attack  = _attacks ? Number(_attacks[1]) : 0;
+      let team2Attack  = _attacks ? Number(_attacks[2]) : 0;
+      let totalAttack  = team1Attack + team2Attack;
+      if (totalAttack == 0) {
+        _attackPercentage = 39;
+      } else {
+        _attackPercentage = 78*team2Attack/totalAttack;
+      }
+    }
+    if (_dangerous_attacks == null){
       _dangerous_attacks = state.match(_dangerous_attacks_regx);
-    if (_possession == null) _possession = state.match(_possession_regx);
-    if (_on_target == null) _on_target = state.match(_on_target_regx);
+      let team1DangerousAttack  = _dangerous_attacks ? Number(_dangerous_attacks[1]) : 0;
+      let team2DangerousAttack  = _dangerous_attacks ? Number(_dangerous_attacks[2]) : 0;
+      let totalDangerousAttack  = team1DangerousAttack + team2DangerousAttack;
+      if (totalDangerousAttack == 0) {
+        _dangerousAttackPercentage = 39;
+      } else {
+        _dangerousAttackPercentage = 78*team2DangerousAttack/totalDangerousAttack;
+      }
+    }
+    if (_possession == null){
+      _possession = state.match(_possession_regx);
+      let team1Possession  = _possession ? Number(_possession[1]) : 0;
+      let team2Possession  = _possession ? Number(_possession[2]) : 0;
+      let totalPossession  = team1Possession + team2Possession;
+      if (totalPossession == 0) {
+        _possessionPercentage = 39;
+      } else {
+        _possessionPercentage = 78*team2Possession/totalPossession;
+      }
+    } 
+    if (_on_target == null){
+      _on_target = state.match(_on_target_regx);
+      let team1OnTarget = _on_target ? Number(_on_target[1]) : 0;
+      let team2OnTarget = _on_target ? Number(_on_target[2]) : 0;
+      _totalTargetTeam1 += team1OnTarget;
+      _totalTargetTeam2 += team2OnTarget;
+      let totalOntarget = team1OnTarget + team2OnTarget;
+      if (totalOntarget == 0) {
+        _onTargetPercentage = 50;
+      } else {
+        _onTargetPercentage = team1OnTarget / totalOntarget * 100;
+      }
+    }
+
+    if(_totalTargetTeam1 + _totalTargetTeam2 == 0){
+      _totalTargetPercentage = 50;
+    }else{
+      _totalTargetPercentage = 100 * _totalTargetTeam1 / (_totalTargetTeam1 + _totalTargetTeam2);
+    }
+
+
+    
   });
 
   var sets_details = extractSets(data?.stats);
@@ -105,11 +168,10 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
       <div className="flex-[0_0_auto] flex w-full justify-center items-stretch h-[50px] border-b-[hsla(0,0%,100%,.1)] border-b border-solid">
         <div className="h-[50px] min-w-[40px] mx-2.5 my-0">
           <div
-            className={`text-[13px] leading-[50px] text-[#fff] w-[-webkit-fit-content] w-fit cursor-pointer flex items-center justify-center text-center h-[50px] m-auto border-b-2 border-solid ${
-              activeTab === "Stats"
+            className={`text-[13px] leading-[50px] text-[#fff] w-[-webkit-fit-content] w-fit cursor-pointer flex items-center justify-center text-center h-[50px] m-auto border-b-2 border-solid ${activeTab === "Stats"
                 ? "opacity-100 font-bold border-[#fff]"
                 : "opacity-80 hover:opacity-100 border-b-transparent"
-            }`}
+              }`}
             onClick={() => setActiveTab("Stats")}
           >
             Stats
@@ -117,11 +179,10 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
         </div>
         <div className="h-[50px] min-w-[40px] mx-2.5 my-0">
           <div
-            className={`text-[13px] leading-[50px] text-[#fff] w-[-webkit-fit-content] w-fit cursor-pointer flex items-center justify-center text-center h-[50px] m-auto border-b-2 border-solid ${
-              activeTab === "Summary"
+            className={`text-[13px] leading-[50px] text-[#fff] w-[-webkit-fit-content] w-fit cursor-pointer flex items-center justify-center text-center h-[50px] m-auto border-b-2 border-solid ${activeTab === "Summary"
                 ? "opacity-100 font-bold border-[#fff]"
                 : "opacity-80 hover:opacity-100 border-b-transparent"
-            }`}
+              }`}
             onClick={() => setActiveTab("Summary")}
           >
             Summary
@@ -227,34 +288,23 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                                         id="wheelPathTeam1"
                                         className="ml1-WheelChartAdvanced_TeamOnePath"
                                         stroke-width="3.9"
-                                        d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
+                                        d="M15 4.0845
+                                        a 12.4155 12.4155 0 0 1 0 24.831
+                                        a 12.4155 12.4155 0 0 1 0 -24.831"
                                         stroke={kitColors.home}
-                                      ></path>
-                                      <path
-                                        id="wheelShadow"
-                                        className="ml1-WheelChartAdvanced_WheelShadow"
-                                        stroke-width="4"
-                                        d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
-                                        stroke="#404040"
-                                        transform="rotate(-6.611505127887398 16 16)"
-                                        style={{
-                                          strokeDasharray:
-                                            "75.3613px, 75.3613px",
-                                          strokeDashoffset: "40.4487px",
-                                        }}
                                       ></path>
                                       <path
                                         id="wheelPathTeam2"
                                         className="ml1-WheelChartAdvanced_TeamTwoPath"
                                         stroke-width="4"
-                                        d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
+                                        d="M15 4.0845
+                                        a 12.4155 12.4155 0 0 1 0 24.831
+                                        a 12.4155 12.4155 0 0 1 0 -24.831"
                                         stroke={kitColors.away}
-                                        transform="rotate(-11.388494872112616 16 16)"
                                         style={{
                                           stroke: kitColors.away,
                                           strokeDasharray:
-                                            "75.3613px, 75.3613px",
-                                          strokeDashoffset: "42.4487px",
+                                            `${_attackPercentage}, 78`,
                                         }}
                                       ></path>
                                     </g>
@@ -317,37 +367,23 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                                         id="wheelPathTeam1"
                                         className="ml1-WheelChartAdvanced_TeamOnePath"
                                         stroke-width="3.9"
-                                        d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
+                                        d="M15 4.0845
+                                        a 12.4155 12.4155 0 0 1 0 24.831
+                                        a 12.4155 12.4155 0 0 1 0 -24.831"
                                         stroke={kitColors.home}
-                                        style={{
-                                          stroke: kitColors.home,
-                                        }}
-                                      ></path>
-                                      <path
-                                        id="wheelShadow"
-                                        className="ml1-WheelChartAdvanced_WheelShadow"
-                                        stroke-width="4"
-                                        d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
-                                        stroke="#404040"
-                                        transform="rotate(-1.7653512817335297 16 16)"
-                                        style={{
-                                          strokeDasharray:
-                                            "75.3613px, 75.3613px",
-                                          strokeDashoffset: "38.4197px",
-                                        }}
                                       ></path>
                                       <path
                                         id="wheelPathTeam2"
                                         className="ml1-WheelChartAdvanced_TeamTwoPath"
                                         stroke-width="4"
-                                        d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
+                                        d="M15 4.0845
+                                        a 12.4155 12.4155 0 0 1 0 24.831
+                                        a 12.4155 12.4155 0 0 1 0 -24.831"
                                         stroke={kitColors.away}
-                                        transform="rotate(-6.5423410259587484 16 16)"
                                         style={{
                                           stroke: kitColors.away,
                                           strokeDasharray:
-                                            "75.3613px, 75.3613px",
-                                          strokeDashoffset: "40.4197px",
+                                            `${_dangerousAttackPercentage}, 78`,
                                         }}
                                       ></path>
                                     </g>
@@ -410,35 +446,23 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                                         id="wheelPathTeam1"
                                         className="ml1-WheelChartAdvanced_TeamOnePath"
                                         stroke-width="3.9"
-                                        d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
+                                        d="M15 4.0845
+                                        a 12.4155 12.4155 0 0 1 0 24.831
+                                        a 12.4155 12.4155 0 0 1 0 -24.831"
                                         stroke={kitColors.home}
-                                        style={{ stroke: kitColors.home }}
-                                      ></path>
-                                      <path
-                                        id="wheelShadow"
-                                        className="ml1-WheelChartAdvanced_WheelShadow"
-                                        stroke-width="4"
-                                        d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
-                                        stroke="#404040"
-                                        transform="rotate(2.3884948721126023 16 16)"
-                                        style={{
-                                          strokeDasharray:
-                                            "75.3613px, 75.3613px",
-                                          strokeDashoffset: "36.6806px",
-                                        }}
                                       ></path>
                                       <path
                                         id="wheelPathTeam2"
                                         className="ml1-WheelChartAdvanced_TeamTwoPath"
                                         stroke-width="4"
-                                        d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
+                                        d="M15 4.0845
+                                        a 12.4155 12.4155 0 0 1 0 24.831
+                                        a 12.4155 12.4155 0 0 1 0 -24.831"
                                         stroke={kitColors.away}
-                                        transform="rotate(-2.3884948721126023 16 16)"
                                         style={{
                                           stroke: kitColors.away,
                                           strokeDasharray:
-                                            "75.3613px, 75.3613px",
-                                          strokeDashoffset: "38.6806px",
+                                            `${_possessionPercentage}, 78`,
                                         }}
                                       ></path>
                                     </g>
@@ -514,10 +538,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                               <div className="flex justify-center items-center gap-[3px]">
                                 <div className="justify-end flex flex-nowrap shrink-0 w-[30px] ml-0 mr-[5px] my-0">
                                   <div className="text-[13px] font-bold leading-[15px] text-[#ccc] flex-[0_0_auto]">
-                                    {_on_target && _off_target
-                                      ? Number(_on_target[1]) +
-                                        Number(_off_target[1])
-                                      : 0}
+                                    {_totalTargetTeam1}
                                   </div>
                                   <div className="text-[#a7a7a7] font-normal text-[13px] leading-[15px] mx-[0.6px] my-0">
                                     /
@@ -529,29 +550,33 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                                 <div className="w-full flex flex-col gap-[5px] pt-1.5">
                                   <div className="bg-transparent flex-[1_1_100%] flex gap-px rounded-sm">
                                     <div
-                                      className={`basis-[35.7143%] bg-current h-[3px] block w-6/12 rounded-[3px_0_0_3px]`}
+                                      className={`bg-current h-[3px] block rounded-[3px_0_0_3px]`}
                                       style={{
                                         color: kitColors.home,
+                                        width: _totalTargetPercentage + "%",
                                       }}
                                     ></div>
                                     <div
-                                      className="basis-[64.2857%] bg-current h-[3px] block w-6/12 rounded-[0_3px_3px_0]"
+                                      className={`bg-current h-[3px] block rounded-[0_3px_3px_0]`}
                                       style={{
                                         color: kitColors.away,
+                                        width: (100 - _totalTargetPercentage) + "%",
                                       }}
                                     ></div>
                                   </div>
-                                  <div className="w-[57.1429%] h-[3px] bg-transparent flex-[1_1_100%] flex gap-px ml-[21.4286%] rounded-sm">
+                                  <div className = {`w-[57.1429%] h-[3px] bg-transparent flex-[1_1_100%] flex gap-px ml-[21.4286%] rounded-sm`} >
                                     <div
-                                      className="basis-[25%] bg-current h-[3px] block w-6/12 rounded-[3px_0_0_3px]"
+                                      className="bg-current h-[3px] block rounded-[3px_0_0_3px]"
                                       style={{
                                         color: kitColors.home,
+                                        width: _onTargetPercentage + "%",
                                       }}
                                     ></div>
                                     <div
-                                      className="basis-[75%] bg-current h-[3px] block w-6/12 rounded-[0_3px_3px_0]"
+                                      className="bg-current h-[3px] block rounded-[0_3px_3px_0]"
                                       style={{
                                         color: kitColors.away,
+                                        width: (100 -_onTargetPercentage) + "%",
                                       }}
                                     ></div>
                                   </div>
@@ -560,7 +585,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                                   <div className="text-[13px] font-bold leading-[15px] text-[#ccc] flex-[0_0_auto]">
                                     {_on_target && _off_target
                                       ? Number(_on_target[2]) +
-                                        Number(_off_target[2])
+                                      Number(_off_target[2])
                                       : 0}
                                   </div>
                                   <div className="text-[#a7a7a7] font-normal text-[13px] leading-[15px] mx-[0.6px] my-0">
@@ -640,17 +665,19 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                                     5
                                   </div>
                                   <div
-                                    className="basis-[62.5%] flex-[0_1_100%] h-[3px] mt-[5px] rounded-[3px_0_0_3px]"
+                                    className=" flex-[0_1_100%] h-[3px] mt-[5px] rounded-[3px_0_0_3px]"
                                     style={{
                                       background: kitColors.home,
+                                      width : 500/13 + "%",
                                     }}
                                   ></div>
                                 </div>
                                 <div className="flex flex-[0_1_50%] justify-end">
                                   <div
-                                    className="basis-full flex-[0_1_100%] h-[3px] mt-[5px] rounded-[0_3px_3px_0]"
+                                    className=" flex-[0_1_100%] h-[3px] mt-[5px] rounded-[0_3px_3px_0]"
                                     style={{
                                       background: kitColors.away,
+                                      width : 800/13 + "%",
                                     }}
                                   ></div>
                                   <div className="text-left text-[13px] leading-[15px] text-[#ccc] font-bold w-[50px] ml-2.5">
@@ -758,9 +785,8 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
 
           {activeTab == "Summary" && (
             <div
-              className={`flex-auto flex items-stretch w-full mx-auto my-0 ${
-                activeTab == "Summary" ? "block" : "hidden"
-              }`}
+              className={`flex-auto flex items-stretch w-full mx-auto my-0 ${activeTab == "Summary" ? "block" : "hidden"
+                }`}
             >
               <div className="block max-w-none flex-auto w-full mx-auto my-0">
                 {data.extra &&

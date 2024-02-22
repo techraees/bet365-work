@@ -618,9 +618,9 @@ function getBallPosition(data: any): any {
   let ballPos = data?.info?.ball_pos?.split(",");
   return ballPos
     ? {
-        x: Number(ballPos[0]) * FIELD_WIDTH,
-        y: Number(ballPos[1]) * FIELD_HEIGHT,
-      }
+      x: Number(ballPos[0]) * FIELD_WIDTH,
+      y: Number(ballPos[1]) * FIELD_HEIGHT,
+    }
     : null;
 }
 
@@ -895,14 +895,46 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
     _attacks: any = null,
     _dangerous_attacks: any = null,
     _possession: any = null,
-    _on_target: any = null;
+    _on_target: any = null,
+    _attackPercentage: number = 39,
+    _possessionPercentage: number = 39,
+    _dangerousAttackPercentage: number = 39;
 
   states.forEach((state: string) => {
     if (_off_target == null) _off_target = state.match(_off_target_regx);
-    if (_attacks == null) _attacks = state.match(_attacks_regx);
-    if (_dangerous_attacks == null)
+    if (_attacks == null) {
+      _attacks = state.match(_attacks_regx);
+      let team1Attack = _attacks ? Number(_attacks[1]) : 0;
+      let team2Attack = _attacks ? Number(_attacks[2]) : 0;
+      let totalAttack = team1Attack + team2Attack;
+      if (totalAttack == 0) {
+        _attackPercentage = 39;
+      } else {
+        _attackPercentage = 78 * team2Attack / totalAttack;
+      }
+    }
+    if (_dangerous_attacks == null) {
       _dangerous_attacks = state.match(_dangerous_attacks_regx);
-    if (_possession == null) _possession = state.match(_possession_regx);
+      let team1DangerousAttack = _dangerous_attacks ? Number(_dangerous_attacks[1]) : 0;
+      let team2DangerousAttack = _dangerous_attacks ? Number(_dangerous_attacks[2]) : 0;
+      let totalDangerousAttack = team1DangerousAttack + team2DangerousAttack;
+      if (totalDangerousAttack == 0) {
+        _dangerousAttackPercentage = 39;
+      } else {
+        _dangerousAttackPercentage = 78 * team2DangerousAttack / totalDangerousAttack;
+      }
+    }
+    if (_possession == null) {
+      _possession = state.match(_possession_regx);
+      let team1Possession = _possession ? Number(_possession[1]) : 0;
+      let team2Possession = _possession ? Number(_possession[2]) : 0;
+      let totalPossession = team1Possession + team2Possession;
+      if (totalPossession == 0) {
+        _possessionPercentage = 39;
+      } else {
+        _possessionPercentage = 78 * team2Possession / totalPossession;
+      }
+    }
     if (_on_target == null) _on_target = state.match(_on_target_regx);
   });
 
@@ -1197,9 +1229,8 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
         <g
           id="SVGIRIS_PITCH_FX_DNGR_0"
           className="transition-transform duration-500"
-          transform={`matrix(1,0,0,1,${
-            (Math.min((ballPos?.x ?? 320) - 370), -5)
-          },0)`}
+          transform={`matrix(1,0,0,1,${(Math.min((ballPos?.x ?? 320) - 370), -5)
+            },0)`}
         >
           <polygon
             id="SvgjsPolygon3649"
@@ -1354,9 +1385,8 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
       {status?.team == 1 && status?.status == "Goal Kick" && (
         <g
           id="goal_kick"
-          transform={`matrix(1,0,0,1,${ballPos?.x ?? 20}, ${
-            ballPos?.y ?? 100
-          })`}
+          transform={`matrix(1,0,0,1,${ballPos?.x ?? 20}, ${ballPos?.y ?? 100
+            })`}
         >
           <path
             id="goal_kick_3"
@@ -1385,9 +1415,8 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
       {status?.team == 2 && status?.status == "Goal Kick" && (
         <g
           id="SVGIRIS_PITCH_FX_GKIK"
-          transform={`matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,${
-            ballPos?.x ?? 382
-          },${ballPos?.y ?? 68})`}
+          transform={`matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,${ballPos?.x ?? 382
+            },${ballPos?.y ?? 68})`}
           opacity="1"
         >
           <path
@@ -1427,9 +1456,8 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
           transform={`matrix(${Math.cos(getAngleFromPos(ballPos, awayGoalPos))},
                           ${-Math.sin(getAngleFromPos(ballPos, awayGoalPos))},
                           ${Math.sin(getAngleFromPos(ballPos, awayGoalPos))},
-                          ${Math.cos(getAngleFromPos(ballPos, awayGoalPos))},${
-            ballPos?.x ?? lastBallPos?.x
-          }, 
+                          ${Math.cos(getAngleFromPos(ballPos, awayGoalPos))},${ballPos?.x ?? lastBallPos?.x
+            }, 
                           ${ballPos?.y ?? lastBallPos?.y})`}
         >
           <path
@@ -1462,9 +1490,8 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
           transform={`matrix(${Math.cos(getAngleFromPos(ballPos, homeGoalPos))},
                           ${-Math.sin(getAngleFromPos(ballPos, homeGoalPos))},
                           ${Math.sin(getAngleFromPos(ballPos, homeGoalPos))},
-                          ${Math.cos(getAngleFromPos(ballPos, homeGoalPos))},${
-            ballPos?.x ?? lastBallPos?.x
-          }, 
+                          ${Math.cos(getAngleFromPos(ballPos, homeGoalPos))},${ballPos?.x ?? lastBallPos?.x
+            }, 
                           ${ballPos?.y ?? lastBallPos?.x})`}
         >
           <path
@@ -1498,14 +1525,14 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
             getAngleFromPos(ballPos, awayCornerTarget)
           )},
                           ${-Math.sin(
-                            getAngleFromPos(ballPos, awayCornerTarget)
-                          )},
+            getAngleFromPos(ballPos, awayCornerTarget)
+          )},
                           ${Math.sin(
-                            getAngleFromPos(ballPos, awayCornerTarget)
-                          )},
+            getAngleFromPos(ballPos, awayCornerTarget)
+          )},
                           ${Math.cos(
-                            getAngleFromPos(ballPos, awayCornerTarget)
-                          )},${ballPos?.x ?? lastBallPos?.x}, 
+            getAngleFromPos(ballPos, awayCornerTarget)
+          )},${ballPos?.x ?? lastBallPos?.x}, 
                           ${ballPos?.y ?? lastBallPos?.y})`}
         >
           <path
@@ -1539,14 +1566,14 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
             getAngleFromPos(ballPos, homeCornerTarget)
           )},
                           ${-Math.sin(
-                            getAngleFromPos(ballPos, homeCornerTarget)
-                          )},
+            getAngleFromPos(ballPos, homeCornerTarget)
+          )},
                           ${Math.sin(
-                            getAngleFromPos(ballPos, homeCornerTarget)
-                          )},
+            getAngleFromPos(ballPos, homeCornerTarget)
+          )},
                           ${Math.cos(
-                            getAngleFromPos(ballPos, homeCornerTarget)
-                          )},${ballPos?.x ?? lastBallPos?.x}, 
+            getAngleFromPos(ballPos, homeCornerTarget)
+          )},${ballPos?.x ?? lastBallPos?.x}, 
                           ${ballPos?.y ?? lastBallPos?.y})`}
         >
           <path
@@ -1579,9 +1606,8 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
           transform={`matrix(${Math.cos(getAngleFromPos(ballPos, awayGoalPos))},
     ${-Math.sin(getAngleFromPos(ballPos, awayGoalPos))},
     ${Math.sin(getAngleFromPos(ballPos, awayGoalPos))},
-    ${Math.cos(getAngleFromPos(ballPos, awayGoalPos))},${
-            ballPos?.x ?? lastBallPos?.x
-          }, 
+    ${Math.cos(getAngleFromPos(ballPos, awayGoalPos))},${ballPos?.x ?? lastBallPos?.x
+            }, 
     ${ballPos?.y ?? lastBallPos?.x})`}
         >
           <path
@@ -3342,9 +3368,8 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
           xmlns="http://www.w3.org/2000/svg"
           id="SVGIRIS_PITCH_XY"
           className="transition-transform duration-500"
-          transform={`matrix(1,0,0,1, ${ballPos.x ?? lastBallPos.x}, ${
-            ballPos.y ?? lastBallPos.x
-          })`}
+          transform={`matrix(1,0,0,1, ${ballPos.x ?? lastBallPos.x}, ${ballPos.y ?? lastBallPos.x
+            })`}
         >
           <circle
             id="SVGIRIS_PITCH_XY_FX"
@@ -3478,11 +3503,10 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
           <div className="flex-[0_0_auto] flex w-full justify-center items-stretch h-[50px] border-b-[hsla(0,0%,100%,.1)] border-b border-solid">
             <div className="h-[50px] min-w-[40px] mx-2.5 my-0">
               <div
-                className={`text-[13px] leading-[50px] text-[#fff] w-[-webkit-fit-content] w-fit cursor-pointer flex items-center justify-center text-center h-[50px] m-auto border-b-2 border-solid ${
-                  activeTab === "Live"
-                    ? "opacity-100 font-bold border-[#fff]"
-                    : "opacity-80 hover:opacity-100 border-b-transparent"
-                }`}
+                className={`text-[13px] leading-[50px] text-[#fff] w-[-webkit-fit-content] w-fit cursor-pointer flex items-center justify-center text-center h-[50px] m-auto border-b-2 border-solid ${activeTab === "Live"
+                  ? "opacity-100 font-bold border-[#fff]"
+                  : "opacity-80 hover:opacity-100 border-b-transparent"
+                  }`}
                 onClick={() => setActiveTab("Live")}
               >
                 Live
@@ -3490,11 +3514,10 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
             </div>
             <div className="h-[50px] min-w-[40px] mx-2.5 my-0">
               <div
-                className={`text-[13px] leading-[50px] text-[#fff] w-[-webkit-fit-content] w-fit cursor-pointer flex items-center justify-center text-center h-[50px] m-auto border-b-2 border-solid ${
-                  activeTab === "Stats"
-                    ? "opacity-100 font-bold border-[#fff]"
-                    : "opacity-80 hover:opacity-100 border-b-transparent"
-                }`}
+                className={`text-[13px] leading-[50px] text-[#fff] w-[-webkit-fit-content] w-fit cursor-pointer flex items-center justify-center text-center h-[50px] m-auto border-b-2 border-solid ${activeTab === "Stats"
+                  ? "opacity-100 font-bold border-[#fff]"
+                  : "opacity-80 hover:opacity-100 border-b-transparent"
+                  }`}
                 onClick={() => setActiveTab("Stats")}
               >
                 Stats
@@ -3502,11 +3525,10 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
             </div>
             <div className="h-[50px] min-w-[40px] mx-2.5 my-0">
               <div
-                className={`text-[13px] leading-[50px] text-[#fff] w-[-webkit-fit-content] w-fit cursor-pointer flex items-center justify-center text-center h-[50px] m-auto border-b-2 border-solid ${
-                  activeTab === "Summary"
-                    ? "opacity-100 font-bold border-[#fff]"
-                    : "opacity-80 hover:opacity-100 border-b-transparent"
-                }`}
+                className={`text-[13px] leading-[50px] text-[#fff] w-[-webkit-fit-content] w-fit cursor-pointer flex items-center justify-center text-center h-[50px] m-auto border-b-2 border-solid ${activeTab === "Summary"
+                  ? "opacity-100 font-bold border-[#fff]"
+                  : "opacity-80 hover:opacity-100 border-b-transparent"
+                  }`}
                 onClick={() => setActiveTab("Summary")}
               >
                 Summary
@@ -3612,34 +3634,23 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
                                             id="wheelPathTeam1"
                                             className="ml1-WheelChartAdvanced_TeamOnePath"
                                             stroke-width="3.9"
-                                            d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
+                                            d="M15 4.0845
+                                        a 12.4155 12.4155 0 0 1 0 24.831
+                                        a 12.4155 12.4155 0 0 1 0 -24.831"
                                             stroke={kitColors.home}
-                                          ></path>
-                                          <path
-                                            id="wheelShadow"
-                                            className="ml1-WheelChartAdvanced_WheelShadow"
-                                            stroke-width="4"
-                                            d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
-                                            stroke="#404040"
-                                            transform="rotate(-6.611505127887398 16 16)"
-                                            style={{
-                                              strokeDasharray:
-                                                "75.3613px, 75.3613px",
-                                              strokeDashoffset: "40.4487px",
-                                            }}
                                           ></path>
                                           <path
                                             id="wheelPathTeam2"
                                             className="ml1-WheelChartAdvanced_TeamTwoPath"
                                             stroke-width="4"
-                                            d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
+                                            d="M15 4.0845
+                                        a 12.4155 12.4155 0 0 1 0 24.831
+                                        a 12.4155 12.4155 0 0 1 0 -24.831"
                                             stroke={kitColors.away}
-                                            transform="rotate(-11.388494872112616 16 16)"
                                             style={{
                                               stroke: kitColors.away,
                                               strokeDasharray:
-                                                "75.3613px, 75.3613px",
-                                              strokeDashoffset: "42.4487px",
+                                                `${_attackPercentage}, 78`,
                                             }}
                                           ></path>
                                         </g>
@@ -3702,37 +3713,23 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
                                             id="wheelPathTeam1"
                                             className="ml1-WheelChartAdvanced_TeamOnePath"
                                             stroke-width="3.9"
-                                            d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
+                                            d="M15 4.0845
+                                        a 12.4155 12.4155 0 0 1 0 24.831
+                                        a 12.4155 12.4155 0 0 1 0 -24.831"
                                             stroke={kitColors.home}
-                                            style={{
-                                              stroke: kitColors.home,
-                                            }}
-                                          ></path>
-                                          <path
-                                            id="wheelShadow"
-                                            className="ml1-WheelChartAdvanced_WheelShadow"
-                                            stroke-width="4"
-                                            d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
-                                            stroke="#404040"
-                                            transform="rotate(-1.7653512817335297 16 16)"
-                                            style={{
-                                              strokeDasharray:
-                                                "75.3613px, 75.3613px",
-                                              strokeDashoffset: "38.4197px",
-                                            }}
                                           ></path>
                                           <path
                                             id="wheelPathTeam2"
                                             className="ml1-WheelChartAdvanced_TeamTwoPath"
                                             stroke-width="4"
-                                            d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
+                                            d="M15 4.0845
+                                        a 12.4155 12.4155 0 0 1 0 24.831
+                                        a 12.4155 12.4155 0 0 1 0 -24.831"
                                             stroke={kitColors.away}
-                                            transform="rotate(-6.5423410259587484 16 16)"
                                             style={{
                                               stroke: kitColors.away,
                                               strokeDasharray:
-                                                "75.3613px, 75.3613px",
-                                              strokeDashoffset: "40.4197px",
+                                                `${_dangerousAttackPercentage}, 78`,
                                             }}
                                           ></path>
                                         </g>
@@ -3795,35 +3792,23 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
                                             id="wheelPathTeam1"
                                             className="ml1-WheelChartAdvanced_TeamOnePath"
                                             stroke-width="3.9"
-                                            d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
+                                            d="M15 4.0845
+                                        a 12.4155 12.4155 0 0 1 0 24.831
+                                        a 12.4155 12.4155 0 0 1 0 -24.831"
                                             stroke={kitColors.home}
-                                            style={{ stroke: kitColors.home }}
-                                          ></path>
-                                          <path
-                                            id="wheelShadow"
-                                            className="ml1-WheelChartAdvanced_WheelShadow"
-                                            stroke-width="4"
-                                            d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
-                                            stroke="#404040"
-                                            transform="rotate(2.3884948721126023 16 16)"
-                                            style={{
-                                              strokeDasharray:
-                                                "75.3613px, 75.3613px",
-                                              strokeDashoffset: "36.6806px",
-                                            }}
                                           ></path>
                                           <path
                                             id="wheelPathTeam2"
                                             className="ml1-WheelChartAdvanced_TeamTwoPath"
                                             stroke-width="4"
-                                            d="M16,28.5c6.904,0,12.5-5.597,12.5-12.5c0-6.904-5.596-12.5-12.5-12.5C9.098,3.5,3.5,9.096,3.5,16C3.5,22.903,9.098,28.5,16,28.5z"
+                                            d="M15 4.0845
+                                        a 12.4155 12.4155 0 0 1 0 24.831
+                                        a 12.4155 12.4155 0 0 1 0 -24.831"
                                             stroke={kitColors.away}
-                                            transform="rotate(-2.3884948721126023 16 16)"
                                             style={{
                                               stroke: kitColors.away,
                                               strokeDasharray:
-                                                "75.3613px, 75.3613px",
-                                              strokeDashoffset: "38.6806px",
+                                                `${_possessionPercentage}, 78`,
                                             }}
                                           ></path>
                                         </g>
@@ -3846,9 +3831,8 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
 
               {activeTab == "Summary" && (
                 <div
-                  className={`flex-auto flex items-stretch w-full mx-auto my-0 ${
-                    activeTab == "Summary" ? "block" : "hidden"
-                  }`}
+                  className={`flex-auto flex items-stretch w-full mx-auto my-0 ${activeTab == "Summary" ? "block" : "hidden"
+                    }`}
                 >
                   <div className="block max-w-none flex-auto w-full mx-auto my-0">
                     {data.extra &&
@@ -3905,17 +3889,15 @@ function increaseTimeBySeconds(timeString: any, secondsToAdd: any) {
   const totalSeconds = convertToSeconds(timeString) + secondsToAdd;
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
-  return `${minutes < 10 ? "0" : ""}${minutes}:${
-    seconds < 10 ? "0" : ""
-  }${seconds}`;
+  return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""
+    }${seconds}`;
 }
 
 function formatTime(totalSeconds: any) {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
-  return `${minutes < 10 ? "0" : ""}${minutes}:${
-    seconds < 10 ? "0" : ""
-  }${seconds}`;
+  return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""
+    }${seconds}`;
 }
 
 export default SoccerMobilePitch;
