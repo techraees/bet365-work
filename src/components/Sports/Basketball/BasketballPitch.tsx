@@ -280,11 +280,10 @@ function formatTime(totalSeconds: any) {
 }
 
 const BasketballPitch: React.FC<BasketballPitchInterface> = ({ data }) => {
-  const initialSeconds = data?.info?.seconds || "00:00";
 
   const [isTimerPaused, setTimerPaused] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState(
-    convertToSeconds(initialSeconds)
+    convertToSeconds(data?.info?.seconds || "00:00")
   );
 
   const displayTime = isNaN(totalSeconds) ? "10:00" : formatTime(totalSeconds);
@@ -303,7 +302,7 @@ const BasketballPitch: React.FC<BasketballPitchInterface> = ({ data }) => {
 
     if (!isTimerPaused) {
       timerInterval = setInterval(() => {
-        setTotalSeconds((prevTotalSeconds) => prevTotalSeconds + 1);
+        setTotalSeconds((prevTotalSeconds) => Math.max(prevTotalSeconds - 1, 0));
       }, 1000); // Increase by 1 second (1000 milliseconds)
     } else {
       clearInterval(timerInterval); // Pause the timer
@@ -313,6 +312,10 @@ const BasketballPitch: React.FC<BasketballPitchInterface> = ({ data }) => {
       clearInterval(timerInterval); // Clean up the interval on component unmount
     };
   }, [isTimerPaused]);
+
+  useEffect(() => {
+    setTotalSeconds(convertToSeconds(data?.info?.seconds) ?? totalSeconds);
+  }, [data?.info?.id, data?.info?.seconds]);
 
   if (!data) {
     return null;

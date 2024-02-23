@@ -1,6 +1,53 @@
+import { getLiveOddsEvents } from "@/api";
 import BetslipLoader from "./BetslipLoader/BetslipLoader";
 import Scroller from "./Scroller/Scroller";
 import TaxMessage from "./TaxMessage";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+
+//'Cash Out', 'Live Now', 'Unsettled', 'Settled', 'All'
+
+const liveFiltered = async (coupons: any[], token: string) => {
+    const newCoupons = [];
+    for(const coupon of coupons) {
+        let newCoupon = coupon;
+        const selections = [];
+        for(const selection of coupon.selections) {
+            const res = await getLiveOddsEvents(
+                [selection.event_id],
+                token
+            )
+            const liveEvents = await res.json();
+            if (liveEvents && !liveEvents.message)
+                selections.push(selection);
+        }
+        newCoupon.selections = selections;
+        if(selections.length > 0)
+            newCoupons.push(newCoupon);
+    }
+    return newCoupons;
+}
+
+const checkLive = async (coupons: any[], token: string) => {
+    const newCoupons = [];
+    for(const coupon of coupons) {
+        let newCoupon = coupon;
+        const selections = [];
+        for(const selection of coupon.selections) {
+            const res = await getLiveOddsEvents(
+                [selection.event_id],
+                token
+            )
+            const liveEvents = await res.json();
+            if (liveEvents && !liveEvents.message)
+                selections.push(selection);
+        }
+        newCoupon.isLive = selections.length > 0;
+        if(selections.length > 0)
+            newCoupons.push(newCoupon);
+    }
+    return newCoupons;
+}
 
 const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => {
     let description = null;
@@ -18,24 +65,47 @@ const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => 
         description = 'Bets appear here for 24 hours' 
         description2= 'Older bets can be viewed in your Account History'
     }
+    const { data: session } = useSession();
+    const userdata = session as any;
+    const [filteredCoupons, setFilteredCoupons] = useState<any[]>([]);
+    const [checkedCoupons, setCheckedCoupons] = useState<any[]>([]);
+
+    useEffect(() => {
+        const filterCoupons = async () => {
+            const token = userdata?.user?.token || "";
+            let filtered = checkedCoupons;
+            switch(active) {
+                case 'Live Now':
+                    filtered = await liveFiltered(checkedCoupons.filter(coupon => coupon.isLive == true), token);
+                break;
+                case 'Unsettled':
+                    filtered = checkedCoupons.filter(coupon => coupon.status == "Open");
+                break;
+                case 'Settled':
+                    filtered = checkedCoupons.filter(coupon => coupon.status == "Settled");
+                break;
+                break;
+                case 'Cash Out':
+                    filtered = checkedCoupons.filter(coupon => coupon.status == "Cash Out");
+                break;
+            }
+            setFilteredCoupons(filtered);
+        }
+        filterCoupons();
+    }, [active, checkedCoupons]);
+
+    useEffect(() => {
+        const token = userdata?.user?.token || "";
+        const setLive = async () => {
+            const checkedCoupon = await checkLive(coupons, token);
+            setCheckedCoupons(checkedCoupon);
+        }
+        setLive();
+    }, [coupons]);
     return (
         <>
-        {/*
-        <div className="m-4 py-8 px-4 bg-[linear-gradient(to_bottom_right,#303d39,#353535)] rounded">
-            <div className="text-sm text-[#ddd] w-full text-center">
-                <div className="font-bold mb-3">There are currently no bets to display</div>
-                <div className="text-xs ">
-                    {description ? description : ''}
-                </div>
-                <div className="text-xs">
-                    {description2 ? description2 : ''}
-                </div>
-            </div>
-        </div>
-    */}
-            {/* <BetslipLoader /> */}
             <TaxMessage message={'All Cash Out and To Return values are inclusive of deductions'} />
-            <Scroller coupons={coupons}/>
+            <Scroller coupons={filteredCoupons}/>
         </>
     )
 }

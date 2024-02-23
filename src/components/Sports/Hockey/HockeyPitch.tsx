@@ -453,13 +453,11 @@ function isAttack(
 }
 
 const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
-  // console.log(">>>>hockey>>>", data);
   //Match Time
-  const initialSeconds = data?.info?.seconds || "00:00";
 
   const [isTimerPaused, setTimerPaused] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState(
-    convertToSeconds(initialSeconds)
+    convertToSeconds(data?.info?.seconds || "00:00")
   );
 
   const kitColors = getKitColors(data);
@@ -490,6 +488,10 @@ const HockeyPitch: React.FC<HockeyPitchInterface> = ({ data }) => {
       clearInterval(timerInterval); // Clean up the interval on component unmount
     };
   }, [isTimerPaused]);
+
+  useEffect(() => {
+    setTotalSeconds(convertToSeconds(data?.info?.seconds) ?? totalSeconds);
+  }, [data?.info?.id, data?.info?.seconds]);
 
   if (!data) {
     return null;

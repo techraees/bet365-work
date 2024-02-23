@@ -898,44 +898,75 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
     _on_target: any = null,
     _attackPercentage: number = 39,
     _possessionPercentage: number = 39,
+    _onTargetPercentage:number = 50,
+    _totalTargetPercentage:number = 50,
+    _totalTargetTeam1 = 0,
+    _totalTargetTeam2 = 0,  
     _dangerousAttackPercentage: number = 39;
 
   states.forEach((state: string) => {
-    if (_off_target == null) _off_target = state.match(_off_target_regx);
+    if (_off_target == null){
+      _off_target = state.match(_off_target_regx);
+      let team1OffTarget = _off_target ? Number(_off_target[1]) : 0;
+      let team2OffTarget = _off_target ? Number(_off_target[2]) : 0;
+      _totalTargetTeam1 += team1OffTarget;
+      _totalTargetTeam2 += team2OffTarget;
+    }
     if (_attacks == null) {
       _attacks = state.match(_attacks_regx);
-      let team1Attack = _attacks ? Number(_attacks[1]) : 0;
-      let team2Attack = _attacks ? Number(_attacks[2]) : 0;
-      let totalAttack = team1Attack + team2Attack;
+      let team1Attack  = _attacks ? Number(_attacks[1]) : 0;
+      let team2Attack  = _attacks ? Number(_attacks[2]) : 0;
+      let totalAttack  = team1Attack + team2Attack;
       if (totalAttack == 0) {
         _attackPercentage = 39;
       } else {
-        _attackPercentage = 78 * team2Attack / totalAttack;
+        _attackPercentage = 78*team2Attack/totalAttack;
       }
     }
-    if (_dangerous_attacks == null) {
+    if (_dangerous_attacks == null){
       _dangerous_attacks = state.match(_dangerous_attacks_regx);
-      let team1DangerousAttack = _dangerous_attacks ? Number(_dangerous_attacks[1]) : 0;
-      let team2DangerousAttack = _dangerous_attacks ? Number(_dangerous_attacks[2]) : 0;
-      let totalDangerousAttack = team1DangerousAttack + team2DangerousAttack;
+      let team1DangerousAttack  = _dangerous_attacks ? Number(_dangerous_attacks[1]) : 0;
+      let team2DangerousAttack  = _dangerous_attacks ? Number(_dangerous_attacks[2]) : 0;
+      let totalDangerousAttack  = team1DangerousAttack + team2DangerousAttack;
       if (totalDangerousAttack == 0) {
         _dangerousAttackPercentage = 39;
       } else {
-        _dangerousAttackPercentage = 78 * team2DangerousAttack / totalDangerousAttack;
+        _dangerousAttackPercentage = 78*team2DangerousAttack/totalDangerousAttack;
       }
     }
-    if (_possession == null) {
+    if (_possession == null){
       _possession = state.match(_possession_regx);
-      let team1Possession = _possession ? Number(_possession[1]) : 0;
-      let team2Possession = _possession ? Number(_possession[2]) : 0;
-      let totalPossession = team1Possession + team2Possession;
+      let team1Possession  = _possession ? Number(_possession[1]) : 0;
+      let team2Possession  = _possession ? Number(_possession[2]) : 0;
+      let totalPossession  = team1Possession + team2Possession;
       if (totalPossession == 0) {
         _possessionPercentage = 39;
       } else {
-        _possessionPercentage = 78 * team2Possession / totalPossession;
+        _possessionPercentage = 78*team2Possession/totalPossession;
+      }
+    } 
+    if (_on_target == null){
+      _on_target = state.match(_on_target_regx);
+      let team1OnTarget = _on_target ? Number(_on_target[1]) : 0;
+      let team2OnTarget = _on_target ? Number(_on_target[2]) : 0;
+      _totalTargetTeam1 += team1OnTarget;
+      _totalTargetTeam2 += team2OnTarget;
+      let totalOntarget = team1OnTarget + team2OnTarget;
+      if (totalOntarget == 0) {
+        _onTargetPercentage = 50;
+      } else {
+        _onTargetPercentage = team1OnTarget / totalOntarget * 100;
       }
     }
-    if (_on_target == null) _on_target = state.match(_on_target_regx);
+
+    if(_totalTargetTeam1 + _totalTargetTeam2 == 0){
+      _totalTargetPercentage = 50;
+    }else{
+      _totalTargetPercentage = 100 * _totalTargetTeam1 / (_totalTargetTeam1 + _totalTargetTeam2);
+    }
+
+
+    
   });
 
   var sets_details = extractSets(data?.stats);
@@ -3816,6 +3847,306 @@ const SoccerMobilePitch: React.FC<SoccerMobilePitchInterface> = ({
                                     </div>
                                     <div className="text-ellipsis overflow-hidden whitespace-nowrap text-sm font-bold leading-4 text-[#ccc] flex items-center flex-[1_1_50%]">
                                       {_possession ? _possession[2] : 0}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex justify-center items-center pt-1">
+                                <div className="gap-[5px] flex flex-[1_1_25%] items-center justify-center">
+                                  <div className="flex flex-col items-center w-5 flex-[0_0_auto]">
+                                    <div
+                                      className={`w-5 h-5 flex items-center justify-center`}
+                                    >
+                                      <div
+                                        className="block w-5 h-[13px]"
+                                        style={{
+                                          backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10' height='13' viewBox='0 0 10 13'%3E%3Cdefs%3E%3Cpath id='a' d='M0 .1c2.2 1.298 5.2 2.3 9 3.006-3.884 2.37-6.884 3.372-9 3.007V.1z'/%3E%3C/defs%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg transform='translate(1 .5)'%3E%3Cpath fill='%23E83838' fill-rule='nonzero' d='M0 .1c2.2 1.298 5.2 2.3 9 3.006-3.884 2.37-6.884 3.372-9 3.007V.1z'/%3E%3Cmask id='b' fill='%23fff'%3E%3Cuse xlink:href='%23a'/%3E%3C/mask%3E%3Cpath fill='%23000' fill-rule='nonzero' d='M0 .1C.464.02 2.21.093 2.671.1c1.825 2.112-2.504 1.552-1.4 6.006-.337.95-.813.362-1.271.007V.1z' mask='url(%23b)' opacity='.2'/%3E%3C/g%3E%3Cpath fill='%23A7A7A7' fill-rule='nonzero' d='M0 .142a.953.953 0 0 1 1 0v12.734c-.267.152-.747.178-1 0V.142z'/%3E%3C/g%3E%3C/svg%3E")`,
+                                          backgroundRepeat: "no-repeat",
+                                          backgroundPosition: "8px",
+                                          backgroundSize: "10px 13px",
+                                        }}
+                                      ></div>
+                                    </div>
+                                    <div className="text-[13px] font-bold leading-[15px] text-[#ccc] text-center w-5">
+                                      {sets_details?.ICorner?.home ?? 0}
+                                    </div>
+                                  </div>
+                                  <div className="w-5 flex-[0_0_auto]">
+                                    <div
+                                      className={`w-5 h-5 flex items-center justify-center`}
+                                    >
+                                      <div
+                                        style={{
+                                          display: "block",
+                                          width: "7px",
+                                          height: "10px",
+                                          background: `url("data:image/svg+xml;charset=utf-8,%3Csvg width='9' height='13' viewBox='0 0 9 13' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3ERectangle 112%3C/title%3E%3Crect x='143' y='565' width='9' height='13' rx='1' transform='translate(-143 -565)' fill='%23E83838' fill-rule='evenodd'/%3E%3C/svg%3E") 50% no-repeat`,
+                                          backgroundSize: "contain",
+                                        }}
+                                      ></div>
+                                    </div>
+                                    <div className="text-[13px] font-bold leading-[15px] text-[#ccc] text-center w-5">
+                                      {sets_details?.IRedCard?.home ?? 0}
+                                    </div>
+                                  </div>
+                                  <div className="w-5 flex-[0_0_auto]">
+                                    <div
+                                      className={`w-5 h-5 flex items-center justify-center`}
+                                    >
+                                      <div
+                                        style={{
+                                          display: "block",
+                                          width: "7px",
+                                          height: "10px",
+                                          background: `url("data:image/svg+xml;charset=utf-8,%3Csvg width='9' height='13' viewBox='0 0 9 13' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3ERectangle 112%3C/title%3E%3Crect x='143' y='565' width='9' height='13' rx='1' transform='translate(-143 -565)' fill='%23E4D539' fill-rule='evenodd'/%3E%3C/svg%3E") 50% no-repeat`,
+                                          backgroundSize: "contain",
+                                        }}
+                                      ></div>
+                                    </div>
+                                    <div className="text-[13px] font-bold leading-[15px] text-[#ccc] text-center w-5">
+                                      {sets_details?.IYellowCard?.home ?? 0}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="flex-[1_1_50%]">
+                                  <div className="text-[#ccc] text-[11px] leading-[13px] font-normal text-center mb-px">
+                                    Shots / On Target
+                                  </div>
+                                  <div className="flex justify-center items-center gap-[3px]">
+                                    <div className="justify-end flex flex-nowrap shrink-0 w-[30px] ml-0 mr-[5px] my-0">
+                                      <div className="text-[13px] font-bold leading-[15px] text-[#ccc] flex-[0_0_auto]">
+                                        {_totalTargetTeam1}
+                                      </div>
+                                      <div className="text-[#a7a7a7] font-normal text-[13px] leading-[15px] mx-[0.6px] my-0">
+                                        /
+                                      </div>
+                                      <div className="text-[13px] font-bold leading-[15px] text-[#ccc] flex-[0_0_auto]">
+                                        {_on_target ? _on_target[1] : 0}
+                                      </div>
+                                    </div>
+                                    <div className="w-full flex flex-col gap-[5px] pt-1.5">
+                                      <div className="bg-transparent flex-[1_1_100%] flex gap-px rounded-sm">
+                                        <div
+                                          className={`bg-current h-[3px] block rounded-[3px_0_0_3px]`}
+                                          style={{
+                                            color: kitColors.home,
+                                            width: _totalTargetPercentage + "%",
+                                          }}
+                                        ></div>
+                                        <div
+                                          className={`bg-current h-[3px] block rounded-[0_3px_3px_0]`}
+                                          style={{
+                                            color: kitColors.away,
+                                            width: (100 - _totalTargetPercentage) + "%",
+                                          }}
+                                        ></div>
+                                      </div>
+                                      <div className = {`w-[57.1429%] h-[3px] bg-transparent flex-[1_1_100%] flex gap-px ml-[21.4286%] rounded-sm`} >
+                                        <div
+                                          className="bg-current h-[3px] block rounded-[3px_0_0_3px]"
+                                          style={{
+                                            color: kitColors.home,
+                                            width: _onTargetPercentage + "%",
+                                          }}
+                                        ></div>
+                                        <div
+                                          className="bg-current h-[3px] block rounded-[0_3px_3px_0]"
+                                          style={{
+                                            color: kitColors.away,
+                                            width: (100 -_onTargetPercentage) + "%",
+                                          }}
+                                        ></div>
+                                      </div>
+                                    </div>
+                                    <div className="justify-start flex flex-nowrap shrink-0 w-[30px] ml-[5px] mr-0 my-0">
+                                      <div className="text-[13px] font-bold leading-[15px] text-[#ccc] flex-[0_0_auto]">
+                                        {_on_target && _off_target
+                                          ? Number(_on_target[2]) +
+                                          Number(_off_target[2])
+                                          : 0}
+                                      </div>
+                                      <div className="text-[#a7a7a7] font-normal text-[13px] leading-[15px] mx-[0.6px] my-0">
+                                        /
+                                      </div>
+                                      <div className="text-[13px] font-bold leading-[15px] text-[#ccc] flex-[0_0_auto]">
+                                        {_on_target ? _on_target[2] : 0}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="flex-row-reverse gap-[5px] flex flex-[1_1_25%] items-center justify-center">
+                                  <div className="flex flex-col items-center w-5 flex-[0_0_auto]">
+                                    <div
+                                      className={`w-5 h-5 flex items-center justify-center`}
+                                    >
+                                      <div
+                                        className="block w-5 h-[13px]"
+                                        style={{
+                                          backgroundImage: `url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='10' height='13' viewBox='0 0 10 13'%3E%3Cdefs%3E%3Cpath id='a' d='M0 .1c2.2 1.298 5.2 2.3 9 3.006-3.884 2.37-6.884 3.372-9 3.007V.1z'/%3E%3C/defs%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg transform='translate(1 .5)'%3E%3Cpath fill='%23E83838' fill-rule='nonzero' d='M0 .1c2.2 1.298 5.2 2.3 9 3.006-3.884 2.37-6.884 3.372-9 3.007V.1z'/%3E%3Cmask id='b' fill='%23fff'%3E%3Cuse xlink:href='%23a'/%3E%3C/mask%3E%3Cpath fill='%23000' fill-rule='nonzero' d='M0 .1C.464.02 2.21.093 2.671.1c1.825 2.112-2.504 1.552-1.4 6.006-.337.95-.813.362-1.271.007V.1z' mask='url(%23b)' opacity='.2'/%3E%3C/g%3E%3Cpath fill='%23A7A7A7' fill-rule='nonzero' d='M0 .142a.953.953 0 0 1 1 0v12.734c-.267.152-.747.178-1 0V.142z'/%3E%3C/g%3E%3C/svg%3E")`,
+                                          backgroundRepeat: "no-repeat",
+                                          backgroundPosition: "8px",
+                                          backgroundSize: "10px 13px",
+                                        }}
+                                      ></div>
+                                    </div>
+                                    <div className="text-[13px] font-bold leading-[15px] text-[#ccc] text-center w-5">
+                                      {sets_details?.ICorner?.away ?? 0}
+                                    </div>
+                                  </div>
+                                  <div className="w-5 flex-[0_0_auto]">
+                                    <div
+                                      className={`w-5 h-5 flex items-center justify-center`}
+                                    >
+                                      <div
+                                        style={{
+                                          display: "block",
+                                          width: "7px",
+                                          height: "10px",
+                                          background: `url("data:image/svg+xml;charset=utf-8,%3Csvg width='9' height='13' viewBox='0 0 9 13' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3ERectangle 112%3C/title%3E%3Crect x='143' y='565' width='9' height='13' rx='1' transform='translate(-143 -565)' fill='%23E83838' fill-rule='evenodd'/%3E%3C/svg%3E") 50% no-repeat`,
+                                          backgroundSize: "contain",
+                                        }}
+                                      ></div>
+                                    </div>
+                                    <div className="text-[13px] font-bold leading-[15px] text-[#ccc] text-center w-5">
+                                      {sets_details?.IRedCard?.away ?? 0}
+                                    </div>
+                                  </div>
+                                  <div className="w-5 flex-[0_0_auto]">
+                                    <div
+                                      className={`w-5 h-5 flex items-center justify-center`}
+                                    >
+                                      <div
+                                        style={{
+                                          display: "block",
+                                          width: "7px",
+                                          height: "10px",
+                                          background: `url("data:image/svg+xml;charset=utf-8,%3Csvg width='9' height='13' viewBox='0 0 9 13' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3ERectangle 112%3C/title%3E%3Crect x='143' y='565' width='9' height='13' rx='1' transform='translate(-143 -565)' fill='%23E4D539' fill-rule='evenodd'/%3E%3C/svg%3E") 50% no-repeat`,
+                                          backgroundSize: "contain",
+                                        }}
+                                      ></div>
+                                    </div>
+                                    <div className="text-[13px] font-bold leading-[15px] text-[#ccc] text-center w-5">
+                                      {sets_details?.IYellowCard?.away ?? 0}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="w-full pt-0 pb-[5px] px-2.5">
+                                <div className="flex flex-col mb-2.5">
+                                  <div className="w-full text-[11px] leading-[13px] text-[#ccc] text-center mb-px">
+                                    Key Passes
+                                  </div>
+                                  <div className="flex gap-px">
+                                    <div className="justify-end flex flex-[0_1_50%]">
+                                      <div className="text-right text-[13px] leading-[15px] text-[#ccc] font-bold w-[50px] mr-2.5">
+                                        5
+                                      </div>
+                                      <div
+                                        className=" flex-[0_1_100%] h-[3px] mt-[5px] rounded-[3px_0_0_3px]"
+                                        style={{
+                                          background: kitColors.home,
+                                          width : 500/13 + "%",
+                                        }}
+                                      ></div>
+                                    </div>
+                                    <div className="flex flex-[0_1_50%] justify-end">
+                                      <div
+                                        className=" flex-[0_1_100%] h-[3px] mt-[5px] rounded-[0_3px_3px_0]"
+                                        style={{
+                                          background: kitColors.away,
+                                          width : 800/13 + "%",
+                                        }}
+                                      ></div>
+                                      <div className="text-left text-[13px] leading-[15px] text-[#ccc] font-bold w-[50px] ml-2.5">
+                                        8
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="flex flex-col mb-2.5">
+                                  <div className="w-full text-[11px] leading-[13px] text-[#ccc] text-center mb-px">
+                                    Goalkeeper Saves
+                                  </div>
+                                  <div className="flex gap-px">
+                                    <div className="flex flex-[0_1_50%] justify-end">
+                                      <div className="text-right text-[13px] leading-[15px] text-[#ccc] font-bold w-[50px] mr-2.5">
+                                        5
+                                      </div>
+                                      <div
+                                        className="basis-[62.5%] flex-[0_1_100%] h-[3px] mt-[5px] rounded-[3px_0_0_3px]"
+                                        style={{
+                                          background: kitColors.home,
+                                        }}
+                                      ></div>
+                                    </div>
+                                    <div className="justify-start flex flex-[0_1_50%]">
+                                      <div
+                                        className="basis-full flex-[0_1_100%] h-[3px] mt-[5px] rounded-[0_3px_3px_0]"
+                                        style={{
+                                          background: kitColors.away,
+                                        }}
+                                      ></div>
+                                      <div className="text-left text-[13px] leading-[15px] text-[#ccc] font-bold w-[50px] ml-2.5">
+                                        2
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="flex flex-col mb-2.5">
+                                  <div className="w-full text-[11px] leading-[13px] text-[#ccc] text-center mb-px">
+                                    Passing Accuracy
+                                  </div>
+                                  <div className="flex gap-px">
+                                    <div className="justify-end flex flex-[0_1_50%]">
+                                      <div className="text-right text-[13px] leading-[15px] text-[#ccc] font-bold w-[50px] mr-2.5">
+                                        77%
+                                      </div>
+                                      <div
+                                        className="basis-[62.5%] flex-[0_1_100%] h-[3px] mt-[5px] rounded-[3px_0_0_3px]"
+                                        style={{
+                                          background: kitColors.home,
+                                        }}
+                                      ></div>
+                                    </div>
+                                    <div className="flex flex-[0_1_50%] justify-end">
+                                      <div
+                                        className="basis-full flex-[0_1_100%] h-[3px] mt-[5px] rounded-[0_3px_3px_0]"
+                                        style={{
+                                          background: kitColors.away,
+                                        }}
+                                      ></div>
+                                      <div className="text-left text-[13px] leading-[15px] text-[#ccc] font-bold w-[50px] ml-2.5">
+                                        79%
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="flex flex-col mb-2.5">
+                                  <div className="w-full text-[11px] leading-[13px] text-[#ccc] text-center mb-px">
+                                    Crosses
+                                  </div>
+                                  <div className="flex gap-px">
+                                    <div className="flex flex-[0_1_50%] justify-end">
+                                      <div className="text-right text-[13px] leading-[15px] text-[#ccc] font-bold w-[50px] mr-2.5">
+                                        9
+                                      </div>
+                                      <div
+                                        className="basis-[62.5%] flex-[0_1_100%] h-[3px] mt-[5px] rounded-[3px_0_0_3px]"
+                                        style={{
+                                          background: kitColors.home,
+                                        }}
+                                      ></div>
+                                    </div>
+                                    <div className="justify-start flex flex-[0_1_50%]">
+                                      <div
+                                        className="basis-full flex-[0_1_100%] h-[3px] mt-[5px] rounded-[0_3px_3px_0]"
+                                        style={{
+                                          background: kitColors.away,
+                                        }}
+                                      ></div>
+                                      <div className="text-left text-[13px] leading-[15px] text-[#ccc] font-bold w-[50px] ml-2.5">
+                                        5
+                                      </div>
                                     </div>
                                   </div>
                                 </div>

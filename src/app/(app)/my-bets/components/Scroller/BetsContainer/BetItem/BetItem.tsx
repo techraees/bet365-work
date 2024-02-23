@@ -25,13 +25,15 @@ export default function BetItem({ coupon }: Props) {
   const [events, setEvents] = useState<any>([]);
   const { data: session } = useSession();
   const userdata = session as any;
+  const [collapse, setCollapse] = useState<boolean>(true);
 
   useEffect(() => {
-    const token = userdata?.user?.token || "";
-    getLiveOddsEvents(
-      coupon.selections.map((selection: any) => selection.event_id),
-      token
-    )
+    if(coupon.isLive) {
+      const token = userdata?.user?.token || "";
+      getLiveOddsEvents(
+        coupon.selections.map((selection: any) => selection.event_id),
+        token
+      )
       .then(async (res) => {
         const liveEvents = await res.json();
         if (liveEvents && !liveEvents.message) setEvents(liveEvents);
@@ -39,6 +41,7 @@ export default function BetItem({ coupon }: Props) {
       .catch((e) => {
         console.log("-----fetch error----", e);
       });
+    }
     return () => {};
   }, [coupon]);
 
@@ -52,11 +55,13 @@ export default function BetItem({ coupon }: Props) {
       <BetItemHeader
         stake={coupon.stake}
         headerText={
-          coupon.type == "Solo" ? "Single" : written[coupon.selections.length]
+          coupon.type == "Solo" ? "Single" : written[coupon.selections.length] ?? ""
         }
         couponID={coupon._id}
+        onClick={() => {setCollapse(!collapse)}}
+        collapsed={collapse}
       />
-      <BetItemInnerView coupon={coupon} events={events} />
+      { !collapse && <BetItemInnerView coupon={coupon} events={events} />}
     </div>
   );
 }

@@ -19,7 +19,7 @@ export default function BetViewInformation({stake, possibleWinnings}: Props) {
           </div>
           <div className='text-base inline-flex leading-5'>
             <div className='text-white flex font-bold text-base leading-[22px] pb-[5px]'>
-              €{possibleWinnings}
+              €{possibleWinnings.toFixed(2)}
             </div>
           </div>
         </div>

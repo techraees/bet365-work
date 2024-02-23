@@ -35,15 +35,12 @@ export const authOption: NextAuthOptions = {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        // username: req.body?.username,
-                        // password: req.body?.password,
                         username: credentials?.username,
                         password: credentials?.password
                     }),
                 });
                 const user = await res.json();
 
-                console.log({ user })
                 if (user && user.message && user.message === 'Wrong username or password') {
                     return null;
                 }

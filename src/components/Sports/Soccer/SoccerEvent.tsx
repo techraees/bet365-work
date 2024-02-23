@@ -22,11 +22,8 @@ const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) =
     // console.log({ data, sport });
     // console.log(">>>SOCCER!>>>", {data, sport});
 
-    const initialSeconds = data?.info?.seconds || "00:00";
-    // const initialSecondsIncreased = increaseTimeBySeconds(initialSeconds, 10);
-
     const [isTimerPaused, setTimerPaused] = useState(false);
-    const [totalSeconds, setTotalSeconds] = useState(convertToSeconds(initialSeconds));
+    const [totalSeconds, setTotalSeconds] = useState(convertToSeconds(data?.info?.seconds || "00:00"));
 
     const { currentPitchId, setCurrentPitchId } = usePitchIdStore(
         (state) => state
@@ -58,6 +55,10 @@ const SoccerEvent: React.FC<SoccerEventProps> = ({ data, sport, subcategory }) =
             clearInterval(timerInterval); // Clean up the interval on component unmount
         };
     }, [isTimerPaused]);
+
+    useEffect(() => {
+        setTotalSeconds(convertToSeconds(data?.info?.seconds) ?? totalSeconds);
+    }, [data?.info?.id, data?.info?.seconds]);
 
 
     if (!data) {

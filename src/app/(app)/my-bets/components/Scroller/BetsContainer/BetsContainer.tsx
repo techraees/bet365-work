@@ -5,10 +5,10 @@ type Props = {
   coupons: any[]
 }
 
+
 export default function BetsContainer({coupons}: Props) {
-  console.log('----coupons----', coupons);
   return (
-    <div className='md:min-h-[calc(100vh_-_150px)] relative transition-transform duration-[0.5s] ease-[ease] ml-5 mr-[30px] my-0' style={{ backfaceVisibility: "hidden"}}>
+    <div className='md:min-h-[calc(100vh_-_300px)] relative transition-transform duration-[0.5s] ease-[ease] ml-5 mr-[30px] my-0' style={{ backfaceVisibility: "hidden"}}>
       <div>
         {
           coupons.map((coupon, index) => 

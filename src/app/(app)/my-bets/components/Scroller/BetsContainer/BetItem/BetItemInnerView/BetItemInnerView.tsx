@@ -9,7 +9,7 @@ type Props = {
 
 export default function BetItemInnerView({coupon, events}: Props) {
   return (
-    <div>
+    <div className='border-t-[hsla(0,0%,100%,0.1)] border-t border-solid'>
         <BetViewDetails coupon={coupon} events={events}/>
         <BetViewInformation stake={coupon.stake} possibleWinnings={coupon.possible_winnings} />
     </div>

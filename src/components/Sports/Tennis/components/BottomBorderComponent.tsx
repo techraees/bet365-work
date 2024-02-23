@@ -240,7 +240,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
                   <div className="text-[rgb(102,102,102)] block w-full h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm mx-0 my-1 rounded-[2px_0_0_2px]">
                     <div
                       style={{
-                        color: kitColors.home,
+                        color: kitColors.away,
                       }}
                     >
                       <div

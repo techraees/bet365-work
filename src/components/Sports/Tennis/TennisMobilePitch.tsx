@@ -423,6 +423,23 @@ function winAwayClassName(data: any) {
   } ${pitchStyle.winState}`;
 }
 
+
+//get kit colors of two teams
+function getKitColors(data: any): { home: string; away: string } {
+  let homeColors = data?.team_info?.home.kit_color?.split(",") ?? ["#ff0000"];
+  let awayColors = data?.team_info?.away.kit_color?.split(",") ?? ["#ffffff"];
+  for (let i = 0; i < homeColors.length; ++i)
+    if (homeColors[i] != awayColors[i])
+      return {
+        home: homeColors[i].toLowerCase(),
+        away: awayColors[i].toLowerCase(),
+      };
+  return {
+    home: "#ff0000",
+    away: "#ffffff",
+  };
+}
+
 const TennisMobilePitch: React.FC<TennisMobilePitchInterface> = ({
   data,
   onlyPitch,
@@ -493,6 +510,8 @@ const TennisMobilePitch: React.FC<TennisMobilePitchInterface> = ({
     if (_break_point_conversions == null)
       _break_point_conversions = state.match(_break_point_conversions_regx);
   });
+  
+  let kitColors = getKitColors(data);
 
   const renderPitch = () => (
     <svg
@@ -1942,7 +1961,11 @@ const TennisMobilePitch: React.FC<TennisMobilePitchInterface> = ({
                       <div className="text-[15px] leading-[18px] text-[#ddd] font-bold">
                         {_aces ? _aces[1] : "0"}
                       </div>
-                      <div className="text-[rgb(154,190,255)]">
+                      <div 
+                        style={{
+                          color: kitColors.home,
+                        }}
+                      >
                         <div className="block w-9 h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm"></div>
                       </div>
                       <div className="overflow-hidden leading-[13px] max-h-[calc(13px_*_2)] text-[11px] text-[#ddd]">
@@ -1956,7 +1979,11 @@ const TennisMobilePitch: React.FC<TennisMobilePitchInterface> = ({
                             {_win_percent_1st ? _win_percent_1st[1] : "0"}%
                           </div>
                           <div className="text-[rgb(102,102,102)] block w-full h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm mx-0 my-1 rounded-[2px_0_0_2px]">
-                            <div className="text-[rgb(154,190,255)]">
+                            <div 
+                              style={{
+                                color: kitColors.home,
+                              }}
+                            >
                               <div
                                 className="block h-0.5 bg-current mt-1 mb-[5px] rounded-sm ml-auto"
                                 style={{
@@ -1973,7 +2000,11 @@ const TennisMobilePitch: React.FC<TennisMobilePitchInterface> = ({
                             {_win_percent_1st ? _win_percent_1st[2] : "0"}%
                           </div>
                           <div className="text-[rgb(102,102,102)] block w-full h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm mx-0 my-1 rounded-[2px_0_0_2px]">
-                            <div className="text-[#fff]">
+                            <div 
+                              style={{
+                                color: kitColors.away,
+                              }}
+                            >
                               <div
                                 className="block h-0.5 bg-current mt-1 mb-[5px] rounded-sm "
                                 style={{
@@ -1994,7 +2025,11 @@ const TennisMobilePitch: React.FC<TennisMobilePitchInterface> = ({
                       <div className="text-[15px] leading-[18px] text-[#ddd] font-bold">
                         {_aces ? _aces[2] ?? 0 : "0"}
                       </div>
-                      <div className="text-[#fff]">
+                      <div 
+                        style={{
+                          color: kitColors.away,
+                        }}
+                      >
                         <div className="block w-9 h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm"></div>
                       </div>
                       <div className="overflow-hidden leading-[13px] max-h-[calc(13px_*_2)] text-[11px] text-[#ddd]">
@@ -2010,7 +2045,11 @@ const TennisMobilePitch: React.FC<TennisMobilePitchInterface> = ({
                       <div className="text-[15px] leading-[18px] text-[#ddd] font-bold">
                         {_double_faults ? _double_faults[1] : "0"}
                       </div>
-                      <div className="text-[rgb(154,190,255)]">
+                      <div
+                        style={{
+                          color: kitColors.home,
+                        }}
+                      >
                         <div className="block w-9 h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm"></div>
                       </div>
                       <div className="overflow-hidden leading-[13px] max-h-[calc(13px_*_2)] text-[11px] text-[#ddd]">
@@ -2028,7 +2067,11 @@ const TennisMobilePitch: React.FC<TennisMobilePitchInterface> = ({
                             %
                           </div>
                           <div className="text-[rgb(102,102,102)] block w-full h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm mx-0 my-1 rounded-[2px_0_0_2px]">
-                            <div className="text-[rgb(154,190,255)]">
+                            <div
+                              style={{
+                                color: kitColors.home,
+                              }}
+                            >
                               <div
                                 className="block h-0.5 bg-current mt-1 mb-[5px] rounded-sm ml-auto"
                                 style={{
@@ -2050,7 +2093,11 @@ const TennisMobilePitch: React.FC<TennisMobilePitchInterface> = ({
                             %
                           </div>
                           <div className="text-[rgb(102,102,102)] block w-full h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm mx-0 my-1 rounded-[2px_0_0_2px]">
-                            <div className="text-[#fff]">
+                            <div
+                              style={{
+                                color: kitColors.away,
+                              }}
+                            >
                               <div
                                 className="block h-0.5 bg-current mt-1 mb-[5px] rounded-sm "
                                 style={{
@@ -2073,7 +2120,11 @@ const TennisMobilePitch: React.FC<TennisMobilePitchInterface> = ({
                       <div className="text-[15px] leading-[18px] text-[#ddd] font-bold">
                         {_double_faults ? _double_faults[2] ?? 0 : "0"}
                       </div>
-                      <div className="text-[#fff]">
+                      <div
+                        style={{
+                          color: kitColors.away,
+                        }}
+                      >
                         <div className="block w-9 h-0.5 bg-current mt-1 mb-[5px] mx-auto rounded-sm"></div>
                       </div>
                       <div className="overflow-hidden leading-[13px] max-h-[calc(13px_*_2)] text-[11px] text-[#ddd]">

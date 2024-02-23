@@ -190,7 +190,7 @@ const BottomBorderComponent: React.FC<DataInterface> = ({ data }) => {
         </div>
       </div>
 
-      <div className="flex-auto flex items-stretch w-full mx-auto my-0 max-h-[calc(100vh_-_500px)] overflow-y-auto">
+      <div className="flex-auto flex items-stretch w-full mx-auto my-0 max-h-[calc(100vh_-_400px)] overflow-y-auto">
         <div className="block max-w-none flex-auto w-full mx-auto my-0">
           {activeTab == "Stats" && (
             <div className="w-full overflow-hidden">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { defaultSubcategories } from "@/lib/sportsMapping";
 
@@ -27,6 +27,44 @@ const BaskeballEvent: React.FC<BaskeballEventProps> = ({ data, sport, subcategor
     if (!data) {
         return null;
     }
+      //Match Time
+
+  const [isTimerPaused, setTimerPaused] = useState(false);
+  const [totalSeconds, setTotalSeconds] = useState(
+    convertToSeconds(data?.info?.seconds || "00:00")
+  );
+
+  const displayTime = isNaN(totalSeconds) ? "00:00" : formatTime(totalSeconds);
+
+  if (data?.core?.stopped === "1" && isTimerPaused == false) {
+    setTimerPaused(true);
+    setTotalSeconds(convertToSeconds(data?.info?.seconds));
+  }
+  if (data?.core?.stopped === "0" && isTimerPaused == true) {
+    setTotalSeconds(convertToSeconds(data?.info?.seconds));
+    setTimerPaused(false);
+  }
+
+  useEffect(() => {
+    let timerInterval: NodeJS.Timer | undefined;
+
+    if (!isTimerPaused) {
+      timerInterval = setInterval(() => {
+        setTotalSeconds((prevTotalSeconds) => Math.max(prevTotalSeconds - 1, 0));
+      }, 1000); // Increase by 1 second (1000 milliseconds)
+    } else {
+      clearInterval(timerInterval); // Pause the timer
+    }
+
+    return () => {
+      clearInterval(timerInterval); // Clean up the interval on component unmount
+    };
+  }, [isTimerPaused]);
+
+  useEffect(() => {
+    setTotalSeconds(convertToSeconds(data?.info?.seconds) ?? totalSeconds);
+  }, [data?.info?.id, data?.info?.seconds]);
+
     return (
         <div className="flex flex-col border-t-[#ffffff1a] border-t border-solid">
             <div className={cn(`flex w-full px-2 md:px-8  justify-center h-[100px]`)}>
@@ -40,7 +78,7 @@ const BaskeballEvent: React.FC<BaskeballEventProps> = ({ data, sport, subcategor
                             <div className="hidden flex-col items-left mr-2 md:flex">
                                 <div className="flex h-[25px] items-center">
                                     <div className="flex font-[700] mr-[5px]">{CheckQuarter(data)}</div>
-                                    <div className="flex">{data?.info?.seconds}</div>
+                                    <div className="flex">{displayTime}</div>
                                 </div>
                                 <div className="flex h-[25px] items-center">
                                     <div className="flex items-center fill-[#fff]  hover:text-brand-green-light hover:fill-brand-green-light">
@@ -77,7 +115,7 @@ const BaskeballEvent: React.FC<BaskeballEventProps> = ({ data, sport, subcategor
                         <div className="flex h-[18px] leading-[18px] mt-[6px] items-center text-[11px] text-[#ccc] fill-[#ccc] font-[400]">
                             {CheckQuarter(data)}
                             <div className="ml-[2px] flex items-center  hover:text-brand-green-light hover:fill-brand-green-light">
-                                {data?.info?.seconds}
+                                {displayTime}
                                 <Chevron className={cn("h-[6px] w-[12px] rotate-[270deg]")} />
                             </div>
                             <div className="flex ml-auto mr-2 md:hidden">
@@ -109,5 +147,16 @@ const BaskeballEvent: React.FC<BaskeballEventProps> = ({ data, sport, subcategor
         </div>
     );
 };
+
+function convertToSeconds(timeString: string) {
+    const [minutes, seconds] = timeString.split(":").map(Number);
+    return minutes * 60 + seconds;
+}
+
+function formatTime(totalSeconds: any) {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
 
 export default BaskeballEvent;

@@ -1,3 +1,4 @@
+"use client"
 import React, { Children } from "react";
 import Head from "next/head";
 
@@ -22,8 +23,7 @@ export default function RootLayout({
       </Head>
       <body className="bg-[#282828]">
         <Provider>{children}</Provider>
-      </body>  
-      <ToastContainer
+        <ToastContainer
         position="top-center"
         autoClose={4000}
         hideProgressBar
@@ -33,7 +33,8 @@ export default function RootLayout({
         closeOnClick
         rtl={false}
         theme="dark"
-      />
+        />
+      </body>  
     </html>
   );
 }

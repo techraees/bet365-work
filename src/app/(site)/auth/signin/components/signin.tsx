@@ -39,6 +39,7 @@ const SigninForm: React.FC = () => {
             redirect: false
         })
         setLoading(false);
+        console.log('----result----', result);
         if(result && !result.ok){
             
             
