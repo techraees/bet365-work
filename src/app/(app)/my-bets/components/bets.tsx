@@ -26,12 +26,10 @@ const Bets = () => {
                 const token = userdata?.user?.token || "";
                 const response = await getCoupons(token);
                 const _coupons = await response.json();
-                console.log('------response------', _coupons);
                 if(_coupons.message) {
                     console.log(_coupons.message);
                 } else {
                     _coupons.sort(compareTimestamps);
-                    console.log('-----------coupons@', _coupons);
                     setCoupons(_coupons);
                 }
             } catch(e) {

@@ -43,8 +43,7 @@ const checkLive = async (coupons: any[], token: string) => {
                 selections.push(selection);
         }
         newCoupon.isLive = selections.length > 0;
-        if(selections.length > 0)
-            newCoupons.push(newCoupon);
+        newCoupons.push(newCoupon);
     }
     return newCoupons;
 }
@@ -94,17 +93,17 @@ const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => 
             setFilteredCoupons(filtered);
         }
         filterCoupons();
-    }, [active, checkedCoupons]);
+    }, [active, JSON.stringify(checkedCoupons)]);
 
     useEffect(() => {
         const token = userdata?.user?.token || "";
-        const setLive = async () => {
-            const checkedCoupon = await checkLive(coupons, token);
-            console.log('----checked coupons-----', checkedCoupon);
+        const setLive = async (couponList: any[]) => {
+            const checkedCoupon = await checkLive(couponList, token);
             setCheckedCoupons(checkedCoupon);
         }
-        setLive();
-    }, [active, coupons]);
+        setLive(coupons);
+    }, [JSON.stringify(coupons)]);
+
     return (
         <>
             <TaxMessage message={'All Cash Out and To Return values are inclusive of deductions'} />
