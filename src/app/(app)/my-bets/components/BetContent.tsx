@@ -84,9 +84,11 @@ const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => 
                 case 'Settled':
                     filtered = checkedCoupons.filter(coupon => coupon.status == "Settled");
                 break;
-                break;
                 case 'Cash Out':
                     filtered = checkedCoupons.filter(coupon => coupon.status == "Cash Out");
+                break;
+                default:
+                    filtered = checkedCoupons;
                 break;
             }
             setFilteredCoupons(filtered);
@@ -98,10 +100,11 @@ const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => 
         const token = userdata?.user?.token || "";
         const setLive = async () => {
             const checkedCoupon = await checkLive(coupons, token);
+            console.log('----checked coupons-----', checkedCoupon);
             setCheckedCoupons(checkedCoupon);
         }
         setLive();
-    }, [coupons]);
+    }, [active, coupons]);
     return (
         <>
             <TaxMessage message={'All Cash Out and To Return values are inclusive of deductions'} />

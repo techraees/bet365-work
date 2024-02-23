@@ -12,6 +12,7 @@ export default function Scroller({coupons}: Props) {
   const [couponsForPage, setCouponsForPage] = useState<any[]>([]);
   const [totalPages, setTotalPages ] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  console.log('@----coupons-----@', coupons);
   useEffect(() => {
     setCouponsForPage(coupons.slice(0, 10));
     setTotalPages(Math.max(Math.ceil(coupons.length / 10), 1));
@@ -112,7 +113,7 @@ export default function Scroller({coupons}: Props) {
                 </a>
               }
               <a
-                className="relative  z-10 inline-flex items-center bg-indigo-600 items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 focus:z-20 focus:outline-offset-0"
+                className="relative items-center px-4 py-2 border-2 border-primary text-sm font-semibold text-primary ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex"
               >
                 {currentPage}
               </a>
@@ -120,7 +121,7 @@ export default function Scroller({coupons}: Props) {
                 currentPage < totalPages &&
                 <a
                   onClick={() => setCurrentPage(currentPage + 1)}
-                  className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                  className="relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
                 >
                   {currentPage + 1}
                 </a>
