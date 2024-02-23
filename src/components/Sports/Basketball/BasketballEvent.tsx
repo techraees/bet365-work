@@ -20,50 +20,49 @@ interface BaskeballEventProps {
 }
 
 const BaskeballEvent: React.FC<BaskeballEventProps> = ({ data, sport, subcategory }) => {
+    //Match Time
+
+    const [isTimerPaused, setTimerPaused] = useState(false);
+    const [totalSeconds, setTotalSeconds] = useState(convertToSeconds(data?.info?.seconds || "00:00"));
+
+    useEffect(() => {
+        let timerInterval: NodeJS.Timer | undefined;
+
+        if (!isTimerPaused) {
+            timerInterval = setInterval(() => {
+            setTotalSeconds((prevTotalSeconds) => Math.max(prevTotalSeconds - 1, 0));
+            }, 1000); // Increase by 1 second (1000 milliseconds)
+        } else {
+            clearInterval(timerInterval); // Pause the timer
+        }
+
+        return () => {
+            clearInterval(timerInterval); // Clean up the interval on component unmount
+        };
+    }, [isTimerPaused]);
+
+    useEffect(() => {
+        setTotalSeconds(convertToSeconds(data?.info?.seconds) ?? totalSeconds);
+    }, [data?.info?.id, data?.info?.seconds]);
+    
+
     const { currentPitchId, setCurrentPitchId } = usePitchIdStore(
         (state) => state
     );
-    // console.log({ data, sport })
     if (!data) {
         return null;
     }
-      //Match Time
 
-  const [isTimerPaused, setTimerPaused] = useState(false);
-  const [totalSeconds, setTotalSeconds] = useState(
-    convertToSeconds(data?.info?.seconds || "00:00")
-  );
+    const displayTime = isNaN(totalSeconds) ? "00:00" : formatTime(totalSeconds);
 
-  const displayTime = isNaN(totalSeconds) ? "00:00" : formatTime(totalSeconds);
-
-  if (data?.core?.stopped === "1" && isTimerPaused == false) {
-    setTimerPaused(true);
-    setTotalSeconds(convertToSeconds(data?.info?.seconds));
-  }
-  if (data?.core?.stopped === "0" && isTimerPaused == true) {
-    setTotalSeconds(convertToSeconds(data?.info?.seconds));
-    setTimerPaused(false);
-  }
-
-  useEffect(() => {
-    let timerInterval: NodeJS.Timer | undefined;
-
-    if (!isTimerPaused) {
-      timerInterval = setInterval(() => {
-        setTotalSeconds((prevTotalSeconds) => Math.max(prevTotalSeconds - 1, 0));
-      }, 1000); // Increase by 1 second (1000 milliseconds)
-    } else {
-      clearInterval(timerInterval); // Pause the timer
+    if (data?.core?.stopped === "1" && isTimerPaused == false) {
+        setTimerPaused(true);
+        setTotalSeconds(convertToSeconds(data?.info?.seconds));
     }
-
-    return () => {
-      clearInterval(timerInterval); // Clean up the interval on component unmount
-    };
-  }, [isTimerPaused]);
-
-  useEffect(() => {
-    setTotalSeconds(convertToSeconds(data?.info?.seconds) ?? totalSeconds);
-  }, [data?.info?.id, data?.info?.seconds]);
+    if (data?.core?.stopped === "0" && isTimerPaused == true) {
+        setTotalSeconds(convertToSeconds(data?.info?.seconds));
+        setTimerPaused(false);
+    }
 
     return (
         <div className="flex flex-col border-t-[#ffffff1a] border-t border-solid">
