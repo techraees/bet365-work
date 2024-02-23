@@ -25,7 +25,7 @@ export default function BetItem({ coupon }: Props) {
   const [events, setEvents] = useState<any>([]);
   const { data: session } = useSession();
   const userdata = session as any;
-  const [collapse, setCollapse] = useState<boolean>(true);
+  const [collapse, setCollapse] = useState<boolean>(false);
 
   useEffect(() => {
     if(coupon.isLive) {
