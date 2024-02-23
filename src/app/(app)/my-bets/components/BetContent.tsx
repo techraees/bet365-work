@@ -96,6 +96,7 @@ const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => 
     }, [active, JSON.stringify(checkedCoupons)]);
 
     useEffect(() => {
+        setCheckedCoupons(coupons);
         const token = userdata?.user?.token || "";
         const setLive = async (couponList: any[]) => {
             const checkedCoupon = await checkLive(couponList, token);

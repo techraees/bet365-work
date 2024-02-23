@@ -14,7 +14,7 @@ function compareTimestamps(a: any, b: any) {
 }
 
 const Bets = () => {
-    const [active, setActive] = useState('Cash Out');
+    const [active, setActive] = useState('All');
     const [coupons, setCoupons] = useState<any[]>([]);
     const tabs = ["Cash Out", "Live Now", "Unsettled", "Settled", "All"]
     const { data: session } = useSession();
