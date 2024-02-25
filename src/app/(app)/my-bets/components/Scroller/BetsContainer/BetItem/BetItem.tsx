@@ -26,24 +26,36 @@ export default function BetItem({ coupon }: Props) {
   const { data: session } = useSession();
   const userdata = session as any;
   const [collapse, setCollapse] = useState<boolean>(false);
+  const [timerId, setTimerId] = useState<any>(null);
 
   useEffect(() => {
     if(coupon.isLive) {
       const token = userdata?.user?.token || "";
-      getLiveOddsEvents(
-        coupon.selections.map((selection: any) => selection.event_id),
-        token
-      )
-      .then(async (res) => {
-        const liveEvents = await res.json();
-        if (liveEvents && !liveEvents.message) setEvents(liveEvents);
-      })
-      .catch((e) => {
-        console.log("-----fetch error----", e);
-      });
+      const interval = setInterval(
+        () => {
+          getLiveOddsEvents(
+            coupon.selections.map((selection: any) => selection.event_id),
+            token
+          )
+          .then(async (res) => {
+            const liveEvents = await res.json();
+
+            console.log('-------@live events@-------', liveEvents);
+            if (liveEvents && !liveEvents.message) setEvents(liveEvents);
+          })
+          .catch((e) => {
+            console.log("-----fetch error----", e);
+          });
+        },
+        2000
+      );
+      setTimerId(interval);
     }
-    return () => {};
-  }, [coupon]);
+    return () => {
+      if(timerId)
+        clearInterval(timerId);
+    };
+  }, []);
 
   return (
     <div
