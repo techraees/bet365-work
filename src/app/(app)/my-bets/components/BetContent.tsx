@@ -4,49 +4,9 @@ import Scroller from "./Scroller/Scroller";
 import TaxMessage from "./TaxMessage";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import useCouponStore from "@/store/couponStore";
 
 //'Cash Out', 'Live Now', 'Unsettled', 'Settled', 'All'
-
-const liveFiltered = async (coupons: any[], token: string) => {
-    const newCoupons = [];
-    for(const coupon of coupons) {
-        let newCoupon = coupon;
-        const selections = [];
-        for(const selection of coupon.selections) {
-            const res = await getLiveOddsEvents(
-                [selection.event_id],
-                token
-            )
-            const liveEvents = await res.json();
-            if (liveEvents && !liveEvents.message)
-                selections.push(selection);
-        }
-        newCoupon.selections = selections;
-        if(selections.length > 0)
-            newCoupons.push(newCoupon);
-    }
-    return newCoupons;
-}
-
-const checkLive = async (coupons: any[], token: string) => {
-    const newCoupons = [];
-    for(const coupon of coupons) {
-        let newCoupon = coupon;
-        const selections = [];
-        for(const selection of coupon.selections) {
-            const res = await getLiveOddsEvents(
-                [selection.event_id],
-                token
-            )
-            const liveEvents = await res.json();
-            if (liveEvents && !liveEvents.message)
-                selections.push(selection);
-        }
-        newCoupon.isLive = selections.length > 0;
-        newCoupons.push(newCoupon);
-    }
-    return newCoupons;
-}
 
 const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => {
     let description = null;
@@ -68,6 +28,7 @@ const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => 
     const userdata = session as any;
     const [filteredCoupons, setFilteredCoupons] = useState<any[]>([]);
     const [checkedCoupons, setCheckedCoupons] = useState<any[]>([]);
+    const {couponState, setCouponState} = useCouponStore(state => state);
 
     useEffect(() => {
         const filterCoupons = async () => {
@@ -75,7 +36,7 @@ const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => 
             let filtered = checkedCoupons;
             switch(active) {
                 case 'Live Now':
-                    filtered = await liveFiltered(checkedCoupons.filter(coupon => coupon.isLive == true), token);
+                    filtered = checkedCoupons.filter(coupon => coupon.isLive == true);
                 break;
                 case 'Unsettled':
                     filtered = checkedCoupons.filter(coupon => coupon.status == "Open");
@@ -98,11 +59,36 @@ const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => 
     useEffect(() => {
         setCheckedCoupons(coupons);
         const token = userdata?.user?.token || "";
-        const setLive = async (couponList: any[]) => {
-            const checkedCoupon = await checkLive(couponList, token);
+        const setLive = async () => {
+            const checkLive = async () => {
+                const newCoupons = [];
+                let newCouponState = {};
+                for(const coupon of coupons) {
+                    let newCoupon = coupon;
+                    if(couponState[coupon._id]) {
+                        newCoupon.isLive = couponState[coupon._id];
+                    } else {
+                        const res = await getLiveOddsEvents(
+                            coupon.selections.map((selection: any) => selection.event_id),
+                            token
+                        );
+                        const liveEvents = await res.json();
+                        if (liveEvents && !liveEvents.message) 
+                            newCoupon.isLive = true;
+                        else
+                            newCoupon.isLive = false;
+                    }
+                    newCouponState = { ...newCouponState, [newCoupon._id]: newCoupon.isLive };
+                    newCoupons.push(newCoupon);
+                }
+                setCouponState(newCouponState);
+                console.log('-----coupon state upated-----');
+                return newCoupons;
+            }
+            const checkedCoupon = await checkLive();
             setCheckedCoupons(checkedCoupon);
         }
-        setLive(coupons);
+        setLive();
     }, [JSON.stringify(coupons)]);
 
     return (

@@ -9,7 +9,7 @@ type Props = {
 // background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 13 13'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle cx='6.5' cy='6.5' r='6.5' fill='%23189970'/%3E%3Cpath fill='%23FFF' fill-rule='nonzero' stroke='%23FFF' stroke-width='.3' d='M2.167 6.376L5.34 9.75l5.493-5.756-.663-.744-4.83 5.011-2.463-2.58z'/%3E%3C/g%3E%3C/svg%3E");
 
 export default function BetPartHeaderTitle({ team, handicap, status }: Props) {
-  console.log({ svg: status });
+  // console.log({ svg: status });
   return (
     <div className="relative flex justify-start">
       {status === "Open" && (
