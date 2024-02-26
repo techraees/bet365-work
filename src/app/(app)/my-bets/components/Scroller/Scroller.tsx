@@ -17,7 +17,7 @@ export default function Scroller({coupons}: Props) {
     setCouponsForPage(coupons.slice(0, 5));
     setTotalPages(Math.max(Math.ceil(coupons.length / 5), 1));
     setCurrentPage(Math.min(currentPage, totalPages));
-  }, [coupons]);
+  }, [coupons.length]);
 
   useEffect(() => {
     setCouponsForPage(coupons.slice((currentPage - 1) * 5, currentPage * 5));

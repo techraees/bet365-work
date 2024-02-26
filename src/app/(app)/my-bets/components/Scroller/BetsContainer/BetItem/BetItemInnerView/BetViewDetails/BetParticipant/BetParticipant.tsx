@@ -8,7 +8,6 @@ type Props = {
 }
 
 export default function BetParticipant({selection, event}: Props) {
-
   return (
     <div className='inline-block w-full align-top pl-9 pl-[30px] pr-0 py-[15px]'>
         <BetPartTopContainer selection={selection} event={event}/>

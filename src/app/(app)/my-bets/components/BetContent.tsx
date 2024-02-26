@@ -32,11 +32,10 @@ const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => 
 
     useEffect(() => {
         const filterCoupons = async () => {
-            const token = userdata?.user?.token || "";
             let filtered = checkedCoupons;
             switch(active) {
                 case 'Live Now':
-                    filtered = checkedCoupons.filter(coupon => coupon.isLive == true);
+                    filtered = checkedCoupons.filter(coupon => coupon.isLive && coupon.isLive == true);
                 break;
                 case 'Unsettled':
                     filtered = checkedCoupons.filter(coupon => coupon.status == "Open");
@@ -51,6 +50,7 @@ const BetContent = ({ active, coupons }: { active: string, coupons: any[] }) => 
                     filtered = checkedCoupons;
                 break;
             }
+            console.log('---filtered---', filtered);
             setFilteredCoupons(filtered);
         }
         filterCoupons();

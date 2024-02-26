@@ -16,6 +16,7 @@ function compareTimestamps(a: any, b: any) {
 const Bets = () => {
     const [active, setActive] = useState('All');
     const [coupons, setCoupons] = useState<any[]>([]);
+    const [timerId, setTimerId] = useState<any>(null);
     const tabs = ["Cash Out", "Live Now", "Unsettled", "Settled", "All"]
     const { data: session } = useSession();
     const userdata = session as any;
@@ -39,7 +40,8 @@ const Bets = () => {
         const interval: any = setInterval(async () => {
             await fetchCoupons()
         }, 2000);
-        return () => clearInterval(interval);
+        setTimerId(interval);
+        return () => clearInterval(timerId);
     }, [])
 
     return (
